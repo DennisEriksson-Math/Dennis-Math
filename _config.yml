@@ -1,30 +1,30 @@
 # Site settings
-url: "https://maths.fan"
+url: "https://maths.fan" # Placeholder URL, update if you have one
 title: "Dennis Eriksson"
-tagline: "Personal page"
-description: "Publications with fulltexts, and more about my work in mathematics including links to other profiles of me around the internet"
+tagline: "Personal Page"
+description: "Publications, research interests, and information about my work in complex analysis and non-Archimedean geometry at Chalmers University of Technology and the University of Gothenburg."
 author:
   name: Dennis Eriksson
   alternateName:
     - Dennis
     - Dennis Eriksson
-  url: "https://mathstodon.xyz/@simonmyerson"
+  url: "https://mathstodon.xyz/@denniseriksson" # Placeholder Mastodon/social link
   givenName: Dennis
-  additionalName: 
+  additionalName:
   familyName:
     - Eriksson
-  twitter: 
+  twitter:
 twitter:
   card: summary
-  username: MathsFan
+  username: DennisEriksen # Placeholder Twitter handle
 social:
-  name: Simon Myerson
+  name: Dennis Eriksson
   links:
-    - https://mathstodon.xyz/@simonmyerson
-    - https://warwick.ac.uk/fac/sci/maths/people/staff/myerson
+    - https://mathstodon.xyz/@denniseriksson # Placeholder Mastodon/social link
+    - https://www.chalmers.se/personer/denniseriksson # Placeholder Chalmers URL, update with correct path
 locale: en_GB
 
-# Build settings
+# Build settings (No changes needed here)
 markdown: kramdown
 sass:
   sass_dir: _sass
@@ -34,79 +34,74 @@ plugins:
   - jekyll-sitemap
 
 # Resume settings
-resume_avatar:                  "true"
-resume_name:                    "Simon <abbr title='Leo' style='border:none;text-decoration:none;'>L.</abbr> Rydin Myerson"
-resume_title:                   "Assistant professor in basic science"
+resume_avatar:                 "true"
+resume_name:                   "Dennis Eriksson"
+resume_title:                  "Professor in Mathematics"
 
 # used for the contact button in _layouts/resume.html
-resume_contact_email:           "myerson@chalmers.se"
+resume_contact_email:          "dennis [&#x430;t] chalmers.se" # Using the common format
 
 # the next two items are used for schema itemprops in _layouts/resume.html
-# resume_contact_telephone:       "555-7334"
-resume_contact_address:         "Department of Mathematical Sciences, Chalmers University of Technology and the University of Gothenburg, Chalmers University of Technology, 412 96 Gothenburg, Sweden"
+# resume_contact_telephone:
+resume_contact_address:        "Department of Mathematical Sciences, Chalmers University of Technology and the University of Gothenburg, Håltagsvägen 14, 412 96 Gothenburg, Sweden"
 
-resume_header_contact_info:     "<span itemprop='knowsAbout'>Number Theory</span> • <span itemprop='knowsAbout'>Mathematics</span> • <span itemprop='worksFor'>Chalmers&nbsp;University</span></p>
-    <p> Department&nbsp;of&nbsp;Mathematical&nbsp;Sciences •  Chalmers&nbsp;University&nbsp;of&nbsp;Technology and the&nbsp;University&nbsp;of&nbsp;Gothenburg  •  412&nbsp;96&nbsp;Gothenburg,&nbsp;Sweden • myerson [&#x430;t] chalmers.se • he/him/his or they/them/theirs • Please call me Simon"
-display_header_contact_info:    "true"
+resume_header_contact_info:    "<span itemprop='knowsAbout'>Non-Archimedean Geometry</span> • <span itemprop='knowsAbout'>Complex Analysis</span> • <span itemprop='worksFor'>Chalmers&nbsp;University</span></p>
+    <p> Department&nbsp;of&nbsp;Mathematical&nbsp;Sciences •  Chalmers&nbsp;University&nbsp;of&nbsp;Technology and the&nbsp;University&nbsp;of&nbsp;Gothenburg  •  412&nbsp;96&nbsp;Gothenburg,&nbsp;Sweden • dennis [&#x430;t] chalmers.se • he/him/his • Please call me Dennis"
+display_header_contact_info:   "true"
 
-resume_header_intro: "<p><a href='./pendulum.html'>Play with maths!</a></p>
-<p>I study the solutions to equations and inequalities in whole numbers. These are called Diophantine problems and they’re part of number theory. I use “analytic” arguments which are often fairly elementary, which makes it analytic number theory.</p>
-<p>I’ve become interested in something which seems very different: nonlinear dispersive partial differential equations (nonlinear dispersive PDEs). This is a type of mathematical model which describes physical systems from ocean waves to fibre optic cables.</p>
-<p>Some <a href='https://www.dropbox.com/s/qp0p2wvcyebmw7m/document.pdf?raw=1'>slides</a> about the circle method for forms in rather few variables, in the style of Tran and Wang.</p>"
-
+resume_header_intro: "<p>I am a Professor in Mathematics at Chalmers University of Technology and the University of Gothenburg.</p>
+<p>My research focuses on **non-Archimedean geometry**, **complex analysis**, and their connections to **arithmetic geometry** and **Hodge theory**. I study topics such as the geometry of non-Archimedean spaces, degenerations of complex structures, and the associated analytic and algebraic invariants.</p>
+<p>This page provides access to my research publications and related academic information.</p>"
 
 # use "yes" to display the email contact button,
 # "no" to display an "I'm not looking for work" message,
 # or remove the resume_looking_for_work option entirely
 # to leave blank
-# resume_looking_for_work:        "yes"
+# resume_looking_for_work:         "yes"
 
-# Decide which sections to use
+# Decide which sections to use (Based on your previous selection)
 # comment out to hide
-# This is what I want:
-# Publications (? based on projects)
-# Graduate supervision (? based on links)
-# resume_section_experience:      true
-# resume_section_education:       true
-resume_section_projects:        true
-# resume_section_skills:          true
-# resume_section_recognition:     true
-resume_section_links:           true
-# resume_section_associations:    true
-# resume_section_interests:       true
+# resume_section_experience:
+# resume_section_education:
+resume_section_projects:         true
+# resume_section_skills:
+# resume_section_recognition:
+resume_section_links:            true
+# resume_section_associations:
+# resume_section_interests:
 
 # Resume social links
-# uncomment the options you wish to display, and add your own URL
 resume_social_links:
-  resume_cv_url:                "https://www.dropbox.com/scl/fi/p4kiej5cnbn18848i2rx5/cv.pdf?rlkey=gh6bycj2ay09yujc8j0kw0mie&st=oi7rolhk&raw=1"
-  resume_cv_tooltip:            "CV"
-  resume_funding_url:           "https://kaw.wallenberg.org/en/simon-l-rydin-myerson"
-  resume_funding_tooltip:       "KAW funded project"
-  resume_work_url:              "https://www.chalmers.se/personer/myerson/"
-  resume_work_tooltip:          "My Chalmers webpage"
-  resume_name_url:              "https://www.name-coach.com/simon-rydinmyerson"
-  resume_name_tooltip:          "Hear my name"
-  resume_arXiv_url:             "https://arxiv.org/a/myerson_s_1"
-  resume_arXiv_tooltip:         "arXiv"
-  resume_publications_url:      "https://wrap.warwick.ac.uk/view/author_id/381400.html"
-  resume_publications_tooltip:  "Publications (accepted)"
-  resume_phone_url:             "https://www.chalmers.se/personer/myerson/"
-  resume_phone_tooltip:         "Phone number"
-  resume_ORCID_url:             "https://orcid.org/0000-0002-1486-6054"
-  resume_ORCID_id:              "ORCID:0000-0002-1486-6054"
-  resume_ORCID_tooltip:         "ORCID iD"
-  #resume_github_url:            "https://github.com/jglovier/resume-template"
-  #resume_twitter_url:           "http://twitter.com/jglovier"
-  #resume_dribbble_url:          "https://dribbble.com/jag"
-  # resume_facebook_url:          "insert Facebook URL here"
-  #resume_linkedin_url:          "https://www.linkedin.com/in/joelglovier"
-  # resume_instagram_url:         "insert your Instagram URL here"
-  #resume_website_url:           "http://joelglovier.com"
-  #resume_medium_url:            "https://medium.com/@jglovier"
-resume_print_social_links:      true
+  resume_cv_url:               "https://www.chalmers.se/personer/denniseriksson/cv.pdf" # Placeholder CV link
+  resume_cv_tooltip:           "CV"
+  # Placeholder for a relevant funding project (if applicable)
+  # resume_funding_url:
+  # resume_funding_tooltip:
+  resume_work_url:             "https://www.chalmers.se/personer/denniseriksson" # Placeholder Chalmers URL
+  resume_work_tooltip:         "My Chalmers Webpage"
+  # resume_name_url:           # Removed, as name pronunciation is less common here
+  # resume_name_tooltip:
+  resume_arXiv_url:            "https://arxiv.org/a/eriksson_d_1" # Placeholder arXiv search for "Eriksson, D"
+  resume_arXiv_tooltip:        "arXiv Preprints"
+  resume_publications_url:     "https://scholar.google.se/citations?user=your-google-scholar-id" # Placeholder Google Scholar URL
+  resume_publications_tooltip: "Google Scholar Profile"
+  # resume_phone_url:          # Removed, can be kept if desired
+  # resume_phone_tooltip:
+  resume_ORCID_url:            "https://orcid.org/0000-0000-0000-0000" # Placeholder ORCID, update with your actual ID
+  resume_ORCID_id:             "ORCID:0000-0000-0000-0000"
+  resume_ORCID_tooltip:        "ORCID iD"
+  # resume_github_url:
+  # resume_twitter_url:
+  # resume_dribbble_url:
+  # resume_facebook_url:
+  # resume_linkedin_url:
+  # resume_instagram_url:
+  # resume_website_url:
+  # resume_medium_url:
+resume_print_social_links:     true
 
 # Design settings
-resume_theme:                   default
+resume_theme:                  default
 
 # Note: when editing locally, remember to restart
 # your Jekyll server when you edit this file. Changes

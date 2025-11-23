@@ -3,8 +3,7 @@
 
   - project: Spaces of norms, determinant of cohomology and Fekete points in non-Archimedean geometry
     id: spaces-of-norms
-    coauthor-list:
-      - ErikssonD # Added key for Dennis Eriksson
+    coauthor-list: 
       - BoucksomS
     journal: "Advances in Mathematics"
     volumenumber: 378
@@ -18,8 +17,7 @@
 
   - project: BCOV invariants of Calabi–Yau manifolds and degenerations of Hodge structures
     id: bcov-invariants
-    authors:
-      - ErikssonD
+    coauthor-list:
       - FreixasG
       - MourouganeC
     journal: "Duke Mathematical Journal"
@@ -34,8 +32,7 @@
 
   - project: Global representation of Segre numbers by Monge–Ampère products
     id: segre-monge-ampere
-    authors:
-      - ErikssonD
+    coauthor-list:
       - AnderssonM
       - SamuelssonH # Assuming Samuelsson, H. maps to this key
       - WulcanE
@@ -52,8 +49,7 @@
 
   - project: Kähler quantisation of vortex moduli
     id: kahler-quantisation
-    authors:
-      - ErikssonD
+    coauthor-list:
       - RamaoN
     journal: "Letters in Mathematical Physics"
     volumenumber: 110
@@ -67,8 +63,7 @@
 
   - project: Singularities of metrics on Hodge bundles and their topological invariants
     id: singularities-hodge-bundles
-    authors:
-      - ErikssonD
+    coauthor-list:
       - FreixasG
       - MourouganeC
     journal: "Algebraic Geometry"
@@ -96,8 +91,7 @@
 
   - project: A logarithmic interpretation of Edixhoven's jumps for Jacobians
     id: logarithmic-edixhoven
-    authors:
-      - ErikssonD
+    coauthor-list:
       - HalleLH
       - NicaiseJ
     journal: "Advances in Mathematics"
@@ -139,9 +133,8 @@
 
   - project: On the Brauer–Manin obstruction for zero-cycles on curves
     id: brauer-manin
-    authors:
-      - ErikssonD
-      - ScharaschkinV
+    coauthor-list:
+    - ScharaschkinV
     journal: "Acta Arithmetica"
     volumenumber: 135
     issuenumber: 2

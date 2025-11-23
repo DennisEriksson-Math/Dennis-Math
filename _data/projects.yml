@@ -1,5 +1,7 @@
 # Projects
 # uncomment the urls if you wish to display them, and add your own URL
+
+
 - project: "Erratum to: Discriminants and Artin conductors (J. Reine Angew. Math. 712 (2016), 107–121)"
     id: discriminants-artin-erratum
     solo-author: ErikssonD # Added field for papers where you are the primary/sole author
@@ -22,7 +24,6 @@
     pageend: 361
     pagecount: 115pp
     year: 2024
-    identifier: "MR4695965"
 
   - project: "On genus one mirror symmetry in higher dimensions and the BCOV conjectures"
     id: genus-one-mirror-symmetry
@@ -36,7 +37,6 @@
     pageend: 53
     pagecount: 53pp
     year: 2022
-    identifier: "MR4475251"
 
   - project: "Nonproper intersection products and generalized cycles"
     id: nonproper-intersection-products
@@ -52,7 +52,6 @@
     pageend: 1381
     pagecount: 45pp
     year: 2021
-    identifier: "MR4340940"
 
   - project: "Global representation of Segre numbers by Monge-Ampère products"
     id: global-representation-segre
@@ -68,7 +67,6 @@
     pageend: 391
     pagecount: 43pp
     year: 2021
-    identifier: "MR4263687"
 
   - project: "BCOV invariants of Calabi-Yau manifolds and degenerations of Hodge structures"
     id: bcov-invariants-2
@@ -82,7 +80,6 @@
     pageend: 454
     pagecount: 76pp
     year: 2021
-    identifier: "MR4255041"
   
   - project: Spaces of norms, determinant of cohomology and Fekete points in non-Archimedean geometry
     id: spaces-of-norms

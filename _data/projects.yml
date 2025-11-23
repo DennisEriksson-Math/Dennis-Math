@@ -2,25 +2,24 @@
 # uncomment the urls if you wish to display them, and add your own URL
 
 
-  - project: "Spectral"
-    id: spectral-chern-simons-asterisque
+  - project: "Base change conductors through intersection theory and quotient singularities"
+    id: spectral
     coauthor-list:
-      - FreixasG
-      - WentworthR
-    journal: "Astérisque"
+      - HalleLH
+      - NicaiseJ
+    journal: "Documenta"
     note: "Accepted for publication (arXiv:2109.02033)"
     year: 2022
     url: "https://arxiv.org/abs/2109.02033"
     
-  - project: "Base change conductor"
-    id: base-chern-simons-asterisque
+  - project: "The spectral genus of an isolated hypersurface singularity and a conjecture relating to the Milnor number"
+    id: spectral-genus-documenta
     coauthor-list:
       - FreixasG
-      - WentworthR
-    journal: "Astérisque"
-    note: "Accepted for publication (arXiv:2109.02033)"
-    year: 2022
-    url: "https://arxiv.org/abs/2109.02033"
+    journal: "Documenta"
+    note: "Accepted for publication (arXiv:2410.15370)"
+    year: 2024
+    url: "https://arxiv.org/abs/2410.15370"
     
   - project: "Complex Chern–Simons bundles in the relative setting"
     id: complex-chern-simons-asterisque

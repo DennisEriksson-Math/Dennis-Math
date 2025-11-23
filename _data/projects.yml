@@ -9,9 +9,8 @@
     note: "Accepted for publication (arXiv:2405.03450)"
     year: 2024
     url: "https://arxiv.org/abs/2405.03450"
-    identifier: "arXiv:2405.03450"
 
-  - project: "Base change conductors through intersection theory and quotient singularities"
+- project: "Base change conductors through intersection theory and quotient singularities"
     id: base-change-conductors-doc
     coauthor-list:
       - HalleLH
@@ -20,7 +19,6 @@
     note: "Accepted for publication (arXiv:2410.15370)"
     year: 2024
     url: "https://arxiv.org/abs/2410.15370"
-    identifier: "arXiv:2410.15370"
 
   - project: "Complex Chern–Simons bundles in the relative setting"
     id: complex-chern-simons-asterisque
@@ -31,7 +29,6 @@
     note: "Accepted for publication (arXiv:2109.02033)"
     year: 2022
     url: "https://arxiv.org/abs/2109.02033"
-    identifier: "arXiv:2109.02033"
 
   - project: "Deligne-Riemann-Roch and intersection bundles"
     id: deligne-riemann-roch-intersection

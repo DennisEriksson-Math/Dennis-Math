@@ -1,18 +1,6 @@
 # Projects
 # uncomment the urls if you wish to display them, and add your own URL
 
-  - project: "Erratum to: Discriminants and Artin conductors (J. Reine Angew. Math. 712 (2016), 107–121)"
-    id: discriminants-artin-erratum
-    solo-author: ErikssonD
-    journal: "J. Reine Angew. Math."
-    volumenumber: 814
-    pagestart: 283
-    pageend: 284
-    pagecount: 2pp
-    year: 2024
-    identifier: "MR4793346"
-    note: "Erratum (MR4793346)"
-
   - project: "Deligne-Riemann-Roch and intersection bundles"
     id: deligne-riemann-roch-intersection
     coauthor-list:
@@ -170,6 +158,18 @@
     url: "https://doi.org/10.1515/crelle-2014-0062"
     identifier: "doi:10.1515/crelle-2014-0062"
 
+  - project: "Erratum to: Discriminants and Artin conductors (J. Reine Angew. Math. 712 (2016), 107–121)"
+    id: discriminants-artin-erratum
+    solo-author: ErikssonD
+    journal: "J. Reine Angew. Math."
+    volumenumber: 814
+    pagestart: 283
+    pageend: 284
+    pagecount: 2pp
+    year: 2024
+    identifier: "MR4793346"
+    note: "Erratum (MR4793346)"
+    
   - project: A logarithmic interpretation of Edixhoven's jumps for Jacobians
     id: logarithmic-edixhoven
     coauthor-list:

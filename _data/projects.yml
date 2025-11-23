@@ -3,7 +3,7 @@
 
   - project: Spaces of norms, determinant of cohomology and Fekete points in non-Archimedean geometry
     id: spaces-of-norms
-    authors:
+    coauthor-list:
       - ErikssonD # Added key for Dennis Eriksson
       - BoucksomS
     journal: "Advances in Mathematics"

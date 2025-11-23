@@ -1,6 +1,20 @@
 # Coauthors and collaborators
 # comment out the urls if you do not wish to display them
 
+AnderssonM:
+  name: "Andersson, M."
+  full-name: "Mats Andersson"
+  url: "https://www.chalmers.se/en/persons/matsa/"
+
+---
+
+BoucksomS:
+  name: "Boucksom, S."
+  full-name: "Sébastien Boucksom"
+  url: "https://www.math.jussieu.fr/~boucksom/"
+
+---
+
 FreixasG:
   name: "Freixas i Montplet, G."
   full-name: "Gerard Freixas i Montplet"
@@ -8,10 +22,17 @@ FreixasG:
 
 ---
 
-AnderssonM:
-  name: "Andersson, M."
-  full-name: "Mats Andersson"
-  url: "https://www.chalmers.se/en/persons/matsa/"
+HalleLH:
+  name: "Halle, L.H."
+  full-name: "Lars-Halvard Halle"
+  url: "https://www.uib.no/en/persons/Lars.Halvard.Halle"
+
+---
+
+MalmstromH:
+  name: "Malmström, H."
+  full-name: "Hans Malmström"
+  url: "https://www.chalmers.se/en/persons/mahans/"
 
 ---
 
@@ -22,10 +43,38 @@ MourouganeC:
 
 ---
 
-SamuelssonK:
-  name: "Samuelsson Kalm, H."
-  full-name: "Håkan Samuelsson Kalm"
-  url: "https://www.chalmers.se/en/persons/hasam/"
+NicaiseJ:
+  name: "Nicaise, J."
+  full-name: "Johannes Nicaise"
+  url: "https://wis.kuleuven.be/personen/johannes-nicaise"
+
+---
+
+PerssonU:
+  name: "Persson, U."
+  full-name: "Ulf Persson"
+  url: "https://www.gu.se/en/about/find-staff/ulfpersson"
+  
+---
+
+PochekaiM:
+  name: "Pochekai, M."
+  full-name: "Mykola Pochekai"
+  url: "https://www.linkedin.com/in/mykola-pochekai-24449830" # Using LinkedIn as no dedicated academic page was found.
+
+---
+
+RamaoN:
+  name: "Romão, N."
+  full-name: "Nuno Romão"
+  url: "https://www.researchgate.net/profile/Nuno-Romao"
+
+---
+
+ScharaschkinV:
+  name: "Scharaschkin, V."
+  full-name: "Victor Scharaschkin"
+  url: "https://www.researchgate.net/scientific-contributions/Victor-Scharaschkin-2051151017"
 
 ---
 
@@ -40,14 +89,6 @@ YgerA:
   name: "Yger, A."
   full-name: "Alain Yger"
   url: "https://www.researchgate.net/profile/Alain-Yger/2"
-
----
-
-BoucksomS:
-  name: "Boucksom, S."
-  full-name: "Sébastien Boucksom"
-  url: "https://www.math.jussieu.fr/~boucksom/"
-
 ---
 
 WentworthR:
@@ -57,21 +98,3 @@ WentworthR:
 
 ---
 
-PochekaiM:
-  name: "Pochekai, M."
-  full-name: "Mykola Pochekai"
-  url: "https://www.linkedin.com/in/mykola-pochekai-24449830" # Using LinkedIn as no dedicated academic page was found.
-
----
-
-HalleLH:
-  name: "Halle, L.H."
-  full-name: "Lars Halvard Halle"
-  url: "https://www.uib.no/en/persons/Lars.Halvard.Halle"
-
----
-
-NicaiseJ:
-  name: "Nicaise, J."
-  full-name: "Johannes Nicaise"
-  url: "https://wis.kuleuven.be/personen/johannes-nicaise"

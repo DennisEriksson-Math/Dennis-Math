@@ -2,38 +2,40 @@
 # uncomment the urls if you wish to display them, and add your own URL
 
 eriksson:
-  - type: article
+  eriksson:
+  - project: Spaces of norms, determinant of cohomology and Fekete points in non-Archimedean geometry
     id: spaces-of-norms
-    title: "Spaces of norms, determinant of cohomology and Fekete points in non-Archimedean geometry"
     authors:
       - Eriksson, Dennis
       - Boucksom, S.
     journal: "Advances in Mathematics"
-    volume: 378
-    pages: "107501"
+    volumenumber: 378
+    pagestart: 107501
+    pageend: 107501 # Assuming 107501 is the single article number
+    pagecount: 125pp # Using the page_count field
     year: 2021
-    doi: "10.1016/j.aim.2020.107501"
-    page_count: 125
+    url: "https://doi.org/10.1016/j.aim.2020.107501"
+    identifier: "doi:10.1016/j.aim.2020.107501"
     note: "Article ID 107501 (125 pages)"
 
-  - type: article
+  - project: BCOV invariants of Calabi–Yau manifolds and degenerations of Hodge structures
     id: bcov-invariants
-    title: "BCOV invariants of Calabi–Yau manifolds and degenerations of Hodge structures"
     authors:
       - Eriksson, Dennis
       - Freixas i Montplet, G.
       - Mourougane, C.
     journal: "Duke Mathematical Journal"
-    volume: 170
-    issue: 3
-    pages: "379–454"
+    volumenumber: 170
+    issuenumber: 3
+    pagestart: 379
+    pageend: 454
+    pagecount: 76pp # Using the page_count field
     year: 2021
-    doi: "10.1215/00127094-2020-0045"
-    page_count: 76
+    url: "https://doi.org/10.1215/00127094-2020-0045"
+    identifier: "doi:10.1215/00127094-2020-0045"
 
-  - type: article
+  - project: Global representation of Segre numbers by Monge–Ampère products
     id: segre-monge-ampere
-    title: "Global representation of Segre numbers by Monge–Ampère products"
     authors:
       - Eriksson, Dennis
       - Andersson, M.
@@ -41,100 +43,116 @@ eriksson:
       - Wulcan, E.
       - Yger, A.
     journal: "Mathematische Annalen"
-    volume: 380
-    issue: 1-2
-    pages: "349–391"
+    volumenumber: 380
+    issuenumber: 1-2
+    pagestart: 349
+    pageend: 391
+    pagecount: 43pp # Calculated: 391 - 349 + 1 = 43
     year: 2021
-    doi: "10.1007/s00208-020-01973-y"
+    url: "https://doi.org/10.1007/s00208-020-01973-y"
+    identifier: "doi:10.1007/s00208-020-01973-y"
 
-  - type: article
+  - project: Kähler quantisation of vortex moduli
     id: kahler-quantisation
-    title: "Kähler quantisation of vortex moduli"
     authors:
       - Eriksson, Dennis
       - Ramao, N.
     journal: "Letters in Mathematical Physics"
-    volume: 110
-    issue: 3
-    pages: "659–693"
+    volumenumber: 110
+    issuenumber: 3
+    pagestart: 659
+    pageend: 693
+    pagecount: 35pp # Calculated: 693 - 659 + 1 = 35
     year: 2020
-    doi: "10.1007/s11005-019-01221-7"
+    url: "https://doi.org/10.1007/s11005-019-01221-7"
+    identifier: "doi:10.1007/s11005-019-01221-7"
 
-  - type: article
+  - project: Singularities of metrics on Hodge bundles and their topological invariants
     id: singularities-hodge-bundles
-    title: "Singularities of metrics on Hodge bundles and their topological invariants"
     authors:
       - Eriksson, Dennis
       - Freixas i Montplet, G.
       - Mourougane, C.
     journal: "Algebraic Geometry"
-    volume: 5
-    issue: 6
-    pages: "742–775"
+    volumenumber: 5
+    issuenumber: 6
+    pagestart: 742
+    pageend: 775
+    pagecount: 34pp # Calculated: 775 - 742 + 1 = 34
     year: 2018
-    doi: "10.14231/AG-2018-021"
+    url: "https://doi.org/10.14231/AG-2018-021"
+    identifier: "doi:10.14231/AG-2018-021"
 
-  - type: article
+  - project: Discriminants and Artin conductors
     id: discriminants-artin
-    title: "Discriminants and Artin conductors"
     authors:
       - Eriksson, Dennis
     journal: "Journal für die reine und angewandte Mathematik (Crelle)"
-    volume: 712
-    pages: "107–121"
+    volumenumber: 712
+    pagestart: 107
+    pageend: 121
+    pagecount: 15pp # Calculated: 121 - 107 + 1 = 15
     year: 2016
-    doi: "10.1515/crelle-2014-0062"
+    url: "https://doi.org/10.1515/crelle-2014-0062"
+    identifier: "doi:10.1515/crelle-2014-0062"
 
-  - type: article
+  - project: A logarithmic interpretation of Edixhoven's jumps for Jacobians
     id: logarithmic-edixhoven
-    title: "A logarithmic interpretation of Edixhoven's jumps for Jacobians"
     authors:
       - Eriksson, Dennis
       - Halle, L.H.
       - Nicaise, J.
     journal: "Advances in Mathematics"
-    volume: 279
-    pages: "532–574"
+    volumenumber: 279
+    pagestart: 532
+    pageend: 574
+    pagecount: 43pp # Using the page_count field
     year: 2015
-    doi: "10.1016/j.aim.2015.04.007"
-    page_count: 43
+    url: "https://doi.org/10.1016/j.aim.2015.04.007"
+    identifier: "doi:10.1016/j.aim.2015.04.007"
 
-  - type: article
+  - project: Degenerating Riemann surfaces and the Quillen metric
     id: degenerating-riemann
-    title: "Degenerating Riemann surfaces and the Quillen metric"
     authors:
       - Eriksson, Dennis
     journal: "International Mathematics Research Notices"
-    volume: 2013
-    issue: 2
-    pages: "347–361"
+    volumenumber: 2013
+    issuenumber: 2
+    pagestart: 347
+    pageend: 361
+    pagecount: 15pp # Calculated: 361 - 347 + 1 = 15
     year: 2013
-    doi: "10.1093/imrn/rnr234"
+    url: "https://doi.org/10.1093/imrn/rnr234"
+    identifier: "doi:10.1093/imrn/rnr234"
 
-  - type: article
+  - project: Un isomorphisme de type Deligne–Riemann–Roch
     id: isomorphisme-deligne
-    title: "Un isomorphisme de type Deligne–Riemann–Roch"
     authors:
       - Eriksson, Dennis
     journal: "Comptes Rendus Mathematique"
-    volume: 347
-    issue: 19-20
-    pages: "1115–1118"
+    volumenumber: 347
+    issuenumber: 19-20
+    pagestart: 1115
+    pageend: 1118
+    pagecount: 4pp # Calculated: 1118 - 1115 + 1 = 4
     year: 2009
-    doi: "10.1016/j.crma.2009.09.003"
+    url: "https://doi.org/10.1016/j.crma.2009.09.003"
+    identifier: "doi:10.1016/j.crma.2009.09.003"
 
-  - type: article
+  - project: On the Brauer–Manin obstruction for zero-cycles on curves
     id: brauer-manin
-    title: "On the Brauer–Manin obstruction for zero-cycles on curves"
     authors:
       - Eriksson, Dennis
       - Scharaschkin, V.
     journal: "Acta Arithmetica"
-    volume: 135
-    issue: 2
-    pages: "99–110"
+    volumenumber: 135
+    issuenumber: 2
+    pagestart: 99
+    pageend: 110
+    pagecount: 12pp # Calculated: 110 - 99 + 1 = 12
     year: 2008
-    doi: "10.4064/aa135-2-1"
+    url: "https://doi.org/10.4064/aa135-2-1"
+    identifier: "doi:10.4064/aa135-2-1"
     
 - project: Real and rational systems of forms
  # tweet: https://twitter.com/SimonMyerson/status/1539134946496987136

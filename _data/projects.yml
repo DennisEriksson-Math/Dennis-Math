@@ -1,181 +1,141 @@
 # Projects
 # uncomment the urls if you wish to display them, and add your own URL
 
-- project: Variations on the circle method (provisional title)
-  id: sfmv
-  url: "https://maths.fan/IML.pdf"
-  identifier: "Slides"
-  note: "in preparation; see also <a itemprop='subjectOf' href='https://youtube.com/playlist?list=PLul8LCT3AJqSJ5QvmtlONFC4rBNzmzMXq'>my HCM lectures</a>"
+eriksson:
+  - type: article
+    id: spaces-of-norms
+    title: "Spaces of norms, determinant of cohomology and Fekete points in non-Archimedean geometry"
+    authors:
+      - Eriksson, Dennis
+      - Boucksom, S.
+    journal: "Advances in Mathematics"
+    volume: 378
+    pages: "107501"
+    year: 2021
+    doi: "10.1016/j.aim.2020.107501"
+    page_count: 125
+    note: "Article ID 107501 (125 pages)"
 
-- project: Bounds for spectral projectors on the three-dimensional torus
-  id: bsp3dt
-  coauthor-list:
-    - GermainP
-    - PezziD
-  pagecount: 51pp
-  url: "https://arxiv.org/abs/2508.05573"
-  identifier: "arXiv:2508.05573"
-  year: 2025
+  - type: article
+    id: bcov-invariants
+    title: "BCOV invariants of Calabi–Yau manifolds and degenerations of Hodge structures"
+    authors:
+      - Eriksson, Dennis
+      - Freixas i Montplet, G.
+      - Mourougane, C.
+    journal: "Duke Mathematical Journal"
+    volume: 170
+    issue: 3
+    pages: "379–454"
+    year: 2021
+    doi: "10.1215/00127094-2020-0045"
+    page_count: 76
 
-- project: Expander estimates for cubes
-  id: eec
-  coauthor-list:
-    - BruedernJ
-  pagecount: 27pp
-  url: "https://arxiv.org/abs/2409.16795"
-  identifier: "arXiv:2409.16795"
-  year: 2024
+  - type: article
+    id: segre-monge-ampere
+    title: "Global representation of Segre numbers by Monge–Ampère products"
+    authors:
+      - Eriksson, Dennis
+      - Andersson, M.
+      - Samuelsson, H.
+      - Wulcan, E.
+      - Yger, A.
+    journal: "Mathematische Annalen"
+    volume: 380
+    issue: 1-2
+    pages: "349–391"
+    year: 2021
+    doi: "10.1007/s00208-020-01973-y"
 
-- project: A two dimensional version of the delta symbol method
-  id: tdvdsm
-  coauthor-list:
-    - LiJ
-    - VisheP
-  pagecount: 53pp
-  url: "https://arxiv.org/abs/2411.11355"
-  identifier: "arXiv:2411.11355"
-  year: 2024
-  slides: https://www.dropbox.com/scl/fi/dq3vgqpqnfcvnstkapgxx/Simon-Myerson-CMI.pdf?rlkey=2vkfgziyq6nbkkxl0x479gnr7&amp;raw=1
-  
-- project: A question about points on an elliptic curve with prime denominator
-  id: qapecpd
-  pagecount: 3pp
-  url: "https://arxiv.org/abs/2307.09406"
-  identifier: "arXiv:2307.09406"
-  year: 2023
-  note: "edited version of an open question to the problem session of <a href='https://iecl.univ-lorraine.fr/ja2023/'>JA2023</a>, communicated there by Michel Waldschmidt"
+  - type: article
+    id: kahler-quantisation
+    title: "Kähler quantisation of vortex moduli"
+    authors:
+      - Eriksson, Dennis
+      - Ramao, N.
+    journal: "Letters in Mathematical Physics"
+    volume: 110
+    issue: 3
+    pages: "659–693"
+    year: 2020
+    doi: "10.1007/s11005-019-01221-7"
 
-- project: Additive problems with almost prime squares
-#  tweet: https://twitter.com/SimonMyerson/status/1557318590520389632
-  id: apaps
-  coauthor-list:
-    - BlomerV
-    - GrimmeltL
-    - LiJ
-  journal: "Geom. Funct. Anal."
-  publisher: "Springer"
-  pagecount: 70pp
-  url: "https://doi.org/10.1007/s00039-023-00635-w"
-  identifier: "doi:10.1007/s00039-023-00635-w"
-  year: 2023
-  slides: "https://www.dropbox.com/s/ym1w5oac0gp6vad/WOMBL%20online.pdf?raw=1"
-  
-- project: The elliptic sieve and Brauer groups
-#  tweet: https://twitter.com/SimonMyerson/status/1555501368042934272
-  id: esbg
-  coauthor-list:
-    - BhaktaS
-    - LoughranD
-    - NakaharaM
-  journal: "Proc. London Math. Soc."
-  publisher: "Wiley"
-  pagecount: 39pp
-  volumenumber: 126
-  pagestart: 1884
-  pageend: 1922
-  url: "https://doi.org/10.1112/plms.12520"
-  identifier: "doi:10.1112/plms.12520"
-  year: 2023
-  note: "<a itemprop='subjectOf' href='https://youtu.be/2umnf2JbkJE'>video version</a>"
-  slides: "https://www.dropbox.com/s/gqo0lyva6gpcz5x/Elliptic%20sieve%20DINTS.pdf?raw=1"
+  - type: article
+    id: singularities-hodge-bundles
+    title: "Singularities of metrics on Hodge bundles and their topological invariants"
+    authors:
+      - Eriksson, Dennis
+      - Freixas i Montplet, G.
+      - Mourougane, C.
+    journal: "Algebraic Geometry"
+    volume: 5
+    issue: 6
+    pages: "742–775"
+    year: 2018
+    doi: "10.14231/AG-2018-021"
 
-- project: Bounds for spectral projectors on generic tori
-#  tweet: https://twitter.com/SimonMyerson/status/1558080360352829443
-  id: bspgt
-  coauthor-list:
-    - GermainP
-  journal: "Math. Annalen"
-  publisher: "Springer-Verlag"
-  url: "https://doi.org/10.1007/s00208-022-02547-w"
-  identifier: "doi:10.1007/s00208-022-02547-w"
-  pagecount: 37pp
-  year: 2022
-  slides: "https://www.dropbox.com/s/r6aau872zd74kgf/Loughborough.pdf?raw=1"
-  
-- project: Bounds for spectral projectors on the Euclidean cylinder
-#  tweet: https://twitter.com/SimonMyerson/status/1554774829030449153
-  id: bspec
-  coauthor-list:
-    - GermainP
-  journal: "Comptes Rendus Math."
-  publisher: "Elsevier of behalf of the French Academy of Sciences"
-  pagecount: 6pp
-  volumenumber: 360
-  pagestart: 1257
-  pageend: 1262
-  url: "https://doi.org/10.5802/crmath.378"
-  identifier: "doi:10.5802/crmath.378"
-  year: 2022
+  - type: article
+    id: discriminants-artin
+    title: "Discriminants and Artin conductors"
+    authors:
+      - Eriksson, Dennis
+    journal: "Journal für die reine und angewandte Mathematik (Crelle)"
+    volume: 712
+    pages: "107–121"
+    year: 2016
+    doi: "10.1515/crelle-2014-0062"
 
-- project: Strichartz estimates for the Schroedinger equation on non-rectangular two-dimensional tori
-#  tweet: https://twitter.com/SimonMyerson/status/1554025642567421952
-  id: sesentt
-  coauthor-list:
-    - DengY
-    - GermainP
-    - GuthL
-  journal: "Amer. J. Math."
-  volumenumber: 144
-  issuenumber: 3
-  pagestart: 701
-  pageend: 745
-  publisher: "Johns Hopkins University Press"
-  url: "https://doi.org/10.1353/ajm.2022.0014"
-  identifier: "doi:10.1353/ajm.2022.0014"
-  pagecount: 45pp
-  year: 2022
-  note: "<a itemprop='archivedAt' href='https://arxiv.org/abs/1810.05630'>fulltext</a>"
- 
-- project: Bounds for spectral projectors on tori
-#  tweet: https://twitter.com/SimonMyerson/status/1553299356882587648
-  id: bspt
-  coauthor-list:
-    - GermainP
-  journal: "Forum Math. Sigma"
-  volumenumber: 10
-  pagination: e24
-  publisher: Cambridge University Press
-  url: "https://doi.org/10.1017/fms.2022.18"
-  identifier: "doi:10.1017/fms.2022.18"
-  pagecount: 14pp
-  year: 2022
- 
-- project: Systems of cubic forms in many variables
-#  tweet: https://twitter.com/SimonMyerson/status/1552933697334046720
-  id: scfmv
-  journal: "J. Reine Agnew. Math. (Crelles Journal)"
-  volumenumber: 2019
-  issuenumber: 757
-  pagestart: 309
-  pageend: 328
-  publisher: De Gruyter
-  url: "https://doi.org/10.1515/crelle-2017-0040"
-  identifier: "doi:10.1515/crelle-2017-0040"
-  pagecount: 29pp
-  year: 2019
- 
-- project: Quadratic forms and systems of forms in many variables
-#  tweet: https://twitter.com/SimonMyerson/status/1552208670007726085
-  id: qfsfmv
-  journal: "Invent. math."
-  volumenumber: 213
-  pagestart: 205
-  pageend: 235
-  publisher: Springer-Verlag
-  url: "https://doi.org/10.1007/s00222-018-0789-x"
-  identifier: "doi:10.1007/s00222-018-0789-x"
-  pagecount: 36pp
-  year: 2018
- 
-- project: Systems of many forms
-#  tweet: https://twitter.com/SimonMyerson/status/1551482635980906496
-  id: smf
-  journal: "DPhil thesis, University of Oxford"
-  url: "https://ora.ox.ac.uk/objects/uuid:a9932e90-4784-466a-a694-d387c1228533"
-  identifier: "uuid:a9932e90-4784-466a-a694-d387c1228533"
-  pagecount: 120pp
-  year: 2016
+  - type: article
+    id: logarithmic-edixhoven
+    title: "A logarithmic interpretation of Edixhoven's jumps for Jacobians"
+    authors:
+      - Eriksson, Dennis
+      - Halle, L.H.
+      - Nicaise, J.
+    journal: "Advances in Mathematics"
+    volume: 279
+    pages: "532–574"
+    year: 2015
+    doi: "10.1016/j.aim.2015.04.007"
+    page_count: 43
 
+  - type: article
+    id: degenerating-riemann
+    title: "Degenerating Riemann surfaces and the Quillen metric"
+    authors:
+      - Eriksson, Dennis
+    journal: "International Mathematics Research Notices"
+    volume: 2013
+    issue: 2
+    pages: "347–361"
+    year: 2013
+    doi: "10.1093/imrn/rnr234"
+
+  - type: article
+    id: isomorphisme-deligne
+    title: "Un isomorphisme de type Deligne–Riemann–Roch"
+    authors:
+      - Eriksson, Dennis
+    journal: "Comptes Rendus Mathematique"
+    volume: 347
+    issue: 19-20
+    pages: "1115–1118"
+    year: 2009
+    doi: "10.1016/j.crma.2009.09.003"
+
+  - type: article
+    id: brauer-manin
+    title: "On the Brauer–Manin obstruction for zero-cycles on curves"
+    authors:
+      - Eriksson, Dennis
+      - Scharaschkin, V.
+    journal: "Acta Arithmetica"
+    volume: 135
+    issue: 2
+    pages: "99–110"
+    year: 2008
+    doi: "10.4064/aa135-2-1"
+    
 - project: Real and rational systems of forms
  # tweet: https://twitter.com/SimonMyerson/status/1539134946496987136
   id: rrsf

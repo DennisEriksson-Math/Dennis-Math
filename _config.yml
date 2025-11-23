@@ -2,13 +2,13 @@
 url: "https://maths.fan" # Placeholder URL, update if you have one
 title: "Dennis Eriksson"
 tagline: "Personal Page"
-description: "Publications, research interests, and information about my work in complex analysis and non-Archimedean geometry at Chalmers University of Technology and the University of Gothenburg."
+description: "Publications, research interests, and information about my work in arithmetic, algebraic and complex geometry at Chalmers University of Technology and the University of Gothenburg."
 author:
   name: Dennis Eriksson
   alternateName:
     - Dennis
     - Dennis Eriksson
-  url: "https://mathstodon.xyz/@denniseriksson" # Placeholder Mastodon/social link
+  url: "https://mathstodon.xyz/@denniseriksson" # Placeholder Mastodon/social link 
   givenName: Dennis
   additionalName:
   familyName:
@@ -43,7 +43,7 @@ resume_contact_email:          "dennis [&#x430;t] chalmers.se" # Using the commo
 
 # the next two items are used for schema itemprops in _layouts/resume.html
 # resume_contact_telephone:
-resume_contact_address:        "Department of Mathematical Sciences, Chalmers University of Technology and the University of Gothenburg, Håltagsvägen 14, 412 96 Gothenburg, Sweden"
+resume_contact_address:        "Department of Mathematical Sciences, Chalmers University of Technology and the University of Gothenburg, Chalmers tvärgata 3, 412 58 Gothenburg, Sweden"
 
 resume_header_contact_info:    "<span itemprop='knowsAbout'>Non-Archimedean Geometry</span> • <span itemprop='knowsAbout'>Complex Analysis</span> • <span itemprop='worksFor'>Chalmers&nbsp;University</span></p>
     <p> Department&nbsp;of&nbsp;Mathematical&nbsp;Sciences •  Chalmers&nbsp;University&nbsp;of&nbsp;Technology and the&nbsp;University&nbsp;of&nbsp;Gothenburg  •  412&nbsp;96&nbsp;Gothenburg,&nbsp;Sweden • dennis [&#x430;t] chalmers.se • he/him/his • Please call me Dennis"
@@ -77,7 +77,7 @@ resume_social_links:
   # Placeholder for a relevant funding project (if applicable)
   # resume_funding_url:
   # resume_funding_tooltip:
-  resume_work_url:             "https://www.chalmers.se/personer/denniseriksson" # Placeholder Chalmers URL
+  resume_work_url:             "https://www.chalmers.se/en/persons/dener/" # Placeholder Chalmers URL
   resume_work_tooltip:         "My Chalmers Webpage"
   # resume_name_url:           # Removed, as name pronunciation is less common here
   # resume_name_tooltip:
@@ -87,8 +87,8 @@ resume_social_links:
   resume_publications_tooltip: "Google Scholar Profile"
   # resume_phone_url:          # Removed, can be kept if desired
   # resume_phone_tooltip:
-  resume_ORCID_url:            "https://orcid.org/0000-0000-0000-0000" # Placeholder ORCID, update with your actual ID
-  resume_ORCID_id:             "ORCID:0000-0000-0000-0000"
+  resume_ORCID_url:            "https://orcid.org/0000-0003-0646-6613" # Placeholder ORCID, update with your actual ID
+  resume_ORCID_id:             "ORCID:0000-0003-0646-6613"
   resume_ORCID_tooltip:        "ORCID iD"
   # resume_github_url:
   # resume_twitter_url:

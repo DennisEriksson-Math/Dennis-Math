@@ -21,7 +21,7 @@ social:
   name: Dennis Eriksson
   links:
     - https://mathstodon.xyz/@denniseriksson # Placeholder Mastodon/social link
-    - https://www.chalmers.se/personer/denniseriksson # Placeholder Chalmers URL, update with correct path
+    - https://research.chalmers.se/person/dener # Placeholder Chalmers URL, update with correct path
 locale: en_GB
 
 # Build settings (No changes needed here)
@@ -39,11 +39,11 @@ resume_name:                   "Dennis Eriksson"
 resume_title:                  "Professor in Mathematics"
 
 # used for the contact button in _layouts/resume.html
-resume_contact_email:          "dennis [&#x430;t] chalmers.se" # Using the common format
+resume_contact_email:          "dener [&#x430;t] chalmers.se" # Using the common format
 
 # the next two items are used for schema itemprops in _layouts/resume.html
 # resume_contact_telephone:
-resume_contact_address:        "Department of Mathematical Sciences, Chalmers University of Technology and the University of Gothenburg, Håltagsvägen 14, 412 96 Gothenburg, Sweden"
+resume_contact_address:        "Department of Mathematical Sciences, Chalmers University of Technology and the University of Gothenburg, Chalmers tvärgata 3, 412 58 Gothenburg, Sweden"
 
 resume_header_contact_info:    "<span itemprop='knowsAbout'>Non-Archimedean Geometry</span> • <span itemprop='knowsAbout'>Complex Analysis</span> • <span itemprop='worksFor'>Chalmers&nbsp;University</span></p>
     <p> Department&nbsp;of&nbsp;Mathematical&nbsp;Sciences •  Chalmers&nbsp;University&nbsp;of&nbsp;Technology and the&nbsp;University&nbsp;of&nbsp;Gothenburg  •  412&nbsp;96&nbsp;Gothenburg,&nbsp;Sweden • dennis [&#x430;t] chalmers.se • he/him/his • Please call me Dennis"

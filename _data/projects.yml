@@ -1,6 +1,89 @@
 # Projects
 # uncomment the urls if you wish to display them, and add your own URL
+- project: "Erratum to: Discriminants and Artin conductors (J. Reine Angew. Math. 712 (2016), 107–121)"
+    id: discriminants-artin-erratum
+    solo-author: ErikssonD # Added field for papers where you are the primary/sole author
+    journal: "J. Reine Angew. Math."
+    volumenumber: 814
+    pagestart: 283
+    pageend: 284
+    pagecount: 2pp
+    year: 2024
+    identifier: "MR4793346"
+    note: "Erratum (MR4793346)"
 
+  - project: "Deligne-Riemann-Roch and intersection bundles"
+    id: deligne-riemann-roch-intersection
+    coauthor-list:
+      - FreixasG
+    journal: "J. Éc. polytech. Math."
+    volumenumber: 11
+    pagestart: 247
+    pageend: 361
+    pagecount: 115pp
+    year: 2024
+    identifier: "MR4695965"
+
+  - project: "On genus one mirror symmetry in higher dimensions and the BCOV conjectures"
+    id: genus-one-mirror-symmetry
+    coauthor-list:
+      - FreixasG
+      - MourouganeC
+    journal: "Forum Math. Pi"
+    volumenumber: 10
+    issuenumber: e19
+    pagestart: 1
+    pageend: 53
+    pagecount: 53pp
+    year: 2022
+    identifier: "MR4475251"
+
+  - project: "Nonproper intersection products and generalized cycles"
+    id: nonproper-intersection-products
+    coauthor-list:
+      - AnderssonM
+      - SamuelssonH
+      - WulcanE
+      - YgerA
+    journal: "Eur. J. Math."
+    volumenumber: 7
+    issuenumber: 4
+    pagestart: 1337
+    pageend: 1381
+    pagecount: 45pp
+    year: 2021
+    identifier: "MR4340940"
+
+  - project: "Global representation of Segre numbers by Monge-Ampère products"
+    id: global-representation-segre
+    coauthor-list:
+      - AnderssonM
+      - SamuelssonH
+      - WulcanE
+      - YgerA
+    journal: "Math. Ann."
+    volumenumber: 380
+    issuenumber: 1-2
+    pagestart: 349
+    pageend: 391
+    pagecount: 43pp
+    year: 2021
+    identifier: "MR4263687"
+
+  - project: "BCOV invariants of Calabi-Yau manifolds and degenerations of Hodge structures"
+    id: bcov-invariants-2
+    coauthor-list:
+      - FreixasG
+      - MourouganeC
+    journal: "Duke Math. J."
+    volumenumber: 170
+    issuenumber: 3
+    pagestart: 379
+    pageend: 454
+    pagecount: 76pp
+    year: 2021
+    identifier: "MR4255041"
+  
   - project: Spaces of norms, determinant of cohomology and Fekete points in non-Archimedean geometry
     id: spaces-of-norms
     coauthor-list: 

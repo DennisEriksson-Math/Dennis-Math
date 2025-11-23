@@ -1,20 +1,19 @@
 # Site settings
 url: "https://maths.fan"
-title: "Simon L. Rydin Myerson"
+title: "Dennis Eriksson"
 tagline: "Personal page"
 description: "Publications with fulltexts, and more about my work in mathematics including links to other profiles of me around the internet"
 author:
-  name: Simon Myerson
+  name: Dennis Eriksson
   alternateName:
-    - Simon Rydin Myerson
-    - Simon Leo Rydin Myerson
+    - Dennis
+    - Dennis Eriksson
   url: "https://mathstodon.xyz/@simonmyerson"
-  givenName: Simon
-  additionalName: Leo
+  givenName: Dennis
+  additionalName: 
   familyName:
-    - Rydin
-    - Myerson
-  twitter: SimonMyerson
+    - Eriksson
+  twitter: 
 twitter:
   card: summary
   username: MathsFan

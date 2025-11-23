@@ -1,10 +1,9 @@
 # Projects
 # uncomment the urls if you wish to display them, and add your own URL
 
-
-- project: "Erratum to: Discriminants and Artin conductors (J. Reine Angew. Math. 712 (2016), 107–121)"
+  - project: "Erratum to: Discriminants and Artin conductors (J. Reine Angew. Math. 712 (2016), 107–121)"
     id: discriminants-artin-erratum
-    solo-author: ErikssonD # Added field for papers where you are the primary/sole author
+    solo-author: ErikssonD
     journal: "J. Reine Angew. Math."
     volumenumber: 814
     pagestart: 283
@@ -42,7 +41,7 @@
     id: nonproper-intersection-products
     coauthor-list:
       - AnderssonM
-      - SamuelssonH
+      - SamuelssonH # Håkan Samuelsson Kalm
       - WulcanE
       - YgerA
     journal: "Eur. J. Math."
@@ -57,7 +56,7 @@
     id: global-representation-segre
     coauthor-list:
       - AnderssonM
-      - SamuelssonH
+      - SamuelssonH # Håkan Samuelsson Kalm
       - WulcanE
       - YgerA
     journal: "Math. Ann."
@@ -80,15 +79,15 @@
     pageend: 454
     pagecount: 76pp
     year: 2021
-  
+
   - project: Spaces of norms, determinant of cohomology and Fekete points in non-Archimedean geometry
     id: spaces-of-norms
-    coauthor-list: 
+    coauthor-list:
       - BoucksomS
     journal: "Advances in Mathematics"
     volumenumber: 378
     pagestart: 107501
-    pageend: 107501 # Assuming 107501 is the single article number
+    pageend: 107501
     pagecount: 125pp
     year: 2021
     url: "https://doi.org/10.1016/j.aim.2020.107501"
@@ -114,7 +113,7 @@
     id: segre-monge-ampere
     coauthor-list:
       - AnderssonM
-      - SamuelssonH # Assuming Samuelsson, H. maps to this key
+      - SamuelssonH # Håkan Samuelsson Kalm
       - WulcanE
       - YgerA
     journal: "Mathematische Annalen"
@@ -156,6 +155,8 @@
     url: "https://doi.org/10.14231/AG-2018-021"
     identifier: "doi:10.14231/AG-2018-021"
 
+  # NOTE: The three entries below use 'authors:' and include 'ErikssonD'.
+  # I've left them as 'authors:' to match your source data, but you may need to unify to 'coauthor-list:'
   - project: Discriminants and Artin conductors
     id: discriminants-artin
     authors:
@@ -214,7 +215,7 @@
   - project: On the Brauer–Manin obstruction for zero-cycles on curves
     id: brauer-manin
     coauthor-list:
-    - ScharaschkinV
+      - ScharaschkinV
     journal: "Acta Arithmetica"
     volumenumber: 135
     issuenumber: 2

@@ -30,6 +30,7 @@
     note: "Accepted for publication (arXiv:2109.02033)"
     year: 2022
     url: "https://arxiv.org/abs/2109.02033"
+    pagecount: 120pp
     
   - project: "Deligne-Riemann-Roch and intersection bundles"
     id: deligne-riemann-roch-intersection

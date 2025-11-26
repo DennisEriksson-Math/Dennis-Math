@@ -2,6 +2,22 @@
 # uncomment the urls if you wish to display them, and add your own URL
 
 
+  - project: "The Deligen-Riemann-Roch isomorphism"
+    id: DRR2
+    coauthor-list:
+      - FreixasG
+    journal: "submitted"
+    year: 2025
+    url: "https://arxiv.org/abs/2509.05077"
+
+    - project: "Genus one mirror symmetry for intersection of two cubics in \mathbb{P}^5"
+    id: Genusone2cubics
+    coauthor-list:
+      - PochekaiM
+    journal: "submitted"
+    year: 2024
+    url: "https://arxiv.org/abs/2410.08897"
+  
   - project: "Base change conductors through intersection theory and quotient singularities"
     id: spectral
     coauthor-list:

@@ -81,7 +81,7 @@ resume_social_links:
   resume_work_tooltip:         "My Chalmers Webpage"
   # resume_name_url:           # Removed, as name pronunciation is less common here
   # resume_name_tooltip:
-  resume_arXiv_url:            "https://arxiv.org/search/?searchtype=author&query=Eriksson%2C+D" # Placeholder arXiv search for "Eriksson, D"
+  resume_arXiv_url:            "https://arxiv.org/search/?query=Eriksson%2C+Dennis&searchtype=author&abstracts=show&order=-announced_date_first&size=50" # Placeholder arXiv search for "Eriksson, D"
   resume_arXiv_tooltip:        "arXiv Preprints"
   resume_publications_url:     "https://scholar.google.com/citations?user=DwAUqycAAAAJ&hl=sv&oi=ao" # Placeholder Google Scholar URL
   resume_publications_tooltip: "Google Scholar Profile"

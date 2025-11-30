@@ -72,7 +72,114 @@ resume_section_links:            true
 
 # Resume social links
 resume_social_links:
+  resume_cv_url:               "# Site settings
+url: "https://maths.fan" # Placeholder URL, update if you have one
+title: "Dennis Eriksson"
+tagline: "Personal Page"
+description: "Publications, research interests, and information about my work in arithmetic, algebraic and complex geometry at Chalmers University of Technology and the University of Gothenburg."
+author:
+  name: Dennis Eriksson
+  alternateName:
+    - Dennis
+    - Dennis Eriksson
+  url: "https://mathstodon.xyz/@denniseriksson" # Placeholder Mastodon/social link 
+  givenName: Dennis
+  additionalName:
+  familyName:
+    - Eriksson
+  twitter:
+twitter:
+  card: summary
+  username: DennisEriksen # Placeholder Twitter handle
+social:
+  name: Dennis Eriksson
+  links:
+    - https://mathstodon.xyz/@denniseriksson # Placeholder Mastodon/social link
+    - https://www.chalmers.se/personer/denniseriksson # Placeholder Chalmers URL, update with correct path
+locale: en_GB
+
+# Build settings (No changes needed here)
+markdown: kramdown
+sass:
+  sass_dir: _sass
+  style: compressed
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# Resume settings
+resume_avatar:                 "true"
+resume_name:                   "Dennis Eriksson"
+resume_title:                  "Professor in Mathematics"
+
+# used for the contact button in _layouts/resume.html
+resume_contact_email:          "dennis [&#x430;t] chalmers.se" # Using the common format
+
+# the next two items are used for schema itemprops in _layouts/resume.html
+# resume_contact_telephone:
+resume_contact_address:        "Department of Mathematical Sciences, Chalmers University of Technology and the University of Gothenburg, Chalmers tvärgata 3, 412 58 Gothenburg, Sweden"
+
+resume_header_contact_info:    "<span itemprop='knowsAbout'>Algebraic geometry</span> • <span itemprop='knowsAbout'>Arakelov theory </span> • <span itemprop='knowsAbout'> Complex geometry </span> • <span itemprop='worksFor'>Chalmers&nbsp;University</span></p>
+    <p> Department&nbsp;of&nbsp;Mathematical&nbsp;Sciences •  Chalmers&nbsp;University&nbsp;of&nbsp;Technology and the&nbsp;University&nbsp;of&nbsp;Gothenburg  •  412&nbsp;96&nbsp;Gothenburg,&nbsp;Sweden • dennis [&#x430;t] chalmers.se • he/him/his • Please call me Dennis"
+display_header_contact_info:   "true"
+
+resume_header_intro: "<p>I am a Professor in Mathematics at Chalmers University of Technology and the University of Gothenburg.</p>
+<p> My research brings together ideas from <strong>arithmetic geometry</strong>, <strong>complex analysis</strong>, and <strong>algebraic geometry</strong>. I study analytic and Hodge-theoretic invariants — such as BCOV invariants and Quillen metrics, determinant bundles. But I am also interested in related questions about singularities and their role in moduli problems. I am also interested in mirror-symmetric questions. A recurring theme is understanding how analytic, arithmetic, and algebro-geometric structures reflect one another. </p>
+<p>This page provides access to my research publications and related academic information.</p>"
+
+# use "yes" to display the email contact button,
+# "no" to display an "I'm not looking for work" message,
+# or remove the resume_looking_for_work option entirely
+# to leave blank
+# resume_looking_for_work:         "yes"
+
+# Decide which sections to use (Based on your previous selection)
+# comment out to hide
+# resume_section_experience:
+# resume_section_education:
+resume_section_projects:         true
+# resume_section_skills:
+# resume_section_recognition:
+resume_section_links:            true
+# resume_section_associations:
+# resume_section_interests:
+
+# Resume social links
+resume_social_links:
   resume_cv_url:               "https://github.com/DennisEriksson-Math/Dennis-Math/CV-webpage.pdf" # Placeholder CV link
+  resume_cv_tooltip:           "CV"
+  # Placeholder for a relevant funding project (if applicable)
+  # resume_funding_url:
+  # resume_funding_tooltip:
+  resume_work_url:             "https://www.chalmers.se/en/persons/dener/" # Placeholder Chalmers URL
+  resume_work_tooltip:         "My Chalmers Webpage"
+  # resume_name_url:           # Removed, as name pronunciation is less common here
+  # resume_name_tooltip:
+  resume_arXiv_url:            "https://arxiv.org/search/?query=Eriksson%2C+Dennis&searchtype=author&abstracts=show&order=-announced_date_first&size=50" # Placeholder arXiv search for "Eriksson, D"
+  resume_arXiv_tooltip:        "arXiv Preprints"
+  resume_publications_url:     "https://scholar.google.com/citations?user=DwAUqycAAAAJ&hl=sv&oi=ao" # Placeholder Google Scholar URL
+  resume_publications_tooltip: "Google Scholar Profile"
+  # resume_phone_url:          # Removed, can be kept if desired
+  # resume_phone_tooltip:
+  resume_ORCID_url:            "https://orcid.org/0000-0003-0646-6613" # Placeholder ORCID, update with your actual ID
+  resume_ORCID_id:             "ORCID:0000-0003-0646-6613"
+  resume_ORCID_tooltip:        "ORCID iD"
+  # resume_github_url:
+  # resume_twitter_url:
+  # resume_dribbble_url:
+  # resume_facebook_url:
+  # resume_linkedin_url:
+  # resume_instagram_url:
+  # resume_website_url:
+  # resume_medium_url:
+resume_print_social_links:     true
+
+# Design settings
+resume_theme:                  default
+
+# Note: when editing locally, remember to restart
+# your Jekyll server when you edit this file. Changes
+# to _config.yml are only recognized when the server starts" # Placeholder CV link
   resume_cv_tooltip:           "CV"
   # Placeholder for a relevant funding project (if applicable)
   # resume_funding_url:

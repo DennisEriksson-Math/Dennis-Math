@@ -214,34 +214,40 @@
 
     </section>
     {% endif %}
+{% if site.resume_section_links %}
+    <section class="content-section">
+      
+      <header class="section-header">
+        <h2 itemprop="knowsAbout">Collaborators</h2>
+      </header>
 
-    {% if site.resume_section_links %}
-    <section class="content-section">
-      
-      <header class="section-header">
-        <h2 itemprop="knowsAbout">Collaborators</h2>
-      </header>
-
-      <div class="resume-item">
-        <ul class="resume-item-list">
-          {% for coauthor_entry in site.data.coauthors %}
-          {% assign coauthor = coauthor_entry[1] %}
+      <div class="resume-item">
+        <ul class="resume-item-list">
+          {% for coauthor_entry in site.data.coauthors %}
+          {% assign coauthor = coauthor_entry[1] %}
           
-          <li>
-            {% if coauthor.url %}
-              <a href="{{ coauthor.url }}" target="_blank" rel="noopener noreferrer">
-                {{ coauthor.full-name | default: coauthor.name }}
-              </a>
-            {% else %}
-              {{ coauthor.full-name | default: coauthor.name }}
-            {% endif %}
-          </li>
-          {% endfor %}
-        </ul>
-      </div>
-      
-    </section>
-    {% endif %}
+          {# ADD THIS LINE TO SKIP YOUR OWN ENTRY (KEY: ErikssonD) #}
+          {% unless coauthor_entry[0] == 'ErikssonD' %} 
+          
+          <li>
+            {% if coauthor.url %}
+              <a href="{{ coauthor.url }}" target="_blank" rel="noopener noreferrer">
+                {{ coauthor.full-name | default: coauthor.name }}
+              </a>
+            {% else %}
+              {{ coauthor.full-name | default: coauthor.name }}
+            {% endif %}
+          </li>
+          
+          {# ADD THIS LINE TO CLOSE THE CONDITION #}
+          {% endunless %} 
+          
+          {% endfor %}
+        </ul>
+      </div>
+      
+    </section>
+    {% endif %}
     
     
 <section class="content-section">

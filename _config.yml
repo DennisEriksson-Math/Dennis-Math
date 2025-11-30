@@ -72,7 +72,7 @@ resume_section_links:            true
 
 # Resume social links
 resume_social_links:
-  resume_cv_url:               "https://www.chalmers.se/personer/denniseriksson/cv.pdf" # Placeholder CV link
+  resume_cv_url:               "https://github.com/DennisEriksson-Math/Dennis-Math/CV-webpage.pdf" # Placeholder CV link
   resume_cv_tooltip:           "CV"
   # Placeholder for a relevant funding project (if applicable)
   # resume_funding_url:

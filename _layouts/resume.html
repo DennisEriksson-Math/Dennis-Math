@@ -278,36 +278,42 @@
   </div>
 </section>
 
+<section class="content-section">
+  <header class="section-header">
+    <h2 itemprop="knowsAbout"> Master students</h2>
+  </header>
 
-    <section class="content-section">
-      <header class="section-header">
-        <h2 itemprop="knowsAbout"> Master students</h2>
-      </header>
+  <div class="resume-item">
+    <ul class="resume-item-list">
+      {% for student in site.data.MasterStudents %}
+      <li>
+        <p class="student-info">
+          {% comment %} Check if a URL exists, and wrap the name in a link if it does {% endcomment %}
+          {% if student.url %}
+            <a href="{{ student.url }}" target="_blank" rel="noopener noreferrer">
+              <strong>{{ student.name }}</strong>
+            </a>
+          {% else %}
+            <strong>{{ student.name }}</strong>
+          {% endif %}
+          
+          {% comment %} Display status and years in a separate span {% endcomment %}
+          {% if student.status_years %}
+            <span class="student-years"> ({{ student.status_years }})</span>
+          {% endif %}
+        </p>
 
-      <div class="resume-item">
-        <ul class="resume-item-list">
-          {% for student in site.data.MasterStudents %}
-          <li>
-            <p class="student-info">
-              {% if student.url %}
-                <a href="{{ student.url }}" target="_blank" rel="noopener noreferrer">
-                  <strong>{{ student.description }}</strong>
-                </a>
-              {% else %}
-                <strong>{{ student.description }}</strong>
-              {% endif %}
-            </p>
-
-            {% if student.summary %}
-              <p class="student-summary">
-                {{ student.summary }}
-              </p>
-            {% endif %}
-          </li>
-          {% endfor %}
-        </ul>
-      </div>
-    </section>
+        {% comment %} Display the thesis summary if it exists {% endcomment %}
+        {% if student.summary %}
+          <p class="student-summary">
+            {{ student.summary }}
+          </p>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
     
 
     {% if site.resume_print_social_links %}

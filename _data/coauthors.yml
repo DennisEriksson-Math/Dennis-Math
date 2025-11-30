@@ -20,9 +20,9 @@
     url: "https://perso.pages.math.cnrs.fr/users/gerard.freixas/"
 
   SamuelssonH:
-  name: "Samuelsson Kalm, H."
-  full-name: "Håkan Samuelsson Kalm"
-  url: "https://www.gu.se/en/about/find-staff/hakan-samuelsson-kalm" # Found public profile
+    name: "Samuelsson Kalm, H."
+    full-name: "Håkan Samuelsson Kalm"
+    url: "https://www.gu.se/en/about/find-staff/hakan-samuelsson-kalm" # Found public profile
   
   HalleLH:
     name: "Halle, L.H."

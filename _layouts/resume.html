@@ -328,6 +328,40 @@ onenote:https://livewarwickac-my.sharepoint.com/personal/u1972891_live_warwick_a
       </section>
       <!-- end Links -->
       {% endif %}
+
+<section class="content-section">
+  <header class="section-header">
+    <h2 itemprop="knowsAbout"> Master students</h2>
+  </header>
+
+  <div class="resume-item">
+    <ul class="resume-item-list">
+      {% for student in site.data.MasterStudents %}
+      <li>
+        <p class="student-info">
+          {# Check if a URL exists, and wrap the description in a link if it does #}
+          {% if student.url %}
+            <a href="{{ student.url }}" target="_blank" rel="noopener noreferrer">
+              <strong>{{ student.description }}</strong>
+            </a>
+          {% else %}
+            {# If no URL, just display the description text #}
+            <strong>{{ student.description }}</strong>
+          {% endif %}
+        </p>
+
+        {# Display the summary if the 'summary' field exists in the YAML data #}
+        {% if student.summary %}
+          <p class="student-summary">
+            {{ student.summary }}
+          </p>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+
       
       {% if site.resume_print_social_links %}
       <!-- begin Print Social Links -->

@@ -339,18 +339,18 @@ onenote:https://livewarwickac-my.sharepoint.com/personal/u1972891_live_warwick_a
       {% for student in site.data.MasterStudents %}
       <li>
         <p class="student-info">
-          {# Check if a URL exists, and wrap the description in a link if it does #}
+          {% comment %} Check if a URL exists, and wrap the description in a link if it does {% endcomment %}
           {% if student.url %}
             <a href="{{ student.url }}" target="_blank" rel="noopener noreferrer">
               <strong>{{ student.description }}</strong>
             </a>
           {% else %}
-            {# If no URL, just display the description text #}
+            {% comment %} If no URL, just display the description text {% endcomment %}
             <strong>{{ student.description }}</strong>
           {% endif %}
         </p>
 
-        {# Display the summary if the 'summary' field exists in the YAML data #}
+        {% comment %} Display the summary if the 'summary' field exists in the YAML data {% endcomment %}
         {% if student.summary %}
           <p class="student-summary">
             {{ student.summary }}
@@ -360,6 +360,7 @@ onenote:https://livewarwickac-my.sharepoint.com/personal/u1972891_live_warwick_a
       {% endfor %}
     </ul>
   </div>
+</section>
 
 
       

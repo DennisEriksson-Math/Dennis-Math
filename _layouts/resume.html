@@ -225,9 +225,7 @@
         <ul class="resume-item-list">
           {% for coauthor_entry in site.data.coauthors %}
           {% assign coauthor = coauthor_entry[1] %}
-          
-          {# ADD THIS LINE TO SKIP YOUR OWN ENTRY (KEY: ErikssonD) #}
-          {% unless coauthor_entry[0] == 'ErikssonD' %} 
+                  {% unless coauthor_entry[0] == 'ErikssonD' %} 
           
           <li>
             {% if coauthor.url %}

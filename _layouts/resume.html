@@ -328,7 +328,40 @@ onenote:https://livewarwickac-my.sharepoint.com/personal/u1972891_live_warwick_a
       </section>
       <!-- end Links -->
       {% endif %}
+<section class="content-section">
+  <header class="section-header">
+    <h2 itemprop="knowsAbout"> Research students</h2>
+  </header>
 
+  <div class="resume-item">
+    <ul class="resume-item-list">
+      {% for student in site.data.PhD %}
+      <li>
+        <p class="student-info">
+          {% comment %} Check if a URL exists, and wrap the description in a link if it does {% endcomment %}
+          {% if student.url %}
+            <a href="{{ student.url }}" target="_blank" rel="noopener noreferrer">
+              <strong>{{ student.description }}</strong>
+            </a>
+          {% else %}
+            {% comment %} If no URL, just display the description text {% endcomment %}
+            <strong>{{ student.description }}</strong>
+          {% endif %}
+        </p>
+
+        {% comment %} Display the summary if the 'summary' field exists in the YAML data {% endcomment %}
+        {% if student.summary %}
+          <p class="student-summary">
+            {{ student.summary }}
+          </p>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+      
 <section class="content-section">
   <header class="section-header">
     <h2 itemprop="knowsAbout"> Master students</h2>

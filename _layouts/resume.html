@@ -242,22 +242,37 @@ onenote:https://livewarwickac-my.sharepoint.com/personal/u1972891_live_warwick_a
       <!-- begin Links -->
       <section class="content-section">
         
-<section class="section-collaborators">
-  <h2>Collaborators</h2>
-  <ul>
-    {% for person in site.config.coauthors %}
-    <li>
-      {% if person.url %}
-        <a href="{{ person.url }}" target="_blank" rel="noopener noreferrer">
-          {{ person.name }}
-        </a>
-      {% else %}
-        {{ person.name }}
+{% if site.resume_section_collaborators %}
+<section class="content-section">
+  <header class="section-header">
+    <h2 itemprop="contributor">Coauthors & Collaborators</h2>
+  </header>
+
+  <div class="collaborators-list">
+    {% for coauthor_key in site.data.coauthors %}
+    {% assign coauthor = coauthor_key[1] %}
+    
+    <div class="coauthor-item" itemprop="contributor" itemscope itemtype="http://schema.org/Person">
+      <p class="coauthor-name">
+        {% if coauthor.url %}
+          <a href="{{ coauthor.url }}" target="_blank" rel="noopener noreferrer" itemprop="url">
+            {{ coauthor.full-name | default: coauthor.name }}
+          </a>
+        {% else %}
+          {{ coauthor.full-name | default: coauthor.name }}
+        {% endif %}
+      </p>
+      
+      {% if coauthor.institution %}
+      <p class="coauthor-institution">{{ coauthor.institution }}</p>
       {% endif %}
-      ({{ person.institution }})
-    </li>
+      
+    </div>
     {% endfor %}
-  </ul>
+  </div>
+
+</section>
+{% endif %}
 
 </section>
         <header class="section-header">

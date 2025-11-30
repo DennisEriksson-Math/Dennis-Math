@@ -241,7 +241,25 @@ onenote:https://livewarwickac-my.sharepoint.com/personal/u1972891_live_warwick_a
       {% if site.resume_section_links %}
       <!-- begin Links -->
       <section class="content-section">
+        
+<section class="section-collaborators">
+  <h2>Collaborators</h2>
+  <ul>
+    {% for person in site.config.coauthors %}
+    <li>
+      {% if person.url %}
+        <a href="{{ person.url }}" target="_blank" rel="noopener noreferrer">
+          {{ person.name }}
+        </a>
+      {% else %}
+        {{ person.name }}
+      {% endif %}
+      ({{ person.institution }})
+    </li>
+    {% endfor %}
+  </ul>
 
+</section>
         <header class="section-header">
           <h2 itemprop="knowsAbout">Collaborators</h2>
         </header>

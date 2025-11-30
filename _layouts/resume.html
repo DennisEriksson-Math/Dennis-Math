@@ -1,726 +1,343 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
-
 
 {% include head.html %}
 
-
-
 <body class="theme-{% if site.resume_theme %}{{ site.resume_theme }}{% endif %}" onload = "startTimer();">
 
-
-
   <div class="wrapper" itemscope itemid="#me" itemtype="http://schema.org/Person">
-
     {% if site.resume_contact_telephone %}<meta itemprop="telephone" content="{{ site.resume_contact_telephone }}"/>{% endif %}
-
     <meta itemprop="address" content="{{ site.resume_contact_address }}"/>
-
     <meta itemprop="email" content="{{ site.resume_contact_email }}"/>
-
     
-
     <header class="page-header">
 
-
-
       {% if site.resume_avatar == 'true' %}
-
       <img src="images/avatar.jpg" alt="my photo" class="avatar no-print" itemprop="image">
-
       {% endif %}
-
-
 
       <meta itemprop="name" content="{{ site.author.name }}" />
-
       <meta itemprop="givenName" content="{{ site.author.givenName}}" />
-
       <meta itemprop="additionalName" content="{{ site.author.additionalName }}" />
-
       {% for name in site.author.alternateName %}
-
           <meta itemprop="name" content="{{ name }}" />
-
       {% endfor %}
-
       {% for familyName in site.author.familyName %}
-
           <meta itemprop="familyName" content="{{ familyName }}" />
-
       {% endfor %}
-
       
-
       <h1 class="header-name" itemprop="alternateName">{{ site.resume_name }}</h1>
 
-
-
       {% if site.display_header_contact_info == 'true' %}
-
       <div class="header-contact-info">
-
         <p>
-
           {{ site.resume_header_contact_info }}
-
         </p>
-
       </div>
-
       {% endif %}
-
-
 
       <div class="title-bar no-print">
 
-
-
         <h2 class="header-title" itemprop="jobTitle">{{ site.resume_title }}</h2>
 
-
-
         {% include icon-links.html %}
-
       </div>
-
-
 
       <div class="executive-summary" itemprop="description">
-
         {{ site.resume_header_intro }}
-
       </div>
 
-
-
       {% if site.resume_looking_for_work == 'yes' %}
-
       <a href="mailto:{{ site.resume_contact_email }}" class="contact-button no-print" itemprop="email">Contact me</a>
-
       {% elsif site.resume_looking_for_work == 'no' %}
-
       <a class="contact-button not-looking no-print">I'm not looking for work right now.</a>
-
       {% else %}
-
       {% endif %}
-
-
 
     </header>
 
-
-
     {% if site.resume_section_experience %}
-
     <section class="content-section">
 
-
-
       <header class="section-header">
-
         <h2>Experience</h2>
-
       </header>
 
-
-
       {% for job in site.data.experience %}
-
       <div class="resume-item" itemscope itemprop="worksFor" itemtype="http://schema.org/Organization">
-
         <h3 class="resume-item-title" itemprop="name">{{ job.company }}</h3>
-
         <h4 class="resume-item-details" itemprop="description">{{ job.position }} &bull; {{ job.duration }}</h4>
-
         <p class="resume-item-copy">{{ job.summary }}</p>
-
       </div>{% endfor %}
 
-
-
     </section>
-
     {% endif %}
-
-
-
 
 
     {% if site.resume_section_education %}
-
     <section class="content-section">
-
       <header class="section-header">
-
         <h2>Education</h2>
-
       </header>
 
-
-
       {% for education in site.data.education %}
-
       <div class="resume-item" itemscope itemprop="alumniOf" itemtype="http://schema.org/CollegeOrUniversity">
-
         <h3 class="resume-item-title" itemprop="name">{{ education.uni }}</h3>
-
         <h4 class="resume-item-details group" itemprop="description">{{ education.degree }} &bull; {{ education.year }}</h4>
-
         <h5 class="resume-item-details award-title" itemprop="description">{{ education.award }}</h5>
-
         <p class="resume-item-copy" itemprop="description">
-
           <ul class="resume-item-list">
-
             {% for award in education.awards %}
-
             <li>{{ award.award }}</li>
-
             {% endfor %}
-
           </ul>
 
 
-
-
-
         <p class="resume-item-copy">{{ education.summary }}</p>
-
       </div>
-
       {% endfor %}
-
     </section>
-
     {% endif %}
 
-
-
     
-
     
-
     {% if site.resume_section_projects %}
-
     <section class="content-section">
-
       <header class="section-header">
-
         <h2 itemprop="knowsAbout">Publications</h2>
-
       </header>
-
-
 
       {% for project in site.data.projects %}
-
       <div class="resume-item" itemscope itemtype="http://schema.org/ScholarlyArticle" {% if project.id %}id="{{project.id}}"{% endif %} >
-
         <p class="resume-item-copy"><span class="publication-title" itemprop="name">{% if project.tweet %}
-
           <a itemprop="mainEntityOfPage" href="{{ project.tweet }}">
-
         {% endif %}{{ project.project }}{% if project.tweet %}</a>{% endif %}</span>{%
-
         if project.coauthor-list %}, with
-
             {% for coauthor in project.coauthor-list %}
-
             {% if forloop.first == false and forloop.last %}and{% endif %}
-
             <span itemprop="author" itemscope itemtype="http://schema.org/Person">
-
                 <meta itemprop="name" content="{{ site.data.coauthors[coauthor].full-name }}" />
-
                 {% if site.data.coauthors[coauthor].url %}<a href="{{ site.data.coauthors[coauthor].url }}" itemprop="url">{% endif %}
-
                 {{ site.data.coauthors[coauthor].name }}{%
-
                 if site.data.coauthors[coauthor].url %}</a>{% endif
-
               %}</span>{%
-
               if forloop.last == false %};{% endif
-
             %}{% endfor %}{% if project.journal %},{% endif
-
         %}{% else %}.{% endif %}
-
           <link itemprop="author" href="#me" />
-
         {% if project.journal %}<span itemscope itemprop="isPartOf" itemtype="http://schema.org/Periodical"><span itemprop="name">{{ project.journal }}</span></span
-
         >{% if project.volumenumber %}, <span itemscope itemprop="isPartOf" itemtype="http://schema.org/PublicationVolume"><span itemprop="volumeNumber">{{project.volumenumber}}</span></span
-
         >{% if project.issuenumber %}(<span itemscope itemprop="isPartOf" itemtype="http://schema.org/PublicationIssue"><span itemprop="issueNumber">{{project.issuenumber}}</span></span>){% else %}:{% endif %}{% endif
-
         %}{% if project.pagestart %}<span itemprop="pageStart">{{project.pagestart}}</span>-<span itemprop="pageEnd">{{project.pageend}}</span>{% endif
-
         %}{% if project.pagination %}<span itemprop="pagination">{{project.pagination}}</span>{% endif %}{% endif
-
         %}
-
         ({% if project.url %}<a
-
             href="{{ project.url }}" itemprop="url">{% if project.identifier %}<span itemprop="identifier">{{ project.identifier }}</span>{% else %}<span itemprop="url">{{ project.url }}</span>{% endif %}</a>,
-
         {% else %}{% if project.identifier %}<span itemprop="identifier">{{ project.identifier }}</span>,{% endif %}{% endif
-
         %}{% if project.year
-
             %}{% if project.note %}<span itemprop="datePublished">{{ project.year }}</span>, {{project.note}}{% else %}<span itemprop="datePublished">{{ project.year }}</span>{% endif
-
         %}{% else %}{{project.note}}{% endif %}{% if project.slides
-
           %}, <a itemprop="subjectOf" href="{{ project.slides }}">slides</a>{% endif %})
-
         </p>
-
       </div>
-
       {% endfor %}
 
-
-
     </section>
-
     {% endif %}
-
-
 
     {% if site.resume_section_skills %}
-
     <section class="content-section">
 
-
-
       <header class="section-header">
-
         <h2>Skills</h2>
-
       </header>
-
       {% for skill in site.data.skills %}
-
       <div class="resume-item">
-
         <h4 class="resume-item-details">{{ skill.skill }}</h4>
-
         <p class="resume-item-copy">{{ skill.description }}</p>
-
       </div>
-
       {% endfor %}
 
-
-
     </section>
-
     {% endif %}
-
-
 
     {% if site.resume_section_recognition %}
-
     <section class="content-section">
 
-
-
       <header class="section-header">
-
         <h2>Recognition</h2>
-
       </header>
-
-
 
       {% for recognition in site.data.recognitions %}
-
       <div class="resume-item">
-
         <h3 class="resume-item-title" itemprop="award">{{ recognition.award }}</h3>
-
         <h4 class="resume-item-details">{{ recognition.organization }} &bull; {{ recognition.year }}</h4>
-
         <p class="resume-item-copy">{{ recognition.summary }}</p>
-
       </div>
-
       {% endfor %}
 
-
-
     </section>
-
     {% endif %}
-
-
 
     {% if site.resume_section_associations %}
-
     <section class="content-section">
 
-
-
       <header class="section-header">
-
         <h2>Associations</h2>
-
       </header>
-
-
 
       {% for association in site.data.associations %}
-
       <div class="resume-item" itemscope itemprop="memberOf" itemtype="http://schema.org/Organization">
-
         <h3 class="resume-item-title" itemprop="name">{% if association.url %}<a href="{{ association.url }}">{{ association.organization }}</a>{% else %}{{ association.organization }}{% endif %}</h3>
-
         <h4 class="resume-item-details" itemprop="description">{{ association.role }} &bull; {{ association.year }}</h4>
-
         <p class="resume-item-copy">{{ association.summary }}</p>
-
       </div>
-
       {% endfor %}
 
-
-
     </section>
-
     {% endif %}
-
-
 
     {% if site.resume_section_interests %}
-
     <section class="content-section">
 
-
-
       <header class="section-header">
-
         <h2>Outside Interests</h2>
-
       </header>
 
-
-
       <div class="resume-item">
-
         <ul class="resume-item-list">
-
           {% for interest in site.data.interests %}
-
           <li>{{ interest.description }}</li>
-
           {% endfor %}
-
         </ul>
-
       </div>
 
-
-
     </section>
-
     {% endif %}
+{% if site.resume_section_links %}
+    <section class="content-section">
+      
+      <header class="section-header">
+        <h2 itemprop="knowsAbout">Collaborators</h2>
+      </header>
 
-
-
-    {% if site.resume_section_links %}
-
-    <section class="content-section">
-
-      
-
-      <header class="section-header">
-
-        <h2 itemprop="knowsAbout">Collaborators</h2>
-
-      </header>
-
-
-
-      <div class="resume-item">
-
-        <ul class="resume-item-list">
-
-          {% for coauthor_entry in site.data.coauthors %}
-
-          {% assign coauthor = coauthor_entry[1] %}
-
+      <div class="resume-item">
+        <ul class="resume-item-list">
+          {% for coauthor_entry in site.data.coauthors %}
+          {% assign coauthor = coauthor_entry[1] %}
+                  {% unless coauthor_entry[0] == 'ErikssonD' %} 
+          
+          <li>
+            {% if coauthor.url %}
+              <a href="{{ coauthor.url }}" target="_blank" rel="noopener noreferrer">
+                {{ coauthor.full-name | default: coauthor.name }}
+              </a>
+            {% else %}
+              {{ coauthor.full-name | default: coauthor.name }}
+            {% endif %}
+          </li>
+            {% endunless %} 
           
-
-          <li>
-
-            {% if coauthor.url %}
-
-              <a href="{{ coauthor.url }}" target="_blank" rel="noopener noreferrer">
-
-                {{ coauthor.full-name | default: coauthor.name }}
-
-              </a>
-
-            {% else %}
-
-              {{ coauthor.full-name | default: coauthor.name }}
-
-            {% endif %}
-
-          </li>
-
-          {% endfor %}
-
-        </ul>
-
-      </div>
-
-      
-
-    </section>
-
-    {% endif %}
-
+          {% endfor %}
+        </ul>
+      </div>
+      
+    </section>
+    {% endif %}
     
-
     
-
 <section class="content-section">
-
   <header class="section-header">
-
     <h2 itemprop="knowsAbout"> Research students</h2>
-
   </header>
 
-
-
   <div class="resume-item">
-
     <ul class="resume-item-list">
-
       {% for student in site.data.PhD %}
-
       <li>
-
         <p class="student-info">
-
           {% if student.url %}
-
             <a href="{{ student.url }}" target="_blank" rel="noopener noreferrer">
-
               <strong>{{ student.name }}</strong>
-
             </a>
-
           {% else %}
-
             <strong>{{ student.name }}</strong>
-
           {% endif %}
-
           
-
           {% if student.status_years %}
-
             <span class="student-years"> ({{ student.status_years }})</span>
-
           {% endif %}
-
         </p>
-
-
 
         {% if student.summary %}
-
           <p class="student-summary">
-
             {{ student.summary }}
-
           </p>
-
         {% endif %}
-
       </li>
-
       {% endfor %}
-
     </ul>
-
   </div>
-
 </section>
 
-
-
 <section class="content-section">
-
   <header class="section-header">
-
     <h2 itemprop="knowsAbout"> Master students</h2>
-
   </header>
 
-
-
   <div class="resume-item">
-
     <ul class="resume-item-list">
-
       {% for student in site.data.MasterStudents %}
-
       <li>
-
         <p class="student-info">
-
           {% comment %} Check if a URL exists, and wrap the name in a link if it does {% endcomment %}
-
           {% if student.url %}
-
             <a href="{{ student.url }}" target="_blank" rel="noopener noreferrer">
-
               <strong>{{ student.name }}</strong>
-
             </a>
-
           {% else %}
-
             <strong>{{ student.name }}</strong>
-
           {% endif %}
-
           
-
           {% comment %} Display status and years in a separate span {% endcomment %}
-
           {% if student.status_years %}
-
             <span class="student-years"> ({{ student.status_years }})</span>
-
           {% endif %}
-
         </p>
-
-
 
         {% comment %} Display the thesis summary if it exists {% endcomment %}
-
         {% if student.summary %}
-
           <p class="student-summary">
-
             {{ student.summary }}
-
           </p>
-
         {% endif %}
-
       </li>
-
       {% endfor %}
-
     </ul>
-
   </div>
-
 </section>
-
     
 
-
-
     {% if site.resume_print_social_links %}
-
     <section class="content-section print-only">
 
-
-
       <header class="section-header">
-
         <h2>More about me</h2>
-
       </header>
 
-
-
       <div class="resume-item">
-
       {% include print-social-links.html %}
-
       </div>
 
-
-
     </section>
-
     {% endif %}
 
-
-
     <footer class="page-footer">
-
       <p class="footer-line"><span itemscope itemtype="http://schema.org/Brand" itemprop="brand"><a href="https://mathstodon.xyz/@simonmyerson" itemprop="url"><span itemprop="name">Simon Myerson</span></a>, <span itemprop="slogan"><a rel="me" href="https://mathstodon.xyz/@simonmyerson">maths.fan</a></span></span>, template by <a href="https://github.com/jglovier/resume-template">jglovier</a>.</p>
-
     </footer>
 
-
-
   </div>
-
-
 
 </body>
 
-
-
 </html>
-
-To remove your own name from the list of collaborators, you need to add an unless condition inside the Liquid loop that checks the unique identifier for your entry (ErikssonD).
-
-The collaborator loop uses the key (the first item in the pair) to identify each person.
-
-✅ The Solution: Adding an unless Statement
-Locate the Collaborators section in your code and replace the existing loop block with the modified snippet below.
-
-The key change is adding {% unless coauthor_entry[0] == 'ErikssonD' %} at the start of the loop to skip that entry.
-
-Kodavsnitt
-    {% if site.resume_section_links %}
-    <section class="content-section">
-      
-      <header class="section-header">
-        <h2 itemprop="knowsAbout">Collaborators</h2>
-      </header>
-
-      <div class="resume-item">
-        <ul class="resume-item-list">
-          {% for coauthor_entry in site.data.coauthors %}
-          {% assign coauthor = coauthor_entry[1] %}
-          
-          {# ADD THIS LINE TO SKIP YOUR OWN ENTRY (KEY: ErikssonD) #}
-          {% unless coauthor_entry[0] == 'ErikssonD' %} 
-          
-          <li>
-            {% if coauthor.url %}
-              <a href="{{ coauthor.url }}" target="_blank" rel="noopener noreferrer">
-                {{ coauthor.full-name | default: coauthor.name }}
-              </a>
-            {% else %}
-              {{ coauthor.full-name | default: coauthor.name }}
-            {% endif %}
-          </li>
-          
-          {# ADD THIS LINE TO CLOSE THE CONDITION #}
-          {% endunless %} 
-          
-          {% endfor %}
-        </ul>
-      </div>
-      
-    </section>
-    {% endif %}

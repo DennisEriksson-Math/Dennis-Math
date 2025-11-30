@@ -291,6 +291,32 @@ onenote:https://livewarwickac-my.sharepoint.com/personal/u1972891_live_warwick_a
       <!-- end Links -->
       {% endif %}
       <!-- begin Links -->
+<section class="content-section">
+  <header class="section-header">
+    <h2 itemprop="knowsAbout">Collaborators</h2>
+  </header>
+
+  <div class="resume-item">
+    <ul class="resume-item-list">
+      {% for coauthor_entry in site.data.coauthors %}
+      {% assign coauthor = coauthor_entry[1] %}
+      
+      <li>
+        {% comment %} Display the full name, linked if a URL exists {% endcomment %}
+        {% if coauthor.url %}
+          <a href="{{ coauthor.url }}" target="_blank" rel="noopener noreferrer">
+            {{ coauthor.full-name | default: coauthor.name }}
+          </a>
+        {% else %}
+          {{ coauthor.full-name | default: coauthor.name }}
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+
       
 <section class="content-section">
   <header class="section-header">

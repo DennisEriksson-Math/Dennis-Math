@@ -146,7 +146,7 @@ resume_section_links:            true
 
 # Resume social links
 resume_social_links:
-  resume_cv_url:               "https://raw.githubusercontent.com/DennisEriksson-Math/Dennis-Math/a5141c05deb320faca96ed4f40dcc8a192fc5d40/CV-webpage.pdf" # Placeholder CV link
+  resume_cv_url:               "www.google.com" # Placeholder CV link
   resume_cv_tooltip:           "CV"
   # Placeholder for a relevant funding project (if applicable)
   # resume_funding_url:

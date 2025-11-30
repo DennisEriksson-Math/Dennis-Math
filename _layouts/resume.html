@@ -244,35 +244,39 @@
     {% endif %}
     
     
-    <section class="content-section">
-      <header class="section-header">
-        <h2 itemprop="knowsAbout"> Research students</h2>
-      </header>
+<section class="content-section">
+  <header class="section-header">
+    <h2 itemprop="knowsAbout"> Research students</h2>
+  </header>
 
-      <div class="resume-item">
-        <ul class="resume-item-list">
-          {% for student in site.data.PhD %}
-          <li>
-            <p class="student-info">
-              {% if student.url %}
-                <a href="{{ student.url }}" target="_blank" rel="noopener noreferrer">
-                  <strong>{{ student.description }}</strong>
-                </a>
-              {% else %}
-                <strong>{{ student.description }}</strong>
-              {% endif %}
-            </p>
+  <div class="resume-item">
+    <ul class="resume-item-list">
+      {% for student in site.data.PhD %}
+      <li>
+        <p class="student-info">
+          {% if student.url %}
+            <a href="{{ student.url }}" target="_blank" rel="noopener noreferrer">
+              <strong>{{ student.name }}</strong>
+            </a>
+          {% else %}
+            <strong>{{ student.name }}</strong>
+          {% endif %}
+          
+          {% if student.status_years %}
+            <span class="student-years"> ({{ student.status_years }})</span>
+          {% endif %}
+        </p>
 
-            {% if student.summary %}
-              <p class="student-summary">
-                {{ student.summary }}
-              </p>
-            {% endif %}
-          </li>
-          {% endfor %}
-        </ul>
-      </div>
-    </section>
+        {% if student.summary %}
+          <p class="student-summary">
+            {{ student.summary }}
+          </p>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
 
 
     <section class="content-section">

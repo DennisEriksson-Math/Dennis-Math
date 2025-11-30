@@ -1,5 +1,5 @@
 # Site settings
-url: "https://maths.fan" # Placeholder URL, update if you have one
+url: "https://denniseriksson-math.github.io/Dennis-Math/" # Placeholder URL, update if you have one
 title: "Dennis Eriksson"
 tagline: "Personal Page"
 description: "Publications, research interests, and information about my work in arithmetic, algebraic and complex geometry at Chalmers University of Technology and the University of Gothenburg."
@@ -39,7 +39,7 @@ resume_name:                   "Dennis Eriksson"
 resume_title:                  "Professor in Mathematics"
 
 # used for the contact button in _layouts/resume.html
-resume_contact_email:          "dennis [&#x430;t] chalmers.se" # Using the common format
+resume_contact_email:          "dener [&#x430;t] chalmers.se" # Using the common format
 
 # the next two items are used for schema itemprops in _layouts/resume.html
 # resume_contact_telephone:
@@ -113,7 +113,7 @@ resume_name:                   "Dennis Eriksson"
 resume_title:                  "Professor in Mathematics"
 
 # used for the contact button in _layouts/resume.html
-resume_contact_email:          "dennis [&#x430;t] chalmers.se" # Using the common format
+resume_contact_email:          "dener [&#x430;t] chalmers.se" # Using the common format
 
 # the next two items are used for schema itemprops in _layouts/resume.html
 # resume_contact_telephone:

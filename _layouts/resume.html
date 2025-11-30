@@ -236,9 +236,7 @@
               {{ coauthor.full-name | default: coauthor.name }}
             {% endif %}
           </li>
-          
-          {# ADD THIS LINE TO CLOSE THE CONDITION #}
-          {% endunless %} 
+            {% endunless %} 
           
           {% endfor %}
         </ul>

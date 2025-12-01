@@ -82,8 +82,8 @@ resume_section_links: true
 resume_social_links:
   resume_cv_url: "https://raw.githubusercontent.com/DennisEriksson-Math/Dennis-Math/a5141c05deb320faca96ed4f40dcc8a192fc5d40/CV-webpage.pdf" # Corrected CV link
   resume_cv_tooltip: "CV"
-  # resume_funding_url:
-  # resume_funding_tooltip:
+  resume_funding_url: "https://raw.githubusercontent.com/DennisEriksson-Math/Dennis-Math/a5141c05deb320faca96ed4f40dcc8a192fc5d40/CV-webpage.pdf"
+  resume_funding_tooltip: "CV"
   resume_work_url: "https://www.chalmers.se/en/persons/dener/" # Chalmers URL
   resume_work_tooltip: "My Chalmers Webpage"
   # resume_name_url:

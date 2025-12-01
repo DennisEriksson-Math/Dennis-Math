@@ -2,7 +2,7 @@
 # uncomment the urls if you wish to display them, and add your own URL
 
 
-  - project: "The Deligen-Riemann-Roch isomorphism"
+  - project: "The Deligne-Riemann-Roch isomorphism"
     id: DRR2
     coauthor-list:
       - FreixasG

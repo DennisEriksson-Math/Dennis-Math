@@ -45,7 +45,7 @@ resume_contact_email: "dener [&#x430;t] chalmers.se"
 # resume_contact_telephone:
 resume_contact_address: "Department of Mathematical Sciences, Chalmers University of Technology and the University of Gothenburg, Chalmers tvärgata 3, 412 58 Gothenburg, Sweden"
 
-resume_header_contact_info: "<span itemprop='knowsAbout'>Algebraic geometry</span> • <span itemprop='knowsAbout'>Arakelov theory </span> • <span itemprop='knowsAbout'> Complex geometry </span> • <span itemprop='worksFor'>Chalmers University of Technology and the University of Gothenburg&nbsp;University</span></p>
+resume_header_contact_info: "<span itemprop='knowsAbout'>Algebraic geometry</span> • <span itemprop='knowsAbout'>Arakelov theory </span> • <span itemprop='knowsAbout'> Complex geometry </span> </p>
     <p> Department&nbsp;of&nbsp;Mathematical&nbsp;Sciences •  Chalmers&nbsp;University&nbsp;of&nbsp;Technology and the&nbsp;University&nbsp;of&nbsp;Gothenburg  •  412&nbsp;58&nbsp;Gothenburg,&nbsp;Sweden • dener [&#x430;t] chalmers.se • he/him/his • Please call me Dennis"
 display_header_contact_info: "true"
 

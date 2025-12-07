@@ -50,14 +50,10 @@ resume_header_contact_info: "<span itemprop='knowsAbout'>Algebraic geometry</spa
 display_header_contact_info: "true"
 
 resume_header_intro: "<p>I am a Professor in Mathematics at Chalmers University of Technology and the University of Gothenburg.</p>
-<p> My work centers on Arithmetic and Complex Algebraic Geometry, focusing on Arakelov
-theory, singularity invariants, and connections to enumerative mirror symmetry.
-A primary contribution is the development of intersection theoretic methods in
-Arakelov geometry, including foundational work on the Deligne-Riemann-Roch isomorphism and BCOV invariants of Calabi–Yau manifolds. A recurring theme is understanding how analytic, arithmetic, and algebro-geometric structures reflect one another.
+    <h3>Research</h3>
+    <p>Arithmetic & complex algebraic geometry, Arakelov theory, BCOV invariants,
+    Calabi–Yau manifolds, singularities, mirror symmetry.</p>
 
-Future research will focus on applications of these techniques to open questions in
-the theory of singularities, related questions about moduli spaces, and enumerative
-geometry.  </p>
 <p>This page provides access to my research publications and related academic information.</p>"
 
 # Decide which sections to use (Based on your previous selection)

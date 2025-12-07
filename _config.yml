@@ -80,7 +80,7 @@ resume_section_links: true
 # Resume social links
 resume_social_links:
 #  resume_cv_url: "https://www.dropbox.com/scl/fi/0ypz9ayqd8uavflypkijn/CV-webpage.pdf?rlkey=70qmarcumlcv2x6oa4n6qvyfz&dl=0" # Corrected CV link
-  resume_cv_url: "https://www.dropbox.com/scl/fi/0ypz9ayqd8uavflypkijn/CV-webpage.pdf?rlkey=70qmarcumlcv2x6oa4n6qvyfz&e=1&raw=1"  
+  resume_cv_url: "https://www.dropbox.com/scl/fi/5j2wgyc0bu37u5rregowe/CV-webpage.pdf?rlkey=u8902pd9ldcdifcodwhi9x36c&raw=1"  
   resume_cv_tooltip: "CV"
   resume_funding_url: "https://raw.githubusercontent.com/DennisEriksson-Math/Dennis-Math/a5141c05deb320faca96ed4f40dcc8a192fc5d40/CV-webpage.pdf"
   resume_funding_tooltip: "CV"

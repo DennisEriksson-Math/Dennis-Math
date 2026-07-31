@@ -1,4 +1,6 @@
-_site
-.sass-cache
-.DS_Store
-_vendor
+# Local helper tools, not part of the website.
+# Rebuild the apps with: ~/ResearchOS/.venv/bin/python ~/ResearchOS/tools/make_git_apps.py
+publish-webpage.command
+update-webpage.command
+Publish Webpage.app/
+Update Webpage.app/

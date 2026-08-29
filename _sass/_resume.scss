@@ -161,6 +161,9 @@
 
   .icon {
     height: 28px;
+    width: auto;      // without this every icon is squeezed into a square box,
+                      // so the wide CV wordmark rendered at half height and the
+                      // narrow ones floated in empty space
   }
 
   &:not(:hover) .spotlight {
@@ -430,7 +433,7 @@
 
     &:hover { color: $ink; border-color: #8b8886; }
 
-    &[aria-selected="true"] {
+    &[aria-pressed="true"] {
       color: #fff;
       background: $ink;
       border-color: $ink;
@@ -843,6 +846,104 @@
   font-size: .68rem;
 }
 
+
+// Background
+// ---------------------------------------/
+// A single fixed layer behind everything. It is decorative, so it is hidden
+// from assistive technology, never printed, frozen for anyone who has asked for
+// reduced motion, and switchable off by the reader from the footer.
+
+.page-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.wrapper { position: relative; z-index: 1; }
+
+// Both variants are in the page; data-bg picks one. While it still says
+// "random" nothing is shown, so the choice never flashes before it is made.
+.bg-bubbles,
+.bg-lattice { display: none; }
+
+.page-bg[data-bg="bubbles"] .bg-bubbles,
+.page-bg[data-bg="lattice"] .bg-lattice { display: block; }
+
+// --- bubbles: soft discs drifting up ---
+.page-bg[data-bg="bubbles"] .bg-bubbles span {
+  position: absolute;
+  bottom: -30vh;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 30%,
+    rgba(63, 125, 90, .13), rgba(63, 125, 90, .05) 55%, rgba(63, 125, 90, 0) 72%);
+  animation: bg-rise linear infinite;
+  will-change: transform, opacity;
+
+  // seven lanes, each its own size, speed and phase, so the group never falls
+  // into a visible rhythm. Negative delays start them already in flight.
+  &:nth-child(1) { width: 22vmin; height: 22vmin; left:  5%; animation-duration: 30s; animation-delay:  -2s; }
+  &:nth-child(2) { width: 13vmin; height: 13vmin; left: 23%; animation-duration: 22s; animation-delay:  -9s; }
+  &:nth-child(3) { width: 28vmin; height: 28vmin; left: 45%; animation-duration: 38s; animation-delay:  -5s; }
+  &:nth-child(4) { width:  9vmin; height:  9vmin; left: 62%; animation-duration: 19s; animation-delay: -14s; }
+  &:nth-child(5) { width: 18vmin; height: 18vmin; left: 77%; animation-duration: 27s; animation-delay:  -7s; }
+  &:nth-child(6) { width:  7vmin; height:  7vmin; left: 90%; animation-duration: 16s; animation-delay: -18s; }
+  &:nth-child(7) { width: 15vmin; height: 15vmin; left: 33%; animation-duration: 33s; animation-delay: -23s; }
+}
+
+@keyframes bg-rise {
+  from { transform: translate3d(0, 0, 0) scale(.9); opacity: 0; }
+  12%  { opacity: 1; }
+  88%  { opacity: 1; }
+  to   { transform: translate3d(2vw, -150vh, 0) scale(1.12); opacity: 0; }
+}
+
+// --- lattice: a period lattice creeping diagonally ---
+.page-bg[data-bg="lattice"] .bg-lattice {
+  position: absolute;
+  inset: -80px;
+  background-image:
+    linear-gradient(to right,  rgba(63, 125, 90, .09) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(63, 125, 90, .09) 1px, transparent 1px);
+  background-size: 64px 64px;
+  animation: bg-drift 30s linear infinite;
+  will-change: transform;
+}
+
+@keyframes bg-drift {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-64px, -64px, 0); }
+}
+
+// --- the reader's off switch ---
+.bg-toggle {
+  @include sans;
+  display: block;
+  margin: .6rem auto 0;
+  padding: .15rem .2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: .7rem;
+  letter-spacing: .06em;
+  color: #b0b0b0;
+  @include transition(color .2s ease);
+
+  &:hover { color: $accent; }
+}
+
+// Off, whether the reader asked or their system did.
+.bg-off .page-bg { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .page-bg[data-bg="bubbles"] .bg-bubbles span,
+  .page-bg[data-bg="lattice"] .bg-lattice { animation: none; }
+}
+
+@media print {
+  .page-bg { display: none !important; }
+}
 
 .print-only { display: none !important }
 

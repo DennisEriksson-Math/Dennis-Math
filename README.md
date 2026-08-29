@@ -136,6 +136,43 @@ is linked at the top of the tab.
 Publications and supervised students are deliberately *not* repeated in the CV
 tab, since they have their own sections and would otherwise drift out of step.
 
+## The background
+
+`resume_background` in `_config.yml` controls what sits behind the page:
+
+| value | |
+| --- | --- |
+| `random` | one of the below, chosen afresh on every visit &mdash; bubbles 40%, lattice 40%, nothing 20% |
+| `bubbles` | soft translucent discs drifting slowly upward |
+| `lattice` | a faint period lattice creeping diagonally |
+| `none` | nothing, ever |
+
+It is decorative only: hidden from screen readers, never printed, and frozen for
+anyone whose system asks for reduced motion. A **Hide background** control in the
+footer lets any reader switch it off, and that choice is remembered on their
+machine.
+
+## Accessibility
+
+The section tabs are wired to their panels (`aria-controls` on each tab,
+`role="tabpanel"` and `aria-labelledby` on each panel), so a screen reader
+announces which tab opened what. The CV section is reached from the icon rather
+than a tab, so it is a labelled region instead.
+
+The publication filters are toggle buttons (`aria-pressed`), not tabs &mdash;
+they narrow one list rather than swapping panels.
+
+## A note on caching
+
+The stylesheet, scripts and favicon are all requested with `?v=<build time>`
+appended. GitHub Pages tells browsers to cache assets for ten minutes, which
+means someone who visited just before you published could otherwise load the new
+HTML with the *old* stylesheet &mdash; the page then appears unstyled, with plain
+grey browser buttons. The version stamp changes on every build, so that pairing
+can no longer happen.
+
+If a page ever does look unstyled, a hard reload (Cmd+Shift+R) settles it.
+
 ## Publishing
 
 Double-click **Update Webpage** to pull the latest version, and **Publish Webpage**

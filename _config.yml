@@ -120,6 +120,16 @@ resume_print_social_links: true
 # Design settings
 resume_theme: default
 
+# Background behind the page. One of:
+#   random   - one of the below, chosen afresh on each visit
+#              (bubbles 40%, lattice 40%, nothing 20%)
+#   bubbles  - soft translucent discs drifting slowly upward
+#   lattice  - a faint period lattice creeping diagonally
+#   none     - nothing, ever
+# Visitors can switch it off for themselves with the control in the footer,
+# and it never animates for anyone who has asked for reduced motion.
+resume_background: random
+
 # Note: when editing locally, remember to restart
 # your Jekyll server when you edit this file. Changes
 # to _config.yml are only recognized when the server starts

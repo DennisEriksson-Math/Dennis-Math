@@ -101,7 +101,8 @@
     function applyFilter(which) {
       var shown = 0;
       filterButtons.forEach(function (b) {
-        b.setAttribute('aria-selected', String(b.getAttribute('data-filter') === which));
+        // pressed, not selected: these are toggles over one list, not tabs
+        b.setAttribute('aria-pressed', String(b.getAttribute('data-filter') === which));
       });
       pubs.forEach(function (p) {
         var match = (which === 'all') || (p.getAttribute('data-status') === which);
@@ -116,6 +117,38 @@
         applyFilter(b.getAttribute('data-filter'));
       });
     });
+
+    // ---- background: pick one, then let the reader switch it off ----
+    var bgLayer = document.querySelector('.page-bg');
+    var bgToggle = document.getElementById('bg-toggle');
+
+    // "random" resolves here rather than at build time, so the page is not the
+    // same every visit. Nothing is weighted heavily: a fifth of the time the
+    // page is simply plain.
+    if (bgLayer && bgLayer.getAttribute('data-bg') === 'random') {
+      var roll = Math.random();
+      var pick = roll < 0.4 ? 'bubbles' : (roll < 0.8 ? 'lattice' : 'none');
+      bgLayer.setAttribute('data-bg', pick);
+      // with nothing to look at, an off switch is just noise
+      if (pick === 'none' && bgToggle) bgToggle.hidden = true;
+    }
+
+    if (bgToggle && !bgToggle.hidden) {
+      var KEY = 'dm-background';
+      var setBg = function (on) {
+        document.documentElement.classList.toggle('bg-off', !on);
+        bgToggle.setAttribute('aria-pressed', String(!on));
+        bgToggle.textContent = on ? 'Hide background' : 'Show background';
+      };
+      var stored = null;
+      try { stored = localStorage.getItem(KEY); } catch (e) { /* private mode */ }
+      setBg(stored !== 'off');
+      bgToggle.addEventListener('click', function () {
+        var nowOn = document.documentElement.classList.contains('bg-off');
+        setBg(nowOn);
+        try { localStorage.setItem(KEY, nowOn ? 'on' : 'off'); } catch (e) {}
+      });
+    }
 
     // ---- deep links ----
     // #students opens that tab; #some-paper-id opens Publications and jumps to it.

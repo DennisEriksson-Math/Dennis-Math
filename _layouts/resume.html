@@ -5,6 +5,14 @@
 
 <body class="theme-{% if site.resume_theme %}{{ site.resume_theme }}{% endif %}" onload = "startTimer();">
 
+  {% assign bg = site.resume_background | default: 'none' %}
+  {% if bg != 'none' %}
+  <div class="page-bg" data-bg="{{ bg }}" aria-hidden="true">
+    <div class="bg-bubbles"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="bg-lattice"></div>
+  </div>
+  {% endif %}
+
   <div class="wrapper" itemscope itemid="#me" itemtype="http://schema.org/Person">
     {% if site.resume_contact_telephone %}<meta itemprop="telephone" content="{{ site.resume_contact_telephone }}"/>{% endif %}
     <meta itemprop="address" content="{{ site.resume_contact_address }}"/>
@@ -47,9 +55,9 @@
       <div class="title-bar no-print">
 
         <nav class="section-nav" role="tablist" aria-label="Sections">
-          <button type="button" role="tab" class="section-nav-item" data-target="publications" aria-selected="true">Publications</button>
-          <button type="button" role="tab" class="section-nav-item" data-target="collaborators" aria-selected="false">Collaborators</button>
-          <button type="button" role="tab" class="section-nav-item" data-target="students" aria-selected="false">Students</button>
+          <button type="button" role="tab" id="tab-publications" class="section-nav-item" data-target="publications" aria-controls="panel-publications" aria-selected="true">Publications</button>
+          <button type="button" role="tab" id="tab-collaborators" class="section-nav-item" data-target="collaborators" aria-controls="panel-collaborators" aria-selected="false">Collaborators</button>
+          <button type="button" role="tab" id="tab-students" class="section-nav-item" data-target="students" aria-controls="panel-students" aria-selected="false">Students</button>
         </nav>
 
         {% include icon-links.html %}
@@ -80,18 +88,18 @@
     {% assign accepted   = site.data.projects | where: "status", "accepted" %}
     {% assign published  = site.data.projects | where: "status", "published" %}
 
-    <div class="tab-panel" data-panel="publications">
+    <div class="tab-panel" id="panel-publications" data-panel="publications" role="tabpanel" aria-labelledby="tab-publications" tabindex="0">
 
     <section class="content-section">
       <header class="section-header">
         <h2 itemprop="knowsAbout">Publications</h2>
       </header>
 
-      <div class="pub-filters no-print" role="tablist" aria-label="Filter publications">
-        <button type="button" role="tab" class="pub-filter" data-filter="all"       aria-selected="true">All {{ site.data.projects | size }}</button>
-        <button type="button" role="tab" class="pub-filter" data-filter="submitted" aria-selected="false">Submitted {{ submitted | size }}</button>
-        <button type="button" role="tab" class="pub-filter" data-filter="accepted"  aria-selected="false">Accepted {{ accepted | size }}</button>
-        <button type="button" role="tab" class="pub-filter" data-filter="published" aria-selected="false">Published {{ published | size }}</button>
+      <div class="pub-filters no-print" role="group" aria-label="Filter publications by status">
+        <button type="button" class="pub-filter" data-filter="all"       aria-pressed="true">All {{ site.data.projects | size }}</button>
+        <button type="button" class="pub-filter" data-filter="submitted" aria-pressed="false">Submitted {{ submitted | size }}</button>
+        <button type="button" class="pub-filter" data-filter="accepted"  aria-pressed="false">Accepted {{ accepted | size }}</button>
+        <button type="button" class="pub-filter" data-filter="published" aria-pressed="false">Published {{ published | size }}</button>
       </div>
 
       {% for project in site.data.projects %}
@@ -149,7 +157,7 @@
 
 
     {% comment %} ---------- Collaborators ---------- {% endcomment %}
-    <div class="tab-panel" data-panel="collaborators" hidden>
+    <div class="tab-panel" id="panel-collaborators" data-panel="collaborators" role="tabpanel" aria-labelledby="tab-collaborators" tabindex="0" hidden>
       <section class="content-section">
         <header class="section-header">
           <h2 itemprop="knowsAbout">Collaborators</h2>
@@ -169,7 +177,7 @@
 
 
     {% comment %} ---------- Students ---------- {% endcomment %}
-    <div class="tab-panel" data-panel="students" hidden>
+    <div class="tab-panel" id="panel-students" data-panel="students" role="tabpanel" aria-labelledby="tab-students" tabindex="0" hidden>
       <section class="content-section">
         <header class="section-header">
           <h2 itemprop="knowsAbout">PhD students</h2>
@@ -212,7 +220,7 @@
 
 
     {% comment %} ---------- CV ---------- {% endcomment %}
-    <div class="tab-panel" data-panel="cv" hidden>
+    <div class="tab-panel" id="panel-cv" data-panel="cv" role="region" aria-label="Curriculum vitae" tabindex="0" hidden>
       <section class="content-section">
         <header class="section-header">
           <h2>Curriculum vitae</h2>
@@ -277,11 +285,14 @@
 
     <footer class="page-footer">
       <p class="footer-line"><span itemscope itemtype="http://schema.org/Brand" itemprop="brand"><a href="{{ '/' | absolute_url }}" itemprop="url"><span itemprop="name">Dennis Eriksson</span></a>, <span itemprop="slogan"><a rel="me" href="{{ '/' | absolute_url }}">denniseriksson-math.github.io</a></span></span>, template by <a href="https://github.com/jglovier/resume-template">jglovier</a>.</p>
+      {% if bg != 'none' %}
+      <button type="button" class="bg-toggle no-print" id="bg-toggle" aria-pressed="false">Hide background</button>
+      {% endif %}
     </footer>
 
   </div>
 
-  <script src="{{ '/scripts/tabs.js' | relative_url }}"></script>
+  <script src="{{ '/scripts/tabs.js' | relative_url }}?v={{ site.time | date: '%s' }}"></script>
 </body>
 
 </html>

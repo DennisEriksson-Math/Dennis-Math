@@ -675,17 +675,6 @@
   margin: 1.6rem 0 0;
 }
 
-// On a phone the tabs get out of the way and every section simply stacks,
-// which is the natural way to read a long page on a small screen. The desktop
-// keeps the tabs, where a single 19-item scroll is the thing worth avoiding.
-@include media_mobile {
-  .section-nav { display: none; }
-  .tab-panel[hidden] { display: block !important; }
-
-  // with the nav hidden, the icon row's own rule would sit right under the
-  // title bar's and read as a doubled line
-  .icon-links { border-top: none; padding-top: 0; }
-}
 
 // Using the extra width on a computer screen
 // ---------------------------------------/

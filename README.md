@@ -27,12 +27,13 @@ Under the header there is one ruled bar: the section tabs on the left
 (Publications / Collaborators / Students / CV) and the icon links on the right.
 Inside Publications, a row of filter buttons narrows the list by status.
 
-The page changes shape with the window, which needs no maintenance:
+The tabs work the same at every width &mdash; one section at a time, on a phone
+as on a laptop. What changes with the window is how much room the content gets:
 
 | Window width | What happens |
 | --- | --- |
-| under 600px (phone) | tabs disappear, every section stacks into one long scroll, one column |
-| 600&ndash;900px | tabs appear, column stays 683px |
+| under 600px (phone) | one column; the tab row wraps to two lines on very narrow screens |
+| 600&ndash;900px | column 683px |
 | 900&ndash;1200px | column widens to 810px, collaborators in 2 columns |
 | over 1200px | column widens to 920px, collaborators in 3 columns, students in 2 |
 

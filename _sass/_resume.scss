@@ -9,9 +9,12 @@
 
   h2 {
     @include sans;
-    font-weight: 900;
-    fonticon-li-size: 1.7rem;
-    letter-spacing: -.05rem;
+    font-weight: 700;
+    font-size: 1.35rem;
+    line-height: 1.9rem;
+    letter-spacing: -.005rem;
+    color: $accent;
+    text-align: center;
     margin: 0;
   }
 }
@@ -31,6 +34,7 @@
 
   .avatar {
     width: 95px;
+    height: auto;
     max-width: 100%;
     overflow: hidden;
     @include border-radius(100px);
@@ -41,11 +45,22 @@
   .header-name {
     @include sans;
     font-size: 3rem;
-    font-weight: 900;
+    font-weight: 800;
     text-align: center;
-    letter-spacing: -.15rem;
+    letter-spacing: -.06rem;
     line-height: 1;
     margin: 1rem 0 0;
+  }
+
+  .header-jobtitle {
+    @include sans;
+    font-weight: 300;
+    font-size: 1.25rem;
+    line-height: 1.6rem;
+    letter-spacing: -.03rem;
+    text-align: center;
+    color: $ink;
+    margin: .5rem 0 .35rem;
   }
 
   .header-contact-info {
@@ -76,10 +91,16 @@
   .title-bar {
     @include section_border;
     @include sans;
-    margin-top: 2rem;
+    margin-top: .7rem;
     padding: .4rem 0;
     @include clearfix;
-    @include media_larger_than_mobile { padding: .5rem 0; }
+    @include media_larger_than_mobile {
+      padding: .5rem 0 1.65rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
     
 //    .social-links-info {
 //      float:left;
@@ -113,7 +134,7 @@
   }
   
   p a {
-      color: #333;
+      color: $ink;
       text-decoration: none;
       border-bottom: 1px solid;
 
@@ -131,6 +152,10 @@
   position: relative;
   top: 4px;
   text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: $icon-gap;
   border-top: 2px solid #c7c7c7;
   padding-top: .4rem;
 
@@ -156,11 +181,20 @@
     border-top: none;
     padding-top: 0;
     margin: 0;
+    white-space: nowrap;   // the icon row is never allowed to break in two
+    flex-shrink: 0;
   }
 
   .icon-link-item {
-    display: inline-block;
-    margin-left: 5px;
+    display: inline-flex;
+    align-items: center;
+    // matches .section-nav-item exactly, so tabs and icons mark themselves
+    // the same way
+    padding: .15rem 0;
+    border-bottom: 2px solid transparent;
+    @include transition(border-color .2s ease);
+
+    &:hover { border-bottom-color: $accent; }
   }
 
   .icon-link {
@@ -174,12 +208,14 @@
     }
     
     &:hover .icon path {
-      fill: #333;
+      fill: $ink;
       @include transition(all .2s ease);
     }
 
     .tooltiptext {
       white-space: nowrap;
+      font-size: .7rem;
+      line-height: 1;
       visibility: hidden;
       opacity: 0;
       color: #ccc;
@@ -199,30 +235,18 @@
       margin-left: -100px;
       
       @include media_larger_than_mobile {
-        padding: 5px 10px;
-        top: -5px;
-        right: 110%;
-        width:auto;
-        margin-left: auto;
-        left: auto;
+        // sits under the icon row: to its left is now the section nav
+        padding: 6px 0 0;
+        top: 100%;
+        right: auto;
+        left: 50%;
+        width: auto;
+        margin-left: 0;
+        transform: translateX(-50%);
       }
     }
     
-    @include media_larger_than_mobile {
-       .tooltiptext::after {
-        content: " ";
-        position: absolute;
-        top: 50%;
-        left: 100%; /* To the right of the tooltip */
-        margin-top: -5px;
-        border-width: 5px;
-        border-style: solid;
-        border-color: transparent transparent transparent #ccc;
-      }
-      &:hover .tooltiptext::after {
-        border-color: transparent transparent transparent #c7c7c7;
-      }
-    }
+
 
     /* Show the tooltip text when you mouse over the tooltip container */
     &:hover .tooltiptext {
@@ -245,12 +269,12 @@
   width: 220px;
   font-size: 1.375rem;
   @include sans_light;
-  color: #333;
+  color: $ink;
   line-height: 55px;
   @include transition(all .2s ease);
 
   &:hover {
-    background-color: #333;
+    background-color: $ink;
     color: #fff;
   }
 
@@ -291,15 +315,17 @@
   .resume-item-details,
   .resume-item-copy,
   .resume-item-list {
+    // Names are set in the accent green at normal weight with no underline.
+    // Bold black plus a rule under every name turned each list into a wall of
+    // heavy strokes; colour carries the same "this is a link" signal quietly.
     a {
-      color: #333;
+      color: $accent;
+      font-weight: 400;
       text-decoration: none;
-      border-bottom: 1px solid;
+      border-bottom: 1px solid transparent;
+      @include transition(border-color .2s ease);
 
-      &:hover {
-        border-bottom: none;
-        color: #9c9c9c;
-      }
+      &:hover { border-bottom-color: $accent; }
     }
     .publication-title {
       @include sans_bold;
@@ -307,7 +333,7 @@
       a {
         border-bottom: none;
         &:hover {
-          color: #333;
+          color: $ink;
         }
       }
     }
@@ -330,11 +356,493 @@
     color: #999;
 
     a {
-     font-weight: 700;
-     color: #999;
+      font-weight: 400;
+      color: #8a8a8a;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      @include transition(border-color .2s ease);
+
+      &:hover { border-bottom-color: #b3b3b3; }
     }
   }
 }
+
+// Section tabs, publication filters and the arXiv / DOI links
+// ---------------------------------------/
+
+[hidden] { display: none !important; }
+
+.section-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: $tab-gap;
+  @include media_larger_than_mobile {
+    // spread across the space to the left of the icons, so the gaps between
+    // tabs are equal rather than only as wide as the words allow
+    flex: 1;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    max-width: 26rem;
+  }
+
+  .section-nav-item {
+    @include sans;
+    font-size: .72rem;
+    white-space: nowrap;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    color: #767676;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: .15rem 0;
+    margin: 0;
+    cursor: pointer;
+    @include transition(color .2s ease);
+
+    &:hover { color: $ink; }
+
+    &[aria-selected="true"] {
+      color: $ink;
+      font-weight: 700;
+      border-bottom-color: $accent;
+    }
+  }
+}
+
+.pub-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+  margin: -.5rem 0 1.4rem;
+
+  .pub-filter {
+    @include sans;
+    font-size: .75rem;
+    color: #767676;
+    background: none;
+    border: 1px solid #c7c7c7;
+    border-radius: 11px;
+    padding: .2rem .75rem;
+    cursor: pointer;
+    @include transition(all .2s ease);
+
+    &:hover { color: $ink; border-color: #8b8886; }
+
+    &[aria-selected="true"] {
+      color: #fff;
+      background: $ink;
+      border-color: $ink;
+    }
+  }
+}
+
+.publication.is-filtered-out { display: none; }
+
+.pub-empty {
+  @include sans;
+  font-size: .875rem;
+  color: #999;
+}
+
+// A publication entry is a title and one quiet line of everything else.
+// The old version ran it all together as one sentence in which every co-author
+// was underlined, so each entry was a row of competing underlines with no
+// hierarchy - which is what made the list hard to read.
+
+.publication {
+  margin: 0 0 1.15rem;
+}
+
+.publication-title {
+  @include sans;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: 0;
+  color: $ink;
+  margin: 0;
+}
+
+.publication-meta {
+  @include sans;
+  font-size: .82rem;
+  line-height: 1.55;
+  color: #6f6f6f;
+  margin: .1rem 0 0;
+  overflow-wrap: break-word;   // a DOI is one long unbreakable token
+
+  // one faint dot between each piece, added by the stylesheet so the template
+  // never has to work out which separators it needs
+  > span + span::before {
+    content: "\00b7";
+    margin: 0 .4rem;
+    color: #c9c9c9;
+  }
+
+  // co-author names take the accent, like every other name on the page
+  .pub-authors a {
+    color: $accent;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    @include transition(border-color .2s ease);
+
+    &:hover { border-bottom-color: $accent; }
+  }
+
+  // arXiv and DOI stay quiet: they are reference numbers, not names, and
+  // colouring them too would leave the line almost entirely green
+  a.pub-link {
+    color: #6f6f6f;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    @include transition(all .2s ease);
+
+    &:hover { color: $ink; border-bottom-color: #b3b3b3; }
+  }
+}
+
+.pub-journal {
+  font-style: italic;
+  color: $accent;
+}
+
+.pub-note { font-style: italic; }
+
+.pub-link {
+  font-variant-numeric: tabular-nums;
+}
+
+// Printing must never be affected by which tab happens to be open:
+// reveal every panel and every filtered-out publication.
+@media print {
+  .tab-panel[hidden] { display: block !important; }
+  .publication.is-filtered-out { display: block !important; }
+  .publication-meta a {
+    color: $ink;
+    border-bottom: none;
+  }
+  .fold-panel,
+  .fold-panel.is-collapsed {
+    display: block !important;
+    height: auto !important;
+    padding-top: 0 !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .header-jobtitle { font-size: 1rem; margin: .2rem 0; }
+}
+
+// Curriculum vitae tab
+// ---------------------------------------/
+// $cv-accent is sampled straight out of CV-webpage.pdf, so the web CV reads as
+// the same document. At 3.03:1 on white it clears the 3:1 that large bold text
+// needs, which is the only place it is used for type. It is defined, together
+// with the site's $accent green, in _variables.scss.
+
+.cv-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: .9rem;
+  margin: -.5rem 0 1.5rem;
+}
+
+.cv-pdf {
+  @include sans;
+  font-size: .875rem;
+  color: $ink;
+  background: #efefef;
+  border-radius: 3px;
+  padding: .45rem 1rem;
+  text-decoration: none;
+  @include transition(all .2s ease);
+
+  &:hover { background: $cv-accent; color: #fff; }
+}
+
+.cv-updated {
+  @include sans;
+  font-size: .8rem;
+  color: #999;
+}
+
+.cv-summary { margin: 0 0 1.7rem; }
+
+.cv-aside {
+  display: grid;
+  gap: 1.4rem;
+  margin: 0 0 1.9rem;
+  @include media_larger_than_mobile { grid-template-columns: 1.7fr 1fr; }
+}
+
+.cv-heading {
+  @include sans;
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: 0;
+  color: $ink;
+  margin: 0 0 .75rem;
+
+  .cv-accent { color: $cv-accent; }
+}
+
+.cv-languages {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: .55rem;
+    margin: 0 0 .35rem;
+  }
+}
+
+.cv-lang-name {
+  @include sans;
+  font-size: .82rem;
+  font-weight: 700;
+  color: $ink;
+  min-width: 5rem;
+}
+
+.cv-dots { display: inline-flex; gap: 3px; }
+
+.cv-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #dcdcdc;
+
+  &.on { background: $cv-accent; }
+}
+
+.cv-block { margin: 0 0 2rem; }
+
+.cv-entry {
+  display: grid;
+  gap: .15rem 1rem;
+  margin: 0 0 .9rem;
+  @include media_larger_than_mobile { grid-template-columns: 7.5rem 1fr; }
+}
+
+.cv-when {
+  @include sans;
+  font-size: .8rem;
+  color: #767676;
+  line-height: 1.45rem;
+  @include media_larger_than_mobile { text-align: right; }
+}
+
+.cv-body { min-width: 0; }
+
+.cv-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: .4rem 1rem;
+  margin: 0;
+}
+
+.cv-what {
+  @include sans;
+  font-weight: 600;
+  font-size: .95rem;
+  line-height: 1.5;
+  color: $ink;
+}
+
+.cv-where {
+  @include sans;
+  font-size: .75rem;
+  color: #999;
+  text-align: right;
+}
+
+.cv-detail { margin: .1rem 0 0; }
+
+.cv-footnote {
+  @include sans;
+  font-size: .8rem;
+  color: #999;
+  margin: 1.6rem 0 0;
+}
+
+// On a phone the tabs get out of the way and every section simply stacks,
+// which is the natural way to read a long page on a small screen. The desktop
+// keeps the tabs, where a single 19-item scroll is the thing worth avoiding.
+@include media_mobile {
+  .section-nav { display: none; }
+  .tab-panel[hidden] { display: block !important; }
+
+  // with the nav hidden, the icon row's own rule would sit right under the
+  // title bar's and read as a doubled line
+  .icon-links { border-top: none; padding-top: 0; }
+}
+
+// Using the extra width on a computer screen
+// ---------------------------------------/
+// The container grows (see .wrapper in _base.scss); these rules decide what
+// each block does with the room, rather than just letting every line get longer.
+
+// Prose stays at a comfortable measure no matter how wide the window is.
+.executive-summary,
+.cv-summary,
+.cv-detail {
+  max-width: 40rem;
+}
+
+// Plain name lists are the one thing that genuinely wants more columns.
+.tab-panel[data-panel="collaborators"] .resume-item-list {
+  @include media_larger_than_mobile { columns: 2; column-gap: 2.5rem; }
+  @include media_min(1200px)        { columns: 3; }
+
+  li { break-inside: avoid; }
+}
+
+// Students carry a thesis title each, so two columns is the sensible maximum
+// and only once there is really room for it.
+.tab-panel[data-panel="students"] .resume-item-list {
+  @include media_min(1200px) { columns: 2; column-gap: 2.5rem; }
+
+  li { break-inside: avoid; margin-bottom: .6rem; }
+}
+
+// The CV's year gutter can afford to be roomier on a wide screen.
+@include media_min(1200px) {
+  .cv-entry { grid-template-columns: 9rem 1fr; }
+}
+
+// Everything under the name - job title, affiliation, contact line, About me -
+// folds into one panel. It is open when you arrive, closes itself the first time
+// you go to another section, and after that the button under the name is in
+// charge. It shrinks away rather than blinking out, so it is clear that it left.
+
+.fold-panel {
+  overflow: hidden;
+  padding-top: .2rem;
+  transform-origin: top center;
+  transition: opacity .3s ease, transform .35s ease, height .38s ease,
+              margin .38s ease, padding .38s ease;
+}
+
+.fold-panel.is-collapsed {
+  opacity: 0;
+  transform: scale(.97);
+  height: 0;
+  padding-top: 0;      // height:0 does not remove padding, which left a sliver
+  margin-top: 0;
+  margin-bottom: 0;
+  pointer-events: none;
+}
+
+.fold-toggle {
+  @include sans;
+  display: flex;
+  align-items: center;
+  gap: .35rem;
+  margin: .8rem auto .1rem;
+  padding: .2rem .1rem;
+  line-height: 1;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: .72rem;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: #8a8a8a;
+  @include transition(color .2s ease);
+
+  &:hover { color: $accent; }
+}
+
+// a chevron drawn from borders, so there is no glyph to go missing
+.fold-chevron {
+  width: 6px;
+  height: 6px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(-135deg);      // points up while the panel is open
+  position: relative;
+  top: 2px;
+  @include transition(transform .3s ease);
+}
+
+.fold-toggle[aria-expanded="false"] .fold-chevron {
+  transform: rotate(45deg);        // points down: there is more to see
+  top: -1px;
+}
+
+.executive-summary {
+  // wide enough for the one-line bullets; prose inside is held narrower below
+  max-width: 46rem;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+
+  p {
+    max-width: 34rem;      // a comfortable measure for centred prose
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  // The prose stays centred under the centred name block, but a list needs a
+  // straight left edge to read as a list, so it gets its own aligned column.
+  ul {
+    list-style: none;
+    max-width: 42rem;
+    margin: 0 auto;
+    padding: 0;
+    text-align: left;
+  }
+
+  // only needs separating when there is prose above it
+  p + ul { margin-top: 1.1rem; }
+
+  li {
+    position: relative;
+    padding-left: 1.4rem;
+    margin: 0 0 .5rem;
+
+    &::before {
+      content: "\00bb";              // a guillemet, in the accent
+      position: absolute;
+      left: 0;
+      top: -.05em;
+      color: $accent;
+      font-weight: 700;
+    }
+  }
+
+  h3 {
+    @include sans;
+    font-weight: 700;
+    font-size: 1.15rem;
+    letter-spacing: 0;
+    color: $accent;
+    text-align: center;
+    margin: 0 0 .6rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fold-panel { transition: none; }
+}
+
+// A student without a homepage still reads as a name, just not as a link.
+.student-name { color: $ink; }
+
+// The About me control sits off to one side rather than as a centred row of its
+// own: it is a small switch, and it was taking the visual weight of a heading.
+#about-toggle {
+  margin: .25rem 0 0 auto;   // hard right, almost no vertical footprint
+  font-size: .68rem;
+}
+
 
 .print-only { display: none !important }
 

@@ -8,8 +8,13 @@ $grid-gutter:     10px !default;
 $white:             #fff;
 $black:             #333;
 
+// Body text is a near-black carrying a faint green cast rather than a flat
+// neutral, so it belongs to the same family as $accent instead of sitting
+// beside it. The difference is barely nameable and that is the point.
+$ink:               #2b322d;
+
 // Styles
-$text_color:        $black;
+$text_color:        $ink;
 
 // Font stack
 $body-font: Helvetica, arial, nimbussansl, liberationsans, freesans, clean, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol" !default;
@@ -19,3 +24,18 @@ $body-font-size: 13px !default;
 
 // Monospace font stack
 $mono-font: Consolas, "Liberation Mono", Menlo, Courier, monospace !default;
+
+// Accents
+// ---------------------------------------/
+// The CV keeps the ochre sampled from CV-webpage.pdf. The rest of the site uses
+// a green chosen to sit beside it (hue 146 against the ochre's 31, same muted
+// feel, 4.89:1 on white so it works as text and not only as a marker).
+// Change $accent here and every tab marker, icon hover and highlight follows.
+
+$accent:    #3f7d5a;
+$cv-accent: #cc8437;
+
+// Spacing shared by the section tabs and the icon row, so the two read as one
+// system. The icons are visually wider, so they sit a little tighter.
+$tab-gap:  1.1rem;
+$icon-gap: .75rem;

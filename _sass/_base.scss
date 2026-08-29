@@ -25,6 +25,13 @@ body{
   padding: 0 24px;
   margin: 0 auto;
   zoom: 1;
+
+  // A phone gets one narrow column. A laptop has room going spare on both
+  // sides, so the column widens - but only as far as a line of prose stays
+  // comfortable to read. Individual blocks below use the extra width in the
+  // way that suits them (more columns, hanging indents).
+  @include media_min(900px)  { max-width: 810px; }
+  @include media_min(1200px) { max-width: 920px; }
 }
 
 // clearfix (now called group,

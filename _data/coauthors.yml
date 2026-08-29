@@ -1,9 +1,13 @@
+# Co-authors, keyed by the tag used in _data/projects.yml.
+#
+# Kept in alphabetical order by surname - the Collaborators tab lists them
+# in exactly the order they appear in this file, so add new people in place.
 
   AnderssonM:
     name: "Andersson, M."
     full-name: "Mats Andersson"
     url: "https://www.chalmers.se/en/persons/matsa/"
-  
+
   BoucksomS:
     name: "Boucksom, S."
     full-name: "Sébastien Boucksom"
@@ -14,62 +18,62 @@
     full-name: "Gerard Freixas i Montplet"
     url: "https://perso.pages.math.cnrs.fr/users/gerard.freixas/"
 
-  SamuelssonH:
-    name: "Samuelsson Kalm, H."
-    full-name: "Håkan Samuelsson Kalm"
-    url: "https://www.gu.se/en/about/find-staff/hakan-samuelsson-kalm" # Found public profile
-  
   HalleLH:
     name: "Halle, L.H."
     full-name: "Lars-Halvard Halle"
     url: "https://www.uib.no/en/persons/Lars.Halvard.Halle"
-  
+
   MalmstromH:
     name: "Malmström, H."
     full-name: "Hans Malmström"
     url: "https://www.chalmers.se/en/persons/mahans/"
-  
+
   MourouganeC:
     name: "Mourougane, C."
     full-name: "Christophe Mourougane"
     url: "https://perso.univ-rennes1.fr/christophe.mourougane/"
-  
+
   NicaiseJ:
     name: "Nicaise, J."
     full-name: "Johannes Nicaise"
     url: "https://wis.kuleuven.be/personen/johannes-nicaise"
-  
+
   PerssonU:
     name: "Persson, U."
     full-name: "Ulf Persson"
     url: "https://www.gu.se/en/about/find-staff/ulfpersson"
-  
+
   PochekaiM:
     name: "Pochekai, M."
     full-name: "Mykola Pochekai"
     url: "https://www.linkedin.com/in/mykola-pochekai-24449830"
-  
+
   RamaoN:
     name: "Romão, N."
     full-name: "Nuno Romão"
     url: "https://www.researchgate.net/profile/Nuno-Romao"
-  
+
+  SamuelssonH:
+    name: "Samuelsson Kalm, H."
+    full-name: "Håkan Samuelsson Kalm"
+    url: "https://www.gu.se/en/about/find-staff/hakan-samuelsson-kalm"
+
   ScharaschkinV:
     name: "Scharaschkin, V."
     full-name: "Victor Scharaschkin"
     url: "https://www.researchgate.net/scientific-contributions/Victor-Scharaschkin-2051151017"
-  
-  WulcanE:
-    name: "Wulcan, E."
-    full-name: "Elizabeth Wulcan"
-    url: "https://www.chalmers.se/en/persons/wulcan/"
-  
-  YgerA:
-    name: "Yger, A."
-    full-name: "Alain Yger"
-    url: "https://www.researchgate.net/profile/Alain-Yger/2"
-  
+
   WentworthR:
     name: "Wentworth, R."
     full-name: "Richard Wentworth"
     url: "https://pages.wustl.edu/wentworth/home"
+
+  WulcanE:
+    name: "Wulcan, E."
+    full-name: "Elizabeth Wulcan"
+    url: "https://www.chalmers.se/en/persons/wulcan/"
+
+  YgerA:
+    name: "Yger, A."
+    full-name: "Alain Yger"
+    url: "https://www.researchgate.net/profile/Alain-Yger/2"

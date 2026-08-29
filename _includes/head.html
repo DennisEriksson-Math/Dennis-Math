@@ -13,20 +13,22 @@
   gtag('config', 'G-0E880PPQN0');
 </script>
   
-  <script src="/scripts/animate-icon-links.js"></script>  
+  <script src="{{ '/scripts/animate-icon-links.js' | relative_url }}"></script>  
 
   <!--<title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>-->
 
   <!-- Google font typography settings - defined in _config.yml -->
   {% if site.resume_theme == 'default' %}
-  <link href='https://fonts.googleapis.com/css?family=Lora:400,700|Open+Sans:400,300,800,700' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700|Open+Sans:300,400,600,700,800' rel='stylesheet' type='text/css'>
   {% endif %}
 
   <!--<meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">-->
 
-  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="{{ '/css/main.css' | relative_url }}">
   <!--<link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">-->
-  <link rel="icon" type="image/x-icon" href="favicon.png" />
+  <!-- ?v=2 forces browsers to fetch the recoloured icon: favicons are cached
+       hard enough that a normal reload will not pick up a change -->
+  <link rel="icon" type="image/png" href="{{ '/favicon.png' | relative_url }}?v=2" />
   
   {% seo %}
 </head>

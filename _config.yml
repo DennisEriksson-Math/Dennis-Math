@@ -1,5 +1,6 @@
 # Site settings
-url: "https://denniseriksson-math.github.io/Dennis-Math/" # Your live site URL
+url: "https://denniseriksson-math.github.io" # Your live site URL (domain only)
+baseurl: "/Dennis-Math" # Subfolder the site is served from
 title: "Dennis Eriksson"
 tagline: "Personal Page"
 description: "Publications, research interests, and information about my work in arithmetic, algebraic and complex geometry at Chalmers University of Technology and the University of Gothenburg."
@@ -16,13 +17,23 @@ author:
   twitter:
 twitter:
   card: summary
-  username: DennisEriksen # Placeholder Twitter handle
 social:
   name: Dennis Eriksson
   links:
     - https://mathstodon.xyz/@denniseriksson
     - https://www.chalmers.se/personer/denniseriksson
 locale: en_GB
+
+# Local-only helpers - never part of the published site
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - .bundle
+  - _assets
+  - "*.command"
+  - "Publish Webpage.app"
+  - "Update Webpage.app"
+  - "Preview Webpage.app"
 
 # Build settings (No changes needed here)
 markdown: kramdown
@@ -45,16 +56,17 @@ resume_contact_email: "dener [&#x430;t] chalmers.se"
 # resume_contact_telephone:
 resume_contact_address: "Department of Mathematical Sciences, Chalmers University of Technology and the University of Gothenburg, Chalmers tvärgata 3, 412 58 Gothenburg, Sweden"
 
-resume_header_contact_info: "<span itemprop='knowsAbout'>Algebraic geometry</span> • <span itemprop='knowsAbout'>Arakelov theory </span> • <span itemprop='knowsAbout'> Complex geometry </span> </p>
+resume_header_contact_info: "<span itemprop='knowsAbout'>Algebraic geometry</span> • <span itemprop='knowsAbout'>Arakelov theory</span> • <span itemprop='knowsAbout'>Complex geometry</span> • <span itemprop='knowsAbout'>AI for mathematics</span></p>
     <p> Department&nbsp;of&nbsp;Mathematical&nbsp;Sciences •  Chalmers&nbsp;University&nbsp;of&nbsp;Technology and the&nbsp;University&nbsp;of&nbsp;Gothenburg  •  412&nbsp;58&nbsp;Gothenburg,&nbsp;Sweden • dener [&#x430;t] chalmers.se • he/him/his • Please call me Dennis"
 display_header_contact_info: "true"
 
-resume_header_intro: "<p>I am a Professor in Mathematics at Chalmers University of Technology and the University of Gothenburg.</p>
-    <h3>Research</h3>
-    <p>Arithmetic & complex algebraic geometry, Arakelov theory, BCOV invariants,
-    Calabi–Yau manifolds, singularities, mirror symmetry.</p>
-
-<p>This page provides access to my research publications and related academic information.</p>"
+resume_header_intro: "<ul>
+      <li>I think a lot about invariants in arithmetic and complex geometry.</li>
+      <li>Lately: genus one mirror symmetry, BCOV invariants, hypersurface singularities,
+      arithmetic analogues.</li>
+      <li>Also curious about what AI can and cannot do in mathematics.</li>
+      <li>I take master students.</li>
+    </ul>"
 
 # Decide which sections to use (Based on your previous selection)
 # use "yes" to display the email contact button,
@@ -76,7 +88,9 @@ resume_section_links: true
 # Resume social links
 resume_social_links:
 #  resume_cv_url: "https://www.dropbox.com/scl/fi/0ypz9ayqd8uavflypkijn/CV-webpage.pdf?rlkey=70qmarcumlcv2x6oa4n6qvyfz&dl=0" # Corrected CV link
-  resume_cv_url: "https://www.dropbox.com/scl/fi/5j2wgyc0bu37u5rregowe/CV-webpage.pdf?rlkey=u8902pd9ldcdifcodwhi9x36c&raw=1"  
+  # The CV icon opens the CV section on this page, which is where the PDF is
+  # offered. It replaces the old CV tab, so the wordmark is the way in.
+  resume_cv_url: "#cv"
   resume_cv_tooltip: "CV"
   resume_funding_url: "https://raw.githubusercontent.com/DennisEriksson-Math/Dennis-Math/a5141c05deb320faca96ed4f40dcc8a192fc5d40/CV-webpage.pdf"
   resume_funding_tooltip: "CV"

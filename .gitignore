@@ -2,5 +2,16 @@
 # Rebuild the apps with: ~/ResearchOS/.venv/bin/python ~/ResearchOS/tools/make_git_apps.py
 publish-webpage.command
 update-webpage.command
+preview-webpage.command
 Publish Webpage.app/
 Update Webpage.app/
+Preview Webpage.app/
+
+# macOS clutter
+.DS_Store
+**/.DS_Store
+
+# Jekyll build output
+_site/
+.jekyll-cache/
+.sass-cache/

@@ -1,59 +1,163 @@
-# Resume template
+# Dennis Eriksson — personal page
 
-*A simple Jekyll + GitHub Pages powered resume template.*
+Source for my academic homepage: publications, research students, and links.
 
-![img](images/screenshot.png)
+**Live site:** https://denniseriksson-math.github.io/Dennis-Math/
 
-## Docs
+## Editing the site
 
-### Running locally
+Almost everything you'd want to change lives in two places:
 
-To test locally, run the following in your terminal:
+| What you want to change | File |
+| --- | --- |
+| Name, title, intro text, contact line, icon links | `_config.yml` |
+| Publications | `_data/projects.yml` |
+| Co-author names and their homepages | `_data/coauthors.yml` |
+| PhD students | `_data/PhD.yml` |
+| Master's students | `_data/MasterStudents.yml` |
+| Research interests | `_data/interests.yml` |
+| CV shown in the CV tab | `_data/cv.yml` |
 
-1. Clone repo locally
-1. `bundle install`
-2. `bundle exec jekyll serve`
-3. Open your browser to `localhost:4000`
+Page structure lives in `_layouts/resume.html`; styling in `_sass/`;
+the tab and filter behaviour in `scripts/tabs.js`.
 
-### Customizing
+## How the page is laid out
 
-First you'll want to fork the repo to your own account. Then clone it locally and customize, or use the GitHub web editor to customize.
+Under the header there is one ruled bar: the section tabs on the left
+(Publications / Collaborators / Students / CV) and the icon links on the right.
+Inside Publications, a row of filter buttons narrows the list by status.
 
-#### Options/configuration
+The page changes shape with the window, which needs no maintenance:
 
-Most of the basic customization will take place in the `/_config.yml` file. Here is a list of customizations available via `/_config.yml`:
+| Window width | What happens |
+| --- | --- |
+| under 600px (phone) | tabs disappear, every section stacks into one long scroll, one column |
+| 600&ndash;900px | tabs appear, column stays 683px |
+| 900&ndash;1200px | column widens to 810px, collaborators in 2 columns |
+| over 1200px | column widens to 920px, collaborators in 3 columns, students in 2 |
 
-[...write these out...]
+Prose blocks stop widening at 40rem so lines never get uncomfortably long, and
+the publication list picks up a hanging indent once there is room for one.
 
-#### Editing content
+Two things fold away independently:
 
-Most of the content configuration will take place in the `/_layouts/resume.html` file. Simply edit the markup there accordingly
+- **Details** (button under your name) &mdash; job title, research keywords,
+  department and contact line. Sits above the tab bar.
+- **About me** (small control on the right, under the tab bar) &mdash; the
+  introduction. Sits below the tab bar.
 
-### Publishing to GitHub Pages for free
+Clicking any tab closes both; each button brings its own back. Printing always
+shows everything.
 
-[GitHub Pages](https://pages.github.com/) will host this for free with your GitHub account. Just make sure you're using a `gh-pages` branch, and the site will automatically be available at `yourusername.github.io/resume-template` (you can rename the repo to resume for your own use if you want it to be available at `yourusername.github.io/resume`). You can also add a CNAME if you want it to be available at a custom domain...
+There is no CV tab: the **CV** wordmark in the icon row opens the CV section
+instead, which is also where the PDF is offered. It is open when someone arrives, closes itself the first time
+they go to another section, and after that the button is in charge, so the page
+never overrides a deliberate choice. Printing always shows the whole thing.
 
-### Configuring with your own domain name
+The About me text itself lives in `resume_header_intro` in `_config.yml`.
 
-To setup your GH Pages site with a custom domain, [follow the instructions](https://help.github.com/articles/setting-up-a-custom-domain-with-github-pages/) on the GitHub Help site for that topic.
+## Colours
 
-### Themes
+Two accents, both set in `_sass/_variables.scss`:
 
-Right now resume-template only has one theme. More are coming :soon: though. :heart:
+| | |
+| --- | --- |
+| `$accent` &nbsp;`#3f7d5a` | green &mdash; section headings, names, journals, tab and icon markers, favicon |
+| `$ink` &nbsp;&nbsp;&nbsp;`#2b322d` | body text: a near-black with a faint green cast, not a flat grey |
+| `$cv-accent` `#cc8437` | ochre &mdash; the CV tab only, sampled from `CV-webpage.pdf` |
 
-## Roadmap
+Change `$accent` in that one file and every marker on the site follows.
 
-A feature roadmap is [available here](https://github.com/jglovier/resume-template/projects/1). If you features suggestions, please [open a new issue](https://github.com/jglovier/resume-template/issues/new).
+The section tabs and the icon row deliberately share the same treatment: the
+same padding, the same 2px marker underneath, in the same colour. The tabs show
+it for the section you are in; the icons show it while you hover.
 
-## Contributing
+Names &mdash; co-authors, students, collaborators &mdash; and journal titles are
+set in the green at normal weight with no underline. arXiv and DOI numbers stay
+grey: they are reference numbers rather than names, and colouring those too would
+leave the line almost entirely green.
 
-If you spot a bug, or want to improve the code, or even make the dummy content better, you can do the following:
+The tab names come from `_layouts/resume.html`; the filter buttons count
+themselves from the `status:` field in `_data/projects.yml`, so they stay
+correct on their own.
 
-1. [Open an issue](https://github.com/jglovier/resume-template/issues/new) describing the bug or feature idea
-2. Fork the project, make changes, and submit a pull request
+Both are cosmetic only. Printing the page reveals every tab and every
+publication regardless of what is on screen, and each section has its own
+address: `.../Dennis-Math/#students` opens the Students tab directly, and
+`#some-paper-id` opens Publications and jumps to that paper.
 
-## License
+### Adding a publication
 
-The code and styles are licensed under the MIT license. [See project license.](LICENSE) Obviously you should not use the content of this demo repo in your own resume. :wink:
+Add a block at the top of `_data/projects.yml`:
 
-Disclaimer: Use of Homer J. Simpson image and name used under [Fair Use](https://en.wikipedia.org/wiki/Fair_use) for educational purposes. Project license does not apply to use of this material.
+```yaml
+  - project: "Title of the paper"
+    id: short-unique-id
+    coauthor-list:
+      - FreixasG        # must match a key in _data/coauthors.yml
+    status: published   # submitted | accepted | published
+    journal: "Journal name"
+    volumenumber: 12
+    issuenumber: 3
+    pagestart: 1
+    pageend: 40
+    year: 2026
+    arxiv: "2509.05077"      # the identifier only, not the full URL
+    doi: "10.5802/jep.254"   # the identifier only, not the full URL
+```
+
+Leave out any field that doesn't apply. `arxiv:` and `doi:` are independent
+&mdash; give one, both, or neither, and the page prints whichever are there
+as separate links.
+
+`status:` is what the filter buttons count, so a new preprint should say
+`status: submitted` and be changed to `accepted`, then `published`, as it
+moves along.
+
+## Looking at it before you publish
+
+Double-click **Preview Webpage**. It builds the site on this Mac and opens it in
+your browser at `http://localhost:4001/Dennis-Math/`. Nothing is published and
+nothing is sent anywhere. Close the Terminal window when you are finished.
+
+The very first run installs the page builder and takes a few minutes; after that
+it opens in a second or two. Re-run it after each edit to see the change.
+
+## The CV tab
+
+`_data/cv.yml` is a transcription of `CV-webpage.pdf`, laid out the same way
+(year in the left column, bold title, small grey note on the right) and using the
+same ochre accent, sampled from the PDF itself.
+
+**The two are not linked.** If you update the PDF, update `_data/cv.yml` as well
+or the page and the download will disagree. The PDF is the authoritative one and
+is linked at the top of the tab.
+
+Publications and supervised students are deliberately *not* repeated in the CV
+tab, since they have their own sections and would otherwise drift out of step.
+
+## Publishing
+
+Double-click **Update Webpage** to pull the latest version, and **Publish Webpage**
+to push your changes live. GitHub rebuilds the site automatically; it usually
+appears within a minute or two.
+
+## Running it from a terminal instead (optional)
+
+The **Preview Webpage** app above is the easy way. If you would rather do it by
+hand, it keeps its own copy of Jekyll, pinned to the Ruby that ships with macOS:
+
+```
+GEM_HOME=~/.dennis-math-preview/gems \
+PATH=~/.dennis-math-preview/gems/bin:$PATH \
+JEKYLL_NO_BUNDLER_REQUIRE=true \
+jekyll serve
+```
+
+`bundle exec jekyll serve` does *not* work here: the `github-pages` gem in the
+Gemfile needs Ruby 3.x, and macOS ships 2.6.
+
+## Credits
+
+Built on the [resume-template](https://github.com/jglovier/resume-template) by
+jglovier, MIT licensed. See `LICENSE`.

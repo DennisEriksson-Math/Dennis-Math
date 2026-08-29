@@ -1,69 +1,87 @@
-# Projects
-# uncomment the urls if you wish to display them, and add your own URL
-
+# Publications
+#
+# Fields
+#   project        title, as it should appear
+#   id             short unique tag, used as the #anchor for linking to one paper
+#   coauthor-list  keys from _data/coauthors.yml; leave out entirely for solo papers
+#   status         submitted | accepted | published   <- drives the filter buttons
+#   journal        journal name (leave out for a plain preprint)
+#   arxiv          arXiv identifier only, e.g. 2509.05077  (NOT the full URL)
+#   doi            DOI only, e.g. 10.5802/jep.254          (NOT the full URL)
+#   note           anything extra to print after the year
+#
+# Both arxiv: and doi: are optional, and both are shown when present.
+# Newest first.
 
   - project: "The Deligne-Riemann-Roch isomorphism"
     id: DRR2
     coauthor-list:
       - FreixasG
-    journal: "submitted"
+    status: submitted
     year: 2025
-    url: "https://arxiv.org/abs/2509.05077"
+    arxiv: "2509.05077"
 
   - project: "Genus one mirror symmetry for intersection of two cubics in P5"
     id: Genusone2cubics
     coauthor-list:
       - PochekaiM
-    journal: "submitted"
+    status: submitted
     year: 2024
-    url: "https://arxiv.org/abs/2410.08897"
-  
+    arxiv: "2410.08897"
+
   - project: "Base change conductors through intersection theory and quotient singularities"
     id: spectral
     coauthor-list:
       - HalleLH
       - NicaiseJ
-    journal: "Documenta"
-    note: "Accepted for publication (arXiv:2109.02033)"
-    year: 2022
-    url: "https://arxiv.org/abs/2410.15370"
-    
-  - project: "The spectral genus of an isolated hypersurface singularity and a conjecture relating to the Milnor number"
+    status: published
+    journal: "Documenta Mathematica"
+    year: 2026
+    arxiv: "2410.15370"
+    doi: "10.4171/dm/1067"
+
+  - project: "The spectral genus of an isolated hypersurface singularity and its relation to the Milnor number and analytic torsion"
     id: spectral-genus-documenta
     coauthor-list:
       - FreixasG
-    journal: "Documenta"
-    note: "Accepted for publication (arXiv:2410.15370)"
-    year: 2024
-    url: "https://arxiv.org/abs/2405.03450"
-    
+    status: published
+    journal: "Documenta Mathematica"
+    year: 2025
+    arxiv: "2405.03450"
+    doi: "10.4171/dm/1013"
+
   - project: "Complex Chern–Simons bundles in the relative setting"
     id: complex-chern-simons-asterisque
     coauthor-list:
       - FreixasG
       - WentworthR
+    status: accepted
     journal: "Astérisque"
-    note: "Accepted for publication (arXiv:2109.02033)"
     year: 2022
-    url: "https://arxiv.org/abs/2109.02033"
     pagecount: 120pp
-    
+    arxiv: "2109.02033"
+    note: "Accepted for publication"
+
   - project: "Deligne-Riemann-Roch and intersection bundles"
     id: deligne-riemann-roch-intersection
     coauthor-list:
       - FreixasG
+    status: published
     journal: "J. Éc. polytech. Math."
     volumenumber: 11
     pagestart: 247
     pageend: 361
     pagecount: 115pp
     year: 2024
+    arxiv: "2305.13129"
+    doi: "10.5802/jep.254"
 
   - project: "On genus one mirror symmetry in higher dimensions and the BCOV conjectures"
     id: genus-one-mirror-symmetry
     coauthor-list:
       - FreixasG
       - MourouganeC
+    status: published
     journal: "Forum Math. Pi"
     volumenumber: 10
     issuenumber: e19
@@ -71,14 +89,17 @@
     pageend: 53
     pagecount: 53pp
     year: 2022
+    arxiv: "1911.06734"
+    doi: "10.1017/fmp.2022.13"
 
   - project: "Nonproper intersection products and generalized cycles"
     id: nonproper-intersection-products
     coauthor-list:
       - AnderssonM
-      - SamuelssonH # Håkan Samuelsson Kalm
+      - SamuelssonH
       - WulcanE
       - YgerA
+    status: published
     journal: "Eur. J. Math."
     volumenumber: 7
     issuenumber: 4
@@ -86,54 +107,30 @@
     pageend: 1381
     pagecount: 45pp
     year: 2021
+    arxiv: "1908.11759"
+    doi: "10.1007/s40879-021-00473-w"
 
-  - project: "Global representation of Segre numbers by Monge-Ampère products"
-    id: global-representation-segre
-    coauthor-list:
-      - AnderssonM
-      - SamuelssonH # Håkan Samuelsson Kalm
-      - WulcanE
-      - YgerA
-    journal: "Math. Ann."
-    volumenumber: 380
-    issuenumber: 1-2
-    pagestart: 349
-    pageend: 391
-    pagecount: 43pp
-    year: 2021
-
-  - project: "BCOV invariants of Calabi-Yau manifolds and degenerations of Hodge structures"
-    id: bcov-invariants-2
-    coauthor-list:
-      - FreixasG
-      - MourouganeC
-    journal: "Duke Math. J."
-    volumenumber: 170
-    issuenumber: 3
-    pagestart: 379
-    pageend: 454
-    pagecount: 76pp
-    year: 2021
-
-  - project: Spaces of norms, determinant of cohomology and Fekete points in non-Archimedean geometry
+  - project: "Spaces of norms, determinant of cohomology and Fekete points in non-Archimedean geometry"
     id: spaces-of-norms
     coauthor-list:
       - BoucksomS
+    status: published
     journal: "Advances in Mathematics"
     volumenumber: 378
     pagestart: 107501
     pageend: 107501
     pagecount: 125pp
     year: 2021
-    url: "https://doi.org/10.1016/j.aim.2020.107501"
-    identifier: "doi:10.1016/j.aim.2020.107501"
-    note: "Article ID 107501 (125 pages)"
+    arxiv: "1805.01016"
+    doi: "10.1016/j.aim.2020.107501"
+    note: "Article ID 107501"
 
-  - project: BCOV invariants of Calabi–Yau manifolds and degenerations of Hodge structures
+  - project: "BCOV invariants of Calabi–Yau manifolds and degenerations of Hodge structures"
     id: bcov-invariants
     coauthor-list:
       - FreixasG
       - MourouganeC
+    status: published
     journal: "Duke Mathematical Journal"
     volumenumber: 170
     issuenumber: 3
@@ -141,16 +138,17 @@
     pageend: 454
     pagecount: 76pp
     year: 2021
-    url: "https://doi.org/10.1215/00127094-2020-0045"
-    identifier: "doi:10.1215/00127094-2020-0045"
+    arxiv: "1809.05452"
+    doi: "10.1215/00127094-2020-0045"
 
-  - project: Global representation of Segre numbers by Monge–Ampère products
+  - project: "Global representation of Segre numbers by Monge–Ampère products"
     id: segre-monge-ampere
     coauthor-list:
       - AnderssonM
-      - SamuelssonH # Håkan Samuelsson Kalm
+      - SamuelssonH
       - WulcanE
       - YgerA
+    status: published
     journal: "Mathematische Annalen"
     volumenumber: 380
     issuenumber: 1-2
@@ -158,13 +156,14 @@
     pageend: 391
     pagecount: 43pp
     year: 2021
-    url: "https://doi.org/10.1007/s00208-020-01973-y"
-    identifier: "doi:10.1007/s00208-020-01973-y"
+    arxiv: "1812.03054"
+    doi: "10.1007/s00208-020-01973-y"
 
-  - project: Kähler quantisation of vortex moduli
+  - project: "Kähler quantisation of vortex moduli"
     id: kahler-quantisation
     coauthor-list:
       - RamaoN
+    status: published
     journal: "Letters in Mathematical Physics"
     volumenumber: 110
     issuenumber: 3
@@ -172,14 +171,14 @@
     pageend: 693
     pagecount: 35pp
     year: 2020
-    url: "https://doi.org/10.1007/s11005-019-01221-7"
-    identifier: "doi:10.1007/s11005-019-01221-7"
+    doi: "10.1007/s11005-019-01221-7"
 
-  - project: Singularities of metrics on Hodge bundles and their topological invariants
+  - project: "Singularities of metrics on Hodge bundles and their topological invariants"
     id: singularities-hodge-bundles
     coauthor-list:
       - FreixasG
       - MourouganeC
+    status: published
     journal: "Algebraic Geometry"
     volumenumber: 5
     issuenumber: 6
@@ -187,54 +186,50 @@
     pageend: 775
     pagecount: 34pp
     year: 2018
-    url: "https://doi.org/10.14231/AG-2018-021"
-    identifier: "doi:10.14231/AG-2018-021"
+    arxiv: "1611.03017"
+    doi: "10.14231/AG-2018-021"
 
-  # NOTE: The three entries below use 'authors:' and include 'ErikssonD'.
-  # I've left them as 'authors:' to match your source data, but you may need to unify to 'coauthor-list:'
-  - project: Discriminants and Artin conductors
+  - project: "Discriminants and Artin conductors"
     id: discriminants-artin
-    authors:
-      - ErikssonD
+    status: published
     journal: "Journal für die reine und angewandte Mathematik (Crelle)"
     volumenumber: 712
     pagestart: 107
     pageend: 121
     pagecount: 15pp
     year: 2016
-    url: "https://doi.org/10.1515/crelle-2014-0062"
-    identifier: "doi:10.1515/crelle-2014-0062"
+    arxiv: "1106.3096"
+    doi: "10.1515/crelle-2014-0062"
 
   - project: "Erratum to: Discriminants and Artin conductors (J. Reine Angew. Math. 712 (2016), 107–121)"
     id: discriminants-artin-erratum
-    solo-author: ErikssonD
+    status: published
     journal: "J. Reine Angew. Math."
     volumenumber: 814
     pagestart: 283
     pageend: 284
     pagecount: 2pp
     year: 2024
-    identifier: "MR4793346"
     note: "Erratum (MR4793346)"
-    
-  - project: A logarithmic interpretation of Edixhoven's jumps for Jacobians
+
+  - project: "A logarithmic interpretation of Edixhoven's jumps for Jacobians"
     id: logarithmic-edixhoven
     coauthor-list:
       - HalleLH
       - NicaiseJ
+    status: published
     journal: "Advances in Mathematics"
     volumenumber: 279
     pagestart: 532
     pageend: 574
     pagecount: 43pp
     year: 2015
-    url: "https://doi.org/10.1016/j.aim.2015.04.007"
-    identifier: "doi:10.1016/j.aim.2015.04.007"
+    arxiv: "1403.5538"
+    doi: "10.1016/j.aim.2015.04.007"
 
-  - project: Degenerating Riemann surfaces and the Quillen metric
+  - project: "Degenerating Riemann surfaces and the Quillen metric"
     id: degenerating-riemann
-    authors:
-      - ErikssonD
+    status: published
     journal: "International Mathematics Research Notices"
     volumenumber: 2013
     issuenumber: 2
@@ -242,13 +237,12 @@
     pageend: 361
     pagecount: 15pp
     year: 2013
-    url: "https://doi.org/10.1093/imrn/rnr234"
-    identifier: "doi:10.1093/imrn/rnr234"
+    arxiv: "1106.3092"
+    doi: "10.1093/imrn/rnr234"
 
-  - project: Un isomorphisme de type Deligne–Riemann–Roch
+  - project: "Un isomorphisme de type Deligne–Riemann–Roch"
     id: isomorphisme-deligne
-    authors:
-      - ErikssonD
+    status: published
     journal: "Comptes Rendus Mathematique"
     volumenumber: 347
     issuenumber: 19-20
@@ -256,13 +250,13 @@
     pageend: 1118
     pagecount: 4pp
     year: 2009
-    url: "https://doi.org/10.1016/j.crma.2009.09.003"
-    identifier: "doi:10.1016/j.crma.2009.09.003"
+    doi: "10.1016/j.crma.2009.09.003"
 
-  - project: On the Brauer–Manin obstruction for zero-cycles on curves
+  - project: "On the Brauer–Manin obstruction for zero-cycles on curves"
     id: brauer-manin
     coauthor-list:
       - ScharaschkinV
+    status: published
     journal: "Acta Arithmetica"
     volumenumber: 135
     issuenumber: 2
@@ -270,5 +264,5 @@
     pageend: 110
     pagecount: 12pp
     year: 2008
-    url: "https://doi.org/10.4064/aa135-2-1"
-    identifier: "doi:10.4064/aa135-2-1"
+    arxiv: "math/0602355"
+    doi: "10.4064/aa135-2-1"

@@ -1,0 +1,244 @@
+# CV, transcribed from CV-webpage.pdf (last updated 7 December 2025).
+#
+# The PDF stays the authoritative version and is linked at the top of the CV tab.
+# If you update the PDF, update this file too or the two will drift apart.
+#
+# Each section is:
+#   section:  heading (its first three letters are printed in the CV's orange)
+#   entries:
+#     - when:   left-hand column (year or range)
+#       what:   bold title
+#       where:  small right-aligned annotation
+#       detail: the paragraph underneath (optional)
+
+updated: "7 December 2025"
+
+summary: >
+  My research grows out of arithmetic geometry, where algebraic geometry, number theory,
+  and complex analysis meet. This area combines tools from Grothendieck's algebraic
+  geometry with ideas from complex differential geometry, and I use this interaction to
+  study structural invariants of algebraic varieties. In recent years, these methods have
+  naturally connected my work to mathematical aspects of mirror symmetry — a conjectural
+  framework originating in string theory that continues to influence several areas of
+  modern geometry — as well as to questions about singularities. Across these topics, my
+  work studies how algebraic geometry, and in particular intersection theory, serves as a
+  meeting point for arithmetic ideas, complex geometric methods, Hodge theory,
+  singularities, and mirror symmetry.
+
+about: >
+  I am a Swedish mathematician with extensive international research experience, and a
+  strong interest in collaboration, communication and education. Outside mathematics,
+  I enjoy language learning and cultural travel.
+
+# level is out of 4, matching the dots in the PDF
+languages:
+  - { language: Swedish,  level: 4 }
+  - { language: English,  level: 4 }
+  - { language: French,   level: 4 }
+  - { language: German,   level: 2 }
+  - { language: Chinese,  level: 1 }
+  - { language: Japanese, level: 1 }
+  - { language: Polish,   level: 1 }
+
+sections:
+
+  - section: "Research Grants"
+    entries:
+      - when: "2026"
+        what: "Research in Paris"
+        where: "Institut Henri Poincaré"
+        detail: "2 month invitation."
+      - when: "2025"
+        what: "Vergstiftelsen Postdoc Grant"
+        where: "Postdoc grant"
+        detail: 'Grant, approx. €200,000, to hire a postdoc for two years, in the project "The hunt for new invariants in the intersection of arithmetic and algebraic".'
+      - when: "2022–2025"
+        what: "Vetenskapsrådet Research Project Grant"
+        where: "PI"
+        detail: "Approx. €350,000."
+      - when: "2009–2011"
+        what: "Vetenskapsrådet Postdoc Grant"
+        where: "PI"
+        detail: "Salary for two years."
+      - when: "2024"
+        what: "G.S. Magnussons Grant"
+        where: "mobility grant"
+        detail: "Approx. €30,000."
+      - when: "2025"
+        what: "Svensk-Franska stifelsen"
+        where: "mobility grant"
+        detail: "Approx. €6,000."
+      - when: "2020"
+        what: "Knut och Alice Wallenberg Foundation"
+        where: "Visiting Professor Grant"
+        detail: "For Gerard Freixas i Montplet, one year visiting professor at Chalmers."
+      - when: "2018"
+        what: "Research in Paris"
+        where: "Institut Henri Poincaré"
+        detail: "Two-month funded visit."
+      - when: "2014"
+        what: "Trimester Program Organizer"
+        where: "HIM Bonn"
+        detail: 'Group-leader: "p-adic methods in Arakelov geometry and Shimura varieties".'
+
+  - section: "Positions"
+    entries:
+      - when: "2024–present"
+        what: "Professor (Gothenburg)"
+        where: "Chalmers University of Technology"
+        detail: "Department of Mathematical Sciences."
+      - when: "2018–2023"
+        what: "Associate Professor (Docent) (Gothenburg)"
+        where: "Chalmers University of Technology"
+        detail: "Department of Mathematical Sciences."
+      - when: "2014–2018"
+        what: "Assistant Professor (Gothenburg)"
+        where: "Chalmers University of Technology"
+      - when: "2017"
+        what: "Visitor MPI"
+        where: "Max Planck Institute for Mathematics, Bonn"
+        detail: "January–April."
+      - when: "2014"
+        what: "Junior Trimester Program (Organiser)"
+        where: "Hausdorff Institute for Mathematics"
+        detail: "Trimester: Algebraic geometry (p-adic methods in Arakelov geometry and Shimura varieties)."
+      - when: "2013"
+        what: "Postdoctoral Researcher"
+        where: "Max Planck Institute for Mathematics"
+        detail: "January–December."
+      - when: "2009–2012"
+        what: "Postdoctoral Researcher"
+        where: "University of Gothenburg"
+        detail: "Teaching assistant 2011–2012."
+      - when: "2008–2009"
+        what: "Postdoctoral Researcher"
+        where: "University of Tokyo"
+      - when: "2007–2008"
+        what: "JSPS Research Fellow"
+        where: "University of Tokyo"
+
+  - section: "Education"
+    entries:
+      - when: "2003–2008"
+        what: "PhD in Mathematics"
+        where: "Université d'Orsay, Paris 11, Paris"
+        detail: "Thesis: Formule de Lefschetz fonctorielle et applications géométriques, under the supervision of Damian Rössler."
+      - when: "2000–2003"
+        what: "Undergraduate and master studies in Mathematics"
+        where: "University of Gothenburg, Gothenburg + Paris 13, Paris"
+        detail: "Thesis: Some more or less explicit class field theory. Under the supervision of Peter Hegarty."
+
+  - section: "Academic & Organizational Responsibilities"
+    entries:
+      - when: "2018–2023"
+        what: "PhD Student Admissions Committee"
+        where: "Chalmers"
+        detail: "Member of the PhD committee deciding future PhD students."
+      - when: "2019–2023"
+        what: "Programme Board Member"
+        where: "Chalmers"
+        detail: 'Member of the "Programråd" for Samhällsbyggnadsteknik.'
+      - when: "2014"
+        what: "Group Leader (Junior Trimester Program)"
+        where: "Hausdorff Institute for Mathematics"
+        detail: "Organized and led the Junior Trimester Program: p-adic methods in Arakelov geometry and Shimura varieties."
+      - when: "2009–2020"
+        what: "High School Outreach Coordinator"
+        where: "Gothenburg region"
+        detail: "Contact person for high school research projects in mathematics."
+      - when: "2014–"
+        what: "Main Organizer / Co-Organizer (International Workshops)"
+        where: "International workshops"
+        detail: "N-cube (2015, 2016, 2018, 2025); Freixit 2024; Number theory and dynamical systems (2016); Algebraic Geometry (Bonn, 2018); Workshop: Arithmetic intersection theory and Shimura varieties (2014)."
+      - when: "2010–"
+        what: "Thesis Committees & Examination"
+        where: "Paris and Gothenburg"
+        detail: "Rapporteur for Dai Imaike (Kyoto 2024); Rapporteur and Member of jury for Dorian Ni (Paris 2022); Member of jury for Bertrand Duma (Paris 2012); Diskutant/Opponent at licentiate defense for Ida Säfström (Gothenburg 2010)."
+      - when: "2010–"
+        what: "Professional Service and Journal Refereeing"
+        where: "International Journals"
+        detail: "Regular ad-hoc referee for journals including: Inventiones Mathematicae, IMRN, Algebra & Number Theory, Journal of Differential Geometry, JEMS, JHEP, JGP, Selecta Mathematica, and Pacific Journal of Mathematics. Also served as a referee for various international conference proceedings."
+
+  - section: "Teaching and Pedagogical Qualifications"
+    entries:
+      - when: "2019, 2020, 2023"
+        what: "Teaching Award (Thrice Awarded)"
+        where: "Chalmers"
+        detail: "Won the prize for best teacher in the Civil Engineering programme. In 2020 nominated for the Chalmers pedagogical prize."
+      - when: "2024–present"
+        what: "Bachelor Thesis Examiner"
+        where: "Chalmers & University of Gothenburg"
+        detail: "Examiner for bachelor theses in mathematics; approximately 80 students and 20 projects every year."
+      - when: "2016–"
+        what: "Courses Taught"
+        where: "Chalmers, Hangzhou, Paris"
+        detail: "Undergraduate: Preparatory Calculus; Calculus for Civil Engineering; Multivariable Calculus. Master Level: Algebraic Geometry; Reading courses in algebraic topology and homological algebra (upcoming). PhD Level: K-theory (with M. Goffeng); p-adic methods (with A. Södergren, S. Herrero); Reading courses in algebraic number theory, Arakelov theory, Hodge theory, Derived geometry, and Gromov–Witten theory (upcoming)."
+      - when: "2014–2018"
+        what: "Pedagogical Studies in Higher Education (15 hp)"
+        where: "Chalmers"
+        detail: "Formal qualification in university-level teaching and learning, including student assessment, curriculum design, and learning theories."
+      - when: "2018"
+        what: "Innovation Grant"
+        where: "Chalmers"
+        detail: "Approx. €70,000 dedicated to developing digital teaching tools. I applied for and led the project."
+      - when: "2018"
+        what: "Pedagogical Research Publication"
+        where: "Primus 28 (2018), no. 8"
+        detail: "Communicating to Learn Multivariable Calculus: Students' Blackboard Presentations as a Means for Enhancing Mathematics Learning. With Hans Malmström."
+
+  - section: "Recent Selected Seminars"
+    entries:
+      - when: "Dec 2025"
+        what: "Algebraic geometry seminar"
+        where: "Bologna, Italy"
+        detail: "(Upcoming) On smooth fillings of Calabi–Yau varieties"
+      - when: "March 2025"
+        what: 'Séminaire de géométrie "Anniversaire Paul 80"'
+        where: "Paris, France"
+        detail: "The spectral genus and an inequality for the Milnor number"
+      - when: "March 2024"
+        what: "Spring school in Arakelov Geometry and related topics"
+        where: "Hangzhou, China"
+        detail: "Relative intersection theory and Arakelov geometry, minicourse"
+      - when: "April 2024"
+        what: "Algebraic geometry seminar"
+        where: "Stockholm, Sweden"
+        detail: "From counting genus one curves to questions about singularities"
+      - when: "Sep 2023"
+        what: "Masterclass: Arakelov geometry on Shimura varieties"
+        where: "Copenhagen, Denmark"
+        detail: "Eisenstein series and enumerative geometry"
+      - when: "2019–2021"
+        what: "Genus one mirror symmetry and the arithmetic Riemann–Roch theorem"
+        where: "Princeton, Marseille, Oxford, Stockholm"
+
+  - section: "Selected Conferences"
+    entries:
+      - when: "Sep 2025"
+        what: "Kähler Geometry: Past, Present and Future"
+        where: "Banff, Canada"
+        detail: "On a conjecture of Deligne for the determinant of the cohomology"
+      - when: "May 2025"
+        what: "Hodge theory in a broad sense"
+        where: "Stockholm, Sweden"
+        detail: "On smooth fillings of Calabi–Yau families"
+      - when: "Dec 2024"
+        what: "Around Local Index Theory"
+        where: "Paris, France"
+        detail: "Intersection bundles and the Cappell–Miller torsion for Riemann surfaces. Mini-course on joint work with Gerard Freixas i Montplet."
+      - when: "Nov 2024"
+        what: "Algebra and Friends"
+        where: "Borås, Sweden"
+        detail: "Milnor Number Inequalities in Hypersurface Singularities"
+      - when: "May 2024"
+        what: "Complex Geometry Workshop"
+        where: "Aarhus, Denmark"
+        detail: "On some singularity invariants from analytic torsion"
+      - when: "Sep 2021"
+        what: "Arakelov geometry intercity conference"
+        where: "Regensburg, Germany"
+        detail: "Genus one mirror symmetry and the arithmetic Riemann–Roch theorem"
+      - when: "2019"
+        what: "Workshop Alkage"
+        where: "Grenoble"
+        detail: "On an invariant for Calabi–Yau manifolds through analytic torsion"

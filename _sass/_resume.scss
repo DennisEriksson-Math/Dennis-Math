@@ -99,7 +99,8 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 1rem;
+      gap: 1.25rem;
+      @include media_min(1100px) { gap: 3rem; }
     }
     
 //    .social-links-info {
@@ -180,12 +181,17 @@
   }
 
   @include media_larger_than_mobile {
-    float: right;
+    float: none;
     border-top: none;
     padding-top: 0;
     margin: 0;
     white-space: nowrap;   // the icon row is never allowed to break in two
-    flex-shrink: 0;
+    // The icons get the same treatment as the tabs: they take a share of the
+    // bar and spread through it, instead of being a tight block shoved against
+    // the right edge while the tabs enjoyed all the room.
+    flex: 4 1 auto;          // 5 links => 4 gaps between them
+    justify-content: space-between;
+    flex-wrap: nowrap;       // it may spread, but it must never break in two
   }
 
   .icon-link-item {
@@ -381,12 +387,13 @@
   justify-content: center;
   gap: $tab-gap;
   @include media_larger_than_mobile {
-    // spread across the space to the left of the icons, so the gaps between
-    // tabs are equal rather than only as wide as the words allow
-    flex: 1;
+    // Take all the room left over by the icons and distribute the tabs evenly
+    // through it. space-evenly leaves a half-gap at each end, which keeps the
+    // last tab off the icons instead of butting against them - the previous
+    // 26rem cap pushed the whole group into the left half of the bar.
+    flex: 3 1 auto;          // 4 tabs => 3 gaps between them
     justify-content: space-between;
     flex-wrap: nowrap;
-    max-width: 26rem;
   }
 
   .section-nav-item {
@@ -932,6 +939,30 @@
 
 @media print {
   .page-bg { display: none !important; }
+}
+
+// The CV tab is a wordmark rather than a word, so it needs sizing down to the
+// cap height of its neighbours and colouring from the same states. It opens a
+// section of this page, which is why it belongs here and not among the links
+// that lead away from the site.
+.section-nav-cv {
+  line-height: 0;
+
+  .icon {
+    height: .78rem;
+    width: auto;
+    display: block;
+  }
+
+  .icon path { fill: currentColor; }
+}
+
+// The two halves of the bar do different jobs - sections of this page on the
+// left, places to go on the right - so a hairline marks the change of subject.
+.title-bar {
+  @include media_larger_than_mobile {
+    .icon-links { border-left: 1px solid #e2e2e2; padding-left: 3rem; }
+  }
 }
 
 .print-only { display: none !important }

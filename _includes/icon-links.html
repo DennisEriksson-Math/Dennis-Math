@@ -3,18 +3,13 @@
 <!--<p class="social-links-info">More about me <span class="social-links-arrow">&#10132;</span></p>-->
 <ul class="icon-links">
   
-  <!-- CV link -->
-  {% if site.resume_social_links.resume_cv_url %}
-  <li class="icon-link-item"><a href="{{ site.resume_social_links.resume_cv_url }}" class="icon-link" itemprop="sameAs">{% include icons/icon-cv.html %}
-      <div class="screenreader-only">CV</div>
-  </a><span class="tooltiptext">{{ site.resume_social_links.resume_cv_tooltip }}</span></li>
-  {% endif %}
-  
-  <!-- Funding link -->
-  {% if site.resume_social_links.resume_funding_url %}
-  <li class="icon-link-item"><a href="{{ site.resume_social_links.resume_funding_url }}" class="icon-link" itemprop="funding">{% include icons/icon-funding.html %}
-      <div class="screenreader-only" itemprop="knowsAbout">Funding</div>
-  </a><span class="tooltiptext">{{ site.resume_social_links.resume_funding_tooltip }}</span></li>
+  <!-- The CV as a downloadable file. The wordmark above opens the CV section on
+       the page; this one hands over the PDF, so it uses a document icon and says
+       so, rather than being a second thing labelled "CV". -->
+  {% if site.resume_social_links.resume_cvpdf_url %}
+  <li class="icon-link-item"><a href="{{ site.resume_social_links.resume_cvpdf_url | relative_url }}" class="icon-link">{% include icons/icon-pdf.html %}
+      <div class="screenreader-only">CV as PDF</div>
+  </a><span class="tooltiptext">{{ site.resume_social_links.resume_cvpdf_tooltip }}</span></li>
   {% endif %}
   
   <!-- Work link -->

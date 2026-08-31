@@ -58,6 +58,9 @@
           <button type="button" role="tab" id="tab-publications" class="section-nav-item" data-target="publications" aria-controls="panel-publications" aria-selected="true">Publications</button>
           <button type="button" role="tab" id="tab-collaborators" class="section-nav-item" data-target="collaborators" aria-controls="panel-collaborators" aria-selected="false">Collaborators</button>
           <button type="button" role="tab" id="tab-students" class="section-nav-item" data-target="students" aria-controls="panel-students" aria-selected="false">Students</button>
+          <button type="button" role="tab" id="tab-cv" class="section-nav-item section-nav-cv" data-target="cv" aria-controls="panel-cv" aria-selected="false">
+            {% include icons/icon-cv.html %}<span class="screenreader-only">CV</span>
+          </button>
         </nav>
 
         {% include icon-links.html %}
@@ -220,7 +223,7 @@
 
 
     {% comment %} ---------- CV ---------- {% endcomment %}
-    <div class="tab-panel" id="panel-cv" data-panel="cv" role="region" aria-label="Curriculum vitae" tabindex="0" hidden>
+    <div class="tab-panel" id="panel-cv" data-panel="cv" role="tabpanel" aria-labelledby="tab-cv" tabindex="0" hidden>
       <section class="content-section">
         <header class="section-header">
           <h2>Curriculum vitae</h2>

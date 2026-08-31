@@ -88,12 +88,12 @@ resume_section_links: true
 # Resume social links
 resume_social_links:
 #  resume_cv_url: "https://www.dropbox.com/scl/fi/0ypz9ayqd8uavflypkijn/CV-webpage.pdf?rlkey=70qmarcumlcv2x6oa4n6qvyfz&dl=0" # Corrected CV link
-  # The CV icon opens the CV section on this page, which is where the PDF is
-  # offered. It replaces the old CV tab, so the wordmark is the way in.
-  resume_cv_url: "#cv"
-  resume_cv_tooltip: "CV"
-  resume_funding_url: "https://raw.githubusercontent.com/DennisEriksson-Math/Dennis-Math/a5141c05deb320faca96ed4f40dcc8a192fc5d40/CV-webpage.pdf"
-  resume_funding_tooltip: "CV"
+  # The CV wordmark is a section tab now (see _layouts/resume.html), not one of
+  # these outward links, so it has no entry here.
+  # The PDF that lives in this repository, so it can never go out of step with
+  # the site. It used to point at a copy pinned to an old commit.
+  resume_cvpdf_url: "/CV-webpage.pdf"
+  resume_cvpdf_tooltip: "CV as PDF"
   resume_work_url: "https://www.chalmers.se/en/persons/dener/" # Chalmers URL
   resume_work_tooltip: "My Chalmers Webpage"
   # resume_name_url:

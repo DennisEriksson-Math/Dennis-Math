@@ -50,8 +50,15 @@ Two things fold away independently:
 Clicking any tab closes both; each button brings its own back. Printing always
 shows everything.
 
-There is no CV tab: the **CV** wordmark in the icon row opens the CV section
-instead, which is also where the PDF is offered. It is open when someone arrives, closes itself the first time
+The bar has two halves, separated by a hairline, because they do different jobs:
+
+- **left** &mdash; four tabs onto sections of this page: Publications,
+  Collaborators, Students, and the **CV** wordmark
+- **right** &mdash; five links that lead away: the CV as a PDF, your Chalmers
+  page, arXiv, Google Scholar, ORCID
+
+So the two CV entries sit on opposite sides of the divider, which is the point:
+the wordmark opens the CV here, the document icon hands over the file. It is open when someone arrives, closes itself the first time
 they go to another section, and after that the button is in charge, so the page
 never overrides a deliberate choice. Printing always shows the whole thing.
 

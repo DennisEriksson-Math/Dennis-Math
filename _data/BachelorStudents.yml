@@ -1,0 +1,15 @@
+# Bachelor projects, newest first. These are group projects, so the entry lists
+# the members rather than a single name.
+#
+#   members       everyone in the group
+#   status_years  the year the project ran
+#   thesis        the title on its own - the page adds the word "Thesis"
+#   with          a co-supervisor, if the project was shared
+
+- members:
+    - "Louis Dao"
+    - "Anna Davoodi"
+    - "Erik Samuelsson"
+  status_years: "2024"
+  with: "Adam Keilthy"
+  thesis: "How do we know that a computer program does what it says it does?"

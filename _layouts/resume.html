@@ -193,7 +193,12 @@
                 {% assign su = student.url | default: "" | strip %}{% if su != "" %}<a href="{{ su }}" target="_blank" rel="noopener noreferrer">{{ student.name }}</a>{% else %}<span class="student-name">{{ student.name }}</span>{% endif %}
                 {% if student.status_years %}<span class="student-years"> ({{ student.status_years }})</span>{% endif %}
               </p>
-              {% if student.summary %}<p class="student-summary">{{ student.summary }}</p>{% endif %}
+              {% if student.thesis %}
+              <p class="student-thesis">
+                <span class="thesis-label">Thesis</span>{% if student.tentative %}<span class="thesis-tentative">tentative</span>{% endif %}
+                <span class="thesis-title">{{ student.thesis }}</span>
+              </p>
+              {% endif %}
             </li>
             {% endfor %}
           </ul>
@@ -212,7 +217,36 @@
                 {% assign su = student.url | default: "" | strip %}{% if su != "" %}<a href="{{ su }}" target="_blank" rel="noopener noreferrer">{{ student.name }}</a>{% else %}<span class="student-name">{{ student.name }}</span>{% endif %}
                 {% if student.status_years %}<span class="student-years"> ({{ student.status_years }})</span>{% endif %}
               </p>
-              {% if student.summary %}<p class="student-summary">{{ student.summary }}</p>{% endif %}
+              {% if student.thesis %}
+              <p class="student-thesis">
+                <span class="thesis-label">Thesis</span>{% if student.tentative %}<span class="thesis-tentative">tentative</span>{% endif %}
+                <span class="thesis-title">{{ student.thesis }}</span>
+              </p>
+              {% endif %}
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </section>
+
+      <section class="content-section">
+        <header class="section-header">
+          <h2 itemprop="knowsAbout">Bachelor students</h2>
+        </header>
+        <div class="resume-item">
+          <ul class="resume-item-list">
+            {% for group in site.data.BachelorStudents %}
+            <li>
+              <p class="student-info">
+                {% for member in group.members %}<span class="student-name">{{ member }}</span>{% unless forloop.last %}<span class="student-sep">&middot;</span>{% endunless %}{% endfor %}
+                {% if group.status_years %}<span class="student-years"> ({{ group.status_years }}{% if group.with %}, with {{ group.with }}{% endif %})</span>{% endif %}
+              </p>
+              {% if group.thesis %}
+              <p class="student-thesis">
+                <span class="thesis-label">Thesis</span>{% if group.tentative %}<span class="thesis-tentative">tentative</span>{% endif %}
+                <span class="thesis-title">{{ group.thesis }}</span>
+              </p>
+              {% endif %}
             </li>
             {% endfor %}
           </ul>

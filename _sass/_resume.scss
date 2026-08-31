@@ -832,8 +832,6 @@
   .fold-panel { transition: none; }
 }
 
-// A student without a homepage still reads as a name, just not as a link.
-.student-name { color: $ink; }
 
 // The About me control sits off to one side rather than as a centred row of its
 // own: it is a small switch, and it was taking the visual weight of a heading.
@@ -963,6 +961,46 @@
   @include media_larger_than_mobile {
     .icon-links { border-left: 1px solid #e2e2e2; padding-left: 3rem; }
   }
+}
+
+// Students
+// ---------------------------------------/
+// Every student's name carries the accent, whether or not there is a homepage
+// to link to, so the two lists read alike.
+.student-name { color: $accent; }
+
+// A bachelor project is a group, so the members are separated by a faint dot
+// rather than each sitting on its own line.
+.student-sep {
+  color: #d0d0d0;
+  margin: 0 .3rem;
+}
+
+// "Thesis" is a label, the title is the content. Running them together as one
+// grey sentence made the actual title the hardest part to pick out.
+.student-thesis {
+  margin: .15rem 0 0;
+  line-height: 1.5;
+}
+
+.thesis-label,
+.thesis-tentative {
+  @include sans;
+  font-size: .68rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #9a9a9a;
+  margin-right: .4rem;
+}
+
+.thesis-tentative {
+  color: $cv-accent;
+  &::before { content: "\00b7"; margin-right: .4rem; color: #d5d5d5; }
+}
+
+.thesis-title {
+  font-style: italic;
+  color: $ink;
 }
 
 .print-only { display: none !important }

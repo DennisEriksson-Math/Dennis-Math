@@ -1,29 +1,37 @@
-# Master students list (to be placed in your YAML data file, e.g., master-students.yml)
-- url: ""
-  name: "S. Plumeyer"
+# Master students, newest first.
+#
+#   name          full name, as it should appear
+#   status_years  "Current", or the year the thesis was completed
+#   thesis        the title on its own - the page adds the word "Thesis"
+#   tentative     true while the title is still provisional
+#   url           a homepage, if they have one; leave out otherwise
+
+- name: "Samuel Plumeyer"
   status_years: "Current"
-  summary: "Thesis title: (tentative) Tubular neighborhoods in geometry"
-- url: ""
-  name: "S. Jansson"
+  thesis: "Tubular neighborhoods in geometry"
+  tentative: true
+
+- name: "Sebastian Jansson"
   status_years: "Current"
-  summary: "Thesis title: (tentative) Hurwitz numbers and modular forms"
-- url: ""
-  name: "L. Xudong"
+  thesis: "Hurwitz numbers and modular forms"
+  tentative: true
+
+- name: "Liu Xudong"
   status_years: "2024"
-  summary: "Thesis title: The geometry of bielliptic surfaces"
-- url: ""
-  name: "F. Frelot"
+  thesis: "The geometry of bielliptic surfaces"
+
+- name: "Felix Frelot"
   status_years: "2022"
-  summary: "Thesis title: The Torelli theorem"
-- url: ""
-  name: "R. A. Pop Gorea"
+  thesis: "The Torelli theorem"
+
+- name: "Robert Antonio Pop Gorea"
   status_years: "2021"
-  summary: "Thesis title: Analogies Between Geometry and Number Theory"
-- url: ""
-  name: "M. Fries"
+  thesis: "Analogies between geometry and number theory"
+
+- name: "Magnus Fries"
   status_years: "2020"
-  summary: "Thesis title: Mirror symmetry at genus one of elliptic curves"
-- url: ""
-  name: "M. Lindby"
+  thesis: "Mirror symmetry at genus one of elliptic curves"
+
+- name: "Mattias Lindby"
   status_years: "2016"
-  summary: "Thesis title: Elliptic curves and their L-series: The role of complex multiplication."
+  thesis: "Elliptic curves and their L-series: the role of complex multiplication"

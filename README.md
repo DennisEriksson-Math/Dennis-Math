@@ -15,6 +15,7 @@ Almost everything you'd want to change lives in two places:
 | Co-author names and their homepages | `_data/coauthors.yml` |
 | PhD students | `_data/PhD.yml` |
 | Master's students | `_data/MasterStudents.yml` |
+| Bachelor projects | `_data/BachelorStudents.yml` |
 | Research interests | `_data/interests.yml` |
 | CV shown in the CV tab | `_data/cv.yml` |
 
@@ -93,6 +94,26 @@ Both are cosmetic only. Printing the page reveals every tab and every
 publication regardless of what is on screen, and each section has its own
 address: `.../Dennis-Math/#students` opens the Students tab directly, and
 `#some-paper-id` opens Publications and jumps to that paper.
+
+### Adding a student
+
+Both student files take the same fields:
+
+```yaml
+- name: "Full Name"
+  status_years: "Current"        # or "2024", "Completed 2021, Co-supervisor"
+  thesis: "The title on its own"  # the page prints the word "Thesis" itself
+  tentative: true                 # only while the title is provisional
+  url: "https://..."              # leave the line out if there is no page
+```
+
+Do not write "Thesis title:" into the `thesis:` field &mdash; the page adds that
+label, and styles it differently from the title so the two are easy to tell
+apart.
+
+A bachelor project is a group rather than one person, so
+`_data/BachelorStudents.yml` uses `members:` (a list) instead of `name:`, and
+`with:` for a co-supervisor. Everything else is the same.
 
 ### Adding a publication
 

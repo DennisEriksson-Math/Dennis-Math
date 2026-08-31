@@ -1,4 +1,5 @@
-# links
+# PhD students, newest first. Same fields as _data/MasterStudents.yml:
+# name, status_years, thesis, tentative, url.
 - url: "https://www.chalmers.se/personer/abanades/"
   name: "Gabriel Abánades Joglar"
   status_years: "Current, 2025–present"
@@ -8,16 +9,16 @@
 - url: "https://www.gu.se/om-universitetet/hitta-person/douglasmolin"
   name: "Douglas Molin"
   status_years: "Completed 2026, Co-supervisor"
-  summary: "Thesis title: Selmer group actions on p-adic automorphic cohomology"
+  thesis: "Selmer group actions on p-adic automorphic cohomology"
 - url: "https://cgp.ibs.re.kr/people/"
   name: "Mykola Pochekai"
   status_years: "Completed 2024"
-  summary: "Thesis title: Hodge Theory in Combinatorics and Mirror Symmetry"
+  thesis: "Hodge Theory in Combinatorics and Mirror Symmetry"
 - url: "https://sites.google.com/view/jiacheng-xia-math"
   name: "Jiacheng Xia"
   status_years: "Completed 2021, Co-supervisor"
-  summary: "Thesis title: Some Cases of Kudla’s Modularity Conjecture for Unitary Shimura Varieties"
+  thesis: "Some Cases of Kudla’s Modularity Conjecture for Unitary Shimura Varieties"
 - url: "https://www.linkedin.com/in/manh-hung-tran?originalSubdomain=se"
   name: "Manh Hung Tran"
   status_years: "Completed 2020"
-  summary: "Thesis title: The density of rational points and invariants of genus one curves"
+  thesis: "The density of rational points and invariants of genus one curves"

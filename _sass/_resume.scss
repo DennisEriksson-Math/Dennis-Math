@@ -99,8 +99,15 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 1.25rem;
-      @include media_min(1100px) { gap: 3rem; }
+      gap: 1rem;
+      @include media_min(1100px) { gap: 2.6rem; }
+
+      // The clearfix above was for the old float layout. Its ::before/::after
+      // are invisible, but in a flex container they count as items, so
+      // space-between was sharing the room among four children instead of two
+      // - which is where the stray inset at each end came from.
+      &::before,
+      &::after { display: none; }
     }
     
 //    .social-links-info {
@@ -396,13 +403,17 @@
     flex-wrap: nowrap;
   }
 
+  // Set like small wordmarks rather than menu labels: heavy, geometric, tight.
+  // The weight carries the confidence, so the colour stays muted - heavy black
+  // at this size reads as shouting rather than as solid.
   .section-nav-item {
     @include sans;
-    font-size: .72rem;
+    font-size: .82rem;
+    font-weight: 800;
     white-space: nowrap;
-    letter-spacing: .07em;
+    letter-spacing: .035em;
     text-transform: uppercase;
-    color: #767676;
+    color: #9a9a9a;
     background: none;
     border: none;
     border-bottom: 2px solid transparent;
@@ -411,11 +422,10 @@
     cursor: pointer;
     @include transition(color .2s ease);
 
-    &:hover { color: $ink; }
+    &:hover { color: $accent; }
 
     &[aria-selected="true"] {
       color: $ink;
-      font-weight: 700;
       border-bottom-color: $accent;
     }
   }
@@ -939,27 +949,11 @@
   .page-bg { display: none !important; }
 }
 
-// The CV tab is a wordmark rather than a word, so it needs sizing down to the
-// cap height of its neighbours and colouring from the same states. It opens a
-// section of this page, which is why it belongs here and not among the links
-// that lead away from the site.
-.section-nav-cv {
-  line-height: 0;
-
-  .icon {
-    height: .78rem;
-    width: auto;
-    display: block;
-  }
-
-  .icon path { fill: currentColor; }
-}
-
 // The two halves of the bar do different jobs - sections of this page on the
 // left, places to go on the right - so a hairline marks the change of subject.
 .title-bar {
   @include media_larger_than_mobile {
-    .icon-links { border-left: 1px solid #e2e2e2; padding-left: 3rem; }
+    .icon-links { border-left: 1px solid #e2e2e2; padding-left: .9rem; }
   }
 }
 
@@ -1001,6 +995,128 @@
 .thesis-title {
   font-style: italic;
   color: $ink;
+}
+
+// The Collaborators button is a change of view rather than a narrowing of the
+// list, so it is set slightly apart from the status filters beside it.
+.pub-filter-people {
+  margin-left: .5rem;
+
+  &::before {
+    content: "";
+    display: inline-block;
+    width: 1px;
+    height: .8rem;
+    background: #dcdcdc;
+    margin: 0 .75rem 0 0;
+    vertical-align: -.12rem;
+  }
+}
+
+.collaborator-list {
+  margin-top: -.4rem;
+
+  .resume-item-list {
+    @include media_larger_than_mobile { columns: 2; column-gap: 2.5rem; }
+    @include media_min(1200px)        { columns: 3; }
+    li { break-inside: avoid; }
+  }
+}
+
+// Teaching
+// ---------------------------------------/
+// What is running this year sits in its own panel at the top, because that is
+// the one thing a student arriving on this page actually wants.
+
+.teaching-now {
+  border: 1px solid rgba(63, 125, 90, .3);
+  border-left: 3px solid $accent;
+  border-radius: 3px;
+  background: rgba(63, 125, 90, .04);
+  padding: 1rem 1.3rem 1.1rem;
+  margin: 0 0 2rem;
+}
+
+.teaching-now-title {
+  @include sans;
+  font-weight: 700;
+  font-size: .8rem;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: $accent;
+  margin: 0 0 .7rem;
+}
+
+.teaching-now-year {
+  font-weight: 400;
+  color: $ink;
+  margin-left: .5rem;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.teaching-now-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: .2rem 1rem;
+    margin: 0 0 .35rem;
+  }
+}
+
+.teaching-term {
+  @include sans;
+  font-size: .78rem;
+  color: #767676;
+  min-width: 6rem;
+}
+
+.teaching-course {
+  font-size: 1.02rem;
+  color: $ink;
+}
+
+// Reading surface
+// ---------------------------------------/
+// When something is drifting about behind the page, the text gets a surface of
+// its own to sit on - translucent, so the background still shows through, but
+// enough to keep the type off it. With no background running there is nothing
+// to lift the text away from, so the panel does not appear at all.
+
+// It wraps the content, not the whole page: the photo, the name and the tab bar
+// stay on the open background, and only the reading matter gets a surface. The
+// negative side margins let the panel sit wider than the text column, so the
+// text keeps the same left edge it has everywhere else.
+html:not(.bg-off) {
+  .page-bg[data-bg="bubbles"] ~ .wrapper,
+  .page-bg[data-bg="lattice"] ~ .wrapper {
+    .tab-panel {
+      background: rgba(255, 255, 255, .82);
+      border-radius: 4px;
+      box-shadow: 0 0 26px rgba(43, 50, 45, .07);
+      padding: 1rem 1rem 1.4rem;
+      margin: .6rem -1rem 2rem;
+
+      @include media_larger_than_mobile {
+        padding: 1.4rem 1.5rem 1.8rem;
+        margin: 1rem -1.5rem 2.5rem;
+      }
+    }
+  }
+}
+
+@media print {
+  .tab-panel {
+    background: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
 }
 
 .print-only { display: none !important }

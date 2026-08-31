@@ -98,18 +98,28 @@
     var pubs = document.querySelectorAll('.publication');
     var empty = document.querySelector('.pub-empty');
 
+    var people = document.querySelector('.collaborator-list');
+
     function applyFilter(which) {
       var shown = 0;
+      var showingPeople = (which === 'collaborators');
+
       filterButtons.forEach(function (b) {
-        // pressed, not selected: these are toggles over one list, not tabs
+        // pressed, not selected: these choose a view over one section
         b.setAttribute('aria-pressed', String(b.getAttribute('data-filter') === which));
       });
+
+      // Collaborators is not a status, so it swaps the list rather than
+      // narrowing it: every publication goes, the names come in.
       pubs.forEach(function (p) {
-        var match = (which === 'all') || (p.getAttribute('data-status') === which);
+        var match = !showingPeople &&
+                    ((which === 'all') || (p.getAttribute('data-status') === which));
         p.classList.toggle('is-filtered-out', !match);
         if (match) shown++;
       });
-      if (empty) empty.hidden = (shown > 0);
+
+      if (people) people.hidden = !showingPeople;
+      if (empty) empty.hidden = showingPeople || shown > 0;
     }
 
     filterButtons.forEach(function (b) {

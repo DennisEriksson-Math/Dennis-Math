@@ -56,11 +56,9 @@
 
         <nav class="section-nav" role="tablist" aria-label="Sections">
           <button type="button" role="tab" id="tab-publications" class="section-nav-item" data-target="publications" aria-controls="panel-publications" aria-selected="true">Publications</button>
-          <button type="button" role="tab" id="tab-collaborators" class="section-nav-item" data-target="collaborators" aria-controls="panel-collaborators" aria-selected="false">Collaborators</button>
+          <button type="button" role="tab" id="tab-teaching" class="section-nav-item" data-target="teaching" aria-controls="panel-teaching" aria-selected="false">Teaching</button>
           <button type="button" role="tab" id="tab-students" class="section-nav-item" data-target="students" aria-controls="panel-students" aria-selected="false">Students</button>
-          <button type="button" role="tab" id="tab-cv" class="section-nav-item section-nav-cv" data-target="cv" aria-controls="panel-cv" aria-selected="false">
-            {% include icons/icon-cv.html %}<span class="screenreader-only">CV</span>
-          </button>
+          <button type="button" role="tab" id="tab-cv" class="section-nav-item" data-target="cv" aria-controls="panel-cv" aria-selected="false">CV</button>
         </nav>
 
         {% include icon-links.html %}
@@ -103,6 +101,7 @@
         <button type="button" class="pub-filter" data-filter="submitted" aria-pressed="false">Submitted {{ submitted | size }}</button>
         <button type="button" class="pub-filter" data-filter="accepted"  aria-pressed="false">Accepted {{ accepted | size }}</button>
         <button type="button" class="pub-filter" data-filter="published" aria-pressed="false">Published {{ published | size }}</button>
+        <button type="button" class="pub-filter pub-filter-people" data-filter="collaborators" aria-pressed="false">Collaborators {{ site.data.coauthors | size }}</button>
       </div>
 
       {% for project in site.data.projects %}
@@ -155,27 +154,21 @@
 
       <p class="pub-empty no-print" hidden>Nothing in this category.</p>
 
+      {% comment %} Shown when the Collaborators button is chosen. It sits here
+         rather than in a tab of its own because the list is simply everyone who
+         appears in the publications above. {% endcomment %}
+      <div class="collaborator-list" hidden>
+        <ul class="resume-item-list">
+          {% for coauthor_entry in site.data.coauthors %}
+          {% assign coauthor = coauthor_entry[1] %}
+          <li>
+            {% assign cu = coauthor.url | default: "" | strip %}{% if cu != "" %}<a href="{{ cu }}" target="_blank" rel="noopener noreferrer">{{ coauthor.full-name | default: coauthor.name }}</a>{% else %}<span class="student-name">{{ coauthor.full-name | default: coauthor.name }}</span>{% endif %}
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+
     </section>
-    </div>
-
-
-    {% comment %} ---------- Collaborators ---------- {% endcomment %}
-    <div class="tab-panel" id="panel-collaborators" data-panel="collaborators" role="tabpanel" aria-labelledby="tab-collaborators" tabindex="0" hidden>
-      <section class="content-section">
-        <header class="section-header">
-          <h2 itemprop="knowsAbout">Collaborators</h2>
-        </header>
-        <div class="resume-item">
-          <ul class="resume-item-list">
-            {% for coauthor_entry in site.data.coauthors %}
-            {% assign coauthor = coauthor_entry[1] %}
-            <li>
-              {% assign cu = coauthor.url | default: "" | strip %}{% if cu != "" %}<a href="{{ cu }}" target="_blank" rel="noopener noreferrer">{{ coauthor.full-name | default: coauthor.name }}</a>{% else %}{{ coauthor.full-name | default: coauthor.name }}{% endif %}
-            </li>
-            {% endfor %}
-          </ul>
-        </div>
-      </section>
     </div>
 
 
@@ -256,6 +249,48 @@
 
 
 
+    {% comment %} ---------- Teaching ---------- {% endcomment %}
+    <div class="tab-panel" id="panel-teaching" data-panel="teaching" role="tabpanel" aria-labelledby="tab-teaching" tabindex="0" hidden>
+      <section class="content-section">
+        <header class="section-header">
+          <h2 itemprop="knowsAbout">Teaching</h2>
+        </header>
+
+        {% comment %} what is running now, set apart at the top {% endcomment %}
+        {% assign now = site.data.teaching | where: "highlight", true %}
+        {% if now.size > 0 %}
+        <div class="teaching-now">
+          <h3 class="teaching-now-title">This year<span class="teaching-now-year">{{ now[0].group }}</span></h3>
+          <ul class="teaching-now-list">
+            {% for e in now %}
+            <li><span class="teaching-term">{{ e.when }}</span><span class="teaching-course">{{ e.what }}</span></li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+
+        {% comment %} everything else, under its own subheading {% endcomment %}
+        {% assign rest = site.data.teaching | where_exp: "e", "e.highlight != true" %}
+        {% assign groups = rest | group_by: "group" %}
+        {% for g in groups %}
+        <div class="cv-block">
+          <h3 class="cv-heading"><span class="cv-accent">{{ g.name | slice: 0, 3 }}</span>{{ g.name | slice: 3, 200 }}</h3>
+          {% for e in g.items %}
+          <div class="cv-entry">
+            <div class="cv-when">{{ e.when }}</div>
+            <div class="cv-body">
+              <p class="cv-line"><span class="cv-what">{{ e.what }}</span>{% if e.where %}<span class="cv-where">{{ e.where }}</span>{% endif %}</p>
+              {% if e.detail %}<p class="cv-detail">{{ e.detail }}</p>{% endif %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        {% endfor %}
+
+      </section>
+    </div>
+
+
     {% comment %} ---------- CV ---------- {% endcomment %}
     <div class="tab-panel" id="panel-cv" data-panel="cv" role="tabpanel" aria-labelledby="tab-cv" tabindex="0" hidden>
       <section class="content-section">
@@ -291,7 +326,10 @@
         {% for block in site.data.cv.sections %}
         <div class="cv-block">
           <h3 class="cv-heading"><span class="cv-accent">{{ block.section | slice: 0, 3 }}</span>{{ block.section | slice: 3, 200 }}</h3>
-          {% for e in block.entries %}
+          {% comment %} a section may keep its entries elsewhere, so both the CV
+             and that section's own tab show the same list {% endcomment %}
+          {% if block.from %}{% assign rows = site.data[block.from] | where_exp: "e", "e.cv != false" %}{% else %}{% assign rows = block.entries %}{% endif %}
+          {% for e in rows %}
           <div class="cv-entry">
             <div class="cv-when">{{ e.when }}</div>
             <div class="cv-body">

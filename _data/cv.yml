@@ -159,32 +159,10 @@ sections:
         where: "International Journals"
         detail: "Regular ad-hoc referee for journals including: Inventiones Mathematicae, IMRN, Algebra & Number Theory, Journal of Differential Geometry, JEMS, JHEP, JGP, Selecta Mathematica, and Pacific Journal of Mathematics. Also served as a referee for various international conference proceedings."
 
+  # The entries live in _data/teaching.yml, because the Teaching tab shows the
+  # same material. Editing that one file updates both places.
   - section: "Teaching and Pedagogical Qualifications"
-    entries:
-      - when: "2019, 2020, 2023"
-        what: "Teaching Award (Thrice Awarded)"
-        where: "Chalmers"
-        detail: "Won the prize for best teacher in the Civil Engineering programme. In 2020 nominated for the Chalmers pedagogical prize."
-      - when: "2024–present"
-        what: "Bachelor Thesis Examiner"
-        where: "Chalmers & University of Gothenburg"
-        detail: "Examiner for bachelor theses in mathematics; approximately 80 students and 20 projects every year."
-      - when: "2016–"
-        what: "Courses Taught"
-        where: "Chalmers, Hangzhou, Paris"
-        detail: "Undergraduate: Preparatory Calculus; Calculus for Civil Engineering; Multivariable Calculus. Master Level: Algebraic Geometry; Reading courses in algebraic topology and homological algebra (upcoming). PhD Level: K-theory (with M. Goffeng); p-adic methods (with A. Södergren, S. Herrero); Reading courses in algebraic number theory, Arakelov theory, Hodge theory, Derived geometry, and Gromov–Witten theory (upcoming)."
-      - when: "2014–2018"
-        what: "Pedagogical Studies in Higher Education (15 hp)"
-        where: "Chalmers"
-        detail: "Formal qualification in university-level teaching and learning, including student assessment, curriculum design, and learning theories."
-      - when: "2018"
-        what: "Innovation Grant"
-        where: "Chalmers"
-        detail: "Approx. €70,000 dedicated to developing digital teaching tools. I applied for and led the project."
-      - when: "2018"
-        what: "Pedagogical Research Publication"
-        where: "Primus 28 (2018), no. 8"
-        detail: "Communicating to Learn Multivariable Calculus: Students' Blackboard Presentations as a Means for Enhancing Mathematics Learning. With Hans Malmström."
+    from: teaching
 
   - section: "Recent Selected Seminars"
     entries:

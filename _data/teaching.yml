@@ -1,0 +1,81 @@
+# Teaching. This one file feeds two places: the Teaching tab, and the Teaching
+# section of the CV tab. Add here and it appears in both.
+#
+#   group      the subheading it sits under in the Teaching tab
+#   highlight  true for what you are teaching now - shown in a box at the top
+#   when       left-hand column (term, year or range)
+#   what       bold title
+#   where      small right-aligned note
+#   detail     the paragraph underneath (optional)
+#   cv         set to false to keep an entry off the CV tab, when the printed
+#              CV should stay as it is
+
+# ---- what I am teaching this year ----
+- group: "2026–2027"
+  highlight: true
+  when: "Quarter 2"
+  what: "Algebraic geometry"
+
+- group: "2026–2027"
+  highlight: true
+  when: "Quarter 3"
+  what: "Algebraic structures"
+
+# ---- courses, by level ----
+- group: "Courses"
+  when: "2016–"
+  what: "Undergraduate"
+  where: "Chalmers"
+  detail: "Preparatory Calculus; Calculus for Civil Engineering; Multivariable Calculus."
+
+- group: "Courses"
+  when: "2016–"
+  what: "Master level"
+  where: "Chalmers, Hangzhou, Paris"
+  detail: "Algebraic Geometry; reading courses in algebraic topology and homological algebra."
+
+- group: "Courses"
+  when: "2016–"
+  what: "PhD level"
+  where: "Graduate school"
+  detail: "K-theory (with M. Goffeng); p-adic methods (with A. Södergren, S. Herrero); reading courses in algebraic number theory, Arakelov theory, Hodge theory, derived geometry, and Gromov–Witten theory."
+
+# ---- recognition ----
+- group: "Recognition"
+  when: "2019, 2020, 2023"
+  what: "Teaching Award, three times"
+  where: "Chalmers"
+  detail: "Prize for best teacher in the Civil Engineering programme. Nominated for the Chalmers pedagogical prize in 2020."
+
+# ---- examining and supervision duties ----
+- group: "Examining"
+  when: "2024–present"
+  what: "Bachelor Thesis Examiner"
+  where: "Chalmers & University of Gothenburg"
+  detail: "Examiner for bachelor theses in mathematics; approximately 80 students and 20 projects every year."
+
+# ---- pedagogical work ----
+- group: "Pedagogical work"
+  cv: false
+  when: ""            # <- add the years here
+  what: "Ämnesstråkansvarig, mathematics"
+  where: "Civil Engineering programme, Chalmers"
+  detail: "Responsible for the mathematics strand through the rebuild of the programme, in which all of its mathematics courses were redesigned."
+
+- group: "Pedagogical work"
+  when: "2018"
+  what: "Pedagogical Research Publication"
+  where: "Primus 28 (2018), no. 8"
+  detail: "Communicating to Learn Multivariable Calculus: Students' Blackboard Presentations as a Means for Enhancing Mathematics Learning. With Hans Malmström."
+
+- group: "Pedagogical work"
+  when: "2018"
+  what: "Innovation Grant"
+  where: "Chalmers"
+  detail: "Approx. €70,000 for developing digital teaching tools. I applied for and led the project."
+
+- group: "Pedagogical work"
+  when: "2014–2018"
+  what: "Pedagogical Studies in Higher Education (15 hp)"
+  where: "Chalmers"
+  detail: "Formal qualification in university-level teaching and learning, including student assessment, curriculum design, and learning theories."

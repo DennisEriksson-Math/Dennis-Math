@@ -16,6 +16,7 @@ Almost everything you'd want to change lives in two places:
 | PhD students | `_data/PhD.yml` |
 | Master's students | `_data/MasterStudents.yml` |
 | Bachelor projects | `_data/BachelorStudents.yml` |
+| Teaching | `_data/teaching.yml` |
 | Research interests | `_data/interests.yml` |
 | CV shown in the CV tab | `_data/cv.yml` |
 
@@ -54,7 +55,7 @@ shows everything.
 The bar has two halves, separated by a hairline, because they do different jobs:
 
 - **left** &mdash; four tabs onto sections of this page: Publications,
-  Collaborators, Students, and the **CV** wordmark
+  Students, Teaching, and the **CV** wordmark
 - **right** &mdash; five links that lead away: the CV as a PDF, your Chalmers
   page, arXiv, Google Scholar, ORCID
 
@@ -64,6 +65,16 @@ they go to another section, and after that the button is in charge, so the page
 never overrides a deliberate choice. Printing always shows the whole thing.
 
 The About me text itself lives in `resume_header_intro` in `_config.yml`.
+
+## The reading panel
+
+When a background is running, the content sections sit on a translucent white
+panel so the type never has to compete with what is drifting behind it. The
+photo, name and tab bar stay on the open background &mdash; the panel begins
+where the reading does. With no
+background &mdash; either because the random roll came up empty, or because the
+reader switched it off &mdash; there is nothing to lift the text away from, so
+the panel does not appear at all. It is never printed.
 
 ## Colours
 
@@ -151,6 +162,28 @@ nothing is sent anywhere. Close the Terminal window when you are finished.
 
 The very first run installs the page builder and takes a few minutes; after that
 it opens in a second or two. Re-run it after each edit to see the change.
+
+## Teaching
+
+`_data/teaching.yml` feeds two places at once: the **Teaching** tab, and the
+Teaching section of the **CV** tab. Add an entry there and it appears in both, so
+the two can never disagree.
+
+Two fields shape the Teaching tab:
+
+- `group:` &mdash; the subheading the entry appears under (Courses, Recognition,
+  Examining, Pedagogical work, or anything new you invent)
+- `highlight: true` &mdash; puts the entry in the boxed **This year** panel at the
+  top. That is where the current year's courses go; change them each autumn and
+  the box updates itself.
+- `cv: false` &mdash; keeps an entry off the CV tab, for anything that belongs on
+  the website but not in the printed CV.
+
+Apart from those, the CV tab simply lists everything in file order.
+
+Collaborators are no longer a tab. They are the last button in the Publications
+filter row, since the list is simply everyone appearing in the publications
+above it.
 
 ## The CV tab
 

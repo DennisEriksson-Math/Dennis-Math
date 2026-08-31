@@ -9,7 +9,7 @@ author:
   alternateName:
     - Dennis
     - Dennis Eriksson
-  url: "https://mathstodon.xyz/@denniseriksson" # Mastodon/social link
+  url: "https://www.chalmers.se/en/persons/dener/" # your page at Chalmers
   givenName: Dennis
   additionalName:
   familyName:
@@ -17,11 +17,13 @@ author:
   twitter:
 twitter:
   card: summary
+# Accounts search engines should associate with you. Only list pages that
+# resolve - a dead entry here tells Google about somebody who does not exist.
 social:
   name: Dennis Eriksson
   links:
-    - https://mathstodon.xyz/@denniseriksson
-    - https://www.chalmers.se/personer/denniseriksson
+    - https://www.chalmers.se/en/persons/dener/
+    - https://orcid.org/0000-0003-0646-6613
 locale: en_GB
 
 # Local-only helpers - never part of the published site

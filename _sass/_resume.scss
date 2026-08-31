@@ -408,12 +408,15 @@
   // at this size reads as shouting rather than as solid.
   .section-nav-item {
     @include sans;
-    font-size: .82rem;
+    // 800 is the heaviest Open Sans weight loaded, so the extra solidity comes
+    // from size and from closing the letters up: tight tracking is what makes
+    // uppercase read as a wordmark rather than as a menu label.
+    font-size: .95rem;
     font-weight: 800;
     white-space: nowrap;
-    letter-spacing: .035em;
+    letter-spacing: .005em;
     text-transform: uppercase;
-    color: #9a9a9a;
+    color: #949494;
     background: none;
     border: none;
     border-bottom: 2px solid transparent;
@@ -1079,6 +1082,28 @@
 .teaching-course {
   font-size: 1.02rem;
   color: $ink;
+}
+
+// The course codes are for people who need to look the course up, so they sit
+// quietly beside the name rather than competing with it.
+.teaching-codes {
+  @include sans;
+  font-size: .72rem;
+  letter-spacing: .03em;
+
+  a {
+    color: $accent;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    @include transition(border-color .2s ease);
+
+    &:hover { border-bottom-color: $accent; }
+  }
+}
+
+.teaching-code-sep {
+  color: #d0d0d0;
+  margin: 0 .3rem;
 }
 
 // Reading surface

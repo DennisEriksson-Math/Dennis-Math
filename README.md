@@ -178,6 +178,9 @@ Two fields shape the Teaching tab:
   the box updates itself.
 - `cv: false` &mdash; keeps an entry off the CV tab, for anything that belongs on
   the website but not in the printed CV.
+- `codes:` &mdash; course codes with links, shown beside the course name in the
+  **This year** box. A course given jointly by GU and Chalmers has a code on each
+  side, so list both.
 
 Apart from those, the CV tab simply lists everything in file order.
 

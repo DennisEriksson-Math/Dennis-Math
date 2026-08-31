@@ -169,7 +169,7 @@ sections:
       - when: "Dec 2025"
         what: "Algebraic geometry seminar"
         where: "Bologna, Italy"
-        detail: "(Upcoming) On smooth fillings of Calabi–Yau varieties"
+        detail: "On smooth fillings of Calabi–Yau varieties"
       - when: "March 2025"
         what: 'Séminaire de géométrie "Anniversaire Paul 80"'
         where: "Paris, France"

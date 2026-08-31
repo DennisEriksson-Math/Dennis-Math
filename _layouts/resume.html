@@ -263,7 +263,11 @@
           <h3 class="teaching-now-title">This year<span class="teaching-now-year">{{ now[0].group }}</span></h3>
           <ul class="teaching-now-list">
             {% for e in now %}
-            <li><span class="teaching-term">{{ e.when }}</span><span class="teaching-course">{{ e.what }}</span></li>
+            <li>
+              <span class="teaching-term">{{ e.when }}</span>
+              <span class="teaching-course">{{ e.what }}</span>
+              {% if e.codes %}<span class="teaching-codes">{% for c in e.codes %}<a href="{{ c.url }}" target="_blank" rel="noopener noreferrer">{{ c.code }}</a>{% unless forloop.last %}<span class="teaching-code-sep">&middot;</span>{% endunless %}{% endfor %}</span>{% endif %}
+            </li>
             {% endfor %}
           </ul>
         </div>

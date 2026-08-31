@@ -9,17 +9,28 @@
 #   detail     the paragraph underneath (optional)
 #   cv         set to false to keep an entry off the CV tab, when the printed
 #              CV should stay as it is
+#   codes      course codes with links, for the entries in the box at the top.
+#              A course given jointly by GU and Chalmers has one code each and
+#              both are listed.
 
 # ---- what I am teaching this year ----
 - group: "2026–2027"
   highlight: true
   when: "Quarter 2"
   what: "Algebraic geometry"
+  codes:
+    - code: "MMA321"
+      url: "https://www.gu.se/en/study-gothenburg/algebraic-geometry-mma321"
 
 - group: "2026–2027"
   highlight: true
   when: "Quarter 3"
   what: "Algebraic structures"
+  codes:
+    - code: "MMG500"
+      url: "https://www.gu.se/en/study-gothenburg/algebraic-structures-mmg500"
+    - code: "MVE150"
+      url: "https://www.chalmers.se/en/education/your-studies/find-course-and-programme-syllabi/course-syllabus/MVE150/"
 
 # ---- courses, by level ----
 - group: "Courses"

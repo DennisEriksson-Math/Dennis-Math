@@ -1,7 +1,9 @@
-# CV, transcribed from CV-webpage.pdf (last updated 7 December 2025).
+# CV, transcribed from CV-webpage.pdf (that PDF is from 7 December 2025).
 #
-# The PDF stays the authoritative version and is linked at the top of the CV tab.
-# If you update the PDF, update this file too or the two will drift apart.
+# The PDF is linked at the top of the CV tab. This file is deliberately allowed
+# to run ahead of it: the "updated" date below describes THIS file, not the PDF,
+# so entries added here appear on the page before the PDF is regenerated.
+# When you do regenerate the PDF, fold in anything added here since.
 #
 # Each section is:
 #   section:  heading (its first three letters are printed in the CV's orange)
@@ -11,7 +13,7 @@
 #       where:  small right-aligned annotation
 #       detail: the paragraph underneath (optional)
 
-updated: "7 December 2025"
+updated: "1 September 2026"
 
 summary: >
   My research grows out of arithmetic geometry, where algebraic geometry, number theory,
@@ -192,6 +194,10 @@ sections:
 
   - section: "Selected Conferences"
     entries:
+      - when: "May 2026"
+        what: "AI for Mathematics"
+        where: "Gothenburg, Sweden"
+        detail: "The very confident intern — how I use LLMs in my mathematical research"
       - when: "Sep 2025"
         what: "Kähler Geometry: Past, Present and Future"
         where: "Banff, Canada"

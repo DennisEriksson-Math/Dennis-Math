@@ -17,7 +17,7 @@ Almost everything you'd want to change lives in two places:
 | Master's students | `_data/MasterStudents.yml` |
 | Bachelor projects | `_data/BachelorStudents.yml` |
 | Teaching | `_data/teaching.yml` |
-| Research interests | `_data/interests.yml` |
+| Research interests (the keyword line under your title) | `_config.yml`, `resume_header_contact_info` |
 | CV shown in the CV tab | `_data/cv.yml` |
 
 Page structure lives in `_layouts/resume.html`; styling in `_sass/`;
@@ -26,7 +26,7 @@ the tab and filter behaviour in `scripts/tabs.js`.
 ## How the page is laid out
 
 Under the header there is one ruled bar: the section tabs on the left
-(Publications / Collaborators / Students / CV) and the icon links on the right.
+(Publications / Teaching / Students / CV) and the icon links on the right.
 Inside Publications, a row of filter buttons narrows the list by status.
 
 The tabs work the same at every width &mdash; one section at a time, on a phone

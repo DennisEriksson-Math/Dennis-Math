@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#e9e2cf">
+<title>Erdős Number</title>
+<meta name="description" content="Wire yourself to Erdős through co-authors. Every edge costs you something.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Sora:wght@300;400;500;600&family=Special+Elite&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="game.css?v=1">
+</head>
+<body>
+
+<main class="pad">
+  <header class="pad-head">
+    <div>
+      <div class="pad-kicker">Co-authorship network · sketched on a napkin</div>
+      <h1 class="pad-title">Erdős Number</h1>
+    </div>
+    <div class="pad-stats">
+      <div class="stat"><b id="level">1</b><span>Level</span></div>
+      <div class="stat"><b id="score">0</b><span>Score</span></div>
+      <div class="stat"><b id="best">0</b><span>Best</span></div>
+    </div>
+  </header>
+
+  <div class="bar">
+    <div class="cost">
+      <span>Cost so far</span>
+      <b id="cost">0</b>
+      <span class="par">par <b id="par">—</b></span>
+    </div>
+    <div class="bar-actions">
+      <button class="mini" id="undo" type="button">Undo</button>
+      <button class="mini" id="reset" type="button">Start over</button>
+    </div>
+  </div>
+
+  <div class="graph" id="graph">
+    <svg class="edges" id="edges" aria-hidden="true"></svg>
+    <div class="nodes" id="nodes"></div>
+  </div>
+
+  <p class="hint" id="hint">Click a name joined to yours, and keep going until you reach Erdős.</p>
+
+  <footer class="pad-foot">
+    <span>Lower is better. Matching par scores full marks.</span>
+    <a class="back" href="../index.html">← Back to the Common Room</a>
+  </footer>
+</main>
+
+<div class="overlay" id="overlay"></div>
+
+<script src="sfx.js?v=1"></script>
+<script src="game.js?v=2"></script>
+</body>
+</html>

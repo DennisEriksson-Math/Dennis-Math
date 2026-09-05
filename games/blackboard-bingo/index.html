@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0e1117">
+<title>Blackboard Bingo</title>
+<meta name="description" content="Sit through a seminar and mark the phrases as they land.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Sora:wght@300;400;500;600&family=Special+Elite&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="game.css?v=1">
+</head>
+<body>
+
+<div class="hall" aria-hidden="true"><div class="beam"></div><div class="heads"></div><div class="grain"></div></div>
+
+<section class="screen">
+  <div class="screen-frame">
+    <div class="screen-tag" id="slide-tag">The talk has not started</div>
+    <p class="screen-line" id="slide">—</p>
+    <div class="screen-bar"><div class="screen-bar-fill" id="call-timer"></div></div>
+  </div>
+</section>
+
+<section class="lap">
+  <header class="lap-head">
+    <div class="stat"><b id="score">0</b><span>Score</span></div>
+    <div class="stat"><b id="lines">0</b><span>Lines</span></div>
+    <div class="stat"><b id="best">0</b><span>Best</span></div>
+    <div class="attention">
+      <div class="attention-label"><span>Attention</span><span id="calls">0 / 44</span></div>
+      <div class="attention-track"><div class="attention-fill" id="attention"></div></div>
+    </div>
+  </header>
+  <div class="card" id="card"></div>
+</section>
+
+<div class="overlay" id="overlay"></div>
+
+<script src="sfx.js?v=1"></script>
+<script src="game.js?v=1"></script>
+</body>
+</html>

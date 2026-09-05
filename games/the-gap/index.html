@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#26211a">
+<title>The Gap</title>
+<meta name="description" content="Reassemble a scrambled proof. One of the steps does not follow.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Sora:wght@300;400;500;600&family=Special+Elite&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="game.css?v=1">
+</head>
+<body>
+
+<div class="desk" aria-hidden="true"><div class="vignette"></div><div class="grain"></div></div>
+
+<main class="wrap">
+  <header class="head">
+    <div>
+      <div class="kicker">Referee’s copy · <span id="progress">Proof 1 of 8</span></div>
+      <h1 class="theorem" id="theorem">—</h1>
+    </div>
+    <div class="stats">
+      <div class="stat"><b id="score">0</b><span>Score</span></div>
+      <div class="stat"><b id="best">0</b><span>Best</span></div>
+      <div class="lives" id="lives"><i></i><i></i><i></i></div>
+    </div>
+  </header>
+
+  <div class="columns">
+    <section class="col col-proof">
+      <h2 class="col-title">The proof <span id="count">0 steps</span></h2>
+      <ol class="slots" id="proof"></ol>
+      <p class="col-note">Click a line to send it back.</p>
+    </section>
+
+    <section class="col col-pool">
+      <h2 class="col-title">Loose lines</h2>
+      <div class="pool" id="pool"></div>
+      <p class="col-note">One of these does not follow. Leave it out.</p>
+    </section>
+  </div>
+
+  <footer class="foot">
+    <p class="verdict" id="verdict"></p>
+    <div class="foot-actions">
+      <button class="mini" id="clear" type="button">Clear</button>
+      <button class="btn" id="submit" type="button">Submit the proof</button>
+    </div>
+  </footer>
+
+  <a class="back" href="../index.html">← Back to the Common Room</a>
+</main>
+
+<div class="overlay" id="overlay"></div>
+
+<script src="sfx.js?v=1"></script>
+<script src="game.js?v=1"></script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#03061a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>ORBIT — an interactive scene</title>
+<meta name="description" content="An interactive space scene built with vanilla JavaScript, DOM elements and CSS. Drag the orbs, throw them, click to open.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500&family=Sora:wght@300;400;500;600&family=Unbounded:wght@200;300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ───────────────── SCENE BACKGROUND ───────────────── -->
+<div class="scene-bg" aria-hidden="true">
+  <div class="nebula nebula-a"></div>
+  <div class="nebula nebula-b"></div>
+  <div class="nebula nebula-c"></div>
+  <div class="stars stars-far"></div>
+  <div class="stars stars-mid"></div>
+  <div class="stars stars-near"></div>
+  <div class="dust"></div>
+  <div class="comet"></div>
+  <div class="vignette"></div>
+  <div class="grain"></div>
+</div>
+
+<!-- ───────────────── HUD ───────────────── -->
+<header class="hud hud-tl">
+  <div class="brand">
+    <svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true">
+      <path d="M12 2 L22 12 L12 22 L2 12 Z" />
+      <circle cx="12" cy="12" r="3.5" />
+      <path d="M12 5.5 L12 8.5 M12 15.5 L12 18.5 M5.5 12 L8.5 12 M15.5 12 L18.5 12" />
+    </svg>
+    <div class="brand-text">
+      <div class="brand-name">ORBIT</div>
+      <div class="brand-sub">An interactive scene</div>
+    </div>
+  </div>
+</header>
+
+<div class="hud hud-tr">
+  <div class="telemetry">
+    <div class="tele-block">
+      <div class="tele-time" id="tele-time">--:--:--</div>
+      <div class="tele-coords" id="tele-coords">LAT 00.000 · LON 000.000</div>
+    </div>
+    <button id="sound-toggle" class="sound-toggle" type="button" aria-pressed="false" aria-label="Turn ambient sound on" title="Ambient sound">
+      <svg class="sound-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="currentColor" stroke="currentColor" stroke-width="1.2"/>
+        <path class="wave" d="M15.54 8.46 a5 5 0 0 1 0 7.07"/>
+        <path class="wave" d="M19.07 4.93 a10 10 0 0 1 0 14.14"/>
+        <line class="mute-x" x1="22" y1="9" x2="16.5" y2="15"/>
+        <line class="mute-x" x1="16.5" y1="9" x2="22" y2="15"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<div class="hud hud-bl" aria-hidden="true">
+  <div class="hint">
+    <span class="hint-dot"></span>
+    <span>Drag to throw · click to open</span>
+  </div>
+</div>
+
+<div class="hud hud-br" aria-hidden="true">
+  <div class="brand-sub">Built with vanilla JS + CSS</div>
+</div>
+
+<!-- ───────────────── PHYSICS SCENE ───────────────── -->
+<main class="scene" id="scene" aria-label="Interactive scene"></main>
+
+<!-- ───────────────── HOLOGRAM PANE HOST ───────────────── -->
+<div class="hologram-host" id="hologram-host" aria-hidden="true"></div>
+
+<!-- ───────────────── INTRO ───────────────── -->
+<div class="intro-curtain" id="intro">
+  <div class="intro-ring"></div>
+  <div class="intro-label">
+    <span>Loading</span>
+    <span class="intro-progress"><i></i></span>
+  </div>
+</div>
+
+<script src="physics.js"></script>
+<script src="audio.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

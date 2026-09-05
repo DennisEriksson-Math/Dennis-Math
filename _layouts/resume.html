@@ -59,6 +59,7 @@
           <button type="button" role="tab" id="tab-teaching" class="section-nav-item" data-target="teaching" aria-controls="panel-teaching" aria-selected="false">Teaching</button>
           <button type="button" role="tab" id="tab-students" class="section-nav-item" data-target="students" aria-controls="panel-students" aria-selected="false">Students</button>
           <button type="button" role="tab" id="tab-cv" class="section-nav-item" data-target="cv" aria-controls="panel-cv" aria-selected="false">CV</button>
+          <button type="button" role="tab" id="tab-ai" class="section-nav-item" data-target="ai" aria-controls="panel-ai" aria-selected="false">AI for math</button>
         </nav>
 
         {% include icon-links.html %}
@@ -347,6 +348,46 @@
 
         <p class="cv-footnote">Publications and supervised students have their own sections, so
           they are not repeated here.</p>
+
+      </section>
+    </div>
+
+
+    {% comment %} ---------- AI for math ---------- {% endcomment %}
+    <div class="tab-panel" id="panel-ai" data-panel="ai" role="tabpanel" aria-labelledby="tab-ai" tabindex="0" hidden>
+      <section class="content-section">
+        <header class="section-header">
+          <h2 itemprop="knowsAbout">AI for math</h2>
+        </header>
+
+        {% if site.data.ai.intro %}
+        <p class="cv-summary">{{ site.data.ai.intro }}</p>
+        {% endif %}
+
+        {% for block in site.data.ai.sections %}
+        <div class="cv-block">
+          <h3 class="cv-heading"><span class="cv-accent">{{ block.section | slice: 0, 3 }}</span>{{ block.section | slice: 3, 200 }}</h3>
+
+          {% if block.body %}<p class="cv-detail">{{ block.body }}</p>{% endif %}
+
+          {% if block.link %}
+          <p class="cv-actions no-print">
+            <a class="cv-pdf" href="{% if block.link.internal %}{{ block.link.url | relative_url }}{% else %}{{ block.link.url }}{% endif %}"{% unless block.link.internal %} target="_blank" rel="noopener noreferrer"{% endunless %}>{{ block.link.text }}</a>
+            {% if block.link.note %}<span class="cv-updated">{{ block.link.note }}</span>{% endif %}
+          </p>
+          {% endif %}
+
+          {% for e in block.entries %}
+          <div class="cv-entry">
+            <div class="cv-when">{{ e.when }}</div>
+            <div class="cv-body">
+              <p class="cv-line"><span class="cv-what">{% if e.url %}<a href="{{ e.url }}" target="_blank" rel="noopener noreferrer">{{ e.what }}</a>{% else %}{{ e.what }}{% endif %}</span>{% if e.where %}<span class="cv-where">{{ e.where }}</span>{% endif %}</p>
+              {% if e.detail %}<p class="cv-detail">{{ e.detail }}</p>{% endif %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        {% endfor %}
 
       </section>
     </div>

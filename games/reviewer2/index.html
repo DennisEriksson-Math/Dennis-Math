@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#2e1d10">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Reviewer № 2</title>
+<meta name="description" content="A whack-a-mole about academic dread. Deadlines, revisions and Reviewer 2 keep landing on your desk. Clear them before you burn out.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Sora:wght@300;400;500;600&family=Special+Elite&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="game.css?v=2">
+</head>
+<body>
+
+<!-- ───────────────── THE DESK ───────────────── -->
+<div class="desk" aria-hidden="true">
+  <div class="scrap scrap-1"></div>
+  <div class="scrap scrap-2"></div>
+  <div class="scrap scrap-3"></div>
+  <div class="ring ring-1"></div>
+  <div class="ring ring-2"></div>
+  <div class="ring ring-3"></div>
+  <div class="vignette"></div>
+  <div class="grain"></div>
+</div>
+
+<!-- ───────────────── HUD ───────────────── -->
+<div class="hud">
+  <div class="hud-left">
+    <div class="stat">
+      <b id="score">0</b>
+      <span>Score</span>
+    </div>
+    <div class="stat stat-small">
+      <b id="best">0</b>
+      <span>Best</span>
+    </div>
+    <div class="stat stat-small">
+      <b id="combo">×1</b>
+      <span>Combo</span>
+    </div>
+  </div>
+
+  <div class="hud-right">
+    <div class="stress">
+      <div class="stress-label"><span>Stress</span><span>Burnout</span></div>
+      <div class="stress-track"><div class="stress-fill" id="stress-fill"></div></div>
+    </div>
+    <button class="icon-btn" id="mute" type="button" aria-pressed="false" aria-label="Mute sound" title="Sound">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="currentColor" stroke-width="1.2"/>
+        <path class="wave" d="M15.54 8.46 a5 5 0 0 1 0 7.07"/>
+        <path class="wave" d="M19.07 4.93 a10 10 0 0 1 0 14.14"/>
+        <line class="mute-x" x1="22" y1="9" x2="16.5" y2="15"/>
+        <line class="mute-x" x1="16.5" y1="9" x2="22" y2="15"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<!-- ───────────────── PLAY FIELD ───────────────── -->
+<div class="field" id="field"></div>
+
+<!-- ───────────────── TITLE / GAME OVER ───────────────── -->
+<div class="overlay" id="overlay"></div>
+
+<script src="sfx.js?v=2"></script>
+<script src="game.js?v=3"></script>
+</body>
+</html>

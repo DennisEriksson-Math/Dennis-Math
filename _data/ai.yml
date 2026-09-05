@@ -1,0 +1,62 @@
+# The "AI for math" tab.
+#
+# Structure mirrors _data/cv.yml, and the tab reuses the CV's styling, so
+# nothing here needs new CSS.
+#
+#   intro     opening paragraph, set like the CV summary
+#   sections  each becomes a block; the heading's first three letters print
+#             in the CV orange, exactly as on the CV tab
+#     - section:  the heading
+#       body:     a paragraph under it (optional)
+#       link:     a call-to-action (optional)
+#                   text:      the label on the button
+#                   url:       where it goes
+#                   internal:  true for somewhere on this site, so the URL is
+#                              written relative to the site root. Leave it out
+#                              for anything off-site.
+#                   note:      small grey text beside the button (optional)
+#       entries:  a list, same fields as the CV: when / what / where / detail,
+#                 plus an optional url that links the "what"
+
+# ---------------------------------------------------------------------------
+# DRAFT. Rewrite this in your own words - it is a placeholder, not a position.
+# ---------------------------------------------------------------------------
+intro: >
+  I use large language models in my own work, and I am interested in where they
+  help, where they mislead, and what either fact means for how mathematics
+  actually gets done. This page collects what comes out of that: things I have
+  built, talks I have given, and notes as I write them.
+
+sections:
+
+  - section: "The Common Room"
+    body: >
+      A noticeboard of small browser games about mathematics and academic life.
+      Plain HTML, CSS and JavaScript - no frameworks, no build step, nothing to
+      install, and no image files: every sound is synthesised as it plays. I
+      wrote them with an LLM sitting next to me, which is rather the point. They
+      are the working example behind everything else on this page.
+    link:
+      text: "Open The Common Room"
+      url: "/games/index.html"
+      internal: true
+      note: "Eight games and one scene"
+
+  - section: "Talks"
+    entries:
+      - when: "May 2026"
+        what: "The very confident intern - how I use LLMs in my mathematical research"
+        where: "AI for Mathematics, Gothenburg"
+
+# When Fyr is ready, it wants a block of its own - copy the shape of The Common
+# Room above. An off-site link just leaves out "internal":
+#
+#   - section: "Fyr"
+#     body: >
+#       ...
+#     link:
+#       text: "Fyr"
+#       url: "https://example.org/fyr"
+#
+# Reflections and notes can be another block, either as a paragraph in "body"
+# or as dated "entries".

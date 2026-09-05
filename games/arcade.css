@@ -1,0 +1,320 @@
+/* ═══════════════════════════════════════════════════════════
+   ARCADE — a departmental noticeboard. Cork, pins, paper.
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  --wood-hi: #4a3020;
+  --wood:    #2b1a0e;
+  --cork:    #b5844f;
+  --cork-lo: #8a5f34;
+  --paper:   #f6efdd;
+  --ink:     #2c2419;
+  --ink-dim: rgba(44, 36, 25, 0.58);
+  --red:     #c0392b;
+
+  --font-type: 'Special Elite', 'Courier New', monospace;
+  --font-hand: 'Caveat', cursive;
+  --font-ui:   'Sora', system-ui, -apple-system, sans-serif;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  min-height: 100%;
+  padding: 18px;
+  font-family: var(--font-ui);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 0%, rgba(255, 198, 116, 0.16), transparent 66%),
+    repeating-linear-gradient(93deg,
+      rgba(0,0,0,0.18) 0 2px, rgba(255,255,255,0.015) 2px 7px),
+    linear-gradient(158deg, var(--wood-hi), var(--wood) 60%, #120a04);
+  background-attachment: fixed;
+}
+
+/* ── The board itself ── */
+.board {
+  position: relative;
+  min-height: calc(100vh - 36px);
+  padding: 56px clamp(20px, 5vw, 64px) 64px;
+  border-radius: 3px;
+  background:
+    radial-gradient(ellipse 70% 50% at 30% 8%, rgba(255, 228, 178, 0.22), transparent 62%),
+    radial-gradient(1.5px 1.5px at 12% 22%, rgba(88, 54, 22, 0.55), transparent),
+    radial-gradient(2px 2px   at 68% 14%, rgba(88, 54, 22, 0.40), transparent),
+    radial-gradient(1.5px 1.5px at 41% 63%, rgba(70, 42, 16, 0.50), transparent),
+    radial-gradient(2.5px 2.5px at 84% 77%, rgba(88, 54, 22, 0.35), transparent),
+    radial-gradient(1.5px 1.5px at 23% 88%, rgba(70, 42, 16, 0.45), transparent),
+    radial-gradient(2px 2px   at 57% 38%, rgba(96, 60, 26, 0.40), transparent),
+    linear-gradient(165deg, var(--cork), var(--cork-lo));
+  background-size: auto, 90px 90px, 130px 130px, 70px 70px, 150px 150px, 110px 110px, 100px 100px, auto;
+  box-shadow:
+    inset 0 0 90px rgba(70, 40, 12, 0.55),
+    inset 0 2px 0 rgba(255, 224, 176, 0.22),
+    0 20px 60px rgba(0,0,0,0.6);
+}
+
+/* Faint grain over the cork */
+.board::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 3px;
+  pointer-events: none;
+  opacity: 0.14;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ── Header ── */
+.head {
+  position: relative;
+  z-index: 1;
+  max-width: 1180px;
+  margin: 0 auto 46px;
+  text-align: center;
+}
+.head-kicker {
+  font-family: var(--font-type);
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(60, 34, 10, 0.62);
+}
+.head-title {
+  margin-top: 14px;
+  font-family: var(--font-type);
+  font-size: clamp(30px, 6vw, 52px);
+  font-weight: 400;
+  line-height: 1.05;
+  color: #35210e;
+  text-shadow: 0 1px 0 rgba(255, 226, 180, 0.28);
+}
+.head-sub {
+  margin: 16px auto 0;
+  max-width: 44ch;
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: rgba(50, 30, 10, 0.72);
+}
+.tally {
+  display: inline-block;
+  margin-top: 18px;
+  padding: 5px 14px;
+  font-family: var(--font-hand);
+  font-size: 19px;
+  color: var(--red);
+  border: 1.5px solid rgba(192, 57, 43, 0.5);
+  border-radius: 20px;
+  transform: rotate(-1.5deg);
+}
+
+/* ── Cards ── */
+.cards {
+  position: relative;
+  z-index: 1;
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(272px, 1fr));
+  gap: 34px 30px;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 34px 24px 22px;
+  text-decoration: none;
+  color: inherit;
+  background: linear-gradient(168deg, var(--paper) 0%, #e7dcc3 100%);
+  border-radius: 2px;
+  transform: rotate(var(--tilt));
+  box-shadow: 0 12px 26px rgba(0,0,0,0.42), 0 2px 5px rgba(0,0,0,0.3);
+  transition: transform 0.34s var(--ease-out), box-shadow 0.34s var(--ease-out);
+}
+
+/* Pushpin */
+.pin {
+  position: absolute;
+  top: 11px;
+  left: 50%;
+  width: 15px; height: 15px;
+  margin-left: -7.5px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 34% 30%, #ff8f7a, var(--red) 58%, #7d2018);
+  box-shadow: 0 3px 5px rgba(0,0,0,0.45), inset 0 -1px 2px rgba(0,0,0,0.3);
+}
+.is-soon .pin {
+  background: radial-gradient(circle at 34% 30%, #cfd6e0, #8b96a5 58%, #4f5763);
+}
+
+.card-kicker {
+  font-family: var(--font-type);
+  font-size: 9.5px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+.card-title {
+  margin-top: 9px;
+  font-family: var(--font-type);
+  font-size: 23px;
+  font-weight: 400;
+  line-height: 1.15;
+}
+.card-blurb {
+  margin-top: 12px;
+  flex: 1;
+  font-size: 13.5px;
+  line-height: 1.62;
+  color: rgba(44, 36, 25, 0.8);
+}
+.card-foot {
+  margin-top: 20px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(44, 36, 25, 0.14);
+  font-family: var(--font-type);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.card-foot i {
+  font-style: normal;
+  display: inline-block;
+  transition: transform 0.3s var(--ease-out);
+}
+
+/* Playable */
+.is-playable .card-foot { color: var(--red); }
+.is-playable:hover {
+  transform: rotate(0deg) translateY(-8px) scale(1.025);
+  box-shadow: 0 26px 48px rgba(0,0,0,0.5), 0 3px 8px rgba(0,0,0,0.3);
+}
+.is-playable:hover .card-foot i { transform: translateX(6px); }
+.is-playable:focus-visible {
+  outline: 3px solid rgba(192, 57, 43, 0.7);
+  outline-offset: 3px;
+}
+
+/* Not built yet */
+.is-soon {
+  background: linear-gradient(168deg, #efe7d3 0%, #ddd2b8 100%);
+  opacity: 0.82;
+}
+.is-soon .card-title { color: rgba(44, 36, 25, 0.72); }
+.is-soon .card-foot {
+  color: var(--ink-dim);
+  border-top-style: dashed;
+}
+
+/* ── The mug ── */
+.brew {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  padding-bottom: 8px;
+  min-height: 150px;
+  pointer-events: none;
+  user-select: none;
+}
+
+.mug {
+  width: clamp(96px, 12vw, 132px);
+  height: auto;
+  overflow: visible;
+  filter: drop-shadow(0 10px 14px rgba(48, 26, 6, 0.4));
+}
+
+.mug .saucer   { fill: #efe7d6; }
+.mug .saucer-2 { fill: #d9cdb6; }
+.mug .body     { fill: #f6f1e4; }
+.mug .rim      { fill: #e6dcc6; }
+.mug .coffee   { fill: #4a2b16; }
+.mug .shine    { stroke: rgba(255,255,255,0.85); stroke-width: 4; stroke-linecap: round; fill: none; }
+.mug .handle   { stroke: #f6f1e4; stroke-width: 9; stroke-linecap: round; fill: none; }
+
+/* Steam: three curls, each rising and fading on its own schedule. */
+.mug .wisp {
+  stroke: rgba(255, 252, 245, 0.75);
+  stroke-width: 3;
+  stroke-linecap: round;
+  fill: none;
+  opacity: 0;
+  transform-origin: 60px 58px;
+  animation: rise 3.6s ease-in-out infinite;
+}
+.mug .w1 { animation-delay: 0s;    }
+.mug .w2 { animation-delay: 1.15s; }
+.mug .w3 { animation-delay: 2.3s;  }
+
+@keyframes rise {
+  0%   { opacity: 0;    transform: translateY(6px)   scaleY(0.78) scaleX(0.9); }
+  22%  { opacity: 0.62; }
+  62%  { opacity: 0.34; }
+  100% { opacity: 0;    transform: translateY(-16px) scaleY(1.22) scaleX(1.1); }
+}
+
+.brew-note {
+  font-family: var(--font-hand);
+  font-size: 19px;
+  color: rgba(58, 34, 10, 0.5);
+  transform: rotate(-2.5deg);
+}
+
+/* ── Footer ── */
+.foot {
+  position: relative;
+  z-index: 1;
+  max-width: 1180px;
+  margin: 54px auto 0;
+  padding-top: 24px;
+  border-top: 1px dashed rgba(70, 42, 16, 0.28);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 26px;
+  align-items: baseline;
+  justify-content: space-between;
+  font-size: 12.5px;
+  color: rgba(50, 30, 10, 0.68);
+}
+.foot a { color: #7a3c22; text-decoration: underline; text-underline-offset: 3px; }
+.foot a:hover { color: var(--red); }
+.foot-note { font-family: var(--font-hand); font-size: 18px; }
+
+/* ── Responsive ── */
+@media (max-width: 620px) {
+  body { padding: 10px; }
+  .board { padding: 40px 18px 44px; min-height: calc(100vh - 20px); }
+  .cards { grid-template-columns: 1fr; gap: 28px; }
+  .brew { min-height: 0; padding-top: 6px; }
+  .head { margin-bottom: 34px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .mug .wisp { animation: none; opacity: 0.4; }
+  .card, .card-foot i { transition: none; }
+  .is-playable:hover { transform: rotate(var(--tilt)); }
+}
+
+/* Back to the main site. The link is relative rather than absolute so it
+   survives the site's baseurl, and so the folder still works when served on
+   its own. */
+.head-back {
+  display: inline-block;
+  margin-bottom: 14px;
+  font-size: 12.5px;
+  letter-spacing: 0.04em;
+  color: #7a3c22;
+  text-decoration: none;
+  border-bottom: 1px dashed rgba(122, 60, 34, 0.5);
+  padding-bottom: 2px;
+}
+.head-back:hover { color: var(--red); border-bottom-color: currentColor; }

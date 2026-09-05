@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#141a2e">
+<title>Proof or Bluff</title>
+<meta name="description" content="A statement appears. Real theorem, or plausible nonsense? Four seconds to decide.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Sora:wght@300;400;500;600&family=Special+Elite&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="game.css?v=1">
+</head>
+<body>
+
+<div class="room" aria-hidden="true"><div class="spot"></div><div class="grain"></div></div>
+
+<header class="hud">
+  <div class="stat"><b id="score">0</b><span>Score</span></div>
+  <div class="stat"><b id="streak">×1</b><span>Streak</span></div>
+  <div class="stat"><b id="best">0</b><span>Best</span></div>
+  <div class="lives" id="lives"><span>Lives</span><i></i><i></i><i></i></div>
+</header>
+
+<main class="stage">
+  <div class="timer"><div class="timer-fill" id="timer-fill"></div></div>
+
+  <div class="card-slot">
+    <div class="claim-card" id="card">
+      <div class="claim-tag">Statement</div>
+      <p class="claim-text" id="claim"></p>
+      <div class="claim-mark" id="mark"></div>
+    </div>
+  </div>
+
+  <p class="why" id="why"></p>
+
+  <div class="choices">
+    <button class="pick pick-true"  id="pick-true"  type="button">Theorem</button>
+    <button class="pick pick-false" id="pick-false" type="button">Bluff</button>
+  </div>
+</main>
+
+<div class="overlay" id="overlay"></div>
+
+<script src="sfx.js?v=1"></script>
+<script src="game.js?v=1"></script>
+</body>
+</html>

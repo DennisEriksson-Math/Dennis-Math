@@ -1,0 +1,33 @@
+---
+---
+{
+  "name": "Dennis Eriksson",
+  "short_name": "Dennis Eriksson",
+  "description": "Personal academic site: publications, teaching, students, CV, and The Common Room games.",
+  "start_url": "{{ site.baseurl }}/index.html",
+  "scope": "{{ site.baseurl }}/",
+  "display": "standalone",
+  "background_color": "#f7f3ea",
+  "theme_color": "#3f7d5a",
+  "lang": "en",
+  "icons": [
+    {
+      "src": "{{ site.baseurl }}/images/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "{{ site.baseurl }}/images/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "{{ site.baseurl }}/images/icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

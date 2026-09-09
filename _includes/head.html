@@ -21,6 +21,19 @@
   <link rel="stylesheet" href="{{ '/css/main.css' | relative_url }}?v={{ site.time | date: '%s' }}">
   <!--<link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">-->
   <link rel="icon" type="image/png" href="{{ '/favicon.png' | relative_url }}?v={{ site.time | date: '%s' }}" />
-  
+
+  <!-- PWA: installable app shell -->
+  <link rel="manifest" href="{{ '/manifest.json' | relative_url }}">
+  <meta name="theme-color" content="#3f7d5a">
+  <link rel="apple-touch-icon" href="{{ '/images/icons/apple-touch-icon.png' | relative_url }}">
+  <script src="{{ '/scripts/install-prompt.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('{{ '/sw.js' | relative_url }}');
+      });
+    }
+  </script>
+
   {% seo %}
 </head>

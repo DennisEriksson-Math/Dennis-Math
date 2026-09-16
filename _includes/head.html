@@ -22,5 +22,25 @@
   <!--<link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">-->
   <link rel="icon" type="image/png" href="{{ '/favicon.png' | relative_url }}?v={{ site.time | date: '%s' }}" />
 
+  <!-- Cleans up the service worker/install prompt from the short-lived PWA
+       experiment. Deleting sw.js and manifest.json off the server does not
+       remove what a visitor's browser already installed, so this actively
+       unregisters and clears the cache for anyone who still has it. Safe to
+       delete this block once enough time has passed that returning visitors
+       have all picked it up (their SW's network-first navigation fetches
+       this fresh HTML, so it runs even while the old worker is still active). -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function (regs) {
+        regs.forEach(function (reg) { reg.unregister(); });
+      });
+    }
+    if ('caches' in window) {
+      caches.keys().then(function (names) {
+        names.forEach(function (n) { caches.delete(n); });
+      });
+    }
+  </script>
+
   {% seo %}
 </head>

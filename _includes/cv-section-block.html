@@ -1,0 +1,19 @@
+{% comment %}
+  Renders one _data/cv.yml section (the header list, or the whole PDF).
+  Pass the section hash as include.block.
+{% endcomment %}
+<div class="cv-block">
+  <h3 class="cv-heading"><span class="cv-accent">{{ include.block.section | slice: 0, 3 }}</span>{{ include.block.section | slice: 3, 200 }}</h3>
+  {% comment %} a section may keep its entries elsewhere, so both the CV
+     and that section's own tab show the same list {% endcomment %}
+  {% if include.block.from %}{% assign rows = site.data[include.block.from] | where_exp: "e", "e.cv != false" %}{% else %}{% assign rows = include.block.entries %}{% endif %}
+  {% for e in rows %}
+  <div class="cv-entry">
+    <div class="cv-when">{{ e.when }}</div>
+    <div class="cv-body">
+      <p class="cv-line"><span class="cv-what">{{ e.what }}</span>{% if e.where %}<span class="cv-where">{{ e.where }}</span>{% endif %}</p>
+      {% if e.detail %}<p class="cv-detail">{{ e.detail }}</p>{% endif %}
+    </div>
+  </div>
+  {% endfor %}
+</div>

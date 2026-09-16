@@ -13,6 +13,14 @@
 # Both arxiv: and doi: are optional, and both are shown when present.
 # Newest first.
 
+  - project: "Spectrum of singularities, analytic torsion and Calabi–Yau degenerations"
+    id: spectrum-singularities
+    coauthor-list:
+      - FreixasG
+    status: submitted
+    year: 2026
+    arxiv: "2609.12849"
+
   - project: "The Deligne-Riemann-Roch isomorphism"
     id: DRR2
     coauthor-list:
@@ -55,6 +63,7 @@
     coauthor-list:
       - FreixasG
       - WentworthR
+    significant: true
     status: accepted
     journal: "Astérisque"
     year: 2022
@@ -66,6 +75,7 @@
     id: deligne-riemann-roch-intersection
     coauthor-list:
       - FreixasG
+    significant: true
     status: published
     journal: "J. Éc. polytech. Math."
     volumenumber: 11
@@ -81,6 +91,7 @@
     coauthor-list:
       - FreixasG
       - MourouganeC
+    significant: true
     status: published
     journal: "Forum Math. Pi"
     volumenumber: 10
@@ -114,6 +125,7 @@
     id: spaces-of-norms
     coauthor-list:
       - BoucksomS
+    significant: true
     status: published
     journal: "Advances in Mathematics"
     volumenumber: 378
@@ -130,6 +142,7 @@
     coauthor-list:
       - FreixasG
       - MourouganeC
+    significant: true
     status: published
     journal: "Duke Mathematical Journal"
     volumenumber: 170

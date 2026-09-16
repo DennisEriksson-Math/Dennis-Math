@@ -1,0 +1,26 @@
+{% comment %}
+  Small inline icons (currentColor, no external font) so email/web/Scholar
+  read as distinct link rows instead of a plain stack of text.
+{% endcomment %}
+<div class="cv-aside-block cv-contact-block">
+  <h3 class="cv-heading"><span class="cv-accent">Con</span>tact</h3>
+
+  <p class="cv-detail cv-contact-address">{{ site.resume_contact_address_short | default: site.resume_contact_address }}</p>
+
+  <p class="cv-contact-line">
+    <span class="cv-contact-email">{{ site.resume_contact_email }}</span>
+    <svg viewBox="0 0 16 16" class="cv-contact-icon" aria-hidden="true"><path d="M1.5 3.5h13v9h-13z" fill="none" stroke="currentColor" stroke-width="1.1"/><path d="M2 4l6 4.6L14 4" fill="none" stroke="currentColor" stroke-width="1.1"/></svg>
+  </p>
+
+  <p class="cv-contact-line">
+    <a href="{{ site.url }}{{ site.baseurl }}/">Webpage</a>
+    <svg viewBox="0 0 16 16" class="cv-contact-icon" aria-hidden="true"><circle cx="8" cy="8" r="6.3" fill="none" stroke="currentColor" stroke-width="1.1"/><path d="M1.7 8h12.6M8 1.7c2.3 1.9 2.3 10.7 0 12.6M8 1.7c-2.3 1.9-2.3 10.7 0 12.6" fill="none" stroke="currentColor" stroke-width="1"/></svg>
+  </p>
+
+  {% if site.resume_social_links.resume_publications_url %}
+  <p class="cv-contact-line">
+    <a href="{{ site.resume_social_links.resume_publications_url }}">Google Scholar</a>
+    <svg viewBox="0 0 16 16" class="cv-contact-icon" aria-hidden="true"><path d="M8 2 1.3 5.6 8 9.2l6.7-3.6L8 2Z" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/><path d="M4.3 7.3v3.2c0 1.1 1.7 2 3.7 2s3.7-.9 3.7-2V7.3" fill="none" stroke="currentColor" stroke-width="1.1"/><path d="M13.6 6.4v4" stroke="currentColor" stroke-width="1.1"/></svg>
+  </p>
+  {% endif %}
+</div>

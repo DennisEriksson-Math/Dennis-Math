@@ -1,0 +1,17 @@
+{% assign significant_pubs = site.data.projects | where_exp: "e", "e.significant == true" | sort: "year" | reverse %}
+{% if significant_pubs.size > 0 %}
+<div class="cv-block cv-significant-block">
+  <h3 class="cv-heading"><span class="cv-accent">Sel</span>ect Significant Publications</h3>
+  {% for p in significant_pubs %}
+  <div class="cv-entry">
+    <div class="cv-when">{{ p.year }}</div>
+    <div class="cv-body">
+      <p class="cv-line"><span class="cv-what">{{ p.project }}</span>{% if p.journal %}<span class="cv-where">{{ p.journal }}{% if p.note %} ({{ p.note }}){% endif %}</span>{% endif %}</p>
+      {% if p.coauthor-list %}
+      <p class="cv-detail">With{% for tag in p.coauthor-list %}{% assign co = site.data.coauthors[tag] %} {{ co.full-name }}{% unless forloop.last %},{% endunless %}{% endfor %}.</p>
+      {% endif %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}

@@ -1,0 +1,4 @@
+# Postdocs, newest first. Same shape as _data/PhD.yml: name, status_years, url.
+# Add "thesis" too if there's ever a specific project title worth naming.
+- name: "Yanbo Fang"
+  status_years: "Current, 2026–present"

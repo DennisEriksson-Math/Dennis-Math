@@ -1,0 +1,19 @@
+{% comment %}
+  The CV, in full: shared between the CV tab on the main page and the
+  standalone cv-print.html page that gets turned into CV-webpage.pdf. Editing
+  _data/cv.yml (or a file it points "from:" at) updates both at once, so
+  there is exactly one place that knows what the CV says.
+
+  This single-column version is the site tab. cv-print.html composes the same
+  pieces (cv-about, cv-languages, cv-significant-pubs, cv-section-block, ...)
+  into its own two-column layout instead of including this file directly.
+{% endcomment %}
+<p class="cv-summary">{{ site.data.cv.summary }}</p>
+
+<div class="cv-aside">
+  {% include cv-about.html %}
+  {% include cv-languages.html %}
+</div>
+
+{% include cv-significant-pubs.html %}
+{% include cv-sections.html %}

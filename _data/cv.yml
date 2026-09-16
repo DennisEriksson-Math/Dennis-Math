@@ -13,7 +13,7 @@
 #       where:  small right-aligned annotation
 #       detail: the paragraph underneath (optional)
 
-updated: "1 September 2026"
+updated: "16 September 2026"
 
 summary: >
   My research grows out of arithmetic geometry, where algebraic geometry, number theory,
@@ -32,6 +32,19 @@ about: >
   strong interest in collaboration, communication and education. Outside mathematics,
   I enjoy language learning and cultural travel.
 
+# Sidebar of the PDF only, for now - shout if you want these on the website too.
+interests:
+  - "Algebraic geometry"
+  - "Arithmetic geometry"
+  - "Complex geometry"
+  - "Arakelov theory"
+  - "Intersection theory"
+  - "Calabi–Yau manifolds"
+  - "Hodge theory"
+  - "Analytic torsion"
+  - "Enumerative mirror symmetry"
+  - "Singularities"
+
 # level is out of 4, matching the dots in the PDF
 languages:
   - { language: Swedish,  level: 4 }
@@ -44,7 +57,7 @@ languages:
 
 sections:
 
-  - section: "Research Grants"
+  - section: "Some Select Research Grants"
     entries:
       - when: "2026"
         what: "Research in Paris"
@@ -168,6 +181,12 @@ sections:
 
   - section: "Recent Selected Seminars"
     entries:
+      - when: "Oct 2026"
+        what: "Genus one mirror symmetry for toric varieties"
+        where: "Pohang, South Korea"
+      - when: "Sep 2026"
+        what: "Archimedean heights and bad reduction of Calabi–Yau manifolds"
+        where: "Westlake University, Hangzhou, China"
       - when: "Dec 2025"
         what: "Algebraic geometry seminar"
         where: "Bologna, Italy"

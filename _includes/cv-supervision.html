@@ -1,0 +1,44 @@
+{% comment %}
+  Supervision: postdocs, PhD, master's and bachelor students. Pulls straight
+  from the same _data files the Students tab uses, so adding someone there
+  is all it takes for them to show up here too.
+{% endcomment %}
+<div class="cv-block">
+  <h3 class="cv-heading"><span class="cv-accent">Sup</span>ervision</h3>
+
+  {% if site.data.Postdocs.size > 0 %}
+  <div class="cv-entry">
+    <div class="cv-when">Postdocs</div>
+    <div class="cv-body">
+      <p class="cv-detail">{% for p in site.data.Postdocs %}{{ p.name }}{% if p.status_years %} ({{ p.status_years }}){% endif %}{% unless forloop.last %}; {% endunless %}{% endfor %}</p>
+    </div>
+  </div>
+  {% endif %}
+
+  {% if site.data.PhD.size > 0 %}
+  <div class="cv-entry">
+    <div class="cv-when">PhD students</div>
+    <div class="cv-body">
+      <p class="cv-detail">{% for s in site.data.PhD %}{{ s.name }}{% if s.status_years %} ({{ s.status_years }}){% endif %}{% unless forloop.last %}; {% endunless %}{% endfor %}</p>
+    </div>
+  </div>
+  {% endif %}
+
+  {% if site.data.MasterStudents.size > 0 %}
+  <div class="cv-entry">
+    <div class="cv-when">Master students</div>
+    <div class="cv-body">
+      <p class="cv-detail">{% for s in site.data.MasterStudents %}{{ s.name }}{% if s.status_years %} ({{ s.status_years }}){% endif %}{% unless forloop.last %}; {% endunless %}{% endfor %}</p>
+    </div>
+  </div>
+  {% endif %}
+
+  {% if site.data.BachelorStudents.size > 0 %}
+  <div class="cv-entry">
+    <div class="cv-when">Bachelor projects</div>
+    <div class="cv-body">
+      <p class="cv-detail">{% for g in site.data.BachelorStudents %}{{ g.members | join: ", " }}{% if g.status_years %} ({{ g.status_years }}){% endif %}{% unless forloop.last %}; {% endunless %}{% endfor %}</p>
+    </div>
+  </div>
+  {% endif %}
+</div>

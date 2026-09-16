@@ -1,0 +1,11 @@
+<div class="cv-aside-block">
+  <h3 class="cv-heading"><span class="cv-accent">Lan</span>guages</h3>
+  <ul class="cv-languages">
+    {% for l in site.data.cv.languages %}
+    <li>
+      <span class="cv-lang-name">{{ l.language }}</span>
+      <span class="cv-dots" aria-label="{{ l.level }} out of 4">{% for i in (1..4) %}<span class="cv-dot{% if i <= l.level %} on{% endif %}"></span>{% endfor %}</span>
+    </li>
+    {% endfor %}
+  </ul>
+</div>

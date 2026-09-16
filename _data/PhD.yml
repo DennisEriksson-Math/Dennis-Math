@@ -1,5 +1,7 @@
 # PhD students, newest first. Same fields as _data/MasterStudents.yml:
 # name, status_years, thesis, tentative, url.
+- name: "Tudor Sharpe"
+  status_years: "Current, 2026–present"
 - url: "https://www.chalmers.se/personer/abanades/"
   name: "Gabriel Abánades Joglar"
   status_years: "Current, 2025–present"

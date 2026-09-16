@@ -177,6 +177,29 @@
     <div class="tab-panel" id="panel-students" data-panel="students" role="tabpanel" aria-labelledby="tab-students" tabindex="0" hidden>
       <section class="content-section">
         <header class="section-header">
+          <h2 itemprop="knowsAbout">Postdocs</h2>
+        </header>
+        <div class="resume-item">
+          <ul class="resume-item-list">
+            {% for person in site.data.Postdocs %}
+            <li>
+              <p class="student-info">
+                {% assign su = person.url | default: "" | strip %}{% if su != "" %}<a href="{{ su }}" target="_blank" rel="noopener noreferrer">{{ person.name }}</a>{% else %}<span class="student-name">{{ person.name }}</span>{% endif %}
+                {% if person.status_years %}<span class="student-years"> ({{ person.status_years }})</span>{% endif %}
+              </p>
+              {% if person.thesis %}
+              <p class="student-thesis">
+                <span class="thesis-title">{{ person.thesis }}</span>
+              </p>
+              {% endif %}
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </section>
+
+      <section class="content-section">
+        <header class="section-header">
           <h2 itemprop="knowsAbout">PhD students</h2>
         </header>
         <div class="resume-item">
@@ -308,46 +331,7 @@
           <span class="cv-updated">Last updated {{ site.data.cv.updated }}</span>
         </p>
 
-        <p class="cv-summary">{{ site.data.cv.summary }}</p>
-
-        <div class="cv-aside">
-          <div class="cv-aside-block">
-            <h3 class="cv-heading"><span class="cv-accent">Abo</span>ut me</h3>
-            <p class="cv-detail">{{ site.data.cv.about }}</p>
-          </div>
-          <div class="cv-aside-block">
-            <h3 class="cv-heading"><span class="cv-accent">Lan</span>guages</h3>
-            <ul class="cv-languages">
-              {% for l in site.data.cv.languages %}
-              <li>
-                <span class="cv-lang-name">{{ l.language }}</span>
-                <span class="cv-dots" aria-label="{{ l.level }} out of 4">{% for i in (1..4) %}<span class="cv-dot{% if i <= l.level %} on{% endif %}"></span>{% endfor %}</span>
-              </li>
-              {% endfor %}
-            </ul>
-          </div>
-        </div>
-
-        {% for block in site.data.cv.sections %}
-        <div class="cv-block">
-          <h3 class="cv-heading"><span class="cv-accent">{{ block.section | slice: 0, 3 }}</span>{{ block.section | slice: 3, 200 }}</h3>
-          {% comment %} a section may keep its entries elsewhere, so both the CV
-             and that section's own tab show the same list {% endcomment %}
-          {% if block.from %}{% assign rows = site.data[block.from] | where_exp: "e", "e.cv != false" %}{% else %}{% assign rows = block.entries %}{% endif %}
-          {% for e in rows %}
-          <div class="cv-entry">
-            <div class="cv-when">{{ e.when }}</div>
-            <div class="cv-body">
-              <p class="cv-line"><span class="cv-what">{{ e.what }}</span>{% if e.where %}<span class="cv-where">{{ e.where }}</span>{% endif %}</p>
-              {% if e.detail %}<p class="cv-detail">{{ e.detail }}</p>{% endif %}
-            </div>
-          </div>
-          {% endfor %}
-        </div>
-        {% endfor %}
-
-        <p class="cv-footnote">Publications and supervised students have their own sections, so
-          they are not repeated here.</p>
+        {% include cv-body.html %}
 
       </section>
     </div>

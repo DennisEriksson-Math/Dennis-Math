@@ -327,7 +327,7 @@
         </header>
 
         <p class="cv-actions no-print">
-          <a class="cv-pdf" href="{{ '/CV-webpage.pdf' | relative_url }}">Open the CV as a PDF</a>
+          <a class="cv-pdf" href="{{ '/CV-webpage.pdf' | relative_url }}?v={{ site.time | date: '%s' }}">Open the CV as a PDF</a>
           <span class="cv-updated">Last updated {{ site.data.cv.updated }}</span>
         </p>
 

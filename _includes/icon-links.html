@@ -7,7 +7,7 @@
        the page; this one hands over the PDF, so it uses a document icon and says
        so, rather than being a second thing labelled "CV". -->
   {% if site.resume_social_links.resume_cvpdf_url %}
-  <li class="icon-link-item"><a href="{{ site.resume_social_links.resume_cvpdf_url | relative_url }}" class="icon-link">{% include icons/icon-pdf.html %}
+  <li class="icon-link-item"><a href="{{ site.resume_social_links.resume_cvpdf_url | relative_url }}?v={{ site.time | date: '%s' }}" class="icon-link">{% include icons/icon-pdf.html %}
       <div class="screenreader-only">CV as PDF</div>
   </a><span class="tooltiptext">{{ site.resume_social_links.resume_cvpdf_tooltip }}</span></li>
   {% endif %}

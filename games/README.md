@@ -40,7 +40,7 @@ Each game folder is self-contained — copy any one of them anywhere and it runs
 | **Counterexample** | Hidden object | A blackboard |
 | **Tenure Track** | Resource management | A personnel file |
 | **Proof or Bluff** | Quickfire quiz | A card under a lamp |
-| **Blackboard Bingo** | Bingo | The back row of a lecture hall |
+| **Blackboard Bingo** | Bingo, with a call | The back row of a lecture hall |
 | **Erdős Number** | Weighted shortest path | Ink on a legal pad |
 | **The Gap** | Ordering puzzle | A referee's desk |
 
@@ -125,10 +125,44 @@ a field"); those are the ones worth having.
 
 ## Blackboard Bingo
 
-A 5×5 card of seminar phrases. The speaker says one every 3.2 seconds and it
-stays markable for 4.6. Marking one restores attention, missing one on your
-card costs 11, and attention drains anyway. At zero you fall asleep. Forty-four
-phrases are called from a pool of 44, so plenty of them miss your card.
+A 5×5 card of seminar phrases. Marking one restores attention, missing one on
+your card costs 11, and attention drains anyway. At zero you fall asleep.
+
+The first version of this was purely reactive: the matching square lit up, and
+lines scored themselves. There was nothing to decide. Three things carry the
+decisions now.
+
+**The square is not lit.** The phrase goes up on the screen and you find it on
+your own card, or you do not.
+
+**A line pays nothing until you call it.** `Call bingo` scores every completed
+line you have not yet cashed, and *n* of them called together are worth
+`500n + 400n(n−1)` — 500 for one, 1,800 for two, 3,900 for three. So holding on
+is the whole game, against a talk that will end and an attention meter that
+will not wait. Calling with nothing ready costs 200 points and 12 attention.
+The button shows that *something* is ready, never how much: judging whether a
+second line is close is what the card is for.
+
+**Two ways out, once each way.** A question stops the speaker for six seconds
+and returns 28 attention, but they now have two more slides to get through. A
+coffee returns 50, and two slides happen while you are in the corridor — you
+can hear them, and you cannot mark them.
+
+**Three speakers, and the card is dealt first.** Each favours a slice of the
+phrase pool, which goes into their running order twice over, and each sets
+their own pace:
+
+| Speaker | Slides | Every | Window | Favours |
+|---|---|---|---|---|
+| The Overrunner | 50 | 2.8s | 4.2s | 11 phrases about time and length |
+| The Hand-Waver | 44 | 3.2s | 4.6s | 13 about things being obvious |
+| The Historian | 38 | 3.9s | 5.4s | 9 about credit and provenance |
+
+Because you see the card before you choose the room, the choice screen can tell
+you how many of your squares are each speaker's habit — typically 5 to 7 out of
+24, and worth choosing on. Adding a phrase to a `favours` list is the one thing
+to be careful with: **the strings must match `PHRASES` exactly**, or the
+speaker quietly loses a habit and nothing complains.
 
 ## Erdős Number
 
@@ -149,10 +183,22 @@ A proof has come apart. Put the lines back in order, and leave out the one that
 does not belong. Getting it right first time is worth double; three bad
 submissions ends it.
 
-Eight proofs in `PROOFS`, each with its `steps`, its `gap`, and a `why`
-explaining the bogus line. Several of the gaps are the mistakes people actually
-make — "therefore N is itself prime" in Euclid's argument, and "the terms tend
-to zero, so the series converges".
+**Sixteen** proofs in `PROOFS`, each with its `steps`, its `gap`, and a `why`
+explaining the bogus line. A run plays a random **eight** of them, so the pile
+outlasts the run and no two games open the same way.
+
+That draw matters more than it sounds. The first version played `PROOFS` in
+source order from index 0, which meant every single game opened on √2 being
+irrational and the other fifteen were reachable only by getting that one right.
+The content was all there and almost none of it was ever seen. If you add
+proofs, leave `S.order` alone.
+
+They spread across number theory, analysis, algebra, set theory, logic and
+combinatorics. Several of the gaps are the mistakes people actually make —
+"therefore N is itself prime" in Euclid's argument, "the terms tend to zero, so
+the series converges", and the digit-sum divisibility test applied to 7. Others
+are true-sounding converses: differentiability giving a continuous derivative,
+or the 4k+3 argument being claimed to work just as well for 4k+1.
 
 ---
 

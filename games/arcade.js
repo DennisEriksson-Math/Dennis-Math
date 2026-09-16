@@ -30,8 +30,8 @@ const GAMES = [
     title: 'Blackboard Bingo',
     kicker: 'Bingo',
     href: 'blackboard-bingo/index.html',
-    blurb: 'Sit through a seminar and mark the phrases as they land — "it is easy to see", ' +
-           '"left as an exercise". Stay awake long enough to get a line.'
+    blurb: 'Pick a speaker, then hunt their tics down on your own card — nothing points them ' +
+           'out. A line pays nothing until you call it, so decide when to speak up.'
   },
   {
     title: 'Tenure Track',

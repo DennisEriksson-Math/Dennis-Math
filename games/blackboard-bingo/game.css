@@ -373,3 +373,102 @@ body { display: flex; flex-direction: column; }
 @media (prefers-reduced-motion: reduce) {
   .sq.is-live, .attention-fill.is-low, .screen-line.is-new, .sq.is-marked::after { animation: none !important; }
 }
+
+/* ── The three things you can do ──────────────────────────────
+   The card no longer tells you where to look and no longer scores
+   your lines, so the decisions moved down here. */
+.acts {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.act {
+  flex: 1 1 auto;
+  padding: 10px 12px;
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(230, 236, 247, 0.82);
+  background: rgba(200, 214, 240, 0.09);
+  border: 1px solid rgba(200, 214, 240, 0.18);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.1s;
+}
+.act b {
+  font-family: var(--font-type);
+  font-size: 12px;
+  font-weight: 400;
+  margin-left: 4px;
+  opacity: 0.75;
+}
+.act:hover:not(:disabled) { background: rgba(200, 214, 240, 0.16); color: #fff; }
+.act:active:not(:disabled) { transform: translateY(1px); }
+.act:disabled { opacity: 0.3; cursor: default; }
+
+/* A line is ready somewhere on the card. Which line, and whether to hold
+   out for a second one, is left to you. */
+.act-call.is-ready:not(:disabled) {
+  color: #0e1117;
+  background: var(--glow);
+  border-color: var(--glow);
+  animation: call-ready 1.6s ease-in-out infinite;
+}
+.act-call.is-bad {
+  background: var(--alert);
+  border-color: var(--alert);
+  color: #fff;
+  animation: none;
+}
+@keyframes call-ready {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(207, 227, 255, 0.5); }
+  50%      { box-shadow: 0 0 0 6px rgba(207, 227, 255, 0); }
+}
+
+/* Out of the room: the slide is still up, but it is not yours to mark. */
+.screen-line.is-away { opacity: 0.32; filter: blur(1.2px); }
+
+/* Choosing which of the three talks to sit in. */
+.sheet-wide { max-width: 560px; }
+.picks { display: grid; gap: 10px; margin-top: 22px; text-align: left; }
+.pick {
+  display: block;
+  width: 100%;
+  padding: 13px 16px;
+  background: rgba(43, 37, 25, 0.06);
+  border: 1px solid rgba(43, 37, 25, 0.18);
+  border-radius: 3px;
+  cursor: pointer;
+  font-family: var(--font-ui);
+  transition: background 0.2s, border-color 0.2s, transform 0.1s;
+}
+.pick:hover { background: rgba(43, 37, 25, 0.12); border-color: var(--marked); }
+.pick:active { transform: translateY(1px); }
+.pick-name {
+  display: block;
+  font-family: var(--font-type);
+  font-size: 15px;
+  color: var(--ink);
+}
+.pick-note {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--ink-dim);
+}
+.pick-count {
+  display: block;
+  margin-top: 7px;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--marked);
+}
+
+.sheet-warn { color: var(--alert); font-size: 13px; margin-top: 10px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .act-call.is-ready:not(:disabled) { animation: none; }
+}

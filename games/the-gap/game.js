@@ -107,13 +107,111 @@
       ],
       gap: 'So between any two rationals there are finitely many rationals.',
       why: 'The opposite follows — repeat the halving and you get infinitely many.'
+    },
+    {
+      thm: 'The rational numbers are countable.',
+      steps: [
+        'Write each positive rational in lowest terms as p/q.',
+        'Arrange them in a grid, p along one axis and q along the other.',
+        'Walk the grid along its anti-diagonals, each of which is finite.',
+        'Skip any fraction already met, so nothing is listed twice.',
+        'Every positive rational is reached at some finite stage of that walk.'
+      ],
+      gap: 'The same walk lists the real numbers.',
+      why: 'It does not. Cantor\u2019s diagonal argument shows the reals are uncountable.'
+    },
+    {
+      thm: 'Every convergent sequence is bounded.',
+      steps: [
+        'Let x\u2099 \u2192 L, and take \u03b5 = 1 in the definition of the limit.',
+        'There is an N with |x\u2099 \u2212 L| < 1 for all n \u2265 N.',
+        'So |x\u2099| < |L| + 1 once n \u2265 N.',
+        'The finitely many earlier terms have some largest absolute value M.',
+        'Then |x\u2099| \u2264 max(M, |L| + 1) for every n at all.'
+      ],
+      gap: 'Hence every bounded sequence converges.',
+      why: 'The converse, and false: (\u22121)\u207f is bounded and converges to nothing.'
+    },
+    {
+      thm: 'The empty set is a subset of every set.',
+      steps: [
+        'To show \u2205 \u2286 A we must show every element of \u2205 lies in A.',
+        'So suppose x \u2208 \u2205.',
+        'There is no such x, so the hypothesis is never satisfied.',
+        'An implication with a false hypothesis is true.',
+        'Hence x \u2208 \u2205 \u21d2 x \u2208 A holds, which is what \u2205 \u2286 A means.'
+      ],
+      gap: 'Therefore \u2205 is an element of every set.',
+      why: 'Subset and element are different relations. \u2205 \u2286 A always; \u2205 \u2208 A only sometimes.'
+    },
+    {
+      thm: 'Every group of prime order is cyclic.',
+      steps: [
+        'Let |G| = p with p prime, and choose g in G other than the identity.',
+        'By Lagrange, the order of the subgroup \u27e8g\u27e9 divides p.',
+        'The only divisors of p are 1 and p.',
+        'Since g is not the identity, \u27e8g\u27e9 has more than one element.',
+        'So \u27e8g\u27e9 has order p, and therefore G = \u27e8g\u27e9.'
+      ],
+      gap: 'The same argument shows every group of order p\u00b2 is cyclic.',
+      why: 'False. \u2124/p \u00d7 \u2124/p has order p\u00b2 and no element of order p\u00b2.'
+    },
+    {
+      thm: 'There are infinitely many primes of the form 4k + 3.',
+      steps: [
+        'Suppose q\u2081, \u2026, q\u2099 were all of them, and set N = 4q\u2081\u22efq\u2099 \u2212 1.',
+        'Then N is itself of the form 4k + 3, and N > 1.',
+        'A product of primes all of the form 4k + 1 is again of that form.',
+        'N is odd and not of that form, so it has a prime factor of the form 4k + 3.',
+        'That factor is not among the q\u1d62, since each of those leaves remainder \u22121.'
+      ],
+      gap: 'The same argument works for primes of the form 4k + 1.',
+      why: 'It does not. The third step has no analogue there, and that case needs different tools.'
+    },
+    {
+      thm: 'A function differentiable at a point is continuous there.',
+      steps: [
+        'Suppose f is differentiable at a.',
+        'Then (f(x) \u2212 f(a))/(x \u2212 a) \u2192 f\u2032(a) as x \u2192 a.',
+        'For x \u2260 a write f(x) \u2212 f(a) as that quotient times (x \u2212 a).',
+        'The first factor tends to f\u2032(a) and the second tends to 0.',
+        'So f(x) \u2192 f(a), which is continuity at a.'
+      ],
+      gap: 'Hence f\u2032 is itself continuous.',
+      why: 'Not implied. x\u00b2sin(1/x) is differentiable everywhere and its derivative is not continuous at 0.'
+    },
+    {
+      thm: 'A number is divisible by 3 exactly when its digits sum to a multiple of 3.',
+      steps: [
+        'Write n = \u03a3 a\u1d62 10\u2071 with the a\u1d62 its digits.',
+        '10 \u2261 1 (mod 3), so 10\u2071 \u2261 1 (mod 3) for every i.',
+        'Hence n \u2261 \u03a3 a\u1d62 (mod 3).',
+        'So 3 divides n exactly when 3 divides the digit sum.'
+      ],
+      gap: 'The same test works for 7, since 10 \u2261 1 (mod 7).',
+      why: '10 \u2261 3 (mod 7), not 1. There is no digit-sum test for 7.'
+    },
+    {
+      thm: 'Among any thirteen people, two share a birth month.',
+      steps: [
+        'There are twelve months.',
+        'Suppose no two of the thirteen shared a month.',
+        'Then sending each person to their birth month would be injective.',
+        'An injective map out of a thirteen-element set needs at least thirteen months.',
+        'Only twelve are available, so no such map exists.'
+      ],
+      gap: 'So in any group of twelve people all the birth months differ.',
+      why: 'Nothing forces that. Twelve people can perfectly well all be born in January.'
     }
   ];
 
   const MAX_LIVES = 3;
+  const ROUND     = 8;   // proofs per run, drawn at random from PROOFS
+
 
   const S = {
     idx: 0,
+    order: [],        // which proofs this run uses, in the order they come
     score: 0,
     best: Number(localStorage.getItem('thegap.best') || 0),
     lives: MAX_LIVES,
@@ -142,7 +240,7 @@
     return a;
   }
 
-  function current() { return PROOFS[S.idx]; }
+  function current() { return PROOFS[S.order[S.idx]]; }
 
   /* ─── Rendering ──────────────────────────────────────────── */
 
@@ -178,7 +276,7 @@
 
     elCount.textContent = S.proof.length + ' of ' + p.steps.length;
     elThm.textContent = p.thm;
-    elProg.textContent = 'Proof ' + (S.idx + 1) + ' of ' + PROOFS.length;
+    elProg.textContent = 'Proof ' + (S.idx + 1) + ' of ' + ROUND;
     elScore.textContent = S.score.toLocaleString();
     elBest.textContent = S.best.toLocaleString();
     [...elLives.querySelectorAll('i')].forEach((m, i) => m.classList.toggle('is-gone', i >= S.lives));
@@ -253,7 +351,7 @@
     render();
 
     setTimeout(() => {
-      if (S.idx >= PROOFS.length - 1) { allDone(); return; }
+      if (S.idx >= ROUND - 1) { allDone(); return; }
       S.idx++;
       loadProof();
     }, 2600);
@@ -294,7 +392,8 @@
         '<li>Click a loose line to add it; click a placed line to take it back.</li>' +
         '<li>Some of the bogus lines are the mistakes people actually make.</li>' +
         '<li>Getting it right first time is worth double.</li>' +
-        '<li>Three wrong submissions and the referee gives up. Eight proofs in all.</li>' +
+        '<li>Three wrong submissions and the referee gives up.</li>' +
+        '<li>Eight proofs a run, drawn from a pile of sixteen &mdash; a different eight each time.</li>' +
       '</ul>' +
       '<button class="btn" id="start-btn">Open the first one</button>' +
       '<a class="sheet-back" href="../index.html">← Back to the Common Room</a>' +
@@ -312,7 +411,7 @@
       '<div class="sheet-kicker">Three bad submissions</div>' +
       '<h1 class="sheet-title">Returned<br><span>to the authors</span></h1>' +
       '<p class="sheet-body">The referee has stopped reading. You got through ' + S.idx +
-      ' of ' + PROOFS.length + '.</p>' + results() +
+      ' of ' + ROUND + '.</p>' + results() +
       '<button class="btn" id="again-btn">Try again</button>' +
       '<a class="sheet-back" href="../index.html">← Back to the Common Room</a>' +
       '</div>'
@@ -341,7 +440,7 @@
   function results() {
     return '<div class="result">' +
       '<div><b>' + S.score.toLocaleString() + '</b><span>Score</span></div>' +
-      '<div><b>' + (PROOFS.length * 500).toLocaleString() + '</b><span>Perfect</span></div>' +
+      '<div><b>' + (ROUND * 500).toLocaleString() + '</b><span>Perfect</span></div>' +
       '<div><b>' + S.best.toLocaleString() + '</b><span>Best</span></div>' +
       '</div>';
   }
@@ -349,6 +448,10 @@
   function start() {
     SFX.unlock();
     overlay.classList.remove('is-open');
+    // A fresh draw every run. Without this the pile was always played in
+    // source order, so every game opened on the same proof and the rest of
+    // the pile was only ever reached by getting that one right.
+    S.order = shuffle(PROOFS.map((_, i) => i)).slice(0, ROUND);
     S.idx = 0; S.score = 0; S.lives = MAX_LIVES; S.running = true;
     loadProof();
   }
@@ -358,6 +461,7 @@
   document.getElementById('submit').addEventListener('click', submit);
   document.getElementById('clear').addEventListener('click', clearAll);
 
+  S.order = shuffle(PROOFS.map((_, i) => i)).slice(0, ROUND);
   loadProof();
   startScreen();
 

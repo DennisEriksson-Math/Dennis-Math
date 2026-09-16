@@ -42,6 +42,24 @@ sections:
       internal: true
       note: "Eight games and one scene"
 
+  - section: "Math Collab"
+    body: >
+      A shared whiteboard, calls with screen share, and chat that understands
+      LaTeX - something like WhatsApp, but built for doing mathematics together
+      rather than just talking about it.
+    link:
+      text: "Open Math Collab"
+      url: "https://math-collab-one.vercel.app/"
+      note: "Whiteboard, screen share, LaTeX chat"
+
+  - section: "Coming up"
+    entries:
+      - when: "June 2027"
+        what: "AI for Mathematics"
+        where: "Institut Mittag-Leffler, Djursholm"
+        detail: "Conference, 14-18 June. Attending."
+        url: "https://www.mittag-leffler.se/activities/ai-for-mathematics/"
+
   - section: "Talks"
     entries:
       - when: "May 2026"

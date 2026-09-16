@@ -6,7 +6,7 @@
 <div class="cv-entry">
   <div class="cv-when">{{ include.pub.year }}</div>
   <div class="cv-body">
-    <p class="cv-line"><span class="cv-what">{{ include.pub.project }}</span>{% if include.pub.journal %}<span class="cv-where">{{ include.pub.journal }}{% if include.pub.note %} ({{ include.pub.note }}){% endif %}</span>{% elsif include.pub.note %}<span class="cv-where">{{ include.pub.note }}</span>{% endif %}</p>
+    <p class="cv-line"><span class="cv-what">{{ include.pub.project }}</span>{% if include.pub.journal %}<span class="cv-where">{{ include.pub.journal }}{% if include.pub.note %} ({{ include.pub.note }}){% endif %}</span>{% elsif include.pub.note %}<span class="cv-where">{{ include.pub.note }}</span>{% elsif include.pub.status == "submitted" %}<span class="cv-where">Preprint</span>{% endif %}</p>
     {% if include.pub.coauthor-list %}
     <p class="cv-detail">With{% for tag in include.pub.coauthor-list %}{% assign co = site.data.coauthors[tag] %} {{ co.full-name }}{% unless forloop.last %},{% endunless %}{% endfor %}.</p>
     {% endif %}

@@ -1,15 +1,21 @@
 {% comment %}
   Renders one _data/projects.yml entry as a cv-entry row, with a full
-  citation (volume/issue/pages), not just the bare journal name. Pass it as
-  include.pub. Shared by cv-significant-pubs.html and cv-publications.html
-  so the two lists can never format an entry differently.
+  citation (volume/issue/pages), not just the bare journal name. The title
+  gets its own line; the citation and "With ..." coauthors share a single
+  line below it, told apart by colour rather than each getting a line of
+  their own - trying to keep the citation trailing the title on one line
+  (like the original's \hfill) fell apart on page 1's narrower column,
+  where a long title left no room for it and it wrapped unpredictably.
+  Pass the project as include.pub. Shared by cv-significant-pubs.html and
+  cv-publications.html so the two lists can never format an entry
+  differently.
 {% endcomment %}
 {% assign p = include.pub %}
 <div class="cv-entry">
   <div class="cv-when">{{ p.year }}</div>
   <div class="cv-body">
-    <p class="cv-line">
-      <span class="cv-what">{{ p.project }}</span>
+    <p class="cv-what">{{ p.project }}</p>
+    <p class="cv-pub-meta">
       {%- if p.journal -%}
         <span class="cv-where">{{ p.journal }}{% if p.volumenumber %} {{ p.volumenumber }}{% if p.issuenumber %}({{ p.issuenumber }}){% endif %} ({{ p.year }}){% endif %}{% if p.pagestart %}, {{ p.pagestart }}&ndash;{{ p.pageend }}{% endif %}{% if p.note %} ({{ p.note }}){% endif %}</span>
       {%- elsif p.note -%}
@@ -17,9 +23,9 @@
       {%- elsif p.status == "submitted" -%}
         <span class="cv-where">Preprint</span>
       {%- endif -%}
+      {%- if p.coauthor-list -%}
+        <span class="cv-coauthors">{% if p.journal or p.note or p.status == "submitted" %} &middot; {% endif %}With{% for tag in p.coauthor-list %}{% assign co = site.data.coauthors[tag] %} {{ co.full-name }}{% unless forloop.last %},{% endunless %}{% endfor %}.</span>
+      {%- endif -%}
     </p>
-    {% if p.coauthor-list %}
-    <p class="cv-detail">With{% for tag in p.coauthor-list %}{% assign co = site.data.coauthors[tag] %} {{ co.full-name }}{% unless forloop.last %},{% endunless %}{% endfor %}.</p>
-    {% endif %}
   </div>
 </div>

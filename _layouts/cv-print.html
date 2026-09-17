@@ -88,10 +88,9 @@
     .cv-block { margin: 0 0 .85rem; }
     .cv-entry { margin: 0 0 .4rem; }
     .cv-detail { margin: .05rem 0 0; }
-    /* Three distinct voices in one entry: a bold dark title, an upright
-       grey citation trailing at the far right of the SAME line (a flex
-       row stands in for the original's \hfill), and a plain-weight,
-       normal-colour "With ..." line underneath. */
+    /* Generic entries (grants, positions, ...): title left, venue trailing
+       at the far right of the SAME line - a flex row standing in for the
+       original's \hfill. */
     .cv-line {
       margin: 0;
       display: flex;
@@ -100,8 +99,17 @@
       align-items: baseline;
       column-gap: 1em;
     }
-    .cv-what { font-weight: 700; color: #222; }
+    .cv-what { font-weight: 700; color: #222; margin: 0; }
     .cv-where { color: #8f8f8f; font-size: .82em; white-space: nowrap; }
+
+    /* Publications specifically: the title gets its own line (long titles
+       left no room for a trailing citation on page 1's narrower column,
+       so it wrapped unpredictably), and the citation + "With ..." share
+       one line below, told apart by colour rather than each getting a
+       line to itself - saves space and reads as one settled unit. */
+    .cv-pub-meta { margin: .1rem 0 0; }
+    .cv-pub-meta .cv-where { white-space: normal; }
+    .cv-pub-meta .cv-coauthors { color: #4d4d4d; }
 
     /* Page 1 only: the sidebar plus Research Summary/Significant
        Publications/Grants have to share one physical page. The opening

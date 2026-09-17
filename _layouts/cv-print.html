@@ -28,7 +28,7 @@
     @font-face {
       font-family: 'Roboto';
       font-style: normal;
-      font-weight: 300 700;
+      font-weight: 100 700;
       font-display: swap;
       src: url("{{ '/fonts/roboto-latin.woff2' | relative_url }}") format('woff2');
     }
@@ -59,7 +59,7 @@
     }
     .cv-print-header h1 {
       margin: 0;
-      font-weight: 300;
+      font-weight: 100;
       font-size: 1.7rem;
       letter-spacing: .01em;
     }
@@ -75,11 +75,11 @@
     .cv-print-body { max-width: 56rem; margin: 0 auto; padding: .8rem 1.5rem 2.5rem; }
 
     h3.cv-heading {
-      font-family: 'Roboto', sans-serif;
+      font-family: 'Roboto Condensed', 'Roboto', sans-serif;
       font-weight: 700;
       font-size: 1.4rem;
       letter-spacing: 0;
-      color: #4d4d4d;
+      color: #3a3a3a;
       margin: 0 0 .5rem;
     }
     .cv-heading .cv-accent { color: #cc8437; }
@@ -87,14 +87,21 @@
     .cv-summary { margin: 0 0 1.1rem; }
     .cv-block { margin: 0 0 1.1rem; }
     .cv-entry { margin: 0 0 .55rem; }
-    .cv-line { margin: 0; }
     .cv-detail { margin: .1rem 0 0; }
-    /* Three distinct voices in one entry: a bold dark title, an italic
-       grey citation trailing on the same line, and a plain-weight,
-       normal-colour "With ..." line underneath - matching how the
-       original template told those three things apart. */
+    /* Three distinct voices in one entry: a bold dark title, an upright
+       grey citation trailing at the far right of the SAME line (a flex
+       row stands in for the original's \hfill), and a plain-weight,
+       normal-colour "With ..." line underneath. */
+    .cv-line {
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      column-gap: 1em;
+    }
     .cv-what { font-weight: 700; color: #222; }
-    .cv-where { color: #8f8f8f; font-style: italic; font-size: .93em; }
+    .cv-where { color: #8f8f8f; font-size: .82em; white-space: nowrap; }
 
     /* Page 1 only: the sidebar plus Research Summary/Significant
        Publications/Grants have to share one physical page. The opening
@@ -130,10 +137,8 @@
       padding-right: 1rem;
     }
     .cv-sidebar h3.cv-heading {
-      color: #4d4d4d;
-      font-size: 1rem;
-      letter-spacing: .04em;
-      text-transform: uppercase;
+      color: #3a3a3a;
+      font-size: 1.05rem;
       margin: 0 0 .45rem;
     }
     .cv-sidebar .cv-heading .cv-accent { color: inherit; }

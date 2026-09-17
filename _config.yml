@@ -54,6 +54,11 @@ resume_title: "Professor in Mathematics"
 # used for the contact button in _layouts/resume.html
 resume_contact_email: "dener [&#x430;t] chalmers.se"
 
+# The obfuscated form above is for anything shown as plain page text - kept
+# out of a scraper's easy reach. This one is only ever used as an actual
+# mailto: target (e.g. the CV PDF's contact block), never printed as text.
+resume_contact_email_plain: "dener@chalmers.se"
+
 # the next two items are used for schema itemprops in _layouts/resume.html
 # resume_contact_telephone:
 resume_contact_address: "Department of Mathematical Sciences, Chalmers University of Technology and the University of Gothenburg, Chalmers tvärgata 3, 412 58 Gothenburg, Sweden"

@@ -8,7 +8,7 @@
   <p class="cv-detail cv-contact-address">{{ site.resume_contact_address_short | default: site.resume_contact_address }}</p>
 
   <p class="cv-contact-line">
-    <span class="cv-contact-email">{{ site.resume_contact_email }}</span>
+    <a href="mailto:{{ site.resume_contact_email_plain }}" class="cv-contact-email">{{ site.resume_contact_email }}</a>
     <svg viewBox="0 0 16 16" class="cv-contact-icon" aria-hidden="true"><path d="M1.5 3.5h13v9h-13z" fill="none" stroke="currentColor" stroke-width="1.1"/><path d="M2 4l6 4.6L14 4" fill="none" stroke="currentColor" stroke-width="1.1"/></svg>
   </p>
 

@@ -77,17 +77,17 @@
     h3.cv-heading {
       font-family: 'Roboto Condensed', 'Roboto', sans-serif;
       font-weight: 700;
-      font-size: 1.4rem;
+      font-size: 1.65rem;
       letter-spacing: 0;
       color: #3a3a3a;
-      margin: 0 0 .5rem;
+      margin: 0 0 .45rem;
     }
     .cv-heading .cv-accent { color: #cc8437; }
 
     .cv-summary { margin: 0 0 1.1rem; }
-    .cv-block { margin: 0 0 1.1rem; }
-    .cv-entry { margin: 0 0 .55rem; }
-    .cv-detail { margin: .1rem 0 0; }
+    .cv-block { margin: 0 0 .85rem; }
+    .cv-entry { margin: 0 0 .4rem; }
+    .cv-detail { margin: .05rem 0 0; }
     /* Three distinct voices in one entry: a bold dark title, an upright
        grey citation trailing at the far right of the SAME line (a flex
        row stands in for the original's \hfill), and a plain-weight,
@@ -115,11 +115,11 @@
       break-after: page;
       page-break-after: always;
     }
-    .cv-page1-main h3.cv-heading { font-size: 1.35rem; margin: 0 0 .4rem; }
+    .cv-page1-main h3.cv-heading { font-size: 1.45rem; margin: 0 0 .4rem; }
     .cv-page1-main .cv-summary { font-size: .77rem; line-height: 1.28; margin: 0 0 .55rem; }
 
     .cv-page1-main .cv-block { font-size: .6rem; line-height: 1.08; margin: 0 0 .2rem; }
-    .cv-page1-main .cv-block h3.cv-heading { font-size: 1.1rem; margin: 0 0 .22rem; }
+    .cv-page1-main .cv-block h3.cv-heading { font-size: 1.2rem; margin: 0 0 .22rem; }
     .cv-page1-main .cv-entry {
       margin: 0 0 .08rem;
       grid-template-columns: 3.8rem 1fr;
@@ -138,13 +138,23 @@
     }
     .cv-sidebar h3.cv-heading {
       color: #3a3a3a;
-      font-size: 1.05rem;
+      font-size: 1.15rem;
       margin: 0 0 .45rem;
     }
     .cv-sidebar .cv-heading .cv-accent { color: inherit; }
     .cv-sidebar .cv-aside-block { margin-bottom: 1.3rem; }
     .cv-sidebar .cv-aside-block:first-child h3.cv-heading { margin-top: 0; }
-    .cv-sidebar a { color: #4d4d4d; text-decoration-color: #ccc; }
+    /* The original's hyperref links render with a default cyan box around
+       them in most PDF viewers - a plain but genuinely useful "this is
+       clickable" cue. Reproduced here explicitly, since our HTML/CSS route
+       doesn't get that box for free the way raw \href output does. */
+    .cv-sidebar a {
+      color: #4d4d4d;
+      text-decoration: none;
+      border: 1px solid #22b8cf;
+      border-radius: 1px;
+      padding: .05em .3em;
+    }
     .cv-sidebar .cv-languages { margin-top: .1rem; }
     .cv-sidebar .cv-languages li { justify-content: flex-end; gap: .45rem; }
     .cv-sidebar .cv-lang-name { min-width: 0; }
@@ -171,7 +181,7 @@
     .cv-page1-main { flex: 1; min-width: 0; }
 
     /* Below page 1: full width, normal size. */
-    .cv-print-body > .cv-block { font-size: .8rem; line-height: 1.4; }
+    .cv-print-body > .cv-block { font-size: .8rem; line-height: 1.32; }
 
     /* Never split one entry across a page break. */
     .cv-entry { break-inside: avoid-page; page-break-inside: avoid; }

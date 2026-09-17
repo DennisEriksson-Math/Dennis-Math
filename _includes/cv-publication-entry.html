@@ -1,14 +1,25 @@
 {% comment %}
-  Renders one _data/projects.yml entry as a cv-entry row. Pass it as
+  Renders one _data/projects.yml entry as a cv-entry row, with a full
+  citation (volume/issue/pages), not just the bare journal name. Pass it as
   include.pub. Shared by cv-significant-pubs.html and cv-publications.html
   so the two lists can never format an entry differently.
 {% endcomment %}
+{% assign p = include.pub %}
 <div class="cv-entry">
-  <div class="cv-when">{{ include.pub.year }}</div>
+  <div class="cv-when">{{ p.year }}</div>
   <div class="cv-body">
-    <p class="cv-line"><span class="cv-what">{{ include.pub.project }}</span>{% if include.pub.journal %}<span class="cv-where">{{ include.pub.journal }}{% if include.pub.note %} ({{ include.pub.note }}){% endif %}</span>{% elsif include.pub.note %}<span class="cv-where">{{ include.pub.note }}</span>{% elsif include.pub.status == "submitted" %}<span class="cv-where">Preprint</span>{% endif %}</p>
-    {% if include.pub.coauthor-list %}
-    <p class="cv-detail">With{% for tag in include.pub.coauthor-list %}{% assign co = site.data.coauthors[tag] %} {{ co.full-name }}{% unless forloop.last %},{% endunless %}{% endfor %}.</p>
+    <p class="cv-line">
+      <span class="cv-what">{{ p.project }}</span>
+      {%- if p.journal -%}
+        <span class="cv-where">{{ p.journal }}{% if p.volumenumber %} {{ p.volumenumber }}{% if p.issuenumber %}({{ p.issuenumber }}){% endif %} ({{ p.year }}){% endif %}{% if p.pagestart %}, {{ p.pagestart }}&ndash;{{ p.pageend }}{% endif %}{% if p.note %} ({{ p.note }}){% endif %}</span>
+      {%- elsif p.note -%}
+        <span class="cv-where">{{ p.note }}</span>
+      {%- elsif p.status == "submitted" -%}
+        <span class="cv-where">Preprint</span>
+      {%- endif -%}
+    </p>
+    {% if p.coauthor-list %}
+    <p class="cv-detail">With{% for tag in p.coauthor-list %}{% assign co = site.data.coauthors[tag] %} {{ co.full-name }}{% unless forloop.last %},{% endunless %}{% endfor %}.</p>
     {% endif %}
   </div>
 </div>

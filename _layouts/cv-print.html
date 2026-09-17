@@ -186,6 +186,11 @@
     /* Never split one entry across a page break. */
     .cv-entry { break-inside: avoid-page; page-break-inside: avoid; }
 
+    /* The complete list is long enough, and different enough in kind from
+       what precedes it, that it reads better starting fresh rather than
+       picking up mid-page after Selected Conferences. */
+    .cv-publications-block { break-before: page; page-break-before: always; }
+
     .cv-footnote { font-size: .78rem; color: #999; margin-top: 1.5rem; }
   </style>
 </head>

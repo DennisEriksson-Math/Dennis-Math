@@ -4,7 +4,7 @@
   stays on page 1 as the highlights; this is everything, further down.
 {% endcomment %}
 {% assign all_pubs = site.data.projects | sort: "year" | reverse %}
-<div class="cv-block">
+<div class="cv-block cv-publications-block">
   <h3 class="cv-heading"><span class="cv-accent">Com</span>plete List of Publications</h3>
   {% for p in all_pubs %}
   {% include cv-publication-entry.html pub=p %}

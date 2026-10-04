@@ -13,7 +13,7 @@
 #       where:  small right-aligned annotation
 #       detail: the paragraph underneath (optional)
 
-updated: "17 September 2026"
+updated: "4 October 2026"
 
 summary: >
   My research grows out of arithmetic geometry, where algebraic geometry, number theory,
@@ -168,7 +168,7 @@ sections:
       - when: "2010–"
         what: "Thesis Committees & Examination"
         where: "Paris and Gothenburg"
-        detail: "Rapporteur for Dai Imaike (Kyoto 2024); Rapporteur and Member of jury for Dorian Ni (Paris 2022); Member of jury for Bertrand Duma (Paris 2012); Diskutant/Opponent at licentiate defense for Ida Säfström (Gothenburg 2010)."
+        detail: "Rapporteur and Member of jury for Andres Gomez (Aarhus 2026); Member of jury for Juan Felipe Castro Cárdenas (Paris 2026); Rapporteur for Dai Imaike (Kyoto 2024); Rapporteur and Member of jury for Dorian Ni (Paris 2022); Member of jury for Bertrand Duma (Paris 2012); Diskutant/Opponent at licentiate defense for Ida Säfström (Gothenburg 2010)."
       - when: "2010–"
         what: "Professional Service and Journal Refereeing"
         where: "International Journals"
@@ -181,12 +181,12 @@ sections:
 
   - section: "Recent Selected Seminars"
     entries:
-      - when: "Oct 2026"
-        what: "Genus one mirror symmetry for toric varieties"
-        where: "Pohang, South Korea"
+      - when: "Planned"
+        what: "Mini-course (invited)"
+        where: "Xiamen, China"
       - when: "Sep 2026"
-        what: "Archimedean heights and bad reduction of Calabi–Yau manifolds"
-        where: "Westlake University, Hangzhou, China"
+        what: "Genus one mirror symmetry for toric varieties"
+        where: "IBS, Pohang, South Korea"
       - when: "Dec 2025"
         what: "Algebraic geometry seminar"
         where: "Bologna, Italy"
@@ -213,6 +213,14 @@ sections:
 
   - section: "Selected Conferences"
     entries:
+      - when: "Late 2027"
+        what: "Conference in honour of Ken-Ichi Yoshikawa's 60th birthday"
+        where: "Kyoto, Japan"
+        detail: "Invited"
+      - when: "Sep 2026"
+        what: "Arakelov geometry intercity conference"
+        where: "Westlake University, Hangzhou, China"
+        detail: "Archimedean heights and bad reduction of Calabi–Yau manifolds"
       - when: "May 2026"
         what: "AI for Mathematics"
         where: "Gothenburg, Sweden"

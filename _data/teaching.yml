@@ -16,6 +16,7 @@
 # ---- what I am teaching this year ----
 - group: "2026–2027"
   highlight: true
+  cv: false
   when: "Quarter 2"
   what: "Algebraic geometry"
   codes:
@@ -24,6 +25,7 @@
 
 - group: "2026–2027"
   highlight: true
+  cv: false
   when: "Quarter 3"
   what: "Algebraic structures"
   codes:

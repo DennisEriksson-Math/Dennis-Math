@@ -5,7 +5,13 @@
 <div class="cv-aside-block cv-contact-block">
   <h3 class="cv-heading"><span class="cv-accent">Con</span>tact</h3>
 
-  <p class="cv-detail cv-contact-address">{{ site.resume_contact_address_short | default: site.resume_contact_address }}</p>
+  <p class="cv-detail cv-contact-address">
+    {%- if site.resume_contact_address_lines -%}
+      {%- for line in site.resume_contact_address_lines -%}{{ line }}{% unless forloop.last %}<br>{% endunless %}{%- endfor -%}
+    {%- else -%}
+      {{ site.resume_contact_address }}
+    {%- endif -%}
+  </p>
 
   <p class="cv-contact-line">
     <a href="mailto:{{ site.resume_contact_email_plain }}" class="cv-contact-email">{{ site.resume_contact_email }}</a>

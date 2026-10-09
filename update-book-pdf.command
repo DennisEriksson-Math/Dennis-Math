@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 # Copy the latest build of the algebraic geometry book from Dropbox into the
-# site, so the "Book" link on the Teaching tab shows its current state.
+# site, so the "Lecture notes" link on the Teaching tab shows its current state.
 # Double-click this file, then run Publish Webpage to make it live.
 set -uo pipefail
 cd "$(dirname "${BASH_SOURCE[0]}")" || exit 1
 
-DEST="teaching/algebraic-geometry-book.pdf"
+DEST="teaching/MMA321-Algebraic-Geometry-notes-preliminary.pdf"
 
 # The newest build wins: either the one in the Dropbox book folder, or a fresh
 # download from the book project (saved as Algebraic_geometry...book....pdf).

@@ -27,8 +27,8 @@
     - code: "MMA321"
       url: "https://www.gu.se/en/study-gothenburg/algebraic-geometry-mma321"
   links:
-    - text: "Book (PDF, current draft)"
-      url: "/teaching/algebraic-geometry-book.pdf"
+    - text: "Lecture notes (PDF, preliminary form)"
+      url: "/teaching/MMA321-Algebraic-Geometry-notes-preliminary.pdf"
       internal: true
     - text: "Algebraic Geometry Workbench"
       url: "https://mma321-course-app.vercel.app/"

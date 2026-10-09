@@ -63,7 +63,7 @@
   when: "2016–"
   what: "PhD level"
   where: "Graduate school"
-  detail: "K-theory (with M. Goffeng); p-adic methods (with A. Södergren, S. Herrero); reading courses in algebraic number theory, Arakelov theory, Hodge theory, derived geometry, and Gromov–Witten theory."
+  detail: "$K$-theory (with M. Goffeng); $p$-adic methods (with A. Södergren, S. Herrero); reading courses in algebraic number theory, Arakelov theory, Hodge theory, derived geometry, and Gromov–Witten theory."
 
 # ---- recognition ----
 - group: "Recognition"

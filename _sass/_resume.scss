@@ -1204,3 +1204,6 @@ html:not(.bg-off) {
     }
   }
 }
+
+// Inline TeX math (KaTeX): its default 1.21em towers over the site's small type.
+.katex { font-size: 1.05em; }

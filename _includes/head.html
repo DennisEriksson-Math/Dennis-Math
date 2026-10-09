@@ -42,5 +42,12 @@
     }
   </script>
 
+  <!-- TeX math (KaTeX, self-hosted): $p$-adic, $\mathbb{P}^5$ etc. in any text
+       on the page is typeset by scripts/math.js. -->
+  <link rel="stylesheet" href="{{ '/katex/katex.min.css' | relative_url }}?v=0.19.0">
+  <script defer src="{{ '/katex/katex.min.js' | relative_url }}?v=0.19.0"></script>
+  <script defer src="{{ '/katex/auto-render.min.js' | relative_url }}?v=0.19.0"></script>
+  <script defer src="{{ '/scripts/math.js' | relative_url }}?v={{ site.time | date: '%s' }}"></script>
+
   {% seo %}
 </head>

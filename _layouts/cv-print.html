@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ site.resume_name }} — CV</title>
   <link rel="stylesheet" href="{{ '/css/main.css' | relative_url }}?v={{ site.time | date: '%s' }}">
+  <link rel="stylesheet" href="{{ '/katex/katex.min.css' | relative_url }}?v=0.19.0">
+  <script defer src="{{ '/katex/katex.min.js' | relative_url }}?v=0.19.0"></script>
+  <script defer src="{{ '/katex/auto-render.min.js' | relative_url }}?v=0.19.0"></script>
+  <script defer src="{{ '/scripts/math.js' | relative_url }}?v={{ site.time | date: '%s' }}"></script>
   <style>
     /* This page IS the CV, generated straight from _data/cv.yml so the PDF
        can never drift from what the website itself says. It carries none of
@@ -39,6 +43,9 @@
       font-display: swap;
       src: url("{{ '/fonts/roboto-condensed-bold-latin.woff2' | relative_url }}") format('woff2');
     }
+
+    /* KaTeX's default 1.21em makes inline math tower over this small type. */
+    .katex { font-size: 1.05em; }
 
     @page { margin: 12mm 14mm; }
     * { box-sizing: border-box; }

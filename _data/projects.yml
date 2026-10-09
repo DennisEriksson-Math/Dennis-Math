@@ -29,7 +29,7 @@
     year: 2025
     arxiv: "2509.05077"
 
-  - project: "Genus one mirror symmetry for intersection of two cubics in P5"
+  - project: "Genus one mirror symmetry for intersection of two cubics in $\\mathbb{P}^5$"
     id: Genusone2cubics
     coauthor-list:
       - PochekaiM

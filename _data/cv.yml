@@ -94,7 +94,7 @@ sections:
       - when: "2014"
         what: "Trimester Program Organizer"
         where: "HIM Bonn"
-        detail: 'Group-leader: "p-adic methods in Arakelov geometry and Shimura varieties".'
+        detail: 'Group-leader: "$p$-adic methods in Arakelov geometry and Shimura varieties".'
 
   - section: "Positions"
     entries:
@@ -116,7 +116,7 @@ sections:
       - when: "2014"
         what: "Junior Trimester Program (Organiser)"
         where: "Hausdorff Institute for Mathematics"
-        detail: "Trimester: Algebraic geometry (p-adic methods in Arakelov geometry and Shimura varieties)."
+        detail: "Trimester: Algebraic geometry ($p$-adic methods in Arakelov geometry and Shimura varieties)."
       - when: "2013"
         what: "Postdoctoral Researcher"
         where: "Max Planck Institute for Mathematics"
@@ -156,7 +156,7 @@ sections:
       - when: "2014"
         what: "Group Leader (Junior Trimester Program)"
         where: "Hausdorff Institute for Mathematics"
-        detail: "Organized and led the Junior Trimester Program: p-adic methods in Arakelov geometry and Shimura varieties."
+        detail: "Organized and led the Junior Trimester Program: $p$-adic methods in Arakelov geometry and Shimura varieties."
       - when: "2009–2020"
         what: "High School Outreach Coordinator"
         where: "Gothenburg region"

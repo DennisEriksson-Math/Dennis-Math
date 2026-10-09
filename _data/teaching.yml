@@ -15,7 +15,8 @@
 #   links      extra resources for an entry in the box at the top, shown as a
 #              second quiet row after the codes. Each has text and url; add
 #              internal: true for a file on this site (written relative to the
-#              site root, and cache-busted like the CV PDF).
+#              site root, and cache-busted like the CV PDF). An optional note
+#              is printed beside the link as plain text, e.g. "preliminary".
 
 # ---- what I am teaching this year ----
 - group: "2026–2027"
@@ -27,9 +28,10 @@
     - code: "MMA321"
       url: "https://www.gu.se/en/study-gothenburg/algebraic-geometry-mma321"
   links:
-    - text: "Lecture notes (PDF, preliminary form)"
+    - text: "Lecture notes (PDF)"
       url: "/teaching/MMA321-Algebraic-Geometry-notes-preliminary.pdf"
       internal: true
+      note: "preliminary version"
     - text: "Algebraic Geometry Workbench"
       url: "https://mma321-course-app.vercel.app/"
 

@@ -291,7 +291,7 @@
               <span class="teaching-term">{{ e.when }}</span>
               <span class="teaching-course">{{ e.what }}</span>
               {% if e.codes %}<span class="teaching-codes">{% for c in e.codes %}<a href="{{ c.url }}" target="_blank" rel="noopener noreferrer">{{ c.code }}</a>{% unless forloop.last %}<span class="teaching-code-sep">&middot;</span>{% endunless %}{% endfor %}</span>{% endif %}
-              {% if e.links %}<span class="teaching-codes teaching-links">{% for l in e.links %}<a href="{% if l.internal %}{{ l.url | relative_url }}?v={{ site.time | date: '%s' }}{% else %}{{ l.url }}{% endif %}" target="_blank" rel="noopener noreferrer">{{ l.text }}</a>{% unless forloop.last %}<span class="teaching-code-sep">&middot;</span>{% endunless %}{% endfor %}</span>{% endif %}
+              {% if e.links %}<span class="teaching-codes teaching-links">{% for l in e.links %}<a href="{% if l.internal %}{{ l.url | relative_url }}?v={{ site.time | date: '%s' }}{% else %}{{ l.url }}{% endif %}" target="_blank" rel="noopener noreferrer">{{ l.text }}</a>{% if l.note %}<span class="teaching-link-note">{{ l.note }}</span>{% endif %}{% unless forloop.last %}<span class="teaching-code-sep">&middot;</span>{% endunless %}{% endfor %}</span>{% endif %}
             </li>
             {% endfor %}
           </ul>

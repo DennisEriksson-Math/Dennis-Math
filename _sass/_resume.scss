@@ -1113,6 +1113,21 @@
   margin: 0 .3rem;
 }
 
+// A status note beside a link ("preliminary version"): plain text, not a link,
+// so it reads as a caveat on the file rather than another thing to click.
+// Resources get a row of their own, lined up under the course name (the term
+// column is 6rem plus the 1rem gap) instead of wrapping to the left edge.
+.teaching-links {
+  flex-basis: 100%;
+  @include media_larger_than_mobile { padding-left: 7rem; }
+}
+
+.teaching-link-note {
+  color: #767676;
+  font-style: italic;
+  margin-left: .4rem;
+}
+
 // Reading surface
 // ---------------------------------------/
 // When something is drifting about behind the page, the text gets a surface of

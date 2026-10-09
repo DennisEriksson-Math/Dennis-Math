@@ -12,6 +12,10 @@
 #   codes      course codes with links, for the entries in the box at the top.
 #              A course given jointly by GU and Chalmers has one code each and
 #              both are listed.
+#   links      extra resources for an entry in the box at the top, shown as a
+#              second quiet row after the codes. Each has text and url; add
+#              internal: true for a file on this site (written relative to the
+#              site root, and cache-busted like the CV PDF).
 
 # ---- what I am teaching this year ----
 - group: "2026–2027"
@@ -22,6 +26,12 @@
   codes:
     - code: "MMA321"
       url: "https://www.gu.se/en/study-gothenburg/algebraic-geometry-mma321"
+  links:
+    - text: "Book (PDF, current draft)"
+      url: "/teaching/algebraic-geometry-book.pdf"
+      internal: true
+    - text: "Algebraic Geometry Workbench"
+      url: "https://mma321-course-app.vercel.app/"
 
 - group: "2026–2027"
   highlight: true

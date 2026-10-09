@@ -52,8 +52,21 @@ sections:
       url: "https://math-collab-one.vercel.app/"
       note: "Whiteboard, screen share, LaTeX chat"
 
+  - section: "Algebraic Geometry Workbench"
+    body: >
+      An interactive companion to my MMA321 Algebraic Geometry course: curve and
+      surface explorers, a blow-up lab, exercises and practice quizzes.
+    link:
+      text: "Open the Workbench"
+      url: "https://mma321-course-app.vercel.app/"
+      note: "Curve and surface explorers, blow-up lab, quizzes"
+
   - section: "Coming up"
     entries:
+      - when: "28 Oct 2026"
+        what: "My most productive colleague doesn’t have an office"
+        where: "Algebra and Geometry division meeting, Gothenburg"
+        detail: "Short talk on how I use AI in mathematics, for research and for apps."
       - when: "June 2027"
         what: "AI for Mathematics"
         where: "Institut Mittag-Leffler, Djursholm"

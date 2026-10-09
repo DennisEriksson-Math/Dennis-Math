@@ -13,7 +13,7 @@
 #       where:  small right-aligned annotation
 #       detail: the paragraph underneath (optional)
 
-updated: "5 October 2026"
+updated: "9 October 2026"
 
 summary: >
   My research grows out of arithmetic geometry, where algebraic geometry, number theory,
@@ -184,6 +184,10 @@ sections:
       - when: "Planned"
         what: "Mini-course (invited)"
         where: "Xiamen, China"
+      - when: "Oct 2026"
+        what: "How many rational points? The work of Abel prize winner Gerd Faltings"
+        where: "Gothenburg, Sweden"
+        detail: "Colloquium"
       - when: "Sep 2026"
         what: "Genus one mirror symmetry for toric varieties"
         where: "IBS, Pohang, South Korea"

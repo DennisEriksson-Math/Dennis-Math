@@ -11,7 +11,7 @@
   BoucksomS:
     name: "Boucksom, S."
     full-name: "Sébastien Boucksom"
-    url: "https://www.math.jussieu.fr/~boucksom/"
+    url: "http://sebastien.boucksom.perso.math.cnrs.fr/"
 
   FreixasG:
     name: "Freixas i Montplet, G."
@@ -21,7 +21,7 @@
   HalleLH:
     name: "Halle, L.H."
     full-name: "Lars-Halvard Halle"
-    url: "https://www.uib.no/en/persons/Lars.Halvard.Halle"
+    url: "https://www.unibo.it/sitoweb/larshalvard.halle/en"
 
   MalmstromH:
     name: "Malmström, H."
@@ -36,7 +36,7 @@
   NicaiseJ:
     name: "Nicaise, J."
     full-name: "Johannes Nicaise"
-    url: "https://wis.kuleuven.be/personen/johannes-nicaise"
+    url: "https://wis.kuleuven.be/algebra/members"
 
   PerssonU:
     name: "Persson, U."
@@ -56,7 +56,7 @@
   SamuelssonH:
     name: "Samuelsson Kalm, H."
     full-name: "Håkan Samuelsson Kalm"
-    url: "https://www.gu.se/en/about/find-staff/hakan-samuelsson-kalm"
+    url: "https://www.chalmers.se/en/persons/hasam/"
 
   ScharaschkinV:
     name: "Scharaschkin, V."
@@ -66,7 +66,7 @@
   WentworthR:
     name: "Wentworth, R."
     full-name: "Richard Wentworth"
-    url: "https://pages.wustl.edu/wentworth/home"
+    url: "https://www.math.umd.edu/~raw/"
 
   WulcanE:
     name: "Wulcan, E."

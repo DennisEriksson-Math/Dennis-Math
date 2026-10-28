@@ -1,0 +1,9 @@
+{% comment %} One dated line on the AI tab. Pass the entry as include.entry. {% endcomment %}
+{% assign e = include.entry %}
+<div class="cv-entry"{% if e.until %} data-until="{{ e.until }}"{% endif %}>
+  <div class="cv-when">{{ e.when }}</div>
+  <div class="cv-body">
+    <p class="cv-line"><span class="cv-what">{% if e.url %}<a href="{{ e.url }}" target="_blank" rel="noopener noreferrer">{{ e.what }}</a>{% else %}{{ e.what }}{% endif %}</span>{% if e.where %}<span class="cv-where">{{ e.where }}</span>{% endif %}</p>
+    {% if e.detail %}<p class="cv-detail">{{ e.detail }}</p>{% endif %}
+  </div>
+</div>

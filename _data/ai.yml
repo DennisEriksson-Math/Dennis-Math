@@ -17,6 +17,14 @@
 #                   note:      small grey text beside the button (optional)
 #       entries:  a list, same fields as the CV: when / what / where / detail,
 #                 plus an optional url that links the "what"
+#                 and an optional until: "YYYY-MM-DD" - the last day it counts
+#                 as upcoming.
+#       then:     (optional) name of another section. Entries here that have an
+#                 until: date move into that section the day after it, newest
+#                 first, so "Coming up" hands a finished talk to "Talks" by
+#                 itself (at build time, and in the visitor's browser between
+#                 builds). A section left with no entries disappears. Write
+#                 the entry's text so it still reads right once it is past.
 
 # ---------------------------------------------------------------------------
 # DRAFT. Rewrite this in your own words - it is a placeholder, not a position.
@@ -62,19 +70,26 @@ sections:
       note: "Curve and surface explorers, blow-up lab, quizzes"
 
   - section: "Coming up"
+    then: "Talks"
     entries:
-      - when: "28 Oct 2026"
-        what: "My most productive colleague doesn’t have an office"
-        where: "Algebra and Geometry division meeting, Gothenburg"
-        detail: "Short talk on how I use AI in mathematics, for research and for apps."
+      - when: "4 Nov 2026"
+        until: "2026-11-04"
+        what: "300 theorems later: How do we do it?"
+        where: "AI in Math session"
+        detail: "A session I lead, discussing and explaining how we can also “autoprove” theorems."
       - when: "June 2027"
+        until: "2027-06-18"
         what: "AI for Mathematics"
         where: "Institut Mittag-Leffler, Djursholm"
-        detail: "Conference, 14-18 June. Attending."
+        detail: "Conference, 14-18 June (attending)."
         url: "https://www.mittag-leffler.se/activities/ai-for-mathematics/"
 
   - section: "Talks"
     entries:
+      - when: "Oct 2026"
+        what: "My most productive colleague doesn’t have an office"
+        where: "Algebra and Geometry division meeting, Gothenburg"
+        detail: "Short talk on how I use AI in mathematics, for research and for apps."
       - when: "May 2026"
         what: "The very confident intern - how I use LLMs in my mathematical research"
         where: "AI for Mathematics, Gothenburg"

@@ -349,8 +349,20 @@
         <p class="cv-summary">{{ site.data.ai.intro }}</p>
         {% endif %}
 
+        {% assign today = site.time | date: '%Y-%m-%d' %}
         {% for block in site.data.ai.sections %}
-        <div class="cv-block">
+        {% comment %}
+          A section can say then: "Talks". Its entries that carry an until: date
+          move into that section the day after it, so an upcoming talk turns
+          into a past one by itself; a section left with no entries (like
+          "Coming up") then disappears. scripts/upcoming.js does the same move in
+          the browser between builds.
+        {% endcomment %}
+        {% assign live = 0 %}
+        {% for e in block.entries %}{% unless block.then and e.until and e.until < today %}{% assign live = live | plus: 1 %}{% endunless %}{% endfor %}
+        {% for other in site.data.ai.sections %}{% if other.then == block.section %}{% for e in other.entries %}{% if e.until and e.until < today %}{% assign live = live | plus: 1 %}{% endif %}{% endfor %}{% endif %}{% endfor %}
+        {% if block.entries and live == 0 %}{% continue %}{% endif %}
+        <div class="cv-block" data-section="{{ block.section }}"{% if block.then %} data-then="{{ block.then }}"{% endif %}>
           <h3 class="cv-heading"><span class="cv-accent">{{ block.section | slice: 0, 3 }}</span>{{ block.section | slice: 3, 200 }}</h3>
 
           {% if block.body %}<p class="cv-detail">{{ block.body }}</p>{% endif %}
@@ -362,14 +374,14 @@
           </p>
           {% endif %}
 
+          {% comment %} moved in from a section that says then: this one, newest first {% endcomment %}
+          {% for other in site.data.ai.sections %}{% if other.then == block.section %}
+          {% assign moved = other.entries | sort: "until" | reverse %}
+          {% for e in moved %}{% if e.until and e.until < today %}{% include ai-entry.html entry=e %}{% endif %}{% endfor %}
+          {% endif %}{% endfor %}
+
           {% for e in block.entries %}
-          <div class="cv-entry">
-            <div class="cv-when">{{ e.when }}</div>
-            <div class="cv-body">
-              <p class="cv-line"><span class="cv-what">{% if e.url %}<a href="{{ e.url }}" target="_blank" rel="noopener noreferrer">{{ e.what }}</a>{% else %}{{ e.what }}{% endif %}</span>{% if e.where %}<span class="cv-where">{{ e.where }}</span>{% endif %}</p>
-              {% if e.detail %}<p class="cv-detail">{{ e.detail }}</p>{% endif %}
-            </div>
-          </div>
+          {% unless block.then and e.until and e.until < today %}{% include ai-entry.html entry=e %}{% endunless %}
           {% endfor %}
         </div>
         {% endfor %}

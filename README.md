@@ -18,7 +18,8 @@ Almost everything you'd want to change lives in two places:
 | Bachelor projects | `_data/BachelorStudents.yml` |
 | Teaching | `_data/teaching.yml` |
 | Research interests (the keyword line under your title) | `_config.yml`, `resume_header_contact_info` |
-| CV shown in the CV tab | `_data/cv.yml` |
+| CV (tab and PDF) | `_data/cv.yml`, see *The CV tab and the CV PDF* below |
+| AI tab | `_data/ai.yml` |
 
 Page structure lives in `_layouts/resume.html`; styling in `_sass/`;
 the tab and filter behaviour in `scripts/tabs.js`.
@@ -188,18 +189,80 @@ Collaborators are no longer a tab. They are the last button in the Publications
 filter row, since the list is simply everyone appearing in the publications
 above it.
 
-## The CV tab
+## The CV tab and the CV PDF
 
-`_data/cv.yml` is a transcription of `CV-webpage.pdf`, laid out the same way
-(year in the left column, bold title, small grey note on the right) and using the
-same ochre accent, sampled from the PDF itself.
+There is no separate LaTeX CV any more. The **CV tab** and **CV-webpage.pdf** are
+two renderings of the same data, so they cannot disagree.
 
-**The two are not linked.** If you update the PDF, update `_data/cv.yml` as well
-or the page and the download will disagree. The PDF is the authoritative one and
-is linked at the top of the tab.
+| Part of the CV | Where it comes from |
+| --- | --- |
+| Summary, about, interests, languages, grants, positions, education, responsibilities, seminars, conferences | `_data/cv.yml` |
+| Teaching | `_data/teaching.yml` (entries with `cv: false` are left out) |
+| Publication highlights (page 1) | entries in `_data/projects.yml` with `significant: true` |
+| Complete list of publications (PDF only, starts on its own page) | all of `_data/projects.yml`, with co-authors from `_data/coauthors.yml` |
+| PhD students, postdocs, Master's students | `_data/PhD.yml`, `_data/Postdocs.yml`, `_data/MasterStudents.yml` |
+| Contact block | `resume_contact_*` in `_config.yml` |
 
-Publications and supervised students are deliberately *not* repeated in the CV
-tab, since they have their own sections and would otherwise drift out of step.
+The website's CV tab shows the highlights only; the full publication list is on
+the Publications tab.
+
+### Updating the CV
+
+1. Edit the data file for whatever changed (table above).
+2. Double-click **`update-cv-pdf.command`**. It builds the site, prints
+   `cv-print.html` to PDF with headless Chrome (so Google Chrome must be
+   installed), overwrites `CV-webpage.pdf`, and sets `updated:` in
+   `_data/cv.yml`, which is the "Last updated on" date in the PDF header.
+   The first run installs Jekyll and takes a few minutes.
+3. Open `CV-webpage.pdf` and look at it.
+4. Run **Publish Webpage** to put the new PDF and data live. Nothing is published
+   until you do. The PDF links on the site carry a build-time `?v=` stamp, so
+   visitors get the new file rather than a cached one.
+
+### Things to check after a change
+
+- **Five pages.** Page 1 must end with the 2014 grant (the last of "Some Select
+  Research Grants"), and "Complete List of Publications" must start on its own
+  page. Seminars and Conferences start a page together. If an extra page
+  appears, a long entry has pushed things over; shorten it or tighten spacing
+  in `_layouts/cv-print.html`.
+- **Fonts and math.** `pdffonts CV-webpage.pdf` should list Roboto and KaTeX,
+  and `pdftotext CV-webpage.pdf -` should contain no stray `$`.
+
+### Where the look is defined
+
+- `_layouts/cv-print.html` &mdash; page layout and all PDF styling (dark header,
+  right-aligned sidebar on page 1, condensed bold headings with the first three
+  letters in orange, cyan sidebar links).
+- `_includes/cv-*.html` &mdash; the pieces (about, contact, sections,
+  publications, supervision, ...) shared by the PDF and the website tab. Change
+  one and both change.
+- `fonts/` &mdash; Roboto and Roboto Condensed, self-hosted. Headless Chrome does
+  not wait for web fonts to download, so they must be local.
+
+### Math
+
+TeX math is typeset by [KaTeX](https://katex.org) (self-hosted in `katex/`,
+started by `scripts/math.js`) on every page and in the PDF. Write it as in a
+`.tex` file inside `$...$`, e.g. `$p$-adic` or `$\mathbb{P}^5$`. Inside a YAML
+double-quoted string every backslash must be doubled (`"$\\mathbb{P}^5$"`). The
+games in `games/` do not load KaTeX on purpose.
+
+## Dated entries on the AI tab
+
+An entry in `_data/ai.yml` can have `until: "YYYY-MM-DD"`. In a section with
+`then: "Talks"` (as "Coming up" has), the entry moves into Talks the day after
+that date, both at build time and in the visitor's browser between builds. Write
+the text so it still reads right once it is in the past.
+
+## The lecture notes PDF
+
+The MMA321 notes linked from the Teaching tab live in
+`teaching/MMA321-Algebraic-Geometry-notes-preliminary.pdf`. Double-click
+**`update-book-pdf.command`** to copy the newest build from Dropbox
+(`algebraic-geometry-book/AlgGeom*.pdf`) or `~/Downloads`, then Publish. The
+Dropbox copy can be older than a PDF you have just downloaded, so check which
+one it picked.
 
 ## The background
 

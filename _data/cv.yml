@@ -62,7 +62,7 @@ sections:
       - when: "2027–2030"
         what: "Vetenskapsrådet Research Project Grant"
         where: "PI"
-        detail: 'SEK 4,292,000 (approx. €380,000), project "Invariants and geometry in mirror symmetry at genus one".'
+        detail: "Approx. €380,000."
       - when: "2026"
         what: "Research in Paris"
         where: "Institut Henri Poincaré"

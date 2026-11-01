@@ -13,7 +13,7 @@
 #       where:  small right-aligned annotation
 #       detail: the paragraph underneath (optional)
 
-updated: "9 October 2026"
+updated: "1 November 2026"
 
 summary: >
   My research grows out of arithmetic geometry, where algebraic geometry, number theory,
@@ -59,6 +59,10 @@ sections:
 
   - section: "Some Select Research Grants"
     entries:
+      - when: "2027–2030"
+        what: "Vetenskapsrådet Research Project Grant"
+        where: "PI"
+        detail: 'SEK 4,292,000 (approx. €380,000), project "Invariants and geometry in mirror symmetry at genus one".'
       - when: "2026"
         what: "Research in Paris"
         where: "Institut Henri Poincaré"

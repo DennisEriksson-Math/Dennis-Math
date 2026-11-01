@@ -7,9 +7,12 @@ cd "$(dirname "${BASH_SOURCE[0]}")" || exit 1
 
 DEST="teaching/MMA321-Algebraic-Geometry-notes-preliminary.pdf"
 
-# The newest build wins: either the one in the Dropbox book folder, or a fresh
-# download from the book project (saved as Algebraic_geometry...book....pdf).
-SRC="$(ls -t "$HOME"/Library/CloudStorage/Dropbox/algebraic-geometry-book/AlgGeom*.pdf \
+# The newest build wins: the one in the Overleaf-synced book folder (where the
+# book is compiled), the older Dropbox book folder, or a fresh download from the
+# book project (saved as Algebraic_geometry...book....pdf).
+BOOK_DIR="$HOME/Library/CloudStorage/Dropbox/Appar/ShareLaTeX/Algebraic geometry - book, with ChatGPT"
+SRC="$(ls -t "$BOOK_DIR"/AlgGeom2025.pdf \
+              "$HOME"/Library/CloudStorage/Dropbox/algebraic-geometry-book/AlgGeom*.pdf \
               "$HOME"/Downloads/Algebraic_geometry*book*.pdf 2>/dev/null | head -1)"
 
 say() { printf '\n%s\n' "$*"; }

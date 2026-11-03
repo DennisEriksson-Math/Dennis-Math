@@ -48,7 +48,7 @@ sections:
       text: "Open The Common Room"
       url: "/games/index.html"
       internal: true
-      note: "Eight games and one scene"
+      note: "Nine games and one scene"
 
   - section: "Math Collab"
     body: >

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#18252b">
+<title>Should I Ask a Question?</title>
+<meta name="description" content="A faculty meeting, a thought you cannot shake, and a hand that wants to go up. Should you ask? There is exactly one correct answer.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Sora:wght@300;400;500;600&family=Special+Elite&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="game.css?v=1">
+</head>
+<body>
+
+<div class="room" aria-hidden="true"><div class="light"></div><div class="grain"></div><div class="table"></div></div>
+
+<header class="hud">
+  <div class="stat"><b id="score">0</b><span>Person-min saved</span></div>
+  <div class="stat"><b id="streak">×1</b><span>Restraint</span></div>
+  <div class="stat"><b id="best">0</b><span>Best</span></div>
+  <div class="lives" id="lives"><span>Patience</span><i></i><i></i><i></i></div>
+</header>
+
+<main class="stage">
+  <div class="meta">
+    <span class="meta-item" id="item-count">Item 1 of 20</span>
+    <svg class="clock" viewBox="0 0 100 100" aria-hidden="true">
+      <circle class="clock-face" cx="50" cy="50" r="46"/>
+      <g class="clock-ticks">
+        <line x1="50" y1="8" x2="50" y2="15"/><line x1="92" y1="50" x2="85" y2="50"/>
+        <line x1="50" y1="92" x2="50" y2="85"/><line x1="8" y1="50" x2="15" y2="50"/>
+      </g>
+      <line class="clock-hour" id="clock-hour" x1="50" y1="50" x2="50" y2="26"/>
+      <line class="clock-min"  id="clock-min"  x1="50" y1="50" x2="50" y2="14"/>
+      <circle class="clock-pin" cx="50" cy="50" r="3"/>
+    </svg>
+  </div>
+
+  <div class="paper-slot">
+    <div class="paper" id="paper">
+      <div class="paper-tag">Briefing note</div>
+      <dl class="brief">
+        <div><dt>You are</dt><dd id="f-who"></dd></div>
+        <div><dt>Time</dt><dd id="f-when"></dd></div>
+        <div><dt>In the room</dt><dd id="f-room"></dd></div>
+        <div><dt>Agenda item</dt><dd id="f-topic"></dd></div>
+        <div id="row-circ"><dt>Also</dt><dd id="f-circ"></dd></div>
+      </dl>
+      <p class="thought" id="thought"></p>
+      <div class="paper-mark" id="mark"></div>
+    </div>
+  </div>
+
+  <div class="hand" aria-hidden="true">
+    <span class="hand-label">Your hand</span>
+    <div class="hand-track"><div class="hand-fill" id="hand-fill"></div><span class="hand-icon" id="hand-icon">✋</span></div>
+  </div>
+
+  <p class="why" id="why" aria-live="polite"></p>
+
+  <div class="choices">
+    <button class="pick pick-no"  id="pick-no"  type="button">Stay seated</button>
+    <button class="pick pick-ask" id="pick-ask" type="button">Raise hand</button>
+  </div>
+</main>
+
+<div class="overlay" id="overlay"></div>
+
+<script src="sfx.js?v=1"></script>
+<script src="game.js?v=1"></script>
+</body>
+</html>

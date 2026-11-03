@@ -27,6 +27,8 @@ proof-or-bluff/    index.html  game.css  game.js  sfx.js
 blackboard-bingo/  index.html  game.css  game.js  sfx.js
 erdos-number/      index.html  game.css  game.js  sfx.js
 the-gap/           index.html  game.css  game.js  sfx.js
+faculty-meeting/   index.html  game.css  game.js  sfx.js
+job-market/        index.html  game.css  game.js  sfx.js
 orbit/             index.html  styles.css  physics.js  main.js  audio.js
 ```
 
@@ -43,6 +45,8 @@ Each game folder is self-contained — copy any one of them anywhere and it runs
 | **Blackboard Bingo** | Bingo, with a call | The back row of a lecture hall |
 | **Erdős Number** | Weighted shortest path | Ink on a legal pad |
 | **The Gap** | Ordering puzzle | A referee's desk |
+| **Should I Ask a Question?** | Resisting temptation | A faculty meeting |
+| **Hot Singles on the Job Market** | Swipe | A hiring committee's phone |
 
 `orbit/` is the interactive space scene the project started from — a scene
 rather than a game, linked from the footer.
@@ -201,6 +205,45 @@ are true-sounding converses: differentiability giving a continuous derivative,
 or the 4k+3 argument being claimed to work just as well for 4k+1.
 
 ---
+
+## Should I Ask a Question?
+
+A briefing note describes a faculty-meeting situation and the thought you were
+about to share. Your hand rises on its own (a bar fills); **Stay seated** is the
+correct answer in every scenario, and the game never says otherwise. Asking, or
+letting the bar fill, costs a patience dot and shows a consequence. Twenty items
+survived ends the meeting; three questions ends it earlier. Score is
+person-minutes saved: the people in the room × 10, times the streak multiplier.
+
+All the writing is in lists at the top of `faculty-meeting/game.js`, and each
+list is independent, so a new line is one more string in an array:
+
+- `WHO`, `TOPIC`, `QUESTION`: plain strings.
+- `WHEN`: `{ h, m, s, no }`. `h` and `m` set the wall clock, `s` is the line
+  shown, `no` is the reply when you stay seated at that time.
+- `ROOM`: `{ n, s }`. `n` is the head-count that drives the score.
+- `CIRC`: `{ s, no }`. An extra circumstance and its own reply. These get more
+  frequent as the meeting goes on.
+- `NO_GENERIC` and `YES`: replies. `{m}` in a `YES` line becomes the overrun in
+  minutes.
+
+The flowchart on the end screens is `flowchart()` in the same file.
+
+## Hot Singles on the Job Market
+
+The player sets a search (field, position, and whether research, teaching or both
+matters), then has 45 seconds to swipe candidates: right to shortlist, left to
+pass. Drag the card, use the buttons, or press ← / →. A correct swipe is 100
+times the streak multiplier, a wrong one costs 50, and the end screen counts how
+many you shortlisted and what that does to the interview schedule.
+
+Candidates are generated, not written out. About 42% are built to meet every
+criterion; the rest fail one or (a quarter of the time) two. Only the pills at the
+top count; the bios and extras are decoration. The rules live in `POSITIONS`
+(years since the PhD, and the minimum papers and courses), `makeCandidate()` and
+`misses()` in `job-market/game.js`. Fields, bios, extras and names are lists at
+the top of the file. Candidates are fictional and are described only by their
+application, never by anything personal.
 
 ## Notes
 

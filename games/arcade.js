@@ -53,6 +53,20 @@ const GAMES = [
     href: 'the-gap/index.html',
     blurb: 'Reassemble a scrambled proof, line by line. One of the lines does not follow ' +
            'from the one above it. Spot it and leave it out.'
+  },
+  {
+    title: 'Should I Ask a Question?',
+    kicker: 'Resisting temptation',
+    href: 'faculty-meeting/index.html',
+    blurb: 'A faculty meeting, a thought you cannot shake, and a hand that is rising on its ' +
+           'own. Every situation has exactly one correct answer. You have four seconds.'
+  },
+  {
+    title: 'Hot Singles on the Job Market',
+    kicker: 'Swipe',
+    href: 'job-market/index.html',
+    blurb: 'You are the hiring committee. Set the search, then swipe right on candidates ' +
+           'who fit and left on those who do not, before the clock runs out.'
   }
 ];
 

@@ -2,8 +2,10 @@
    HOT SINGLES ON THE JOB MARKET — you are the hiring committee.
    Set the search, then swipe right on candidates who meet every
    criterion and left on the rest. Only the criteria on the pills
-   count; the bios and the extras are there for atmosphere.
-   All candidates are fictional.
+   count. With the committee's quirks switched on, those include a
+   trait they insist on, a trait they cannot stand, and something
+   they offer that must match what the candidate is looking for.
+   The bios are decoration. All candidates are fictional.
    ═══════════════════════════════════════════════════════════ */
 
 (function () {
@@ -43,7 +45,31 @@
     { name: 'Logic',
       bios: ['Decidable? Let us find out.', 'I will either prove it or refuse to answer.',
              'Consistent, if you do not look too hard.'],
-      likes: ['model theory', 'set theory', 'computability', 'proof theory'] }
+      likes: ['model theory', 'set theory', 'computability', 'proof theory'] },
+    { name: 'Differential geometry',
+      bios: ['Curved, but well-behaved.', 'Looking for someone with the right connection.',
+             'Smooth operator. Literally.'],
+      likes: ['Ricci flow', 'minimal surfaces', 'symplectic geometry', 'Riemannian metrics'] },
+    { name: 'Algebra',
+      bios: ['Looking for someone to quotient out my past.', 'Commutative, mostly.',
+             'Seeking my other half. Normal subgroup preferred.'],
+      likes: ['representation theory', 'Lie algebras', 'group theory', 'commutative rings'] },
+    { name: 'Dynamical systems',
+      bios: ['Chaotic, but with a strange attractor.', 'We keep returning to the same point.',
+             'Sensitive dependence on initial conversation.'],
+      likes: ['ergodic theory', 'bifurcations', 'billiards', 'fractals'] },
+    { name: 'Statistics',
+      bios: ['Significant, p < 0.05.', 'Will not be normalised.',
+             'Regressing to the mean, and happy about it.'],
+      likes: ['Bayesian methods', 'high-dimensional data', 'causal inference', 'time series'] },
+    { name: 'Mathematical physics',
+      bios: ['Strongly coupled.', 'Looking for a partner with a good partition function.',
+             'Renormalise me.'],
+      likes: ['quantum field theory', 'integrable systems', 'random matrices', 'string theory'] },
+    { name: 'Theoretical computer science',
+      bios: ['Polynomial time, for the right person.', 'Nondeterministically yours.',
+             'Efficient, if you ignore the constants.'],
+      likes: ['complexity', 'cryptography', 'algorithms', 'graph theory'] }
   ];
 
   const BIO = [
@@ -58,32 +84,78 @@
     'Coffee, chalk and a mild fear of referees.',
     'Yes, I am on the market. No, not for long.',
     'Hobbies include a seminar and a different seminar.',
-    'Love is a lemma. I am still looking for the proof.'
+    'Love is a lemma. I am still looking for the proof.',
+    'Swipe left if you say “just a quick question”.',
+    'Fluent in sarcasm and Stack Exchange.',
+    'Will referee your paper on a first date.',
+    'I read the appendix.',
+    'Single, but strongly connected.',
+    'Ask me about my Erdős number. Please.',
+    'Currently procrastinating on a grant application.',
+    'Seminar buddy wanted.',
+    'Believes in work-life balance. Theoretically.',
+    'Looking for someone to be mildly anxious with.',
+    'I answered a referee report in under a year.',
+    'My idea of fun is a good counterexample.'
   ];
 
-  const EXTRAS = [
-    'Brings their own chalk', 'Strong opinions on Beamer', 'Has a sourdough starter',
-    'Cycles to work', 'Reads the footnotes', 'Replies to email within a week (claims)',
-    'Owns a standing desk', 'Fluent in three languages, all of them LaTeX',
-    'Plays chess badly', 'Will relocate. Probably.', 'Allergic to chalk dust',
-    'Colour-codes the references', 'Never says “obviously”', 'Says “obviously” a lot'
+  /* Little traits on a candidate's card. With the committee's quirks on, one
+     MUST trait has to be there and one DEAL trait must not be. NEUTRAL ones
+     never matter. Keep every string unique across the three lists. */
+  const MUST = [
+    'Brings their own chalk', 'Reads the footnotes', 'Replies to email within a week',
+    'Colour-codes the references', 'Writes on the board, not slides', 'Shares code and data',
+    'Finishes talks on time', 'Cites other people’s work', 'Has a sourdough starter',
+    'Cycles to work', 'Has supervised a thesis to the end', 'Goes to seminars they are not giving',
+    'Owns a standing desk', 'Brings cake to meetings'
+  ];
+  const DEAL = [
+    'Says “obviously” a lot', 'Has not answered an email since 2019',
+    'Asks a question at every faculty meeting', 'Uses Beamer themes with animations',
+    'Ends proofs with “left to the reader”', 'Allergic to chalk dust',
+    'Calls every result “trivial”', 'Schedules meetings for 8:00', 'Replies all',
+    'Talks run 20 minutes over', 'Has strong opinions on the coffee machine',
+    'Always has “one more slide”', 'Reads emails aloud', 'Says “as I said in my email”'
+  ];
+  const NEUTRAL = [
+    'Plays chess badly', 'Will relocate. Probably.', 'Fluent in three languages, all of them LaTeX',
+    'Has a dog called Lemma', 'Drinks tea, not coffee', 'Collects fountain pens',
+    'Runs marathons slowly', 'Photographs doors', 'Knits. Mostly scarves.',
+    'Hums while writing proofs', 'Keeps a plant on the desk', 'Has read all of Euclid',
+    'Owns four identical sweaters', 'Likes trains', 'Bakes on weekends'
   ];
 
-  const LOOKING = [
+  /* What a candidate is looking for. With quirks on, the department offers one
+     of these, and only candidates after exactly that fit. */
+  const OFFERS = [
     'a department with working heating', 'a quiet office and a lively seminar',
     'someone to share a whiteboard with', 'a collaborator who answers email',
     'a sabbatical, eventually', 'long-term funding. Any funding.',
     'a seminar that serves lunch', 'a mentor who has read the paper',
-    'a view that is not of a wall', 'a corridor with good conversations'
+    'a view that is not of a wall', 'a corridor with good conversations',
+    'a chair that does not squeak', 'a department with a working printer',
+    'a reading group that actually reads', 'summers free for research',
+    'a teaching load with no surprises', 'an office with a window',
+    'colleagues who come to the talks', 'a coffee machine that works',
+    'a generous travel budget', 'a deadline-free week'
   ];
+
+  const STATUS = ['Active now', 'Active today', 'Online 3 min ago', 'Refereeing, probably',
+                  'In a seminar', 'Answering one email', 'At the coffee machine'];
 
   const FIRST = ['Aurelia', 'Mateo', 'Ingrid', 'Tomasz', 'Priya', 'Kofi', 'Linnea', 'Dmitri', 'Yuki', 'Camille',
                  'Omar', 'Saoirse', 'Henrik', 'Lucía', 'Anand', 'Freya', 'Jonas', 'Mei', 'Rafael', 'Noor',
-                 'Elias', 'Katarina', 'Ravi', 'Sofia', 'Björn', 'Amara', 'Viktor', 'Chiara', 'Hana', 'Oskar'];
+                 'Elias', 'Katarina', 'Ravi', 'Sofia', 'Björn', 'Amara', 'Viktor', 'Chiara', 'Hana', 'Oskar',
+                 'Isabel', 'Tariq', 'Greta', 'Joon', 'Malin', 'Pablo', 'Zainab', 'Anders', 'Leila', 'Marek',
+                 'Sigrid', 'Diego', 'Aiko', 'Emeka', 'Frida', 'Nikolai', 'Selma', 'Arjun', 'Ottilia', 'Luca',
+                 'Ayesha', 'Kasper', 'Ngozi', 'Teodor', 'Maja', 'Hugo', 'Rania', 'Sven', 'Elif', 'Matías'];
   const LAST  = ['Voss', 'Lindqvist', 'Okafor', 'Marchetti', 'Tanaka', 'Novak', 'Haddad', 'Johansson', 'Rossi',
                  'Kowalski', 'Mbeki', 'Duarte', 'Nakamura', 'Fischer', 'Petrov', 'Abara', 'Lund', 'Moreau',
                  'Iyer', 'Kaplan', 'Sandoval', 'Berg', 'Ivanova', 'Cheng', 'Dubois', 'Papadakis', 'Rahman',
-                 'Holm', 'Varga', 'Nyström'];
+                 'Holm', 'Varga', 'Nyström', 'Alvarez', 'Brandt', 'Chowdhury', 'Demir', 'Eklund', 'Farouk',
+                 'Gunnarsson', 'Hartmann', 'Ibrahim', 'Jovanović', 'Kim', 'Larsson', 'Mazur', 'Nwosu',
+                 'Oliveira', 'Pettersson', 'Quist', 'Rao', 'Svensson', 'Takahashi', 'Ugarte', 'Vasquez',
+                 'Weber', 'Xu', 'Yilmaz', 'Zielinski', 'Åkesson', 'Bianchi', 'Castillo', 'Dahl'];
 
   /* ── The search ──
      lo..hi   years since the PhD that fit the position
@@ -101,12 +173,12 @@
 
   /* ─── State ──────────────────────────────────────────────── */
 
-  const ROUND = 45;   // seconds
+  const ROUND = 60;   // seconds
 
   const S = {
     running: false,
     locked: true,
-    sel: { field: 1, pos: 'assistant', prio: 'research' },
+    sel: { field: 1, pos: 'assistant', prio: 'research', quirks: 'on' },
     crit: null,
     cand: null,
     score: 0,
@@ -155,9 +227,11 @@
 
   function makeCandidate() {
     const c = S.crit, p = c.pos;
+    const q = c.quirks;
     const active = ['field', 'years'];
     if (c.papersMin)  active.push('papers');
     if (c.coursesMin) active.push('courses');
+    if (q) active.push('must', 'deal', 'offer');
 
     const bad = {};
     if (Math.random() >= 0.42) {
@@ -175,9 +249,18 @@
                                  : free(p.courses);
 
     const first = pick(FIRST), last = pick(LAST);
-    const extras = shuffle(EXTRAS.slice()).slice(0, 2);
-    extras.push('h-index ' + rnd(3, 38));
-    extras.push('likes ' + pick(field.likes));
+    // The little traits. The committee's must-have is on the card unless this
+    // candidate is built to lack it; its dealbreaker is there only if they fail.
+    const traits = [];
+    if (q && !bad.must) traits.push(q.must);
+    if (q && bad.deal)  traits.push(q.deal);
+    const decoys = MUST.concat(DEAL).filter((t) => !q || (t !== q.must && t !== q.deal));
+    if (Math.random() < 0.5) traits.push(pick(decoys));
+    const neutral = shuffle(NEUTRAL.slice());
+    while (traits.length < 3) traits.push(neutral.pop());
+    const chips = traits.slice();
+    chips.push('h-index ' + rnd(3, 38));
+    chips.push('likes ' + pick(field.likes));
 
     return {
       name: first + ' ' + last,
@@ -187,8 +270,10 @@
       stage: stageOf(years),
       papers: papers, courses: courses,
       bio: Math.random() < 0.5 ? pick(field.bios) : pick(BIO),
-      extras: shuffle(extras),
-      looking: pick(LOOKING),
+      traits: traits,
+      extras: shuffle(chips),
+      looking: !q ? pick(OFFERS) : (bad.offer ? pick(OFFERS.filter((o) => o !== q.offer)) : q.offer),
+      status: pick(STATUS),
       km: Math.random() < 0.12 ? 0 : rnd(2, 9400)
     };
   }
@@ -200,6 +285,12 @@
     if (cand.years < p.lo || cand.years > p.hi) r.push(yearsText(cand.years).replace('PhD ', 'PhD was '));
     if (c.papersMin && cand.papers < c.papersMin) r.push('only ' + plural(cand.papers, 'paper'));
     if (c.coursesMin && cand.courses < c.coursesMin) r.push('only ' + plural(cand.courses, 'course') + ' taught');
+    const q = c.quirks;
+    if (q) {
+      if (!cand.traits.includes(q.must)) r.push('no “' + q.must + '”');
+      if (cand.traits.includes(q.deal))  r.push('“' + q.deal + '” is a dealbreaker');
+      if (cand.looking !== q.offer)      r.push('they are after ' + cand.looking);
+    }
     return r;
   }
 
@@ -212,7 +303,7 @@
           ((cand.hue + 50) % 360) + ',68%,44%))">' + cand.initials + '</div>' +
         '<div class="who-text"><div class="name">' + cand.name + '</div>' +
           '<div class="sub">' + cand.stage + ' · ' + yearsText(cand.years) + '<br>' + dist + '</div></div>' +
-        '<span class="active">Active now</span>' +
+        '<span class="active">' + cand.status + '</span>' +
       '</div>' +
       '<span class="tag">' + cand.field.name + '</span>' +
       '<p class="bio">“' + cand.bio + '”</p>' +
@@ -233,7 +324,9 @@
       pill('Field', c.field.name) +
       pill('Position', c.pos.name + ' · ' + rangeText(c.pos)) +
       (c.papersMin  ? pill('Research', '≥ ' + plural(c.papersMin, 'paper')) : '') +
-      (c.coursesMin ? pill('Teaching', '≥ ' + plural(c.coursesMin, 'course')) : '');
+      (c.coursesMin ? pill('Teaching', '≥ ' + plural(c.coursesMin, 'course')) : '') +
+      (c.quirks ? pill('Must have', c.quirks.must) + pill('Dealbreaker', c.quirks.deal) +
+                  pill('We offer', c.quirks.offer) : '');
   }
 
   function deal(first) {
@@ -362,11 +455,12 @@
         '<div><h3>Field</h3>' + chips('field', FIELDS.map((f, i) => ({ v: i, t: f.name }))) + '</div>' +
         '<div><h3>Position</h3>' + chips('pos', Object.keys(POSITIONS).map((k) => ({ v: k, t: POSITIONS[k].name }))) + '</div>' +
         '<div><h3>What matters most</h3>' + chips('prio', Object.keys(PRIORITIES).map((k) => ({ v: k, t: PRIORITIES[k] }))) + '</div>' +
+        '<div><h3>The committee’s quirks</h3>' + chips('quirks', [{ v: 'on', t: 'On' }, { v: 'off', t: 'Off' }]) + '</div>' +
       '</div>' +
       '<ul class="rules">' +
         '<li>Candidates arrive one by one. <b>Swipe right</b> (→) if they meet every criterion in the pills at the top, <b>left</b> (←) if not.</li>' +
         '<li>You have <b>' + ROUND + ' seconds</b>. A right swipe scores 100, a wrong one costs 50, and four in a row raise the multiplier.</li>' +
-        '<li>Only the pills count. The bios and the extras are decoration, however charming.</li>' +
+        '<li>Only the pills count. With the quirks <b>on</b>, the committee also insists on one little trait, cannot stand another, and offers something the candidate must be <b>looking for</b>. The bios are decoration.</li>' +
       '</ul>' +
       '<div class="actions">' +
         '<button class="btn btn-alt" id="random-btn" type="button">Surprise me</button>' +
@@ -421,13 +515,15 @@
     setTimeout(resultScreen, 350);
   }
 
-  function begin() {
+  function begin(keepQuirks) {
     SFX.unlock();
     const f = FIELDS[S.sel.field], p = POSITIONS[S.sel.pos], pr = S.sel.prio;
     S.crit = {
       field: f, pos: p,
       papersMin:  pr === 'teaching' ? 0 : p.papers,
-      coursesMin: pr === 'research' ? 0 : p.courses
+      coursesMin: pr === 'research' ? 0 : p.courses,
+      quirks: S.sel.quirks !== 'on' ? null
+            : (keepQuirks && S.crit && S.crit.quirks) || { must: pick(MUST), deal: pick(DEAL), offer: pick(OFFERS) }
     };
     overlay.classList.remove('is-open');
     S.score = 0; S.streak = 0; S.right = 0; S.total = 0; S.shortlisted = 0;
@@ -457,10 +553,11 @@
     if (!b) return;
     if (b.id === 'random-btn') {
       S.sel = { field: rnd(0, FIELDS.length - 1),
-                pos: pick(Object.keys(POSITIONS)), prio: pick(Object.keys(PRIORITIES)) };
+                pos: pick(Object.keys(POSITIONS)), prio: pick(Object.keys(PRIORITIES)), quirks: 'on' };
       setupScreen();
     }
-    if (b.id === 'start-btn' || b.id === 'same-btn') begin();
+    if (b.id === 'start-btn') begin(false);
+    if (b.id === 'same-btn')  begin(true);
     if (b.id === 'new-btn') setupScreen();
   });
 

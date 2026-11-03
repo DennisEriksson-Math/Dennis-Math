@@ -59,7 +59,7 @@ const GAMES = [
     kicker: 'Resisting temptation',
     href: 'faculty-meeting/index.html',
     blurb: 'A faculty meeting, a thought you cannot shake, and a hand that is rising on its ' +
-           'own. Every situation has exactly one correct answer. You have four seconds.'
+           'own. Every situation has exactly one correct answer. Choose before the hand is up.'
   },
   {
     title: 'Hot Singles on the Job Market',

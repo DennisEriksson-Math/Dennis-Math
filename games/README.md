@@ -231,19 +231,33 @@ The flowchart on the end screens is `flowchart()` in the same file.
 
 ## Hot Singles on the Job Market
 
-The player sets a search (field, position, and whether research, teaching or both
-matters), then has 45 seconds to swipe candidates: right to shortlist, left to
-pass. Drag the card, use the buttons, or press ← / →. A correct swipe is 100
-times the streak multiplier, a wrong one costs 50, and the end screen counts how
-many you shortlisted and what that does to the interview schedule.
+The player sets a search (field, position, whether research, teaching or both
+matters, and whether the committee's quirks are on), then has 60 seconds to swipe
+candidates: right to shortlist, left to pass. Drag the card, use the buttons, or
+press ← / →. A correct swipe is 100 times the streak multiplier, a wrong one costs
+50 and says why, and the end screen counts how many you shortlisted and what that
+does to the interview schedule.
 
-Candidates are generated, not written out. About 42% are built to meet every
-criterion; the rest fail one or (a quarter of the time) two. Only the pills at the
-top count; the bios and extras are decoration. The rules live in `POSITIONS`
-(years since the PhD, and the minimum papers and courses), `makeCandidate()` and
-`misses()` in `job-market/game.js`. Fields, bios, extras and names are lists at
-the top of the file. Candidates are fictional and are described only by their
-application, never by anything personal.
+Candidates are generated, not written out. About 40% are built to meet every
+criterion; the rest fail one or (a quarter of the time) two. **Only the pills at
+the top count.** With the quirks on, three of them come from the funny material:
+
+- **Must have**: a trait from `MUST` that has to be among the little chips on the
+  card.
+- **Dealbreaker**: a trait from `DEAL` that must not be there.
+- **We offer**: one of `OFFERS`, which has to match the card's "Looking for:" line.
+
+The bios, the status line and the other chips are decoration. A fresh must-have,
+dealbreaker and offer are drawn for each new search; "Same search again" keeps
+them.
+
+Everything written is a list at the top of `job-market/game.js`: `FIELDS` (14,
+each with its own bios and interests), `BIO`, `MUST`, `DEAL`, `NEUTRAL`, `OFFERS`,
+`STATUS`, `FIRST` and `LAST`. A string must be unique across `MUST`, `DEAL` and
+`NEUTRAL`, since matching is by exact text. The rules live in `POSITIONS` (years
+since the PhD, and the minimum papers and courses), `makeCandidate()` and
+`misses()`. Candidates are fictional and are described only by their application,
+never by anything personal.
 
 ## Notes
 

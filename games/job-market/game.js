@@ -2,10 +2,11 @@
    HOT SINGLES ON THE JOB MARKET — you are the hiring committee.
    Set the search, then swipe right on candidates who meet every
    criterion and left on the rest. Only the criteria on the pills
-   count. With the committee's quirks switched on, those include a
-   trait they insist on, a trait they cannot stand, and something
-   they offer that must match what the candidate is looking for.
-   The bios are decoration. All candidates are fictional.
+   count, and three of them are about what the candidate is like: a
+   trait the committee insists on, one it cannot stand, and something
+   the department offers. The card never states these outright; it
+   hints at them in its own, funnier words, so you have to read it.
+   All candidates are fictional.
    ═══════════════════════════════════════════════════════════ */
 
 (function () {
@@ -99,23 +100,65 @@
     'My idea of fun is a good counterexample.'
   ];
 
-  /* Little traits on a candidate's card. With the committee's quirks on, one
-     MUST trait has to be there and one DEAL trait must not be. NEUTRAL ones
-     never matter. Keep every string unique across the three lists. */
+  /* What the committee cares about is written on the pills in plain words;
+     what a candidate is like is written on their card in their own, funnier
+     ones. A trait has a short label (the pill) and several ways the card can
+     hint at it, and the card never says the label. So the only way to judge is
+     to read the card. `opp` names a trait that cannot sit beside this one. */
   const MUST = [
-    'Brings their own chalk', 'Reads the footnotes', 'Replies to email within a week',
-    'Colour-codes the references', 'Writes on the board, not slides', 'Shares code and data',
-    'Finishes talks on time', 'Cites other people’s work', 'Has a sourdough starter',
-    'Cycles to work', 'Has supervised a thesis to the end', 'Goes to seminars they are not giving',
-    'Owns a standing desk', 'Brings cake to meetings'
+    { id: 'email', label: 'answers email', opp: 'ghost', lines: [
+      'Inbox zero since 2014.', 'Replies to email within the hour. Allegedly.',
+      'Has never once written “sorry for the late reply”.'] },
+    { id: 'chalk', label: 'teaches at the board', opp: 'slides', lines: [
+      'Owns a personal box of chalk.', 'Has never opened a Beamer file voluntarily.',
+      'Sleeves permanently dusted.'] },
+    { id: 'detail', label: 'is careful with detail', lines: [
+      'Reads the footnotes. And the appendix.', 'Found a typo in a 1987 preprint.',
+      'Checks every proof twice, then a third time.'] },
+    { id: 'time', label: 'keeps to time', opp: 'over', lines: [
+      'Finishes talks on time. Yes, really.', 'Has never said “let me just finish this slide”.',
+      'Wears a watch, ostentatiously.'] },
+    { id: 'team', label: 'collaborates', lines: [
+      'Seven co-authors on the last paper, all still speaking.', 'Shares code, data and sandwiches.',
+      'Writes “we” in every abstract. Means it.'] },
+    { id: 'cake', label: 'brings cake', lines: [
+      'Has a sourdough starter with a name.', 'Brings cake to meetings. Every time.',
+      'Known in the corridor for the lemon drizzle.'] },
+    { id: 'students', label: 'looks after students', lines: [
+      'Three PhD students graduated, all still on speaking terms.', 'Reads drafts within a week.',
+      'Their students’ acknowledgements are suspiciously warm.'] },
+    { id: 'credit', label: 'gives credit', lines: [
+      'Cites other people’s work, unprompted.', 'Thanked the referee by name.',
+      'The reference list has more names than the paper.'] }
   ];
   const DEAL = [
-    'Says “obviously” a lot', 'Has not answered an email since 2019',
-    'Asks a question at every faculty meeting', 'Uses Beamer themes with animations',
-    'Ends proofs with “left to the reader”', 'Allergic to chalk dust',
-    'Calls every result “trivial”', 'Schedules meetings for 8:00', 'Replies all',
-    'Talks run 20 minutes over', 'Has strong opinions on the coffee machine',
-    'Always has “one more slide”', 'Reads emails aloud', 'Says “as I said in my email”'
+    { id: 'obvious', label: 'says “obviously”', lines: [
+      '“It is obvious that…” opens every talk.', 'Calls other people’s theorems trivial.',
+      'Left the proof “to the reader” on page one.'] },
+    { id: 'ghost', label: 'ignores email', opp: 'email', lines: [
+      'Out-of-office reply: “back in 2027”.', 'Last answered an email in 2019.',
+      'Inbox: 41,238 unread. Proud of it.'] },
+    { id: 'slides', label: 'loves slide effects', opp: 'chalk', lines: [
+      'Beamer themes with animated transitions.', 'Last talk: 140 slides and a spinning logo.',
+      'Calls it “just a few slides”. It is ninety.'] },
+    { id: 'over', label: 'overruns', opp: 'time', lines: [
+      'Talks run 20 minutes over, politely.', 'Has been cut off mid-sentence by the next speaker.',
+      'Was once stopped by a fire alarm.'] },
+    { id: 'ask', label: 'asks at faculty meetings', lines: [
+      'Raises a hand at every faculty meeting.', 'Never leaves a meeting without “a quick question”.',
+      'Famous for “just one small thing”.'] },
+    { id: 'replyall', label: 'replies all', lines: [
+      'Reply-all pioneer.', 'Once emailed the whole faculty about a lost umbrella.',
+      'The CC list is longer than the paper.'] },
+    { id: 'early', label: 'schedules early', lines: [
+      'Schedules meetings for 8:00 sharp.', 'Considers 7:45 “a civilised start”.',
+      'Has booked a Monday 8:00 seminar. Voluntarily.'] },
+    { id: 'coffee', label: 'has coffee-machine opinions', lines: [
+      'Has strong views on the department coffee machine.', 'Wrote a three-page memo on the espresso settings.',
+      'Chairs the unofficial coffee committee.'] },
+    { id: 'brag', label: 'brags', lines: [
+      'Ask me about my h-index. Please.', 'Mentions a Fields Medal near-miss in the first minute.',
+      'Signs email “Prof. (soon) Dr. Dr.”'] }
   ];
   const NEUTRAL = [
     'Plays chess badly', 'Will relocate. Probably.', 'Fluent in three languages, all of them LaTeX',
@@ -125,19 +168,29 @@
     'Owns four identical sweaters', 'Likes trains', 'Bakes on weekends'
   ];
 
-  /* What a candidate is looking for. With quirks on, the department offers one
-     of these, and only candidates after exactly that fit. */
+  /* What the department offers (the pill) and the ways a candidate can say
+     they are looking for it (the card's "Looking for:" line). */
   const OFFERS = [
-    'a department with working heating', 'a quiet office and a lively seminar',
-    'someone to share a whiteboard with', 'a collaborator who answers email',
-    'a sabbatical, eventually', 'long-term funding. Any funding.',
-    'a seminar that serves lunch', 'a mentor who has read the paper',
-    'a view that is not of a wall', 'a corridor with good conversations',
-    'a chair that does not squeak', 'a department with a working printer',
-    'a reading group that actually reads', 'summers free for research',
-    'a teaching load with no surprises', 'an office with a window',
-    'colleagues who come to the talks', 'a coffee machine that works',
-    'a generous travel budget', 'a deadline-free week'
+    { id: 'heat',   label: 'a warm office', lines: [
+      'a department with working heating', 'somewhere the radiator works in January', 'an office that is not an igloo'] },
+    { id: 'quiet',  label: 'peace and quiet', lines: [
+      'a quiet office and a lively seminar', 'somewhere to hear myself think', 'a door that actually closes'] },
+    { id: 'lunch',  label: 'free lunch', lines: [
+      'a seminar that serves lunch', 'a department that feeds its seminar', 'sandwiches, preferably before the talk'] },
+    { id: 'money',  label: 'long-term funding', lines: [
+      'long-term funding. Any funding.', 'a grant that outlasts the contract', 'money, in writing, for more than a year'] },
+    { id: 'leave',  label: 'research leave', lines: [
+      'a sabbatical, eventually', 'a year away to finish the book', 'time off to write, written into the contract'] },
+    { id: 'people', label: 'good colleagues', lines: [
+      'colleagues who come to the talks', 'someone to share a whiteboard with', 'a corridor with good conversations'] },
+    { id: 'view',   label: 'a room with a view', lines: [
+      'an office with a window', 'a view that is not of a wall', 'daylight, ideally'] },
+    { id: 'travel', label: 'travel money', lines: [
+      'a generous travel budget', 'conferences paid for in advance', 'a travel budget that survives April'] },
+    { id: 'kit',    label: 'working equipment', lines: [
+      'a department with a working printer', 'a chair that does not squeak', 'a coffee machine that works'] },
+    { id: 'light',  label: 'light teaching', lines: [
+      'a teaching load with no surprises', 'no lectures on Monday at eight', 'a timetable made before the term starts'] }
   ];
 
   const STATUS = ['Active now', 'Active today', 'Online 3 min ago', 'Refereeing, probably',
@@ -174,11 +227,14 @@
   /* ─── State ──────────────────────────────────────────────── */
 
   const ROUND = 60;   // seconds
+  const RIGHT = 100;  // points for a right swipe, times the streak multiplier
+  const WRONG = 200;  // points lost for a wrong one, so guessing does not pay
+  const PENALTY = 2;  // seconds lost for a wrong one
 
   const S = {
     running: false,
     locked: true,
-    sel: { field: 1, pos: 'assistant', prio: 'research', quirks: 'on' },
+    sel: { field: 1, pos: 'assistant' },
     crit: null,
     cand: null,
     score: 0,
@@ -248,20 +304,30 @@
     const courses = c.coursesMin ? (bad.courses ? below(c.coursesMin) : above(c.coursesMin))
                                  : free(p.courses);
 
-    const first = pick(FIRST), last = pick(LAST);
-    // The little traits. The committee's must-have is on the card unless this
-    // candidate is built to lack it; its dealbreaker is there only if they fail.
-    const traits = [];
-    if (q && !bad.must) traits.push(q.must);
-    if (q && bad.deal)  traits.push(q.deal);
-    const decoys = MUST.concat(DEAL).filter((t) => !q || (t !== q.must && t !== q.deal));
-    if (Math.random() < 0.5) traits.push(pick(decoys));
-    const neutral = shuffle(NEUTRAL.slice());
-    while (traits.length < 3) traits.push(neutral.pop());
-    const chips = traits.slice();
-    chips.push('h-index ' + rnd(3, 38));
-    chips.push('likes ' + pick(field.likes));
+    const offer = (q && !bad.offer) ? q.offer
+                : pick(OFFERS.filter((o) => !q || o !== q.offer));
 
+    const first = pick(FIRST), last = pick(LAST);
+    // What the card hints at. The committee's must-have is hinted at unless this
+    // candidate is built to lack it; the dealbreaker only if they fail it.
+    // Unrelated traits may appear too, never one that contradicts the rest.
+    const ids = [], notes = [];
+    function addTrait(t) {
+      ids.push(t.id);
+      notes.push(pick(t.lines));
+    }
+    if (q && !bad.must) addTrait(q.must);
+    if (q && bad.deal)  addTrait(q.deal);
+    const taken = (t) => ids.includes(t.id) || ids.includes(t.opp);
+    const blocked = (t) => q && (t.id === q.must.id || t.id === q.deal.id ||
+                                 t.opp === q.must.id || t.opp === q.deal.id);
+    const spare = shuffle(MUST.concat(DEAL).filter((t) => !blocked(t)));
+    const extra = (bad.must || bad.deal || !q) ? 1 : (Math.random() < 0.6 ? 1 : 0);
+    for (let i = 0; i < spare.length && notes.length < (q ? 2 : 1) + extra; i++) {
+      if (!taken(spare[i])) addTrait(spare[i]);
+    }
+    const neutral = shuffle(NEUTRAL.slice());
+    const chips = [neutral.pop(), 'h-index ' + rnd(3, 38), 'likes ' + pick(field.likes)];
     return {
       name: first + ' ' + last,
       initials: first[0] + last[0],
@@ -270,9 +336,11 @@
       stage: stageOf(years),
       papers: papers, courses: courses,
       bio: Math.random() < 0.5 ? pick(field.bios) : pick(BIO),
-      traits: traits,
+      traits: ids,
+      notes: shuffle(notes),
       extras: shuffle(chips),
-      looking: !q ? pick(OFFERS) : (bad.offer ? pick(OFFERS.filter((o) => o !== q.offer)) : q.offer),
+      offer: offer,
+      looking: pick(offer.lines),
       status: pick(STATUS),
       km: Math.random() < 0.12 ? 0 : rnd(2, 9400)
     };
@@ -287,9 +355,9 @@
     if (c.coursesMin && cand.courses < c.coursesMin) r.push('only ' + plural(cand.courses, 'course') + ' taught');
     const q = c.quirks;
     if (q) {
-      if (!cand.traits.includes(q.must)) r.push('no “' + q.must + '”');
-      if (cand.traits.includes(q.deal))  r.push('“' + q.deal + '” is a dealbreaker');
-      if (cand.looking !== q.offer)      r.push('they are after ' + cand.looking);
+      if (!cand.traits.includes(q.must.id)) r.push('nothing on the card says “' + q.must.label + '”');
+      if (cand.traits.includes(q.deal.id))  r.push('dealbreaker, ' + q.deal.label);
+      if (cand.offer !== q.offer)           r.push('they are after ' + cand.looking);
     }
     return r;
   }
@@ -311,6 +379,7 @@
         '<div class="fact"><b>' + cand.papers + '</b><span>Papers</span></div>' +
         '<div class="fact"><b>' + cand.courses + '</b><span>Courses taught</span></div>' +
       '</div>' +
+      '<ul class="notes">' + cand.notes.map((x) => '<li>' + x + '</li>').join('') + '</ul>' +
       '<div class="extras">' + cand.extras.map((x) => '<span>' + x + '</span>').join('') + '</div>' +
       '<p class="looking"><b>Looking for:</b> ' + cand.looking + '</p>';
   }
@@ -325,8 +394,8 @@
       pill('Position', c.pos.name + ' · ' + rangeText(c.pos)) +
       (c.papersMin  ? pill('Research', '≥ ' + plural(c.papersMin, 'paper')) : '') +
       (c.coursesMin ? pill('Teaching', '≥ ' + plural(c.coursesMin, 'course')) : '') +
-      (c.quirks ? pill('Must have', c.quirks.must) + pill('Dealbreaker', c.quirks.deal) +
-                  pill('We offer', c.quirks.offer) : '');
+      (c.quirks ? pill('Must', c.quirks.must.label) + pill('Dealbreaker', c.quirks.deal.label) +
+                  pill('We offer', c.quirks.offer.label) : '');
   }
 
   function deal(first) {
@@ -359,17 +428,18 @@
     if (correct) {
       S.right++;
       S.streak++;
-      const pts = 100 * mult();
+      const pts = RIGHT * mult();
       S.score += pts;
       SFX.right();
       elWhy.className = 'why is-good';
       elWhy.textContent = '+' + pts + '  ' + (fits ? 'Meets every criterion.' : 'Pass: ' + r[0] + '.');
     } else {
       S.streak = 0;
-      S.score = Math.max(0, S.score - 50);
+      S.score -= WRONG;
+      S.endsAt -= PENALTY * 1000;
       SFX.wrong();
       elWhy.className = 'why is-bad';
-      elWhy.textContent = '−50  ' + (fits ? 'That one met every criterion.' : 'Should have passed: ' + r.join(', ') + '.');
+      elWhy.textContent = '−' + WRONG + ' and ' + PENALTY + ' s  ' + (fits ? 'That one met every criterion.' : 'Should have passed: ' + r.join(', ') + '.');
     }
     render();
 
@@ -452,15 +522,15 @@
       '<div class="p-kicker">You are the hiring committee</div>' +
       '<h1 class="p-title">Hot Singles <span>on the Job Market</span></h1>' +
       '<div class="setup">' +
-        '<div><h3>Field</h3>' + chips('field', FIELDS.map((f, i) => ({ v: i, t: f.name }))) + '</div>' +
+        '<div><h3>Field</h3><select class="select" id="field-select" aria-label="Field">' +
+          FIELDS.map((f, i) => '<option value="' + i + '"' + (i === S.sel.field ? ' selected' : '') + '>' + f.name + '</option>').join('') +
+        '</select></div>' +
         '<div><h3>Position</h3>' + chips('pos', Object.keys(POSITIONS).map((k) => ({ v: k, t: POSITIONS[k].name }))) + '</div>' +
-        '<div><h3>What matters most</h3>' + chips('prio', Object.keys(PRIORITIES).map((k) => ({ v: k, t: PRIORITIES[k] }))) + '</div>' +
-        '<div><h3>The committee’s quirks</h3>' + chips('quirks', [{ v: 'on', t: 'On' }, { v: 'off', t: 'Off' }]) + '</div>' +
       '</div>' +
       '<ul class="rules">' +
-        '<li>Candidates arrive one by one. <b>Swipe right</b> (→) if they meet every criterion in the pills at the top, <b>left</b> (←) if not.</li>' +
-        '<li>You have <b>' + ROUND + ' seconds</b>. A right swipe scores 100, a wrong one costs 50, and four in a row raise the multiplier.</li>' +
-        '<li>Only the pills count. With the quirks <b>on</b>, the committee also insists on one little trait, cannot stand another, and offers something the candidate must be <b>looking for</b>. The bios are decoration.</li>' +
+        '<li>Candidates arrive one by one. <b>Swipe right</b> (→) if they meet <b>every</b> criterion in the pills at the top, <b>left</b> (←) if not.</li>' +
+        '<li>The committee’s quirks count too, and no card states them outright. It hints, in its own words, so <b>read the card</b>.</li>' +
+        '<li>You have <b>' + ROUND + ' seconds</b>. A right swipe scores ' + RIGHT + ' (more with a streak). A wrong one costs <b>' + WRONG + ' points and ' + PENALTY + ' seconds</b>, so do not guess.</li>' +
       '</ul>' +
       '<div class="actions">' +
         '<button class="btn btn-alt" id="random-btn" type="button">Surprise me</button>' +
@@ -515,15 +585,22 @@
     setTimeout(resultScreen, 350);
   }
 
+  function drawQuirks() {
+    const must = pick(MUST);
+    const deal = pick(DEAL.filter((d) => d.id !== must.opp));
+    return { must: must, deal: deal, offer: pick(OFFERS) };
+  }
+
   function begin(keepQuirks) {
     SFX.unlock();
-    const f = FIELDS[S.sel.field], p = POSITIONS[S.sel.pos], pr = S.sel.prio;
+    const f = FIELDS[S.sel.field], p = POSITIONS[S.sel.pos];
+    const keep = keepQuirks && S.crit;
+    const pr = keep ? S.crit.prio : pick(Object.keys(PRIORITIES));
     S.crit = {
-      field: f, pos: p,
+      field: f, pos: p, prio: pr,
       papersMin:  pr === 'teaching' ? 0 : p.papers,
       coursesMin: pr === 'research' ? 0 : p.courses,
-      quirks: S.sel.quirks !== 'on' ? null
-            : (keepQuirks && S.crit && S.crit.quirks) || { must: pick(MUST), deal: pick(DEAL), offer: pick(OFFERS) }
+      quirks: (keep && S.crit.quirks) || drawQuirks()
     };
     overlay.classList.remove('is-open');
     S.score = 0; S.streak = 0; S.right = 0; S.total = 0; S.shortlisted = 0;
@@ -543,7 +620,7 @@
     const chip = e.target.closest('.chip');
     if (chip) {
       const g = chip.dataset.group;
-      S.sel[g] = g === 'field' ? Number(chip.dataset.val) : chip.dataset.val;
+      S.sel[g] = chip.dataset.val;
       overlay.querySelectorAll('.chip[data-group="' + g + '"]').forEach((c) => {
         c.setAttribute('aria-pressed', String(c === chip));
       });
@@ -552,13 +629,16 @@
     const b = e.target.closest('button');
     if (!b) return;
     if (b.id === 'random-btn') {
-      S.sel = { field: rnd(0, FIELDS.length - 1),
-                pos: pick(Object.keys(POSITIONS)), prio: pick(Object.keys(PRIORITIES)), quirks: 'on' };
+      S.sel = { field: rnd(0, FIELDS.length - 1), pos: pick(Object.keys(POSITIONS)) };
       setupScreen();
     }
     if (b.id === 'start-btn') begin(false);
     if (b.id === 'same-btn')  begin(true);
     if (b.id === 'new-btn') setupScreen();
+  });
+
+  overlay.addEventListener('change', (e) => {
+    if (e.target.id === 'field-select') S.sel.field = Number(e.target.value);
   });
 
   btnPass.addEventListener('click', () => swipe(false));

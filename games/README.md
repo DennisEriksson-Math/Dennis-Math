@@ -231,33 +231,42 @@ The flowchart on the end screens is `flowchart()` in the same file.
 
 ## Hot Singles on the Job Market
 
-The player sets a search (field, position, whether research, teaching or both
-matters, and whether the committee's quirks are on), then has 60 seconds to swipe
-candidates: right to shortlist, left to pass. Drag the card, use the buttons, or
-press ← / →. A correct swipe is 100 times the streak multiplier, a wrong one costs
-50 and says why, and the end screen counts how many you shortlisted and what that
-does to the interview schedule.
+The player picks a field and a position, and the search draws the rest: whether
+research, teaching or both matters, and the committee's quirks. Then there are 60
+seconds to swipe candidates: right to shortlist, left to pass. Drag the card, use
+the buttons, or press ← / →. A right swipe scores 100 times the streak
+multiplier. A wrong one costs 200 points and 2 seconds and says why, so guessing
+loses (the score can go negative). The end screen counts how many you shortlisted
+and what that does to the interview schedule. `RIGHT`, `WRONG` and `PENALTY` at
+the top of `job-market/game.js` set the numbers.
 
 Candidates are generated, not written out. About 40% are built to meet every
 criterion; the rest fail one or (a quarter of the time) two. **Only the pills at
-the top count.** With the quirks on, three of them come from the funny material:
+the top count.** Three of them are about what the candidate is like, and the card
+never states them: it hints, in its own funnier words, so the player has to read.
 
-- **Must have**: a trait from `MUST` that has to be among the little chips on the
-  card.
-- **Dealbreaker**: a trait from `DEAL` that must not be there.
-- **We offer**: one of `OFFERS`, which has to match the card's "Looking for:" line.
+- **Must**: a trait the card has to hint at. For "answers email" the card might
+  say "Inbox zero since 2014."
+- **Dealbreaker**: a trait it must not hint at. For "replies all": "Once emailed
+  the whole faculty about a lost umbrella."
+- **We offer**: something the candidate's "Looking for:" line has to be after, in
+  whichever of its wordings.
 
-The bios, the status line and the other chips are decoration. A fresh must-have,
-dealbreaker and offer are drawn for each new search; "Same search again" keeps
-them.
+The bios, the status line and the little grey chips are decoration. A fresh
+priority, must, dealbreaker and offer are drawn for each new search; "Same search
+again" keeps them.
 
-Everything written is a list at the top of `job-market/game.js`: `FIELDS` (14,
-each with its own bios and interests), `BIO`, `MUST`, `DEAL`, `NEUTRAL`, `OFFERS`,
-`STATUS`, `FIRST` and `LAST`. A string must be unique across `MUST`, `DEAL` and
-`NEUTRAL`, since matching is by exact text. The rules live in `POSITIONS` (years
-since the PhD, and the minimum papers and courses), `makeCandidate()` and
-`misses()`. Candidates are fictional and are described only by their application,
-never by anything personal.
+Everything written is a list at the top of `job-market/game.js`. `MUST` and `DEAL`
+hold traits as `{ id, label, opp, lines }`: `label` is the pill, `lines` are
+the different ways a card can hint at it, and `opp` names a trait that cannot sit
+beside it (so a card never contradicts itself). `OFFERS` works the same way, with
+`lines` as the "Looking for:" wordings. Add a line to a trait and it is in play
+at once. Keep the lines of different traits clearly apart, so a card is never
+ambiguous. The other lists are `FIELDS` (14, each with its own bios and
+interests), `BIO`, `NEUTRAL`, `STATUS`, `FIRST` and `LAST`. The rules live in
+`POSITIONS` (years since the PhD, and the minimum papers and courses),
+`makeCandidate()` and `misses()`. Candidates are fictional and are described only
+by their application, never by anything personal.
 
 ## Notes
 

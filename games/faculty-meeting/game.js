@@ -201,7 +201,7 @@
     return a;
   }
   function mult()    { return Math.min(5, 1 + Math.floor(S.streak / 3)); }
-  function timeFor() { return Math.max(7, 11 - S.done * 0.2); }
+  function timeFor() { return Math.max(9, 14 - S.done * 0.25); }
 
   /* ─── Rounds ─────────────────────────────────────────────── */
 
@@ -298,9 +298,9 @@
     }
 
     render();
-    if (S.lives <= 0) { setTimeout(lose, 2200); return; }
-    if (S.done >= TOTAL) { setTimeout(win, 1800); return; }
-    setTimeout(deal, asked ? 3000 : 2100);
+    if (S.lives <= 0) { setTimeout(lose, 4200); return; }
+    if (S.done >= TOTAL) { setTimeout(win, 3600); return; }
+    setTimeout(deal, asked ? 5200 : 3800);
   }
 
   /* ─── Loop ───────────────────────────────────────────────── */
@@ -357,7 +357,7 @@
       '<p class="card-body">Item by item you are given a situation, and a thought you would very ' +
       'much like to share. Decide whether to raise your hand.</p>' +
       '<ul class="card-rules">' +
-        '<li>In every situation there is exactly one correct answer. Take your time. You have about ten seconds, and a little less as the meeting drags on.</li>' +
+        '<li>In every situation there is exactly one correct answer. Take your time. You have about fourteen seconds, and a little less as the meeting drags on.</li>' +
         '<li>Your hand rises on its own. When the bar is full, you have asked.</li>' +
         '<li>Each time you stay seated you spare everyone in the room ten minutes. The score is person-minutes.</li>' +
         '<li>Three questions, and the room has had enough of you.</li>' +

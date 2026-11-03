@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#2a1530">
 <title>Hot Singles on the Job Market</title>
-<meta name="description" content="You are the hiring committee. Set the search, then swipe through candidates as fast as you can. Shortlist the ones who fit, pass on the rest.">
+<meta name="description" content="You are the hiring committee. Fill a day of interviews: shortlist the candidates who fit every criterion, pass on the rest, and read the cards closely.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Sora:wght@300;400;500;600;700&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="game.css?v=4">
+<link rel="stylesheet" href="game.css?v=5">
 </head>
 <body>
 
@@ -17,14 +17,13 @@
 
 <header class="hud">
   <div class="stat"><b id="score">0</b><span>Score</span></div>
-  <div class="stat"><b id="streak">×1</b><span>Streak</span></div>
+  <div class="stat"><b id="slots">0/9</b><span>Interview slots</span></div>
   <div class="stat"><b id="best">0</b><span>Best</span></div>
-  <div class="clock"><b id="clock">45</b><span>Seconds</span></div>
+  <div class="lives" id="lives"><span>Chances</span><i></i><i></i><i></i></div>
 </header>
 
 <main class="stage">
   <div class="search" id="search" aria-label="The search criteria"></div>
-  <div class="timer"><div class="timer-fill" id="timer-fill"></div></div>
 
   <div class="deck">
     <div class="profile profile-back" aria-hidden="true"></div>
@@ -42,6 +41,6 @@
 <div class="overlay" id="overlay"></div>
 
 <script src="sfx.js?v=1"></script>
-<script src="game.js?v=4"></script>
+<script src="game.js?v=5"></script>
 </body>
 </html>

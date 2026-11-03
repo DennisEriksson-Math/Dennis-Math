@@ -1,11 +1,13 @@
 /* ═══════════════════════════════════════════════════════════
    HOT SINGLES ON THE JOB MARKET — you are the hiring committee.
-   Set the search, then swipe right on candidates who meet every
-   criterion and left on the rest. Only the criteria on the pills
+   Fill a day of interviews with candidates who meet every criterion:
+   swipe right to shortlist, left to pass. No clock; three strikes
+   and the search is cancelled. Only the criteria on the pills
    count, and three of them are about what the candidate is like: a
    trait the committee insists on, one it cannot stand, and something
-   the department offers. The card never states these outright; it
-   hints at them in its own, funnier words, so you have to read it.
+   the department offers. They are added one at a time as the search
+   goes on. The card never states them outright; it hints at them in
+   its own, funnier words, so you have to read it.
    All candidates are fictional.
    ═══════════════════════════════════════════════════════════ */
 
@@ -226,10 +228,11 @@
 
   /* ─── State ──────────────────────────────────────────────── */
 
-  const ROUND = 60;   // seconds
-  const RIGHT = 100;  // points for a right swipe, times the streak multiplier
-  const WRONG = 200;  // points lost for a wrong one, so guessing does not pay
-  const PENALTY = 2;  // seconds lost for a wrong one
+  const SLOTS   = 9;     // six hours of interviews at 40 minutes each
+  const STRIKES = 3;     // wrong calls before the search is cancelled
+  const RIGHT   = 100;   // points for each right call
+  const BONUS   = 500;   // for each strike left when the day is full
+  const REVEAL  = [3, 7, 11];  // cards seen before the must, dealbreaker and offer join the search
 
   const S = {
     running: false,
@@ -239,15 +242,16 @@
     cand: null,
     score: 0,
     best: Number(localStorage.getItem('hotsingles.best') || 0),
-    streak: 0,
-    right: 0, total: 0, shortlisted: 0,
-    endsAt: 0
+    seen: 0, stage: 0,
+    right: 0, total: 0,
+    filled: 0,     // slots given to candidates who fit
+    wasted: 0,     // slots given to candidates who did not
+    strikes: 0
   };
 
   const $ = (id) => document.getElementById(id);
   const elCard = $('card'),   elWhy = $('why'),    elSearch = $('search');
-  const elScore = $('score'), elStreak = $('streak'), elBest = $('best');
-  const elClock = $('clock'), elFill = $('timer-fill');
+  const elScore = $('score'), elSlots = $('slots'), elBest = $('best'), elLives = $('lives');
   const btnPass = $('pick-pass'), btnLike = $('pick-like');
   const overlay = $('overlay');
 
@@ -260,7 +264,14 @@
     }
     return a;
   }
-  function mult() { return Math.min(5, 1 + Math.floor(S.streak / 4)); }
+  function slotsUsed() { return S.filled + S.wasted; }
+
+  /* The committee's quirks that have joined the search so far. */
+  function live() {
+    const q = S.crit.quirks, n = S.stage;
+    return { must: n >= 1 ? q.must : null, deal: n >= 2 ? q.deal : null, offer: n >= 3 ? q.offer : null };
+  }
+
   function plural(n, w) { return n + ' ' + w + (n === 1 ? '' : 's'); }
 
   function yearsText(y) { return y === 0 ? 'PhD this year' : 'PhD ' + plural(y, 'year') + ' ago'; }
@@ -283,11 +294,13 @@
 
   function makeCandidate() {
     const c = S.crit, p = c.pos;
-    const q = c.quirks;
+    const q = live();
     const active = ['field', 'years'];
     if (c.papersMin)  active.push('papers');
     if (c.coursesMin) active.push('courses');
-    if (q) active.push('must', 'deal', 'offer');
+    if (q.must)  active.push('must');
+    if (q.deal)  active.push('deal');
+    if (q.offer) active.push('offer');
 
     const bad = {};
     if (Math.random() >= 0.42) {
@@ -304,8 +317,8 @@
     const courses = c.coursesMin ? (bad.courses ? below(c.coursesMin) : above(c.coursesMin))
                                  : free(p.courses);
 
-    const offer = (q && !bad.offer) ? q.offer
-                : pick(OFFERS.filter((o) => !q || o !== q.offer));
+    const offer = (q.offer && !bad.offer) ? q.offer
+                : pick(OFFERS.filter((o) => o !== q.offer));
 
     const first = pick(FIRST), last = pick(LAST);
     // What the card hints at. The committee's must-have is hinted at unless this
@@ -316,14 +329,13 @@
       ids.push(t.id);
       notes.push(pick(t.lines));
     }
-    if (q && !bad.must) addTrait(q.must);
-    if (q && bad.deal)  addTrait(q.deal);
+    if (q.must && !bad.must) addTrait(q.must);
+    if (q.deal && bad.deal)  addTrait(q.deal);
     const taken = (t) => ids.includes(t.id) || ids.includes(t.opp);
-    const blocked = (t) => q && (t.id === q.must.id || t.id === q.deal.id ||
-                                 t.opp === q.must.id || t.opp === q.deal.id);
+    const blocked = (t) => [q.must, q.deal].some((x) => x && (t.id === x.id || t.opp === x.id));
     const spare = shuffle(MUST.concat(DEAL).filter((t) => !blocked(t)));
-    const extra = (bad.must || bad.deal || !q) ? 1 : (Math.random() < 0.6 ? 1 : 0);
-    for (let i = 0; i < spare.length && notes.length < (q ? 2 : 1) + extra; i++) {
+    const extra = (bad.must || bad.deal || !(q.must || q.deal)) ? 1 : (Math.random() < 0.6 ? 1 : 0);
+    for (let i = 0; i < spare.length && notes.length < (q.must || q.deal ? 2 : 1) + extra; i++) {
       if (!taken(spare[i])) addTrait(spare[i]);
     }
     const neutral = shuffle(NEUTRAL.slice());
@@ -353,12 +365,10 @@
     if (cand.years < p.lo || cand.years > p.hi) r.push(yearsText(cand.years).replace('PhD ', 'PhD was '));
     if (c.papersMin && cand.papers < c.papersMin) r.push('only ' + plural(cand.papers, 'paper'));
     if (c.coursesMin && cand.courses < c.coursesMin) r.push('only ' + plural(cand.courses, 'course') + ' taught');
-    const q = c.quirks;
-    if (q) {
-      if (!cand.traits.includes(q.must.id)) r.push('nothing on the card says “' + q.must.label + '”');
-      if (cand.traits.includes(q.deal.id))  r.push('dealbreaker, ' + q.deal.label);
-      if (cand.offer !== q.offer)           r.push('they are after ' + cand.looking);
-    }
+    const q = live();
+    if (q.must  && !cand.traits.includes(q.must.id)) r.push('nothing on the card says “' + q.must.label + '”');
+    if (q.deal  && cand.traits.includes(q.deal.id))  r.push('dealbreaker, ' + q.deal.label);
+    if (q.offer && cand.offer !== q.offer)           r.push('they are after ' + cand.looking);
     return r;
   }
 
@@ -386,19 +396,40 @@
 
   /* ─── Rounds ─────────────────────────────────────────────── */
 
-  function renderSearch() {
-    const c = S.crit;
-    const pill = (k, v) => '<span class="pill"><i>' + k + '</i>' + v + '</span>';
+  function renderSearch(newest) {
+    const c = S.crit, q = live();
+    const pill = (k, v, isNew) => '<span class="pill' + (isNew ? ' is-new' : '') + '"><i>' + k + '</i>' + v + '</span>';
     elSearch.innerHTML =
       pill('Field', c.field.name) +
       pill('Position', c.pos.name + ' · ' + rangeText(c.pos)) +
       (c.papersMin  ? pill('Research', '≥ ' + plural(c.papersMin, 'paper')) : '') +
       (c.coursesMin ? pill('Teaching', '≥ ' + plural(c.coursesMin, 'course')) : '') +
-      (c.quirks ? pill('Must', c.quirks.must.label) + pill('Dealbreaker', c.quirks.deal.label) +
-                  pill('We offer', c.quirks.offer.label) : '');
+      (q.must  ? pill('Must', q.must.label, newest === 'must') : '') +
+      (q.deal  ? pill('Dealbreaker', q.deal.label, newest === 'deal') : '') +
+      (q.offer ? pill('We offer', q.offer.label, newest === 'offer') : '');
   }
 
-  function deal(first) {
+  function render() {
+    elScore.textContent = S.score.toLocaleString();
+    elSlots.textContent = slotsUsed() + '/' + SLOTS;
+    elBest.textContent = S.best.toLocaleString();
+    [...elLives.querySelectorAll('i')].forEach((m, i) => {
+      m.classList.toggle('is-gone', i < S.strikes);
+    });
+  }
+
+  function deal() {
+    // The committee adds a requirement when enough cards have been seen.
+    let added = null;
+    while (S.stage < 3 && S.seen >= REVEAL[S.stage]) {
+      S.stage++;
+      added = ['must', 'deal', 'offer'][S.stage - 1];
+    }
+    if (added) {
+      renderSearch(added);
+      elWhy.textContent += '\nThe committee has added a requirement.';
+    }
+
     S.cand = makeCandidate();
     renderCandidate(S.cand);
     elCard.style.transition = 'none';
@@ -423,31 +454,33 @@
     const fits = r.length === 0;
     const correct = right === fits;
 
+    S.seen++;
     S.total++;
-    if (right) S.shortlisted++;
+    if (right) { if (fits) S.filled++; else S.wasted++; }
+
     if (correct) {
       S.right++;
-      S.streak++;
-      const pts = RIGHT * mult();
-      S.score += pts;
+      S.score += RIGHT;
       SFX.right();
       elWhy.className = 'why is-good';
-      elWhy.textContent = '+' + pts + '  ' + (fits ? 'Meets every criterion.' : 'Pass: ' + r[0] + '.');
+      elWhy.textContent = '+' + RIGHT + '  ' + (fits ? 'Meets every criterion. A slot filled.' : 'Pass: ' + r[0] + '.');
     } else {
-      S.streak = 0;
-      S.score -= WRONG;
-      S.endsAt -= PENALTY * 1000;
+      S.strikes++;
       SFX.wrong();
       elWhy.className = 'why is-bad';
-      elWhy.textContent = '−' + WRONG + ' and ' + PENALTY + ' s  ' + (fits ? 'That one met every criterion.' : 'Should have passed: ' + r.join(', ') + '.');
+      elWhy.textContent = 'Strike.  ' + (fits ? 'That one met every criterion.'
+        : 'They did not fit (' + r.join(', ') + '), and the interview still takes 40 minutes.');
     }
     render();
 
-    // Fly the card off, then bring the next one.
+    const over = S.strikes >= STRIKES || slotsUsed() >= SLOTS;
+
+    // Fly the card off, then bring the next one (or end the day).
     const dir = right ? 1 : -1;
     elCard.style.transition = 'transform 0.2s ease-in, opacity 0.2s ease-in';
     elCard.style.transform = 'translateX(' + dir * 620 + 'px) rotate(' + dir * 26 + 'deg)';
     elCard.style.opacity = '0';
+    if (over) { setTimeout(endDay, 900); return; }
     setTimeout(() => { if (S.running) deal(); }, 200);
   }
 
@@ -483,29 +516,6 @@
   elCard.addEventListener('pointerup',     (e) => endDrag(e, false));
   elCard.addEventListener('pointercancel', (e) => endDrag(e, true));
 
-  /* ─── Loop ───────────────────────────────────────────────── */
-
-  let lastTick = 0;
-  function tick() {
-    if (!S.running) return;
-    const left = Math.max(0, S.endsAt - Date.now());
-    const sec = Math.ceil(left / 1000);
-    elClock.textContent = sec;
-    elFill.style.width = (left / (ROUND * 1000) * 100) + '%';
-    const low = left < 10000;
-    elFill.classList.toggle('is-low', low);
-    elClock.parentNode.classList.toggle('is-low', low);
-    if (left < 6000 && sec !== lastTick) { lastTick = sec; SFX.tick(); }
-    if (left <= 0) finish();
-  }
-
-  function render() {
-    elScore.textContent = S.score.toLocaleString();
-    elStreak.textContent = '×' + mult();
-    elStreak.classList.toggle('is-hot', mult() >= 3);
-    elBest.textContent = S.best.toLocaleString();
-  }
-
   /* ─── Screens ────────────────────────────────────────────── */
 
   function show(html) { overlay.innerHTML = html; overlay.classList.add('is-open'); }
@@ -528,9 +538,10 @@
         '<div><h3>Position</h3>' + chips('pos', Object.keys(POSITIONS).map((k) => ({ v: k, t: POSITIONS[k].name }))) + '</div>' +
       '</div>' +
       '<ul class="rules">' +
-        '<li>Candidates arrive one by one. <b>Swipe right</b> (→) if they meet <b>every</b> criterion in the pills at the top, <b>left</b> (←) if not.</li>' +
-        '<li>The committee’s quirks count too, and no card states them outright. It hints, in its own words, so <b>read the card</b>.</li>' +
-        '<li>You have <b>' + ROUND + ' seconds</b>. A right swipe scores ' + RIGHT + ' (more with a streak). A wrong one costs <b>' + WRONG + ' points and ' + PENALTY + ' seconds</b>, so do not guess.</li>' +
+        '<li>There is no clock. The committee has <b>six hours</b> of interviews to fill: <b>' + SLOTS + ' slots</b> of 40 minutes.</li>' +
+        '<li><b>Swipe right</b> (→) to shortlist a candidate who meets <b>every</b> criterion in the pills at the top, <b>left</b> (←) to pass. A candidate who does not fit still takes a slot, and a fit you pass on is lost. Either is a <b>strike</b>; ' + STRIKES + ' and the search is cancelled.</li>' +
+        '<li>The committee adds requirements as the search goes on. No card states them outright. It hints, in its own words, so <b>read the card</b>.</li>' +
+        '<li>Each right call scores ' + RIGHT + '. Fill the day and every strike you did not use is worth ' + BONUS + '.</li>' +
       '</ul>' +
       '<div class="actions">' +
         '<button class="btn btn-alt" id="random-btn" type="button">Surprise me</button>' +
@@ -541,30 +552,39 @@
     );
   }
 
-  function finishLine(n) {
-    if (n === 0)  return 'An empty shortlist. The position will be re-advertised, with a lower salary.';
-    if (n <= 4)   return 'A shortlist of ' + n + '. The committee will now argue about the order until 2028.';
-    const hours = Math.round(n * 40 / 60);
-    if (n <= 14)  return n + ' shortlisted at 40 minutes each is about ' + hours + ' hours of interviews. The committee has six.';
-    return n + ' on the shortlist. The position has been cancelled due to “budget realignment”.';
+  function endLine(won) {
+    if (!won) return 'Three strikes. The committee has lost confidence in your judgement, and the position is cancelled due to “budget realignment”.';
+    if (S.strikes === 0) return 'Nine interviews, every one of them worth the 40 minutes. The Dean asks who you are.';
+    const missed = S.strikes - S.wasted;
+    const parts = [];
+    if (S.wasted) parts.push(S.wasted + ' of the nine interviews were not worth the 40 minutes');
+    if (missed)   parts.push('you let ' + plural(missed, 'good candidate') + ' go');
+    return parts.join(', and ') + '. That is roughly how committees do.';
   }
 
-  function resultScreen() {
+  function endDay() {
+    if (!S.running) return;
+    S.running = false;
+    S.locked = true;
+    const won = S.strikes < STRIKES;
+    const bonus = won ? BONUS * (STRIKES - S.strikes) : 0;
+    S.score += bonus;
     const isBest = S.score > S.best;
     if (isBest) { S.best = S.score; localStorage.setItem('hotsingles.best', String(S.best)); }
-    const acc = S.total ? Math.round(100 * S.right / S.total) : 0;
+    won ? SFX.win() : SFX.over();
     show(
       '<div class="panel">' +
-      '<div class="p-kicker">The search is closed</div>' +
-      '<h1 class="p-title">The committee <span>will now deliberate</span></h1>' +
+      '<div class="p-kicker">' + (won ? 'The interview day is full' : 'The search is cancelled') + '</div>' +
+      '<h1 class="p-title">' + (won ? 'The committee <span>will now deliberate</span>' : 'The committee <span>has lost patience</span>') + '</h1>' +
       '<div class="result">' +
         '<div><b>' + S.score.toLocaleString() + '</b><span>Score</span></div>' +
-        '<div><b>' + S.right + '/' + S.total + '</b><span>Right swipes</span></div>' +
-        '<div><b>' + acc + '%</b><span>Accuracy</span></div>' +
+        '<div><b>' + S.filled + '/' + SLOTS + '</b><span>Good interviews</span></div>' +
+        '<div><b>' + S.strikes + '/' + STRIKES + '</b><span>Strikes</span></div>' +
         '<div><b>' + S.best.toLocaleString() + '</b><span>Best</span></div>' +
       '</div>' +
       (isBest ? '<p class="p-body p-best">A new best.</p>' : '') +
-      '<p class="p-body">' + finishLine(S.shortlisted) + '</p>' +
+      (bonus ? '<p class="p-body">Full day, with ' + plural(STRIKES - S.strikes, 'strike') + ' to spare: +' + bonus.toLocaleString() + '.</p>' : '') +
+      '<p class="p-body">' + endLine(won) + '</p>' +
       '<div class="actions">' +
         '<button class="btn btn-alt" id="new-btn" type="button">New search</button>' +
         '<button class="btn" id="same-btn" type="button">Same search again</button>' +
@@ -573,16 +593,6 @@
       '</div>'
     );
     render();
-  }
-
-  function finish() {
-    if (!S.running) return;
-    S.running = false;
-    S.locked = true;
-    btnPass.disabled = true;
-    btnLike.disabled = true;
-    SFX.over();
-    setTimeout(resultScreen, 350);
   }
 
   function drawQuirks() {
@@ -603,15 +613,14 @@
       quirks: (keep && S.crit.quirks) || drawQuirks()
     };
     overlay.classList.remove('is-open');
-    S.score = 0; S.streak = 0; S.right = 0; S.total = 0; S.shortlisted = 0;
+    S.score = 0; S.right = 0; S.total = 0; S.seen = 0; S.stage = 0;
+    S.filled = 0; S.wasted = 0; S.strikes = 0;
     S.running = true;
-    S.endsAt = Date.now() + ROUND * 1000;
     elWhy.textContent = '';
     elWhy.className = 'why';
     renderSearch();
     render();
-    deal(true);
-    tick();
+    deal();
   }
 
   /* ─── Wiring ─────────────────────────────────────────────── */
@@ -651,15 +660,7 @@
     if (k === 'arrowright' || k === 'd') { e.preventDefault(); swipe(true); }
   });
 
-  let hiddenAt = 0;
-  document.addEventListener('visibilitychange', () => {
-    if (!S.running) return;
-    if (document.hidden) hiddenAt = Date.now();
-    else if (hiddenAt) { S.endsAt += Date.now() - hiddenAt; hiddenAt = 0; }
-  });
-
   render();
   setupScreen();
-  setInterval(tick, 100);
 
 })();

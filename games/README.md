@@ -232,18 +232,27 @@ The flowchart on the end screens is `flowchart()` in the same file.
 ## Hot Singles on the Job Market
 
 The player picks a field and a position, and the search draws the rest: whether
-research, teaching or both matters, and the committee's quirks. Then there are 60
-seconds to swipe candidates: right to shortlist, left to pass. Drag the card, use
-the buttons, or press ← / →. A right swipe scores 100 times the streak
-multiplier. A wrong one costs 200 points and 2 seconds and says why, so guessing
-loses (the score can go negative). The end screen counts how many you shortlisted
-and what that does to the interview schedule. `RIGHT`, `WRONG` and `PENALTY` at
-the top of `job-market/game.js` set the numbers.
+research, teaching or both matters, and the committee's quirks. There is **no
+clock**. The committee has six hours of interviews to fill, nine slots of 40
+minutes, and the player swipes right to shortlist a candidate who meets every
+criterion and left to pass. Drag the card, use the buttons, or press ← / →.
+
+- A right call scores 100.
+- A wrong call is a **strike**: shortlisting someone who does not fit (who still
+  takes a slot), or passing on someone who does. Three strikes cancel the search.
+- The day is full when nine slots are used. Every strike left is worth 500.
+- The committee adds its quirks one at a time, after 3, 7 and 11 cards, with a
+  note under the card ("The committee has added a requirement") and the new pill
+  highlighted. A card is always judged against the pills showing when it was dealt.
+
+`SLOTS`, `STRIKES`, `RIGHT`, `BONUS` and `REVEAL` at the top of the state section
+in `job-market/game.js` set the numbers.
 
 Candidates are generated, not written out. About 40% are built to meet every
 criterion; the rest fail one or (a quarter of the time) two. **Only the pills at
-the top count.** Three of them are about what the candidate is like, and the card
-never states them: it hints, in its own funnier words, so the player has to read.
+the top count.** Three of them (the quirks) are about what the candidate is like,
+and the card never states them: it hints, in its own funnier words, so the player
+has to read.
 
 - **Must**: a trait the card has to hint at. For "answers email" the card might
   say "Inbox zero since 2014."

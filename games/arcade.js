@@ -65,8 +65,8 @@ const GAMES = [
     title: 'Hot Singles on the Job Market',
     kicker: 'Swipe',
     href: 'job-market/index.html',
-    blurb: 'You are the hiring committee. Set the search, then swipe right on candidates ' +
-           'who fit and left on those who do not, before the clock runs out.'
+    blurb: 'You are the hiring committee. Fill a day of interviews: swipe right on candidates ' +
+           'who fit every criterion, left on the rest, and read the cards closely.'
   }
 ];
 

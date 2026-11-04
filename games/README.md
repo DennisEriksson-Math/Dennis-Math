@@ -241,22 +241,30 @@ criterion and left to pass. Drag the card, use the buttons, or press ← / →.
 - A wrong call is a **strike**: shortlisting someone who does not fit (who still
   takes a slot), or passing on someone who does. Three strikes cancel the search.
 - The day is full when nine slots are used. Every strike left is worth 500.
-- The committee adds its quirks one at a time, after 3, 7 and 11 cards, with a
-  note under the card ("The committee has added a requirement") and the new pill
-  highlighted. A card is always judged against the pills showing when it was dealt.
+- The committee adds its quirks one at a time, after 3, 5 and 7 cards, with a
+  note under the card saying what the new pill means ("New: MUST HAVE. Shortlist
+  only someone who answers email.") and the pill highlighted. A card is always
+  judged against the pills showing when it was dealt.
 
 `SLOTS`, `STRIKES`, `RIGHT`, `BONUS` and `REVEAL` at the top of the state section
 in `job-market/game.js` set the numbers.
 
 Candidates are generated, not written out. About 40% are built to meet every
-criterion; the rest fail one or (a quarter of the time) two. **Only the pills at
+criterion; the rest fail one or (a quarter of the time) two. A failing card is
+`QUIRK_WEIGHT` (3) times as likely to fail on a quirk as on a basic criterion,
+because the quirks are the hard part to see. Without that weight, ignoring them
+and judging only field, years, papers and courses won about two days in three;
+now it wins about one in three. Counts are kept believable (a candidate's papers,
+courses and h-index follow from the years since the PhD, and the h-index never
+exceeds the paper count): check that with a few thousand generated cards after
+changing `makeCandidate()`. **Only the pills at
 the top count.** Three of them (the quirks) are about what the candidate is like,
 and the card never states them: it hints, in its own funnier words, so the player
 has to read.
 
-- **Must**: a trait the card has to hint at. For "answers email" the card might
+- **Must have**: a trait the card has to hint at. For "answers email" the card might
   say "Inbox zero since 2014."
-- **Dealbreaker**: a trait it must not hint at. For "replies all": "Once emailed
+- **Reject if**: a trait it must not hint at. For "replies all": "Once emailed
   the whole faculty about a lost umbrella."
 - **We offer**: something the candidate's "Looking for:" line has to be after, in
   whichever of its wordings.

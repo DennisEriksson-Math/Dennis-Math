@@ -127,7 +127,7 @@
       'Has a sourdough starter with a name.', 'Brings cake to meetings. Every time.',
       'Known in the corridor for the lemon drizzle.'] },
     { id: 'students', label: 'looks after students', lines: [
-      'Three PhD students graduated, all still on speaking terms.', 'Reads drafts within a week.',
+      'Every student they have supervised is still on speaking terms.', 'Reads drafts within a week.',
       'Their students’ acknowledgements are suspiciously warm.'] },
     { id: 'credit', label: 'gives credit', lines: [
       'Cites other people’s work, unprompted.', 'Thanked the referee by name.',
@@ -160,7 +160,7 @@
       'Chairs the unofficial coffee committee.'] },
     { id: 'brag', label: 'brags', lines: [
       'Ask me about my h-index. Please.', 'Mentions a Fields Medal near-miss in the first minute.',
-      'Signs email “Prof. (soon) Dr. Dr.”'] }
+      'Signs emails with every title they have ever held.'] }
   ];
   const NEUTRAL = [
     'Plays chess badly', 'Will relocate. Probably.', 'Fluent in three languages, all of them LaTeX',
@@ -232,7 +232,8 @@
   const STRIKES = 3;     // wrong calls before the search is cancelled
   const RIGHT   = 100;   // points for each right call
   const BONUS   = 500;   // for each strike left when the day is full
-  const REVEAL  = [3, 7, 11];  // cards seen before the must, dealbreaker and offer join the search
+  const REVEAL  = [3, 5, 7];   // cards seen before the must, dealbreaker and offer join the search
+  const QUIRK_WEIGHT = 3;      // how much more likely a failing card is to fail on a quirk than on a basic criterion
 
   const S = {
     running: false,
@@ -307,7 +308,6 @@
 
   function above(min) { return min + rnd(0, Math.ceil(min * 0.7) + 2); }
   function below(min) { return Math.max(0, min - 1 - rnd(0, Math.min(min - 1, Math.ceil(min * 0.5)))); }
-  function free(min)  { return rnd(0, min * 2 + 3); }
 
   function makeCandidate() {
     const c = S.crit, p = c.pos;
@@ -321,18 +321,44 @@
 
     const bad = {};
     if (Math.random() >= 0.42) {
+      // The committee's own criteria are what is hardest to see, so they are the
+      // likeliest reason to fail. Weighted draw without replacement.
       const k = Math.random() < 0.25 ? 2 : 1;
-      shuffle(active.slice()).slice(0, k).forEach((x) => { bad[x] = true; });
+      const pool = active.map((a) => ({ a: a, w: ['must', 'deal', 'offer'].includes(a) ? QUIRK_WEIGHT : 1 }));
+      for (let n = 0; n < k && pool.length; n++) {
+        let r = Math.random() * pool.reduce((t, x) => t + x.w, 0), i = 0;
+        while (i < pool.length - 1 && (r -= pool[i].w) > 0) i++;
+        bad[pool[i].a] = true;
+        pool.splice(i, 1);
+      }
     }
 
     let field = c.field;
     if (bad.field) field = pick(FIELDS.filter((f) => f !== c.field));
 
     const years = bad.years ? pick(p.fail) : rnd(p.lo, p.hi);
-    const papers  = c.papersMin  ? (bad.papers  ? below(c.papersMin)  : above(c.papersMin))
-                                 : free(p.papers);
-    const courses = c.coursesMin ? (bad.courses ? below(c.coursesMin) : above(c.coursesMin))
-                                 : free(p.courses);
+    // Counts that make sense for the years since the PhD: nobody who defended this
+    // year has twenty papers, and nobody twenty years in has none.
+    // Someone far past the years asked for already fails on that; do not also
+    // give them a paper count no such person would have.
+    if (c.papersMin  && Math.round(years * 0.8) >= c.papersMin)  delete bad.papers;
+    if (c.coursesMin && Math.floor(years * 0.3) >= c.coursesMin) delete bad.courses;
+    const pCap = 4 + years * 3, cCap = 2 + years * 2;
+    // And someone only a few years in cannot meet a senior minimum: they fail it.
+    if (c.papersMin  && pCap < c.papersMin)  bad.papers = true;
+    if (c.coursesMin && cCap < c.coursesMin) bad.courses = true;
+    // A count that meets the minimum, is not below what the years imply, and is
+    // not above what they allow.
+    const good = (min, floor, cap) => {
+      const lo = Math.max(min, floor);
+      return rnd(lo, Math.max(lo, Math.min(cap, lo + Math.ceil(lo * 0.7) + 2)));
+    };
+    const papers  = c.papersMin  ? (bad.papers  ? Math.min(c.papersMin - 1, Math.max(Math.min(below(c.papersMin), pCap), Math.round(years * 0.8)))  : good(c.papersMin, Math.round(years * 0.8), pCap))
+                                 : rnd(Math.round(years * 0.8), pCap);
+    const courses = c.coursesMin ? (bad.courses ? Math.min(c.coursesMin - 1, Math.max(Math.min(below(c.coursesMin), cCap), Math.floor(years * 0.3))) : good(c.coursesMin, Math.floor(years * 0.3), cCap))
+                                 : rnd(Math.floor(years * 0.3), cCap);
+    // The h-index can never exceed the number of papers.
+    const h = papers === 0 ? 0 : rnd(1, Math.max(1, Math.ceil(papers * 0.6)));
 
     const offer = (q.offer && !bad.offer) ? q.offer
                 : pick(OFFERS.filter((o) => o !== q.offer));
@@ -356,7 +382,7 @@
       if (!taken(spare[i])) addTrait(spare[i]);
     }
     const neutral = shuffle(NEUTRAL.slice());
-    const chips = [neutral.pop(), 'h-index ' + rnd(3, 38), 'likes ' + pick(field.likes)];
+    const chips = [neutral.pop(), 'h-index ' + h, 'likes ' + pick(field.likes)];
     return {
       name: first + ' ' + last,
       initials: first[0] + last[0],
@@ -383,9 +409,9 @@
     if (c.papersMin && cand.papers < c.papersMin) r.push('only ' + plural(cand.papers, 'paper'));
     if (c.coursesMin && cand.courses < c.coursesMin) r.push('only ' + plural(cand.courses, 'course') + ' taught');
     const q = live();
-    if (q.must  && !cand.traits.includes(q.must.id)) r.push('nothing on the card says “' + q.must.label + '”');
-    if (q.deal  && cand.traits.includes(q.deal.id))  r.push('dealbreaker, ' + q.deal.label);
-    if (q.offer && cand.offer !== q.offer)           r.push('they are after ' + cand.looking);
+    if (q.must  && !cand.traits.includes(q.must.id)) r.push('nothing on the card shows someone who ' + q.must.label);
+    if (q.deal  && cand.traits.includes(q.deal.id))  r.push('the card shows someone who ' + q.deal.label);
+    if (q.offer && cand.offer !== q.offer)           r.push('we offer ' + q.offer.label + ', they want ' + cand.offer.label);
     return r;
   }
 
@@ -421,8 +447,8 @@
       pill('Position', c.pos.name + ' · ' + rangeText(c.pos)) +
       (c.papersMin  ? pill('Research', '≥ ' + plural(c.papersMin, 'paper')) : '') +
       (c.coursesMin ? pill('Teaching', '≥ ' + plural(c.coursesMin, 'course')) : '') +
-      (q.must  ? pill('Must', q.must.label, newest === 'must') : '') +
-      (q.deal  ? pill('Dealbreaker', q.deal.label, newest === 'deal') : '') +
+      (q.must  ? pill('Must have', q.must.label, newest === 'must') : '') +
+      (q.deal  ? pill('Reject if', q.deal.label, newest === 'deal') : '') +
       (q.offer ? pill('We offer', q.offer.label, newest === 'offer') : '');
   }
 
@@ -444,7 +470,10 @@
     }
     if (added) {
       renderSearch(added);
-      elWhy.textContent += '\nThe committee has added a requirement.';
+      const q = live();
+      elWhy.textContent += '\n' + (added === 'must'  ? 'New: MUST HAVE. Shortlist only someone who ' + q.must.label + '.'
+                        : added === 'deal'  ? 'New: REJECT IF. Pass on anyone who ' + q.deal.label + '.'
+                        :                     'New: WE OFFER ' + q.offer.label + '. Shortlist only someone who wants it.');
     }
 
     S.cand = makeCandidate();
@@ -559,7 +588,7 @@
       '<ul class="rules">' +
         '<li>There is no clock. The committee has <b>six hours</b> of interviews to fill: <b>' + SLOTS + ' slots</b> of 40 minutes.</li>' +
         '<li><b>Swipe right</b> (→) to shortlist a candidate who meets <b>every</b> criterion in the pills at the top, <b>left</b> (←) to pass. A candidate who does not fit still takes a slot, and a fit you pass on is lost. Either is a <b>strike</b>; ' + STRIKES + ' and the search is cancelled.</li>' +
-        '<li>The committee adds requirements as the search goes on. No card states them outright. It hints, in its own words, so <b>read the card</b>.</li>' +
+        '<li>The committee adds criteria as the search goes on: <b>Must have</b> (the card must show it), <b>Reject if</b> (the card shows it, so pass) and <b>We offer</b> (the “Looking for” line must be what we offer). No card states them outright. It hints, in its own words, so <b>read the card</b>.</li>' +
         '<li>Each right call scores ' + RIGHT + '. Fill the day and every strike you did not use is worth ' + BONUS + '.</li>' +
       '</ul>' +
       '<div class="actions">' +

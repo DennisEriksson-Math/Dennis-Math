@@ -18,7 +18,17 @@
     'an emeritus who still attends',
     'the deputy head of department',
     'the PhD-student representative',
-    'the chair of the previous working group'
+    'the chair of the previous working group',
+    'a visiting professor, here for one week',
+    'the head of department, chairing',
+    'a lecturer on a temporary contract',
+    'the research-support officer, invited for item 7',
+    'a professor who has attended every meeting since 1994',
+    'a PhD student who was told to “observe”',
+    'the vice-dean, dropping in for ten minutes',
+    'a postdoc on the job market this autumn',
+    'the new director of studies',
+    'someone who joined the wrong meeting by mistake'
   ];
 
   /* h, m  set the wall clock.  no  is what you read if you stay seated. */
@@ -36,7 +46,25 @@
     { h: 16, m: 40, s: '16:40. It is a Friday.',
       no: 'You are home with the weekend still intact.' },
     { h: 17, m: 20, s: '17:20. The meeting was meant to end at 17:00.',
-      no: 'The meeting ends in four minutes. Nobody will believe it.' }
+      no: 'The meeting ends in four minutes. Nobody will believe it.' },
+    { h: 8,  m: 30, s: '08:30. The meeting was moved here “to suit everyone”.',
+      no: 'Eight-thirty has been survived. It is not an hour for questions.' },
+    { h: 9,  m: 50, s: '09:50. The first item started late and is still going.',
+      no: 'The first item is allowed to finish. The day depends on it.' },
+    { h: 11, m: 15, s: '11:15. The fire drill is scheduled for 11:30.',
+      no: 'The fire drill gets the room on time. Good colleagues, all of them.' },
+    { h: 12, m: 45, s: '12:45. The sandwiches have arrived, and they are in the room.',
+      no: 'The sandwiches are eaten at their best. Nobody forgets that.' },
+    { h: 14, m: 0,  s: '14:00. First item after lunch. Eyelids at half-mast.',
+      no: 'The room stays at half-mast. You have just spared it a full wake-up.' },
+    { h: 14, m: 55, s: '14:55. Fika is in five minutes.',
+      no: 'Fika begins on time. Several people shake your hand without knowing why.' },
+    { h: 15, m: 55, s: '15:55. The meeting officially ends at 16:00.',
+      no: 'The meeting ends five minutes late instead of fifty. A triumph.' },
+    { h: 16, m: 10, s: '16:10. The last bus leaves at 17:05.',
+      no: 'You make the bus. Several colleagues make the bus. Everyone is happy.' },
+    { h: 18, m: 5,  s: '18:05. The cleaners have arrived and are waiting by the door.',
+      no: 'The cleaners nod at you. It is the highest honour the building offers.' }
   ];
 
   /* n  is the number of people in the room. */
@@ -47,7 +75,15 @@
     { n: 22, s: 'A Zoom meeting: 22 attendees, 19 cameras off.' },
     { n: 40, s: 'Forty people in a lecture theatre built for 120.' },
     { n: 60, s: 'Sixty people, two of them asleep, one of them the Dean.' },
-    { n: 90, s: 'A hybrid meeting with 90 people and an echo.' }
+    { n: 90, s: 'A hybrid meeting with 90 people and an echo.' },
+    { n: 2,  s: 'You and the head of department, in a room with a glass door.' },
+    { n: 5,  s: 'Five people in a room booked for two.' },
+    { n: 8,  s: 'Eight people, one sharing the wrong slide.' },
+    { n: 12, s: 'Twelve people and a plate of dry biscuits.' },
+    { n: 18, s: 'Eighteen on Zoom: six on mute, one eating, one asleep with the camera on.' },
+    { n: 30, s: 'Thirty people, half of them standing at the back.' },
+    { n: 50, s: 'Fifty people in a hybrid meeting. The microphone is in the other room.' },
+    { n: 120, s: 'The whole faculty, 120 people, in the big lecture hall.' }
   ];
 
   const TOPIC = [
@@ -64,7 +100,21 @@
     'the faculty’s new slogan',
     'electronic signatures on travel claims',
     'the redesign of the intranet',
-    'an update on the update'
+    'an update on the update',
+    'the new travel-claims form (version 4)',
+    'a motion to review the motion procedure',
+    'the department’s 2030 sustainability goals',
+    'the library’s subscription to a journal nobody reads',
+    'moving the Christmas lunch to January',
+    'a proposed new name for the corridor',
+    'quality assurance of the quality assurance',
+    'introduction of a new learning platform',
+    'the opening hours of the printer room',
+    'how to attract more students',
+    'the annual report, which is last year’s with new dates',
+    'a pilot project for pilot projects',
+    'workplace survey results (response rate: 9%)',
+    'the cleaning rota for the seminar room'
   ];
 
   /* What you were about to say. Works with any topic. */
@@ -88,7 +138,27 @@
     'Wasn’t there a deadline for this already?',
     'Just a quick one, for my own understanding…',
     'Who will actually do the work?',
-    'Are we allowed to say no to this?'
+    'Are we allowed to say no to this?',
+    'Could someone remind me what we agreed last time?',
+    'Whose budget is this coming out of?',
+    'Have we considered not doing this?',
+    'What happens if we just do nothing?',
+    'I may have misunderstood, but is this mandatory?',
+    'Does anyone know who owns this?',
+    'How is this different from the 2019 proposal?',
+    'Is this a decision or a discussion?',
+    'May I ask what the deadline is?',
+    'What would “success” look like here?',
+    'Is there a version without the acronyms?',
+    'Will there be a form to fill in?',
+    'Sorry, is it “curricula” or “curriculums”?',
+    'Would a pilot be possible?',
+    'Is this retroactive?',
+    'Who will be the contact person?',
+    'Do we have to vote on this today?',
+    'Is the cake part of the agenda?',
+    'Can I just check that I have understood the timeline?',
+    'Who gave this its name?'
   ];
 
   /* Extra pressure on the hand. Each one has its own reply for staying seated. */
@@ -128,7 +198,39 @@
     { s: 'Your question could save the department money.',
       no: 'A subcommittee will look into it. The savings arrive in 2031.' },
     { s: 'The speaker looks at you hopefully.',
-      no: 'The speaker was looking at the clock. They are the only one who is.' }
+      no: 'The speaker was looking at the clock. They are the only one who is.' },
+    { s: 'You have been looking at the clock for ten minutes.',
+      no: 'You and the clock have an understanding. It is mutual.' },
+    { s: 'You have a train to catch at 16:15.',
+      no: 'You catch the 16:15. Nobody ever asks what you meant to say.' },
+    { s: 'The chair has already said “we are running a little late”.',
+      no: '“A little late” is an optimistic phrase. Do not help it along.' },
+    { s: 'You were asked to be “constructive”.',
+      no: 'Silence is the most constructive thing in the room.' },
+    { s: 'A colleague has just whispered “don’t”.',
+      no: 'The whisper was well meant and correct.' },
+    { s: 'The slide says “For discussion”.',
+      no: '“For discussion” means “for decision, without discussion”.' },
+    { s: 'You can see exactly how it will go wrong.',
+      no: 'You can also see who will be asked to fix it. Silence has a lighter workload.' },
+    { s: 'It concerns a form you filled in last month.',
+      no: 'The form is in a system. The system is in a queue.' },
+    { s: 'You are the only one who read the pre-reading.',
+      no: 'Being the only one who read it is lonely. Being the only one who talks is lonelier.' },
+    { s: 'Someone says “I am sure this is clear to everyone.”',
+      no: 'It is clear to nobody, and everyone will pretend, in unison.' },
+    { s: 'The speaker says “this will only take a moment”.',
+      no: 'It will not. Do not make the moment longer.' },
+    { s: 'Your question begins “To play devil’s advocate…”',
+      no: 'The devil has plenty of advocates already. They are the ones still in the room.' },
+    { s: 'The projector is showing the wrong item.',
+      no: 'IT support is on its way. So is every comment on IT support.' },
+    { s: 'It is about the minutes of the last meeting.',
+      no: 'The minutes were approved in fourteen seconds, unread. Let them rest.' },
+    { s: 'The Dean says “I would love to hear from the junior colleagues.”',
+      no: 'The Dean wants one sentence. They will get four paragraphs. Do not be the reason.' },
+    { s: 'You have a deadline tomorrow.',
+      no: 'The deadline is a good reason to leave on time, and a poor reason to start a discussion.' }
   ];
 
   /* When you stay seated and nothing more specific fits. */
@@ -142,7 +244,17 @@
     'You saved the room a discussion with no result.',
     'Somebody else asks it ten minutes later, in worse words. You feel a calm.',
     'The minutes will say: “There were no questions.” Frame it.',
-    'You looked at the table with an expression of mild interest. A classic.'
+    'You looked at the table with an expression of mild interest. A classic.',
+    'The chair calls the next item. Fifty people exhale.',
+    'You write the question on a post-it and put it in a drawer. It rests in peace.',
+    'You gain a reputation as “not a problem”. Reputations compound.',
+    'The question dissolves, as questions do after lunch.',
+    'A colleague slides you a biscuit. This is how the system works.',
+    'Your hand stays on the table, as designed.',
+    'You and the room share a moment of mutual understanding. It lasts four seconds.',
+    'The meeting ends at the time on the invitation. Someone checks the invitation.',
+    'You note the question in your notebook. It is the last you will see of it.',
+    'A quiet “thank you” appears in several people’s eyes.'
   ];
 
   /* When you ask. {m} is the overrun in minutes. */
@@ -159,14 +271,30 @@
     'The meeting overruns by {m} minutes. Lunch goes cold.',
     'Somebody replies “as I said in my email on the 3rd.” You have not read it.',
     'The Dean answers at length. You will not be asking again.',
-    'A subcommittee is formed to answer the question. You are a member.'
+    'A subcommittee is formed to answer the question. You are a member.',
+    'The chair says “let’s park that”. It is parked in a car park you will never find.',
+    'The answer begins “Historically…” and goes on for eleven minutes.',
+    'You are thanked for your input. This is the polite end of your part in the discussion.',
+    'A follow-up arrives from someone who was not listening.',
+    'The meeting overruns by {m} minutes. A colleague quietly turns a watch towards you.',
+    'The Dean notes your concern and asks you to write it up.',
+    'Your name is added to the minutes, next to the question.',
+    'The room discovers three new aspects of the problem. All of them yours.',
+    'Your question has become item 8b on the agenda.',
+    'Someone says “that is outside the scope.” You, apparently, are outside it too.',
+    'A new working group is formed: “Questions Arising from the Question”.'
   ];
 
-  const HAND_UP = 'Your hand went up on its own. This has happened before. ';
+  const HAND_UP = [
+    'Your hand went up on its own. This has happened before. ',
+    'The hand rose before the thought had finished. As it often does. ',
+    'Your arm made the decision without consulting you. ',
+    'Somewhere between thought and table, the hand went up. '
+  ];
 
   /* ─── State ──────────────────────────────────────────────── */
 
-  const TOTAL = 20;
+  const TOTAL = 10;
   const MAX_LIVES = 3;
 
   const S = {
@@ -192,6 +320,23 @@
   const btnNo    = $('pick-no'), btnAsk   = $('pick-ask');
   const overlay  = $('overlay');
 
+  /* Phones: if the content is taller than the window, scale it down until the
+     whole card and the buttons are visible. Only ever shrinks during a round,
+     so the layout does not jump from card to card. */
+  const stageEl = document.querySelector('.stage');
+  let zoom = 1;
+  function fit(reset) {
+    if (reset) zoom = 1;
+    stageEl.style.setProperty('--z', zoom);
+    const cs = getComputedStyle(stageEl);
+    const pad = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
+    for (let i = 0; i < 5 && zoom > 0.5 && stageEl.scrollHeight > stageEl.clientHeight + 1; i++) {
+      zoom = Math.max(0.5, zoom * (stageEl.clientHeight - pad) / (stageEl.scrollHeight - pad));
+      stageEl.style.setProperty('--z', zoom.toFixed(3));
+    }
+  }
+  window.addEventListener('resize', () => fit(true));
+
   function pick(a) { return a[(Math.random() * a.length) | 0]; }
   function shuffle(a) {
     for (let i = a.length - 1; i > 0; i--) {
@@ -201,7 +346,7 @@
     return a;
   }
   function mult()    { return Math.min(5, 1 + Math.floor(S.streak / 3)); }
-  function timeFor() { return Math.max(9, 14 - S.done * 0.25); }
+  function timeFor() { return Math.max(16, 20 - S.done * 0.4); }
 
   /* ─── Rounds ─────────────────────────────────────────────── */
 
@@ -255,6 +400,7 @@
     S.endsAt = Date.now() + S.limit * 1000;
     SFX.deal();
     render();
+    fit();
   }
 
   function lock() {
@@ -294,10 +440,11 @@
       elHand.style.left = '100%';
       elHand.classList.add('is-up');
       elWhy.className = 'why is-bad';
-      elWhy.textContent = (timedOut ? HAND_UP : 'You asked. ') + pick(YES).replace('{m}', m);
+      elWhy.textContent = (timedOut ? pick(HAND_UP) : 'You asked. ') + pick(YES).replace('{m}', m);
     }
 
     render();
+    fit();
     if (S.lives <= 0) { setTimeout(lose, 4200); return; }
     if (S.done >= TOTAL) { setTimeout(win, 3600); return; }
     setTimeout(deal, asked ? 5200 : 3800);
@@ -357,7 +504,7 @@
       '<p class="card-body">Item by item you are given a situation, and a thought you would very ' +
       'much like to share. Decide whether to raise your hand.</p>' +
       '<ul class="card-rules">' +
-        '<li>In every situation there is exactly one correct answer. Take your time. You have about fourteen seconds, and a little less as the meeting drags on.</li>' +
+        '<li>In every situation there is exactly one correct answer. Take your time. You have about twenty seconds, and a little less as the meeting drags on.</li>' +
         '<li>Your hand rises on its own. When the bar is full, you have asked.</li>' +
         '<li>Each time you stay seated you spare everyone in the room ten minutes. The score is person-minutes.</li>' +
         '<li>Three questions, and the room has had enough of you.</li>' +
@@ -407,7 +554,7 @@
     endScreen(
       'Meeting adjourned',
       'Closed <span>four minutes early</span>',
-      'Twenty items and not a word from you. You will be asked to chair next year’s meeting. ' +
+      'Ten items and not a word from you. You will be asked to chair next year’s meeting. ' +
       'Nobody will say why.',
       SFX.win
     );
@@ -420,6 +567,7 @@
     S.circBag = [];
     S.running = true;
     render();
+    fit(true);
     deal();
   }
 

@@ -264,6 +264,23 @@
     }
     return a;
   }
+  /* Phones: if the content is taller than the window, scale it down until the
+     whole card and the buttons are visible. Only ever shrinks during a round,
+     so the layout does not jump from card to card. */
+  const stageEl = document.querySelector('.stage');
+  let zoom = 1;
+  function fit(reset) {
+    if (reset) zoom = 1;
+    stageEl.style.setProperty('--z', zoom);
+    const cs = getComputedStyle(stageEl);
+    const pad = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
+    for (let i = 0; i < 5 && zoom > 0.5 && stageEl.scrollHeight > stageEl.clientHeight + 1; i++) {
+      zoom = Math.max(0.5, zoom * (stageEl.clientHeight - pad) / (stageEl.scrollHeight - pad));
+      stageEl.style.setProperty('--z', zoom.toFixed(3));
+    }
+  }
+  window.addEventListener('resize', () => fit(true));
+
   function slotsUsed() { return S.filled + S.wasted; }
 
   /* The committee's quirks that have joined the search so far. */
@@ -441,6 +458,7 @@
     S.locked = false;
     btnPass.disabled = false;
     btnLike.disabled = false;
+    fit();
   }
 
   function swipe(right) {
@@ -472,6 +490,7 @@
         : 'They did not fit (' + r.join(', ') + '), and the interview still takes 40 minutes.');
     }
     render();
+    fit();
 
     const over = S.strikes >= STRIKES || slotsUsed() >= SLOTS;
 
@@ -489,7 +508,7 @@
   let drag = null;
 
   function setDrag(dx) {
-    elCard.style.transform = dx ? 'translateX(' + dx + 'px) rotate(' + dx * 0.05 + 'deg)' : '';
+    elCard.style.transform = dx ? 'translateX(' + dx / zoom + 'px) rotate(' + dx * 0.05 + 'deg)' : '';
     const yes = elCard.querySelector('.stamp-yes'), no = elCard.querySelector('.stamp-no');
     if (yes) yes.style.opacity = dx > 0 ? Math.min(1, dx / 90) : 0;
     if (no)  no.style.opacity  = dx < 0 ? Math.min(1, -dx / 90) : 0;
@@ -620,6 +639,7 @@
     elWhy.className = 'why';
     renderSearch();
     render();
+    fit(true);
     deal();
   }
 

@@ -105,6 +105,12 @@ body { display: flex; flex-direction: column; }
 }
 .pill.is-new { animation: new-pill 0.9s var(--ease-pop) 1; background: rgba(255, 122, 89, 0.4); }
 
+/* Phones: the viewport height changes as the browser bars come and go. */
+@supports (height: 100dvh) { body { height: 100dvh; } }
+
+/* Scale-to-fit, set by fit() in game.js when the content is too tall. */
+.stage > * { zoom: var(--z, 1); }
+
 /* Centre the content when there is room; when there is not, start at the top
    so nothing is cut off above the fold. */
 .stage > :first-child { margin-top: auto; }
@@ -406,4 +412,29 @@ body { display: flex; flex-direction: column; }
 
 @media (prefers-reduced-motion: reduce) {
   .profile-front.is-in, .pill.is-new { animation: none !important; }
+}
+
+/* ── Short phones: trim what is only decoration. ── */
+@media (max-height: 720px) {
+  .extras { display: none; }
+  .bio { font-size: 18px; margin-top: 5px; }
+  .tag { margin-top: 7px; }
+}
+
+/* ── Phone held sideways: criteria and buttons on the left, the card on the right. ── */
+@media (orientation: landscape) and (max-height: 520px) {
+  .hud { padding: 8px 16px 0; }
+  .stage {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: auto 1fr auto;
+    gap: 6px 18px;
+    align-items: start; justify-items: center;
+    padding: 6px 16px 10px;
+  }
+  .stage > :first-child, .stage > :last-child { margin: 0; }
+  .search  { grid-column: 1; grid-row: 1; width: 100%; }
+  .why     { grid-column: 1; grid-row: 2; align-self: center; min-height: 0; }
+  .choices { grid-column: 1; grid-row: 3; width: 100%; }
+  .deck    { grid-column: 2; grid-row: 1 / span 3; align-self: center; width: 100%; }
 }

@@ -211,7 +211,7 @@ or the 4k+3 argument being claimed to work just as well for 4k+1.
 A briefing note describes a faculty-meeting situation and the thought you were
 about to share. Your hand rises on its own (a bar fills); **Stay seated** is the
 correct answer in every scenario, and the game never says otherwise. Asking, or
-letting the bar fill, costs a patience dot and shows a consequence. Twenty items
+letting the bar fill, costs a patience dot and shows a consequence. Ten items
 survived ends the meeting; three questions ends it earlier. Score is
 person-minutes saved: the people in the room × 10, times the streak multiplier.
 
@@ -276,6 +276,22 @@ interests), `BIO`, `NEUTRAL`, `STATUS`, `FIRST` and `LAST`. The rules live in
 `POSITIONS` (years since the PhD, and the minimum papers and courses),
 `makeCandidate()` and `misses()`. Candidates are fictional and are described only
 by their application, never by anything personal.
+
+## Phones
+
+Both of the newer games (`faculty-meeting/`, `job-market/`) have to show the whole
+card and the buttons on a phone, whatever the screen:
+
+- Short screens drop decoration (Hot Singles hides the grey chips under 720px of
+  height).
+- Turned sideways (landscape, under 520px high) the page becomes two columns:
+  controls on the left, the card on the right.
+- As a last resort `fit()` in each `game.js` scales the content down (CSS
+  `zoom`, set as `--z` on `.stage`, never below 0.5) until it fits. It only ever
+  shrinks during a round, so the layout does not jump between cards.
+
+When you add text, check the worst case: the longest strings from every list at
+once, on a 320×568 and a 375×667 phone, upright and sideways.
 
 ## Notes
 

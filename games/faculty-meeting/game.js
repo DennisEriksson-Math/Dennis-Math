@@ -1430,7 +1430,6 @@
         '<li>In every situation there is exactly one correct answer. Take your time. You have about twenty seconds, and a little less as the meeting drags on.</li>' +
         '<li>Your hand rises on its own. When the bar is full, you have asked.</li>' +
         '<li>Each time you stay seated you spare everyone in the room ten minutes. The score is person-minutes.</li>' +
-        '<li>Three questions, and the room has had enough of you.</li>' +
         '<li>Keys: <b>←</b> or <b>N</b> to stay seated, <b>→</b> or <b>Y</b> to ask.</li>' +
       '</ul>' +
       '<button class="btn" id="start-btn">Call the meeting to order</button>' +

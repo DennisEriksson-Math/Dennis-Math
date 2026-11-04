@@ -50,7 +50,47 @@
     'the IT person, who has been summoned for the projector',
     'the new head of the research school, on a listening tour',
     'a professor who has been “nearly finished” with the book for nine years',
-    'the colleague who answers every email with “Noted.”'
+    'the colleague who answers every email with “Noted.”',
+    'the person who chairs the committee that chairs this meeting',
+    'a professor who has been on sabbatical, in spirit, since 2019',
+    'the head of the teaching committee, who has a spreadsheet',
+    'a colleague who has just been promoted and is being very humble about it',
+    'the colleague who bakes, and is therefore never questioned',
+    'a PhD student who has been told this will be “good for the CV”',
+    'the department’s only expert on the room-booking system',
+    'a professor who forwards every email with the single word “FYI”',
+    'the colleague who has strong feelings about the font in the minutes',
+    'a lecturer who has just discovered the “raise hand” button on Zoom',
+    'the new administrator, on day two, with an enormous binder',
+    'a professor whose office is behind a door marked “Do not disturb. Seriously.”',
+    'the colleague who has been “meaning to look into that” since 2022',
+    'a senior lecturer with a printed list of grievances',
+    'someone from Finance, here to say “no” politely in advance',
+    'a colleague who is also in the room next door, in a different meeting',
+    'the person whose job nobody can quite describe, but who is always right',
+    'the visiting scholar who was told the meeting was optional',
+    'a professor who leaves early and returns with questions',
+    'the senior colleague who says “I have a brief comment” and then does',
+    'a lab manager with a lanyard full of keys',
+    'the chair of the equality committee, who is already tired',
+    'a postdoc who is the only person taking notes',
+    'the colleague who calls every meeting “a bit of a talking shop”',
+    'the colleague who is, as always, “just playing devil’s advocate”',
+    'a professor who is livestreaming a different meeting on mute',
+    'the library representative, with a pointed silence',
+    'a man from IT who has been told to “just fix it”',
+    'a professor who is an optimist about timetables',
+    'the colleague whose email signature is longer than their emails',
+    'the secretary of a committee that has not met since 2018',
+    'a researcher who joined to “see how the sausage is made”',
+    'a teaching assistant who has not been told what the meeting is about',
+    'the person who always says “this is not really my area”, then talks',
+    'a former head of department, now merely a presence',
+    'the professor who was promised this would take fifteen minutes',
+    'the colleague who has a PowerPoint for any occasion',
+    'the PhD student who is the only one still smiling',
+    'the dean’s representative, who is not allowed to answer anything',
+    'a researcher on a grant that ends in three weeks'
   ];
 
   /* h, m  set the wall clock.  no  is what you read if you stay seated. */
@@ -124,7 +164,65 @@
     { h: 17, m: 5,  s: '17:05. Daylight has quietly left the building.',
       no: 'You leave while there is still a little light in the car park.' },
     { h: 17, m: 45, s: '17:45. The cleaners have been, gone and come back.',
-      no: 'The cleaners are impressed. Cleaners are not easily impressed.' }
+      no: 'The cleaners are impressed. Cleaners are not easily impressed.' },
+    { h: 7,  m: 40, s: '07:40. The first meeting of the day, and a train strike is rumoured.',
+      no: 'The strike never arrives. Neither does your question.' },
+    { h: 8,  m: 15, s: '08:15. The head of department has brought a motivational quote.',
+      no: 'The quote hangs in the air unquestioned. A rare mercy.' },
+    { h: 8,  m: 45, s: '08:45. The room still smells of the previous meeting’s coffee.',
+      no: 'The smell fades. So does any wish to speak.' },
+    { h: 9,  m: 40, s: '09:40. Ten minutes behind, and the chair is already apologising.',
+      no: 'The apologising is the only item running on time. Let it.' },
+    { h: 10, m: 0,  s: '10:00. The meeting begins with a long minute of silence about the agenda.',
+      no: 'The silence is on the record. You contributed to it. Proudly.' },
+    { h: 10, m: 15, s: '10:15. The slides have just been emailed, five minutes ago.',
+      no: 'Nobody has read them. You are in excellent company.' },
+    { h: 10, m: 50, s: '10:50. The kettle is boiling, quietly, next door.',
+      no: 'The kettle wins. Kettles usually do.' },
+    { h: 11, m: 5,  s: '11:05. Someone has spilled coffee on the agenda.',
+      no: 'The coffee decides the order of items. A fairer system than most.' },
+    { h: 11, m: 25, s: '11:25. Item 5 of 14, and the room is quietly counting.',
+      no: 'Nine to go. Your silence saves you eight minutes at least.' },
+    { h: 11, m: 45, s: '11:45. The lunch menu is on a tray outside the door.',
+      no: 'The menu is the real agenda. You have read it. You are ready.' },
+    { h: 12, m: 30, s: '12:30. The sandwiches are at risk of going dry.',
+      no: 'The sandwiches survive. Several hearts are with you.' },
+    { h: 13, m: 0,  s: '13:00. The meeting has been moved to after lunch, “just for 45 minutes”.',
+      no: 'Forty-five minutes become forty-five minutes. A rare thing.' },
+    { h: 13, m: 20, s: '13:20. The bright afternoon sun is now directly on the screen.',
+      no: 'You cannot see the screen, so you cannot ask about it. Fate is kind.' },
+    { h: 14, m: 15, s: '14:15. The head of department has said “just a few announcements”.',
+      no: '“A few” remains a few. A small miracle you made possible.' },
+    { h: 14, m: 40, s: '14:40. The radiators have been turned up to “sauna”.',
+      no: 'You are too warm to formulate a question. Thank the radiators.' },
+    { h: 15, m: 0,  s: '15:00. Item 9 is the budget, and it is, of course, still item 3.',
+      no: 'The budget remains in its cage. Let it sleep.' },
+    { h: 15, m: 20, s: '15:20. A student is waiting by the door for the lecturer.',
+      no: 'The lecturer slips out. The meeting takes it as a good sign.' },
+    { h: 16, m: 0,  s: '16:00. The meeting was meant to be over. It is item 11.',
+      no: 'Your silence trims item 11 by seven minutes. A generous gift.' },
+    { h: 16, m: 35, s: '16:35. The light outside is already going.',
+      no: 'You step into the dusk with a clear conscience.' },
+    { h: 16, m: 50, s: '16:50. The last bus leaves in fifteen minutes.',
+      no: 'Several people sprint for the bus. You are proud of every one.' },
+    { h: 17, m: 10, s: '17:10. Someone has switched off the main lights.',
+      no: 'The meeting adjourns in the dim. Few questions survive darkness.' },
+    { h: 17, m: 30, s: '17:30. The chair says “one more thing”. It is the fourth.',
+      no: 'The fourth “one more thing” stays one thing. You did not add a fifth.' },
+    { h: 18, m: 30, s: '18:30. The building has gone quiet, and so has the room.',
+      no: 'The quiet is complete. You are its guardian.' },
+    { h: 12, m: 55, s: '12:55. Half the room has left for lunch “just to check the queue”.',
+      no: 'The queue is checked. The meeting is a little quieter, thanks to you.' },
+    { h: 9,  m: 0,  s: '09:00. On the dot. Everyone is suspicious.',
+      no: 'The start was on time and the end will be too. Mind how you use that.' },
+    { h: 14, m: 5,  s: '14:05. A lecturer has just walked in with a cup of tea.',
+      no: 'The tea is respected, and so is your silence.' },
+    { h: 15, m: 35, s: '15:35. Somebody’s phone has just rung, and it is the chair’s.',
+      no: 'The chair takes the call. You take the opportunity. To stay quiet.' },
+    { h: 10, m: 35, s: '10:35. Someone has already said “as per my last email”.',
+      no: 'Nobody remembers the last email. Do not remind them.' },
+    { h: 13, m: 45, s: '13:45. The agenda has been updated, in a way that is not visible.',
+      no: 'The updates remain invisible. So, comfortably, do you.' }
   ];
 
   /* n  is the number of people in the room. */
@@ -233,7 +331,47 @@
     'a working group on reducing the number of working groups',
     'procedures for booking the room where procedures are discussed',
     'an anniversary party for a committee that is 25 years old',
-    'a revised policy on policy revisions'
+    'a revised policy on policy revisions',
+    'the proposed new template for the template committee',
+    'a pilot scheme to pilot the pilot scheme',
+    'the strategy for the strategy',
+    'the use of “learnings” in official documents',
+    'an apology for the earlier apology',
+    'the annual rotation of the whiteboard pens',
+    'the new rules for lending out the department’s laser pointer',
+    'a workshop on how to run better workshops',
+    'the pros and cons of a four-day week in the corridor',
+    'the budget for next year’s budget meeting',
+    'the introduction of a rule for the length of rules',
+    'the ranking of the department’s rankings',
+    'a plan to measure the measuring of impact',
+    'the new rules for the use of the word “synergy”',
+    'the department’s official position on the Oxford comma',
+    'plans for the department’s 50th anniversary, which was in 2017',
+    'the opening hours of the opening hours committee',
+    'the departmental hat, which has been designed',
+    'the question of who keeps the master key',
+    'the revised mandate for the revised mandate',
+    'Appendix C of the report on the review of the review',
+    'a motion to move the motion to the next meeting',
+    'quality indicators for the indicators of quality',
+    'a vote on a vote on a vote',
+    'the department’s mascot, if any',
+    'an introduction to the new introduction process',
+    'the colour of the lanyards',
+    'the faculty’s ambitious new vision for next Tuesday',
+    'how to word an email about wording emails',
+    'the new rule that all rules must be in a rulebook',
+    'an interim report on the final report',
+    'the standing item “Any Other Business”, which is never any other business',
+    'the future of the future-of-work working group',
+    'the colour of the new door handles',
+    'a policy on the use of policies',
+    'the proposed hat-tip to the previous hat-tip',
+    'a sustainability plan for the sustainability plan',
+    'the introduction of a feedback form for feedback forms',
+    'the possible cancelling of the cancelled seminar',
+    'the extension of the extension of the deadline'
   ];
 
   /* What you were about to say. Works with any topic. */
@@ -312,7 +450,57 @@
     'Is the plan for this written in the plan for the plan?',
     'Can I get a copy of that, or is it confidential?',
     'Who is going to tell the students?',
-    'Is there a version with fewer bullets?'
+    'Is there a version with fewer bullets?',
+    'Does this apply to the part of the department that is on the other floor?',
+    'Is it fair to say that we have not decided yet?',
+    'Could we hear the objection to the objection?',
+    'Is the agenda also a decision?',
+    'Is this on the strategic plan, or a separate plan?',
+    'When you say “soon”, do you mean this year?',
+    'How many of us have read the 60-page appendix?',
+    'Is this the version that the Dean has seen?',
+    'Would the proposal change if we ignored it?',
+    'Are we saying the old rule is wrong, or merely old?',
+    'Is the form online, or only in my inbox?',
+    'Does “all staff” include the staff?',
+    'Do I have to attend the follow-up to the follow-up?',
+    'Would it be possible to circulate the slides after?',
+    'Is this a pilot, or the real thing in disguise?',
+    'Who exactly is the “key stakeholder”?',
+    'Is the deadline the one in the email, or the one in the calendar?',
+    'Does “shortly” have a number?',
+    'Are the minutes from last time anywhere?',
+    'Is there a version for people who were not here?',
+    'Is it possible that this is a solution in search of a problem?',
+    'Can we agree on what we are agreeing to?',
+    'Why does this need a working group?',
+    'Is there funding, or only enthusiasm?',
+    'Could we have a vote on whether to have a vote?',
+    'Does the new system talk to the old system?',
+    'Does the evaluation evaluate itself?',
+    'Do you mean the 2022 version or the 2023 version?',
+    'Is that “we” the department or the faculty?',
+    'Has the legal side seen the version that mentions the legal side?',
+    'Could “urgent” be in a different colour?',
+    'So, to be clear, the answer is “maybe”?',
+    'Who is the Dean’s Dean?',
+    'May I ask what happened to the thing we had before?',
+    'Are we the pilot for ourselves?',
+    'What will we stop doing, to do this?',
+    'Whose idea was the acronym?',
+    'Is it me, or has the scope changed since the last slide?',
+    'Does this require a new form, or only a new button?',
+    'What is the baseline we are improving on?',
+    'Why is item 4 before item 3?',
+    'Could we see a draft that has been drafted by humans?',
+    'Is this table to be read from the bottom?',
+    'Is the aim to reduce the time spent on meetings, or to move it?',
+    'Can anyone remind me what “KPI” stood for in our department?',
+    'Has the right person been told, or only the person who was told?',
+    'Could we put the cost per person on the slide?',
+    'What’s our plan if the plan doesn’t work?',
+    'So who is the owner of the follow-up?',
+    'Is there a version of the plan with fewer boxes and arrows?'
   ];
 
   /* Extra pressure on the hand. Each one has its own reply for staying seated. */
@@ -444,7 +632,107 @@
     { s: 'You wrote the question down so as not to forget it.',
       no: 'Writing it down was the whole point. Now it is on paper, and quiet.' },
     { s: 'The previous question lasted eighteen minutes.',
-      no: 'You can still hear its echo. You will not add to the echo.' }
+      no: 'You can still hear its echo. You will not add to the echo.' },
+    { s: 'You have just been told “let’s take questions at the end”.',
+      no: 'The end has no questions left. It has only coats.' },
+    { s: 'The previous speaker went over by twenty minutes.',
+      no: 'The room has no appetite for more. You can read it in the shoulders.' },
+    { s: 'The chair has said “let’s be brief” four times.',
+      no: 'Being brief is the only way to be at peace. Practise on yourself.' },
+    { s: 'You can see the head of department’s eye twitching.',
+      no: 'The twitch calms. You have the thanks of a very tired person.' },
+    { s: 'Somebody’s dog has just joined the discussion.',
+      no: 'The dog gets the floor. It makes a better case than you would.' },
+    { s: 'Your question is about the budget, which has just been approved.',
+      no: 'Approved budgets are like sleeping tigers. Tiptoe.' },
+    { s: 'The meeting is being livestreamed to 400 people.',
+      no: 'Four hundred people are spared. Several of them send a silent thanks.' },
+    { s: 'The previous question was answered with “we will come back to that”.',
+      no: 'They will not come back. Neither will you, to that question.' },
+    { s: 'A colleague has just glanced at you, then pointedly at the exit.',
+      no: 'You follow the glance in spirit and keep your seat. An honest compromise.' },
+    { s: 'You are one vote away from a majority on a different question.',
+      no: 'You stay seated, and so does the majority.' },
+    { s: 'You can hear a chair being pushed back, softly, near the door.',
+      no: 'The room is going. Be one of the ones that goes with it.' },
+    { s: 'It is your own proposal being discussed.',
+      no: 'Your proposal is being discussed beautifully, without you. Let it.' },
+    { s: 'You have just noticed that the question was answered in the pre-reading.',
+      no: 'You have noticed in time. Congratulations on a modest, private victory.' },
+    { s: 'It would be a question about the question.',
+      no: 'There is no such thing as a question about a question. It is a meeting.' },
+    { s: 'You have been staring at the same slide for twelve minutes.',
+      no: 'The slide has become a friend. Do not ruin it by talking.' },
+    { s: 'The speaker is a visiting professor.',
+      no: 'Visitors should leave with a good impression. You are the impression.' },
+    { s: 'You are 80% sure you are right.',
+      no: 'Twenty per cent of you is correct to stay seated.' },
+    { s: 'You are 100% sure you are right.',
+      no: 'Being 100% sure is the surest sign that you should wait for the corridor.' },
+    { s: 'A senior colleague has just said “I was about to ask that.”',
+      no: 'You and the senior colleague share a rare, silent understanding.' },
+    { s: 'The microphone is on the other side of the room.',
+      no: 'Nobody will walk to you. Nobody will walk to anybody. It is peace.' },
+    { s: 'The chair is looking at the clock.',
+      no: 'You look at the clock too. You and the chair are suddenly very close.' },
+    { s: 'You have just been called “our critical friend”.',
+      no: 'The friend stays quiet. Friends do not make friends sit longer.' },
+    { s: 'It is the fourth item that mentions “stakeholders”.',
+      no: 'The stakeholders remain a mystery. They are safer that way.' },
+    { s: 'The hash tag on the slide is longer than the item.',
+      no: 'Some things should not be asked about. Hash tags are one of them.' },
+    { s: 'The room has just agreed on something, by mistake.',
+      no: 'The mistake stands. Do not tempt the room to correct it.' },
+    { s: 'The agenda was updated ten minutes ago.',
+      no: 'Nobody has the updated agenda. Nobody has the old one either. Peace.' },
+    { s: 'You can see a path to a better solution.',
+      no: 'The path will still be there at the end of the corridor. It always is.' },
+    { s: 'You have sent a similar question by email, twice.',
+      no: 'The email will be answered. Eventually. Never in person.' },
+    { s: 'You are holding a coffee, and you have just remembered it is cold.',
+      no: 'The coffee is cold, and so is the room. Hold it. Hold on.' },
+    { s: 'The Dean has just said “this is a safe space”.',
+      no: 'Safe spaces at faculty meetings are a lovely idea. Do not test it.' },
+    { s: 'There is a new member of staff in the room.',
+      no: 'The new colleague is watching you for cues. Give them a calm one.' },
+    { s: 'It is a follow-up to a question from last term.',
+      no: 'Last term’s question is dead, and has had a nice funeral.' },
+    { s: 'The speaker has just said “I will not take up much of your time”.',
+      no: 'They will. The kindest response is to avoid doubling it.' },
+    { s: 'You are the only person whose camera is on.',
+      no: 'The little green light is a spotlight. Dim it by saying nothing.' },
+    { s: 'The previous speaker was interrupted by a fire alarm test.',
+      no: 'The alarm has said all that needs to be said.' },
+    { s: 'You have a small, bright, devastating point.',
+      no: 'Small, bright, devastating points are best kept for the autumn.' },
+    { s: 'It is a question about what is on the agenda for the next meeting.',
+      no: 'The next meeting will be here soon enough, and with all its friends.' },
+    { s: 'It is about the same thing as last time, which had no effect.',
+      no: 'The thing is now a tradition. Traditions are protected, not questioned.' },
+    { s: 'The microphone feedback has just stopped, mid-whine.',
+      no: 'Silence is a precious thing. You will be sensible and keep it.' },
+    { s: 'The speaker has just apologised for the slide.',
+      no: 'An apology deserves a nod, not a question.' },
+    { s: 'You can hear the person next to you thinking about lunch.',
+      no: 'A loud stomach agrees with you. Two against one.' },
+    { s: 'Someone has said “as you may remember…”',
+      no: 'You do not remember, and neither does anyone else. Perfect.' },
+    { s: 'A colleague has just shared a screen of their desktop by mistake.',
+      no: 'Nobody will talk about the desktop. You will not be the first.' },
+    { s: 'Your thought was actually quite kind.',
+      no: 'Kindness is sometimes best expressed by being quiet and passing the biscuits.' },
+    { s: 'The question is about holiday allowances.',
+      no: 'Holiday allowances are a matter for after the meeting, and after you.' },
+    { s: 'The room has just lowered its voice for something delicate.',
+      no: 'The delicate thing is left delicate. You have a way with tact.' },
+    { s: 'You can hear a toddler on someone else’s Zoom.',
+      no: 'The toddler wins the room. You are outclassed. Happily.' },
+    { s: 'There is a quiz at the end of the meeting.',
+      no: 'There is no quiz. The question never was one.' },
+    { s: 'The agenda is a PDF with 63 pages.',
+      no: 'Sixty-three pages deserve a long look in silence.' },
+    { s: 'The chair has said “this is not a hill to die on”.',
+      no: 'You pick a different hill. Or a valley. Or the bus stop.' }
   ];
 
   /* When you stay seated and nothing more specific fits. */
@@ -488,7 +776,57 @@
     'Somebody coughs at the right moment. You feel understood.',
     'The question goes into the “maybe next year” folder, with all the others.',
     'You keep your hands folded, a symbol of peace and good time-keeping.',
-    'The question is as good as asked, answered and forgotten, only faster.'
+    'The question is as good as asked, answered and forgotten, only faster.',
+    'You and the room agree to disagree about nothing at all.',
+    'The chair makes a note: “No further questions.” It is the nicest sentence of the day.',
+    'The silence rolls on, gently, like a bus that is on time.',
+    'A colleague whispers “thank you” on the way out. They deny it later.',
+    'You save the room four minutes, which is precisely enough for a biscuit.',
+    'The meeting ends and you remember how good it feels to be a bystander.',
+    'The question evaporates, and with it a small, impatient part of the future.',
+    'You tick off item 7 in your head. Quietly. In ink.',
+    'You are the sort of person people want in meetings. Quietly valued.',
+    'Everything that could be said is not said. It is a style.',
+    'A colleague catches your eye and mouths “wise”.',
+    'The chair seems less tired than usual, which you can take credit for.',
+    'Your pen hovers, then rests. A fine decision.',
+    'The meeting finishes before the next fire alarm test. A first.',
+    'You do not ask, and your day improves in several unrelated ways.',
+    'A little warm feeling settles in your chest. It is called “tact”.',
+    'The room carries on at the speed of a very slow river. You approve.',
+    'You do not ask, and somebody’s lunch survives the meeting.',
+    'You raise an eyebrow at yourself, and sit still.',
+    'Later, nobody will remember who did not speak. That is the whole idea.',
+    'You compose the perfect question and send it nowhere. Elegant.',
+    'You save the question for a rainy day, which in this country comes quickly.',
+    'The meeting remains a pleasant mystery to all participants.',
+    'Item 8 is reached with an hour to spare. Nobody understands why.',
+    'A collective, silent, grateful breath fills the room.',
+    'Your restraint is noted by nobody and appreciated by everybody.',
+    'You are one of the people who keep the department moving, by not moving.',
+    'The minutes are short, and for once nobody is cross.',
+    'The scheduler cries a single tear of joy.',
+    'You leave with your question intact and your reputation too.',
+    'The rest of the afternoon belongs to you, unbothered.',
+    'The silence has the texture of a well-run department.',
+    'You lean back. The room leans back with you.',
+    'You save the question and also the afternoon.',
+    'The pen in your pocket goes unclicked. That counts.',
+    'The meeting ends before the cake goes dry. Two wins.',
+    'You are the fourth person today who said nothing, and the best.',
+    'The next speaker thanks “the audience” and means you.',
+    'You have taken the long view. It is a very short meeting from there.',
+    'A small bell rings somewhere. It is the sound of nothing being asked.',
+    'You nod slowly, at nothing in particular. It looks like wisdom.',
+    'The questions you did not ask line up in the corridor and look at you fondly.',
+    'You have not stood out. In academia this is a form of life insurance.',
+    'You feel like a fine wine: patient, quiet, and not yet opened.',
+    'The room never knew what it had been spared. You did.',
+    'Your question will appear in your next performance review as “collegial restraint”.',
+    'A small, well-fed cat of satisfaction curls up in your chest.',
+    'Everyone leaves on time. Several of them check their watches in disbelief.',
+    'Even the projector seems happier now.',
+    'It is raining outside, and you are not stuck in here. Good call.'
   ];
 
   /* When you ask. {m} is the overrun in minutes. */
@@ -540,14 +878,288 @@
     '“Thank you for raising that.” It is now your job to raise it again, in writing.',
     'The chair says “that is above my pay grade”. It is, in fact, also above yours.',
     'A colleague says “and, while we are at it…” Your question has doubled.',
-    'The answer is “it depends”. It depends for {m} minutes.'
+    'The answer is “it depends”. It depends for {m} minutes.',
+    'Someone says “Let’s form a working group.” Everyone looks at you.',
+    'You are told “that’s a great question for the Dean”. The Dean is on leave.',
+    'The question becomes the new item 3. It runs for {m} minutes.',
+    'The chair says “Can we capture that as an action?” The action is yours.',
+    'A colleague replies, at length, to a different question you did not ask.',
+    'The answer is “It’s complicated.” It takes {m} minutes.',
+    'Three people begin to answer at once. Nobody finishes.',
+    'You are asked to send round “a short note”. It is not short.',
+    'Someone says “Let’s revisit that in the autumn.” You will be revisited too.',
+    'A colleague says “Perhaps we should hear from the PhD students.” They look at you.',
+    'The room looks at you, then at the clock, then at you.',
+    'The meeting runs {m} minutes over, and the sandwiches have curled.',
+    'The chair says “I’ll take that as a comment.” It is now a comment.',
+    'The question is answered by a slide that has not yet been made.',
+    'A colleague sighs the deep sigh of someone with a train to catch.',
+    'You hear “I take your point.” This is the sound of a point being buried.',
+    'Your question is added to a list. The list has no recipient.',
+    'Someone says “We’ve been over this.” They have. You have not.',
+    'The discussion that follows is, technically, about something else.',
+    'The chair says “Let’s put a pin in that.” The pin falls out in the corridor.',
+    'You have just offered to “look into it”. You are now looking into it.',
+    'A colleague says “I’d like to add to that” and adds for nine minutes.',
+    'You are asked to “prepare a one-pager”. It is now a four-pager.',
+    'The answer is a sub-clause, in a sub-clause, in a sub-clause.',
+    'The Dean says “I’m glad you asked that.” The Dean is not glad.',
+    'The meeting overruns by {m} minutes, and the cake is now crumbs.',
+    'Everyone agrees it is a good question. Nobody answers it.',
+    'The question is passed to a committee which has just been renamed.',
+    'You receive a polite nod from the chair, which means: never again.',
+    'Your colleague replies “Great question” in the voice of a closing door.',
+    'The chair says “Thanks for that.” It is the sound of a lid going on.',
+    'Another person says “just to add to that” and introduces an unrelated grievance.',
+    'The meeting overruns by {m} minutes. Somebody’s bus is leaving without them.',
+    'A deputy deputy head clears their throat. This will take {m} minutes.',
+    'The chair says, gravely, “Let’s not go down that road.” The room has already gone.',
+    'The answer comes in a bulleted list. It has fourteen bullets.',
+    'Everyone is quiet in the way that means “why did you do this?”',
+    'You are told “that’s above my pay grade”. It is above everyone’s.',
+    'A colleague leans in and whispers “Oh no.”',
+    'The question triggers a debate about the previous question.',
+    'You are told “We’ll follow up with you.” You will not be followed up.',
+    'The meeting now ends {m} minutes late. The cleaners have been briefed on you.',
+    'A new item “Matters arising from the question” is added at the top.',
+    'The room discovers that nobody is the owner of anything. It takes {m} minutes.',
+    'Somebody says “I think we’ve all learned something here.” You have learned what not to do.',
+    'The chair says “Would you like to pick that up as a project?” It is a trap.',
+    'Everybody now has a strong opinion. All of them are about you.',
+    'The meeting is now officially longer than the previous meeting’s apology.',
+    'You are invited to “share your thoughts in writing”. This is a threat.'
   ];
 
   const HAND_UP = [
     'Your hand went up on its own. This has happened before. ',
     'The hand rose before the thought had finished. As it often does. ',
     'Your arm made the decision without consulting you. ',
-    'Somewhere between thought and table, the hand went up. '
+    'Somewhere between thought and table, the hand went up. ',
+    'The hand was up before the thought had ever been approved. ',
+    'You did not raise the hand. The hand raised itself. ',
+    'Your arm, a loyal servant of old habits, went up. ',
+    'An old reflex struck, and the hand answered. ',
+    'The hand went up like a flag at a very small, very bad parade. ',
+    'You felt the arm lifting. You watched. You could not intervene. ',
+    'Your hand rose, as if lifted by a small, enthusiastic balloon. ',
+    'The brain said “wait”. The hand did not receive the message. '
+  ];
+
+
+  /* ── Combinatorial lists: each one multiplies a handful of parts. ── */
+
+  /* Tacked onto a person now and then. */
+  const WHO_TAIL = [
+    ', mid-sandwich',
+    ', visibly composing an email',
+    ', who has not yet spoken',
+    ', still wearing the visitor badge',
+    ', who is “just here to listen”',
+    ', holding a very full cup of coffee',
+    ', who arrived late and wants it known',
+    ', who has an appointment at four',
+    ', who has just muted and unmuted twice',
+    ', whose laptop is clearly updating',
+    ', who has brought a printed copy of everything',
+    ', who has a cold and a point of view',
+    ', who has just whispered “hmm”',
+    ', sitting very close to the exit',
+    ', who has been nodding for ten minutes',
+    ', who has forgotten the pre-reading',
+    ', with a suspicious smile',
+    ', who is wearing the face of someone about to say “just one thing”',
+    ', who has a small, ominous pile of paper',
+    ', who has opened the window and now regrets it',
+    ', who is quietly writing a better agenda',
+    ', who looks at you, then at the exit',
+    ', on a video call from a car park',
+    ', who is eating a banana with great dignity',
+    ', who has already left in spirit',
+    ', who has put the pen down meaningfully',
+    ', who is clearly about to disagree',
+    ', who has just checked the time for the third time',
+    ', who is wearing sunglasses indoors, for reasons',
+    ', who has brought a laptop, a tablet and a phone'
+  ];
+
+  /* An optional weekday in front of the clock. */
+  const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+
+  /* Rooms are built as: <number> people <where>. <what is wrong>. */
+  const SIZES = [2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 15, 16, 18, 20, 22, 24, 25, 28, 30,
+                 32, 36, 40, 45, 50, 60, 64, 75, 80, 90, 100, 120, 140, 150];
+  const WHERE = {
+    small: [
+      'around a table that is slightly too small',
+      'in a glass-walled room that everyone can see into',
+      'in the corner of the corridor, standing',
+      'in the head of department’s office',
+      'in a room booked for two',
+      'in a room with a ping-pong table in it',
+      'in a room with one window and no plan',
+      'in the printer room, for the privacy',
+      'in a cupboard that is called a “huddle room”',
+      'in the kitchenette, round the one chair'
+    ],
+    medium: [
+      'in the seminar room',
+      'in the common room',
+      'in the old library reading room',
+      'in the only room with a working projector',
+      'in a room named after a donor',
+      'in a room with a ceiling that drips',
+      'in the basement room with no windows',
+      'in the room next to the lab, with a faint smell of solvent',
+      'in a classroom with desks bolted to the floor',
+      'in the canteen, between two lunches',
+      'in the side room of the lecture hall',
+      'in a room on the fourth floor with a sticky door',
+      'in the room where the sofa lives',
+      'in the room with the grandfather clock that is wrong'
+    ],
+    large: [
+      'in the big lecture hall',
+      'in the aula',
+      'in the atrium, with one microphone',
+      'on a video link',
+      'in a hybrid meeting',
+      'in the auditorium, rows A to Q',
+      'in a hall built for another faculty',
+      'in the sports hall, for lack of a better room',
+      'in the foyer, standing, for a fire-safety reason',
+      'on a video link with the camera pointing at the ceiling'
+    ]
+  };
+  const ROOM_TROUBLE = [
+    'Someone is eating audibly.',
+    'A phone plays a ringtone from 2009.',
+    'The agenda is in a format nobody can open.',
+    'Nobody knows who booked it.',
+    'The clock is ten minutes slow.',
+    'There is a faint smell of fika.',
+    'Somebody’s dog is also present.',
+    'Two people are discussing parking in a whisper.',
+    'Someone asks “Can everyone see my screen?”',
+    'The Dean has joined, silently.',
+    'Everyone is pretending to have read the pre-reading.',
+    'The loudest sound is a keyboard.',
+    'The heating has opinions.',
+    'The microphone squeals every ninety seconds.',
+    'A door will not stay shut.',
+    'There is an echo that repeats the chair.',
+    'There is a plant, and it looks well-informed.',
+    'The air has been used before.',
+    'The biscuit plate is now just crumbs.',
+    'The last meeting’s notes are still up.',
+    'The coffee has run out.',
+    'A colleague is livestreaming their lunch.',
+    'The lights are on a timer that nobody controls.',
+    'Somebody keeps yawning in a pattern.',
+    'Someone’s alarm goes off, and they let it.'
+  ];
+
+  /* An agenda item can also be built as <form> + <thing>. */
+  const TOPIC_FORM = [
+    'an update on #',
+    'a review of #',
+    'a working group on #',
+    'a motion to revisit #',
+    'the future of #',
+    'a survey about #',
+    'a pilot project for #',
+    'the cost of #',
+    'a draft policy on #',
+    'a proposal to rename #',
+    'who owns #',
+    'a risk assessment of #',
+    'a timeline for replacing #',
+    'a taskforce for #',
+    'a report on #',
+    'next steps for #',
+    'an evaluation of #',
+    'new guidelines for #',
+    'a workshop on #',
+    'a vote on #',
+    'a feasibility study of #',
+    'a request for feedback on #',
+    'an appeal about #',
+    'a delegation of #'
+  ];
+  const TOPIC_THING = [
+    'the printer room', 'the coffee machine', 'the Christmas lunch', 'the seminar-room whiteboards',
+    'the department’s logo', 'the key-card system', 'the staff kitchen', 'the shared calendar',
+    'the lecture-recording system', 'the faculty’s newsletter', 'the PhD handbook',
+    'the guest-lecturer policy', 'the room-booking system', 'the teaching-load model',
+    'the annual appraisal form', 'the cleaning rota', 'the department’s website',
+    'the third-floor corridor', 'the staff retreat', 'the travel-claims process',
+    'the lunch-room microwave', 'the visitor badges', 'the department’s Twitter account',
+    'the thesis-defence procedure', 'the course-evaluation survey', 'the shared drive',
+    'the master key', 'the hybrid-meeting setup', 'the annual report',
+    'the seminar-series speaker list', 'the faculty’s strategic goals',
+    'the open-door policy (the door is now open)', 'the staff Christmas party',
+    'the departmental reading group', 'the new office chairs', 'the vending machine',
+    'the minutes of the minutes', 'the language policy', 'the library budget',
+    'the alumni newsletter', 'the exam-room rota', 'the supervisor-training course',
+    'the printer credits', 'the department’s “wellness hour”', 'the stairwell',
+    'the compulsory online training', 'the dress code, if any', 'the parking spaces',
+    'the coat rack by the door', 'the new signage on level 2',
+    'the departmental songbook', 'the way we say “Good morning”',
+    'the rooms we call “the quiet rooms”', 'the bike shed', 'the university’s ranking',
+    'the new Wi-Fi password', 'the stationery cupboard', 'the ethics-approval process',
+    'the allocation of teaching assistants', 'the weekly all-staff email'
+  ];
+
+  /* A question can also be built as <opener> + <core>. */
+  const Q_OPEN = [
+    'Sorry, but ',
+    'This may be a stupid question, but ',
+    'Just so I understand: ',
+    'Not to be difficult, but ',
+    'Quick question: ',
+    'Forgive me, but ',
+    'I might be missing something, but ',
+    'Out of pure curiosity: ',
+    'Just to clarify: ',
+    'If I may: ',
+    'Sorry to be that person, but ',
+    'As a newcomer: ',
+    'As someone who read the pre-reading: ',
+    'Not wishing to derail this, but ',
+    'I hesitate to ask, but ',
+    'For my own understanding: '
+  ];
+  const Q_CORE = [
+    'who decided this?', 'is there a budget for this?', 'does this need a vote?',
+    'how many people have to sign off?', 'is this the final version?',
+    'did anybody ask the students?', 'what does that acronym mean?',
+    'when is the deadline?', 'who is going to do the work?',
+    'is that an instruction or a suggestion?', 'what happens if we say no?',
+    'does this replace the old process or sit on top of it?',
+    'are we allowed to disagree?', 'will there be a form?',
+    'has this been tried before?', 'is this part of the strategic plan?',
+    'who will be in the working group?', 'which committee owns this?',
+    'is it legal?', 'does it apply retroactively?',
+    'what does “soon” mean here?', 'is this a pilot?',
+    'have the unions seen it?', 'how will we know it worked?',
+    'what is the plan if it fails?', 'what is the rationale?',
+    'is the deadline firm?', 'is the date in the invitation correct?',
+    'who is the contact person?', 'does anybody have the link?',
+    'was there a consultation?', 'who gets to say “no”?',
+    'is the audience the whole faculty?', 'does it include the labs?',
+    'which version is the latest?', 'is that in the minutes?',
+    'what do we mean by “harmonise”?', 'did anyone read the report?',
+    'where did the 14% come from?', 'will there be training?',
+    'who maintains it afterwards?', 'what is the exit strategy?',
+    'does this include the people on leave?', 'was this in the agenda?',
+    'who funds the follow-up?', 'do we have to reply by email?',
+    'is it necessary for everyone to attend?', 'is this a one-off?',
+    'is there a quick version of this?', 'is it possible to opt out?',
+    'what are the risks?', 'what would the Dean say?',
+    'is this definitely the right room for this discussion?',
+    'what does the footnote on page 3 mean?', 'is this the same as last year?',
+    'does the budget cover the coffee?', 'should I take notes?',
+    'is there an FAQ?', 'could someone summarise the last thirty minutes?',
+    'is it OK if I leave at four?', 'would a diagram help?'
   ];
 
   /* ─── State ──────────────────────────────────────────────── */
@@ -563,7 +1175,6 @@
     lives: MAX_LIVES,
     done: 0,
     scenario: null,
-    circBag: [],
     limit: 0,
     endsAt: 0,
     locked: true
@@ -595,7 +1206,24 @@
   }
   window.addEventListener('resize', () => fit(true));
 
-  function pick(a) { return a[(Math.random() * a.length) | 0]; }
+  /* Draw from a shuffled bag, so nothing comes round twice until everything else
+     has, in this list or any other. The bags survive from one meeting to the next. */
+  const bags = new Map();
+  function draw(list) {
+    let b = bags.get(list);
+    if (!b || !b.length) { b = shuffle(list.slice()); bags.set(list, b); }
+    return b.pop();
+  }
+  function cap(t) { return t.charAt(0).toUpperCase() + t.slice(1); }
+  const ONES = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten',
+                'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen',
+                'eighteen', 'nineteen'];
+  const TENS = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
+  function words(n) {
+    if (n < 20) return ONES[n];
+    if (n < 100) return TENS[(n / 10) | 0] + (n % 10 ? '-' + ONES[n % 10] : '');
+    return String(n);
+  }
   function shuffle(a) {
     for (let i = a.length - 1; i > 0; i--) {
       const j = (Math.random() * (i + 1)) | 0;
@@ -608,16 +1236,53 @@
 
   /* ─── Rounds ─────────────────────────────────────────────── */
 
+  /* Half of everything is taken straight from its list, half is put together
+     from parts, so the same list can say a great many different things. */
+  function makeWho() {
+    const w = draw(WHO);
+    if (Math.random() < 0.4) {
+      for (let i = 0; i < 6; i++) {
+        const t = draw(WHO_TAIL);
+        if (w.length + t.length <= 78) return w + t;
+      }
+    }
+    return w;
+  }
+  function makeWhen() {
+    const w = draw(WHEN);
+    if (Math.random() < 0.5 && w.s.length <= 62 && !/Monday|Friday|weekend|Midsummer/i.test(w.s)) {
+      return { h: w.h, m: w.m, no: w.no, s: draw(DAYS) + ' ' + w.s };
+    }
+    return w;
+  }
+  function makeRoom() {
+    if (Math.random() < 0.5) return draw(ROOM);
+    for (let i = 0; i < 8; i++) {
+      const n = draw(SIZES);
+      const where = draw(n <= 8 ? WHERE.small : n <= 30 ? WHERE.medium : WHERE.large);
+      const s = cap(words(n)) + ' people ' + where + '. ' + draw(ROOM_TROUBLE);
+      if (s.length <= 84) return { n: n, s: s };
+    }
+    return draw(ROOM);
+  }
+  function makeTopic() {
+    if (Math.random() < 0.5) return draw(TOPIC);
+    return draw(TOPIC_FORM).replace('#', draw(TOPIC_THING));
+  }
+  function makeQuestion() {
+    if (Math.random() < 0.5) return draw(QUESTION);
+    for (let i = 0; i < 6; i++) {
+      const q = draw(Q_OPEN) + draw(Q_CORE);
+      if (q.length <= 74) return q;
+    }
+    return draw(QUESTION);
+  }
+
   function build() {
     const useCirc = Math.random() < Math.min(0.75, 0.3 + S.done * 0.03);
-    let circ = null;
-    if (useCirc) {
-      if (!S.circBag.length) S.circBag = shuffle(CIRC.slice());
-      circ = S.circBag.pop();
-    }
     return {
-      who: pick(WHO), when: pick(WHEN), room: pick(ROOM),
-      topic: pick(TOPIC), q: pick(QUESTION), circ: circ
+      who: makeWho(), when: makeWhen(), room: makeRoom(),
+      topic: makeTopic(), q: makeQuestion(), circ: useCirc ? draw(CIRC) : null
     };
   }
 
@@ -681,7 +1346,7 @@
       const r = Math.random();
       const line = (sc.circ && r < 0.7) ? sc.circ.no
                  : (r < 0.5)            ? sc.when.no
-                 :                        pick(NO_GENERIC);
+                 :                        draw(NO_GENERIC);
       elPaper.classList.add('is-right');
       elMark.textContent = '✓';
       elWhy.className = 'why is-good';
@@ -698,7 +1363,7 @@
       elHand.style.left = '100%';
       elHand.classList.add('is-up');
       elWhy.className = 'why is-bad';
-      elWhy.textContent = (timedOut ? pick(HAND_UP) : 'You asked. ') + pick(YES).replace('{m}', m);
+      elWhy.textContent = (timedOut ? draw(HAND_UP) : 'You asked. ') + draw(YES).replace('{m}', m);
     }
 
     render();
@@ -822,7 +1487,6 @@
     SFX.unlock();
     overlay.classList.remove('is-open');
     S.score = 0; S.streak = 0; S.lives = MAX_LIVES; S.done = 0;
-    S.circBag = [];
     S.running = true;
     render();
     fit(true);

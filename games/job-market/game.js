@@ -109,28 +109,28 @@
      to read the card. `opp` names a trait that cannot sit beside this one. */
   const MUST = [
     { id: 'email', label: 'answers email', opp: 'ghost', lines: [
-      'Inbox zero since 2014.', 'Replies to email within the hour. Allegedly.',
+      'Answers email within the hour. Allegedly.', 'Inbox zero since 2014. Every email answered.',
       'Has never once written “sorry for the late reply”.'] },
     { id: 'chalk', label: 'teaches at the board', opp: 'slides', lines: [
-      'Owns a personal box of chalk.', 'Has never opened a Beamer file voluntarily.',
-      'Sleeves permanently dusted.'] },
+      'Teaches at the board. Owns a personal box of chalk.', 'Has never opened a Beamer file voluntarily. Chalk only.',
+      'Teaches with chalk. Sleeves permanently dusted.'] },
     { id: 'detail', label: 'is careful with detail', lines: [
-      'Reads the footnotes. And the appendix.', 'Found a typo in a 1987 preprint.',
+      'Reads every footnote, and the appendix.', 'Found a typo in a 1987 preprint.',
       'Checks every proof twice, then a third time.'] },
     { id: 'time', label: 'keeps to time', opp: 'over', lines: [
       'Finishes talks on time. Yes, really.', 'Has never said “let me just finish this slide”.',
-      'Wears a watch, ostentatiously.'] },
+      'Always finishes on time. Wears a watch, ostentatiously.'] },
     { id: 'team', label: 'collaborates', lines: [
-      'Seven co-authors on the last paper, all still speaking.', 'Shares code, data and sandwiches.',
+      'Seven co-authors on the last paper, all still speaking.', 'Shares code, data and office keys.',
       'Writes “we” in every abstract. Means it.'] },
     { id: 'cake', label: 'brings cake', lines: [
-      'Has a sourdough starter with a name.', 'Brings cake to meetings. Every time.',
-      'Known in the corridor for the lemon drizzle.'] },
+      'Arrives at every meeting with a tin. The tin contains cake.', 'Brings cake to meetings. Every time.',
+      'Known in the corridor for the lemon drizzle cake.'] },
     { id: 'students', label: 'looks after students', lines: [
-      'Every student they have supervised is still on speaking terms.', 'Reads drafts within a week.',
+      'Every student they have supervised is still on speaking terms.', 'Reads students’ drafts within a week.',
       'Their students’ acknowledgements are suspiciously warm.'] },
     { id: 'credit', label: 'gives credit', lines: [
-      'Cites other people’s work, unprompted.', 'Thanked the referee by name.',
+      'Cites other people’s work, unprompted.', 'Always thanks the referee by name.',
       'The reference list has more names than the paper.'] }
   ];
   const DEAL = [
@@ -151,7 +151,7 @@
       'Famous for “just one small thing”.'] },
     { id: 'replyall', label: 'replies all', lines: [
       'Reply-all pioneer.', 'Once emailed the whole faculty about a lost umbrella.',
-      'The CC list is longer than the paper.'] },
+      'Replies all, always. The CC list is longer than the paper.'] },
     { id: 'early', label: 'schedules early', lines: [
       'Schedules meetings for 8:00 sharp.', 'Considers 7:45 “a civilised start”.',
       'Has booked a Monday 8:00 seminar. Voluntarily.'] },
@@ -167,32 +167,32 @@
     'Has a dog called Lemma', 'Drinks tea, not coffee', 'Collects fountain pens',
     'Runs marathons slowly', 'Photographs doors', 'Knits. Mostly scarves.',
     'Hums while writing proofs', 'Keeps a plant on the desk', 'Has read all of Euclid',
-    'Owns four identical sweaters', 'Likes trains', 'Bakes on weekends'
+    'Owns four identical sweaters', 'Likes trains', 'Grows tomatoes on the windowsill'
   ];
 
   /* What the department offers (the pill) and the ways a candidate can say
      they are looking for it (the card's "Looking for:" line). */
   const OFFERS = [
     { id: 'heat',   label: 'a warm office', lines: [
-      'a department with working heating', 'somewhere the radiator works in January', 'an office that is not an igloo'] },
+      'a department with working heating', 'a radiator that works in January', 'a warm office, not an igloo'] },
     { id: 'quiet',  label: 'peace and quiet', lines: [
-      'a quiet office and a lively seminar', 'somewhere to hear myself think', 'a door that actually closes'] },
+      'a quiet office and a lively seminar', 'peace and quiet to hear myself think', 'a door that closes, and some peace'] },
     { id: 'lunch',  label: 'free lunch', lines: [
       'a seminar that serves lunch', 'a department that feeds its seminar', 'sandwiches, preferably before the talk'] },
     { id: 'money',  label: 'long-term funding', lines: [
       'long-term funding. Any funding.', 'a grant that outlasts the contract', 'money, in writing, for more than a year'] },
     { id: 'leave',  label: 'research leave', lines: [
-      'a sabbatical, eventually', 'a year away to finish the book', 'time off to write, written into the contract'] },
+      'research leave, eventually', 'a year of research leave to finish the book', 'research leave written into the contract'] },
     { id: 'people', label: 'good colleagues', lines: [
       'colleagues who come to the talks', 'someone to share a whiteboard with', 'a corridor with good conversations'] },
     { id: 'view',   label: 'a room with a view', lines: [
-      'an office with a window', 'a view that is not of a wall', 'daylight, ideally'] },
+      'an office with a window', 'a room with a view, not of a wall', 'a room with a view, or at least daylight'] },
     { id: 'travel', label: 'travel money', lines: [
       'a generous travel budget', 'conferences paid for in advance', 'a travel budget that survives April'] },
     { id: 'kit',    label: 'working equipment', lines: [
-      'a department with a working printer', 'a chair that does not squeak', 'a coffee machine that works'] },
+      'working equipment: a printer that prints', 'working equipment, starting with a chair that does not squeak', 'working equipment, such as a coffee machine that works'] },
     { id: 'light',  label: 'light teaching', lines: [
-      'a teaching load with no surprises', 'no lectures on Monday at eight', 'a timetable made before the term starts'] }
+      'a light teaching load', 'light teaching: one course, prepared properly', 'few lectures, and time to think'] }
   ];
 
   const STATUS = ['Active now', 'Active today', 'Online 3 min ago', 'Refereeing, probably',
@@ -228,7 +228,7 @@
 
   /* ─── State ──────────────────────────────────────────────── */
 
-  const SLOTS   = 9;     // six hours of interviews at 40 minutes each
+  const SLOTS   = 6;     // six hours of interviews, an hour each
   const STRIKES = 3;     // wrong calls before the search is cancelled
   const RIGHT   = 100;   // points for each right call
   const BONUS   = 500;   // for each strike left when the day is full
@@ -516,7 +516,7 @@
       SFX.wrong();
       elWhy.className = 'why is-bad';
       elWhy.textContent = 'Strike.  ' + (fits ? 'That one met every criterion.'
-        : 'They did not fit (' + r.join(', ') + '), and the interview still takes 40 minutes.');
+        : 'They did not fit (' + r.join(', ') + '), and the interview still takes an hour.');
     }
     render();
     fit();
@@ -586,7 +586,7 @@
         '<div><h3>Position</h3>' + chips('pos', Object.keys(POSITIONS).map((k) => ({ v: k, t: POSITIONS[k].name }))) + '</div>' +
       '</div>' +
       '<ul class="rules">' +
-        '<li>There is no clock. The committee has <b>six hours</b> of interviews to fill: <b>' + SLOTS + ' slots</b> of 40 minutes.</li>' +
+        '<li>There is no clock. The committee has <b>six hours</b> of interviews to fill: <b>' + SLOTS + ' slots</b> of an hour each.</li>' +
         '<li><b>Swipe right</b> (→) to shortlist a candidate who meets <b>every</b> criterion in the pills at the top, <b>left</b> (←) to pass. A candidate who does not fit still takes a slot, and a fit you pass on is lost. Either is a <b>strike</b>; ' + STRIKES + ' and the search is cancelled.</li>' +
         '<li>The committee adds criteria as the search goes on: <b>Must have</b> (the card must show it), <b>Reject if</b> (the card shows it, so pass) and <b>We offer</b> (the “Looking for” line must be what we offer). No card states them outright. It hints, in its own words, so <b>read the card</b>.</li>' +
         '<li>Each right call scores ' + RIGHT + '. Fill the day and every strike you did not use is worth ' + BONUS + '.</li>' +
@@ -602,10 +602,10 @@
 
   function endLine(won) {
     if (!won) return 'Three strikes. The committee has lost confidence in your judgement, and the position is cancelled due to “budget realignment”.';
-    if (S.strikes === 0) return 'Nine interviews, every one of them worth the 40 minutes. The Dean asks who you are.';
+    if (S.strikes === 0) return 'Six interviews, every one of them worth the hour. The Dean asks who you are.';
     const missed = S.strikes - S.wasted;
     const parts = [];
-    if (S.wasted) parts.push(S.wasted + ' of the nine interviews were not worth the 40 minutes');
+    if (S.wasted) parts.push(S.wasted + ' of the six interviews were not worth the hour');
     if (missed)   parts.push('you let ' + plural(missed, 'good candidate') + ' go');
     return parts.join(', and ') + '. That is roughly how committees do.';
   }

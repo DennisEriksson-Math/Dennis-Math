@@ -226,6 +226,17 @@ list is independent, so a new line is one more string in an array:
   frequent as the meeting goes on.
 - `NO_GENERIC` and `YES`: replies. `{m}` in a `YES` line becomes the overrun in
   minutes.
+- `HAND_UP`: the openings when the hand rises by itself.
+
+Variety comes from three things. Every list is drawn from a shuffled bag with
+`draw()`, so nothing repeats until the whole list has been used, even across
+meetings. About half of the people, rooms, agenda items and questions are
+**assembled from parts** instead of taken whole: `WHO` + `WHO_TAIL`, a weekday
+in front of a `WHEN`, `SIZES` + `WHERE` + `ROOM_TROUBLE`, `TOPIC_FORM` +
+`TOPIC_THING` (a form with a `#` for the thing), and `Q_OPEN` + `Q_CORE`. And the
+curated lists are big (roughly 80 to 125 entries each). Composed text is capped
+in length (see `makeWho()`, `makeRoom()`, `makeQuestion()`), so the card still
+fits a phone. When adding parts, keep each one grammatical beside every other.
 
 The flowchart on the end screens is `flowchart()` in the same file.
 
@@ -233,14 +244,14 @@ The flowchart on the end screens is `flowchart()` in the same file.
 
 The player picks a field and a position, and the search draws the rest: whether
 research, teaching or both matters, and the committee's quirks. There is **no
-clock**. The committee has six hours of interviews to fill, nine slots of 40
-minutes, and the player swipes right to shortlist a candidate who meets every
-criterion and left to pass. Drag the card, use the buttons, or press ← / →.
+clock**. The committee has six hours of interviews to fill, six slots of an hour, and the
+player swipes right to shortlist a candidate who meets every criterion and left
+to pass. Drag the card, use the buttons, or press ← / →.
 
 - A right call scores 100.
 - A wrong call is a **strike**: shortlisting someone who does not fit (who still
   takes a slot), or passing on someone who does. Three strikes cancel the search.
-- The day is full when nine slots are used. Every strike left is worth 500.
+- The day is full when six slots are used. Every strike left is worth 500.
 - The committee adds its quirks one at a time, after 3, 5 and 7 cards, with a
   note under the card saying what the new pill means ("New: MUST HAVE. Shortlist
   only someone who answers email.") and the pill highlighted. A card is always
@@ -257,8 +268,7 @@ and judging only field, years, papers and courses won about two days in three;
 now it wins about one in three. Counts are kept believable (a candidate's papers,
 courses and h-index follow from the years since the PhD, and the h-index never
 exceeds the paper count): check that with a few thousand generated cards after
-changing `makeCandidate()`. **Only the pills at
-the top count.** Three of them (the quirks) are about what the candidate is like,
+changing `makeCandidate()`. **Only the pills at the top count.** Three of them (the quirks) are about what the candidate is like,
 and the card never states them: it hints, in its own funnier words, so the player
 has to read.
 

@@ -46,7 +46,7 @@ Each game folder is self-contained — copy any one of them anywhere and it runs
 | **Erdős Number** | Weighted shortest path | Ink on a legal pad |
 | **The Gap** | Ordering puzzle | A referee's desk |
 | **Should I Ask a Question?** | Resisting temptation | A faculty meeting |
-| **Hot Singles on the Job Market** | Swipe | A hiring committee's phone |
+| **Love at First Cite** | Swipe | A hiring committee's phone |
 
 `orbit/` is the interactive space scene the project started from — a scene
 rather than a game, linked from the footer.
@@ -229,7 +229,7 @@ list is independent, so a new line is one more string in an array:
 
 The flowchart on the end screens is `flowchart()` in the same file.
 
-## Hot Singles on the Job Market
+## Love at First Cite
 
 The player picks a field and a position, and the search draws the rest: whether
 research, teaching or both matters, and the committee's quirks. There is **no
@@ -282,7 +282,7 @@ by their application, never by anything personal.
 Both of the newer games (`faculty-meeting/`, `job-market/`) have to show the whole
 card and the buttons on a phone, whatever the screen:
 
-- Short screens drop decoration (Hot Singles hides the grey chips under 720px of
+- Short screens drop decoration (Love at First Cite hides the grey chips under 720px of
   height).
 - Turned sideways (landscape, under 520px high) the page becomes two columns:
   controls on the left, the card on the right.

@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════
-   HOT SINGLES ON THE JOB MARKET — you are the hiring committee.
+   LOVE AT FIRST CITE — you are the hiring committee.
    Fill a day of interviews with candidates who meet every criterion:
    swipe right to shortlist, left to pass. No clock; three strikes
    and the search is cancelled. Only the criteria on the pills
@@ -549,7 +549,7 @@
     show(
       '<div class="panel">' +
       '<div class="p-kicker">You are the hiring committee</div>' +
-      '<h1 class="p-title">Hot Singles <span>on the Job Market</span></h1>' +
+      '<h1 class="p-title">Love at <span>First Cite</span></h1>' +
       '<div class="setup">' +
         '<div><h3>Field</h3><select class="select" id="field-select" aria-label="Field">' +
           FIELDS.map((f, i) => '<option value="' + i + '"' + (i === S.sel.field ? ' selected' : '') + '>' + f.name + '</option>').join('') +

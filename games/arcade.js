@@ -62,7 +62,7 @@ const GAMES = [
            'own. Every situation has exactly one correct answer. Choose before the hand is up.'
   },
   {
-    title: 'Hot Singles on the Job Market',
+    title: 'Love at First Cite',
     kicker: 'Swipe',
     href: 'job-market/index.html',
     blurb: 'You are the hiring committee. Fill a day of interviews: swipe right on candidates ' +

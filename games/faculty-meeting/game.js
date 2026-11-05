@@ -1463,18 +1463,46 @@
     render();
   }
 
+  /* Endings for running out of patience: [kicker, title, body]. */
+  const LOSE_ENDS = [
+    ['Out of patience', 'You have been appointed<br><span>to the working group</span>',
+     'You raised one hand too many. The first meeting is on Monday, at eight.'],
+    ['Out of patience', 'You are now<br><span>the minute-taker</span>',
+     'Three questions, and the chair has found you a job. You will be writing down everything everyone says. Including this.'],
+    ['Out of patience', 'Elected <span>head of the<br>timetabling committee</span>',
+     'Nobody else stood. Nobody else was in the room when the nominations opened. You had your hand up.'],
+    ['Out of patience', 'Your question<br><span>has been minuted</span>',
+     'All three of them, in full, with your name. The minutes run to forty pages. They will be read aloud at the next meeting.'],
+    ['Out of patience', 'You are asked<br><span>to “take this offline”</span>',
+     'You will now meet the Head of Department, a vice-dean and someone from Estates, individually, three times each.'],
+    ['Out of patience', 'The chair<br><span>has stopped looking at you</span>',
+     'Hands are raised to your left and right, and the chair looks through you as through a pane of glass. You are free to leave. You do not feel free.'],
+    ['Out of patience', 'Congratulations,<br><span>you are a Working Party</span>',
+     'You are the only member. You have a budget of nothing, a deadline of Friday, and a remit that nobody can find in writing.'],
+    ['Out of patience', 'Promoted to<br><span>Director of Something</span>',
+     'It comes with no money, no staff and a three-year term. Your office is being moved to make room for it.'],
+    ['Out of patience', 'Your colleagues<br><span>have started to reply all</span>',
+     'Forty-one emails before lunch, all of them beginning “Just to follow up on Tuesday’s question”. You are on every list.'],
+    ['Out of patience', 'Banned from<br><span>the good biscuits</span>',
+     'A laminated sign appears by the coffee machine. It does not mention you by name. It does not need to.'],
+    ['Out of patience', 'You have been asked<br><span>to chair the next one</span>',
+     'Nobody says it is a punishment. They are all looking at their shoes in a way that says it is a punishment.'],
+    ['Out of patience', 'A subcommittee<br><span>has been formed</span>',
+     'It will look into the nature of your question. It will report in eighteen months. You are not allowed on it, but you must attend.'],
+    ['Out of patience', 'The meeting<br><span>runs on without you</span>',
+     'You are asked, kindly, to wait in the corridor while the room discusses whether to discuss your question. It takes two hours.'],
+    ['Out of patience', 'You have been<br><span>invited to a retreat</span>',
+     'Two days in a rented barn, with flip charts, about “communication”. Your name is on the first flip chart.']
+  ];
+
   function lose() {
-    endScreen(
-      'Out of patience',
-      'You have been appointed<br><span>to the working group</span>',
-      'You raised one hand too many. The first meeting is on Monday, at eight.',
-      SFX.over
-    );
+    const [kicker, title, body] = draw(LOSE_ENDS);
+    endScreen(kicker, title, body, SFX.over);
   }
 
   /* Endings for surviving all ten items, by how many times your hand got away from you. */
   const WIN_ENDS = [
-    [ // no mistakes
+    [ // no mistakes: quiet glory, faintly suspicious
       ['Closed <span>four minutes early</span>',
        'Ten items and not a word from you. You will be asked to chair next year’s meeting. Nobody will say why.'],
       ['Adjourned <span>with biscuits intact</span>',
@@ -1484,19 +1512,39 @@
       ['The room <span>is delighted</span>',
        'You did not ask a single question. Several colleagues have put you down as a reference, none of them knowing what for.'],
       ['Unanimous, <span>and silent</span>',
-       'Ten items, not a peep. A rumour starts that you are very, very senior.']
+       'Ten items, not a peep. A rumour starts that you are very, very senior.'],
+      ['A standing <span>half-ovation</span>',
+       'Two people clap, one in the back stops halfway, and the chair says “well”. It is the most affection this room has ever shown anyone.'],
+      ['Nominated for <span>the Quiet Prize</span>',
+       'There is no Quiet Prize. After today, there will be. The cheque is for a very small sum, and you must not ask what it is for.'],
+      ['Coffee <span>was still hot</span>',
+       'The meeting ended before the coffee went cold. Facilities will want to study how. You are asked not to explain.'],
+      ['Lunch <span>is at one, sharp</span>',
+       'You are home before the sandwiches have been put out. For the first time this term, you have a whole afternoon with nothing in it.'],
+      ['Mentioned <span>in the Dean’s speech</span>',
+       'In the next all-staff address you will be quoted as “an example to us all”. The Dean does not say what you did. The Dean does not know.']
     ],
-    [ // one mistake
+    [ // one mistake: a little worse, something small follows you
       ['Adjourned <span>only slightly late</span>',
-       'One question slipped out, and that is all it took to add forty minutes and a working group. Otherwise: excellent restraint.'],
+       'One question slipped out, and that is all it took to add forty minutes. Otherwise: excellent restraint.'],
       ['Closed <span>on time, more or less</span>',
        'One question got through. People still remember it, and for the next three years they will ask you what you meant.'],
       ['Adjourned, <span>with one footnote</span>',
        'Nine items of dignified silence and one question. It is in the minutes. It is the only thing in the minutes.'],
       ['Survived, <span>mostly</span>',
-       'One hand went up and the whole room sighed. Still a very respectable meeting. Your colleagues will only hold it against you quietly.']
+       'One hand went up and the whole room sighed. Still a very respectable meeting. Your colleagues will only hold it against you quietly.'],
+      ['A small <span>action point</span>',
+       'Your question has become “AP 4.2: look into this”. You are not the owner. You are, somehow, still the one who gets the email.'],
+      ['The coffee <span>went cold</span>',
+       'One question and the room lets out a slow sigh. By the time it is over, the coffee is cold, and everybody knows whose fault that is.'],
+      ['Out of the room, <span>into the corridor</span>',
+       'A colleague catches you on the way out and says “just a quick thought on what you said”. It will not be a quick thought.'],
+      ['Mildly <span>noted</span>',
+       'Your question is not forgotten. It is, instead, added to a list of things that are not forgotten. You are on the list too.'],
+      ['Closed, <span>but with a look</span>',
+       'The chair gives you the look. You do not know which look. It is the one that goes with a gentle “see me afterwards”.']
     ],
-    [ // two mistakes
+    [ // two mistakes: genuinely bad, one step from disaster
       ['Adjourned <span>at half past six</span>',
        'You made it to the end, but two questions are two too many. Your name is now attached to an action point, and you do not remember agreeing.'],
       ['Closed, <span>eventually</span>',
@@ -1504,7 +1552,19 @@
       ['Survived <span>by a hair</span>',
        'Two questions, a lot of sighing, and the caretaker locking up around you. You are still standing. The room has not forgotten.'],
       ['Adjourned <span>for the night</span>',
-       'You are one question from a working group and everybody knows it. People hold the door for you, a little too politely.']
+       'You are one question from a working group and everybody knows it. People hold the door for you, a little too politely.'],
+      ['A <span>recurring invitation</span>',
+       'Two questions and a weekly meeting appears in your diary: “Quick sync”, every Thursday at four, forever. You are the organiser.'],
+      ['Briefed <span>on a “small task”</span>',
+       'After the meeting the Head of Department says “since you’re so interested”. It is a four-year curriculum review. It starts Monday.'],
+      ['Moved to <span>the room with no window</span>',
+       'Next term’s meetings are held in room B.07, in the basement. The room has been assigned in your honour. There is a plant. It is plastic.'],
+      ['A sign <span>on your door</span>',
+       'Two questions earn you a laminated sign on your office door: “Questions welcome”. It is unclear who made it. Nobody has ever seen one on anyone else’s.'],
+      ['The Dean <span>has some thoughts</span>',
+       'A calendar invite appears for tomorrow: “Quick chat, nothing to worry about”. It is forty minutes long. There is a second person on the invite.'],
+      ['Nearly <span>a working group</span>',
+       'You survived, but they are drafting terms of reference with your name in them. “Pending”, says the draft. You are pending.']
     ]
   ];
 

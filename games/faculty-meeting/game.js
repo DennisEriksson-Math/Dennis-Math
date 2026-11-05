@@ -1472,14 +1472,46 @@
     );
   }
 
+  /* Endings for surviving all ten items, by how many times your hand got away from you. */
+  const WIN_ENDS = [
+    [ // no mistakes
+      ['Closed <span>four minutes early</span>',
+       'Ten items and not a word from you. You will be asked to chair next year’s meeting. Nobody will say why.'],
+      ['Adjourned <span>with biscuits intact</span>',
+       'Ten items, no questions, and the biscuits are still there. Someone calls it the most productive meeting in living memory. They cannot say what was decided.'],
+      ['Closed <span>eleven minutes early</span>',
+       'A flawless silence. The Dean mentions you in the minutes as “a calming presence”. You did not say anything.'],
+      ['The room <span>is delighted</span>',
+       'You did not ask a single question. Several colleagues have put you down as a reference, none of them knowing what for.'],
+      ['Unanimous, <span>and silent</span>',
+       'Ten items, not a peep. A rumour starts that you are very, very senior.']
+    ],
+    [ // one mistake
+      ['Adjourned <span>only slightly late</span>',
+       'One question slipped out, and that is all it took to add forty minutes and a working group. Otherwise: excellent restraint.'],
+      ['Closed <span>on time, more or less</span>',
+       'One question got through. People still remember it, and for the next three years they will ask you what you meant.'],
+      ['Adjourned, <span>with one footnote</span>',
+       'Nine items of dignified silence and one question. It is in the minutes. It is the only thing in the minutes.'],
+      ['Survived, <span>mostly</span>',
+       'One hand went up and the whole room sighed. Still a very respectable meeting. Your colleagues will only hold it against you quietly.']
+    ],
+    [ // two mistakes
+      ['Adjourned <span>at half past six</span>',
+       'You made it to the end, but two questions are two too many. Your name is now attached to an action point, and you do not remember agreeing.'],
+      ['Closed, <span>eventually</span>',
+       'Ten items done, two questions asked, and a follow-up meeting to discuss the follow-up meeting. You are on the invite list.'],
+      ['Survived <span>by a hair</span>',
+       'Two questions, a lot of sighing, and the caretaker locking up around you. You are still standing. The room has not forgotten.'],
+      ['Adjourned <span>for the night</span>',
+       'You are one question from a working group and everybody knows it. People hold the door for you, a little too politely.']
+    ]
+  ];
+
   function win() {
-    endScreen(
-      'Meeting adjourned',
-      'Closed <span>four minutes early</span>',
-      'Ten items and not a word from you. You will be asked to chair next year’s meeting. ' +
-      'Nobody will say why.',
-      SFX.win
-    );
+    const mistakes = Math.min(MAX_LIVES - S.lives, WIN_ENDS.length - 1);
+    const [title, body] = draw(WIN_ENDS[mistakes]);
+    endScreen('Meeting adjourned', title, body, SFX.win);
   }
 
   function start() {

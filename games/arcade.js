@@ -27,11 +27,11 @@ const GAMES = [
            'one satisfy the claim. Find the one that does not, before the timer does.'
   },
   {
-    title: 'Blackboard Bingo',
+    title: 'Conference Bingo',
     kicker: 'Bingo',
     href: 'blackboard-bingo/index.html',
-    blurb: 'Pick a speaker, then hunt their tics down on your own card — nothing points them ' +
-           'out. A line pays nothing until you call it, so decide when to speak up.'
+    blurb: 'Pick a session, then hunt the speaker\u2019s tics down on your own card — nothing ' +
+           'points them out. A line pays nothing until you call it, so decide when to speak up.'
   },
   {
     title: 'Tenure Track',
@@ -67,6 +67,20 @@ const GAMES = [
     href: 'job-market/index.html',
     blurb: 'You are the hiring committee. Fill a day of interviews: swipe right on candidates ' +
            'who fit every criterion, left on the rest, and read the cards closely.'
+  },
+  {
+    title: 'Grant Roulette',
+    kicker: 'Word tiles',
+    href: 'grant-roulette/index.html',
+    blurb: 'Six funding calls and a panel with secret tastes. Build a sentence of lofty nothing ' +
+           'from five buzzwords, read the signs, and whatever you do, do not be specific.'
+  },
+  {
+    title: 'Hallway Escape',
+    kicker: 'Platformer',
+    href: 'hallway-escape/index.html',
+    blurb: 'All you want is a coffee. Colleagues, students, the Dean, wet floors and a very long ' +
+           'list of emails stand in your way. Run, jump, and do not stop to chat.'
   }
 ];
 

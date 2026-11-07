@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════
-   BLACKBOARD BINGO — sit through a seminar and mark the
+   CONFERENCE BINGO — sit through a session and mark the
    phrases as they land. Stay awake.
 
    The game used to light up the matching square for you, and
@@ -55,7 +55,21 @@
     'The general case is similar',
     'I have forgotten the constant',
     'My co-author would object',
-    'Think of it as a black box'
+    'Think of it as a black box',
+    'Can you hear me online?',
+    'The slides are on the other laptop',
+    'Let us take that offline',
+    'We have time for one quick question',
+    'More of a comment than a question',
+    'I will not take much of your time',
+    'Please keep questions short',
+    'I am afraid we must stop there',
+    'You can find this on arXiv',
+    'The next speaker has not arrived',
+    'This is a very hot topic',
+    'As the keynote said yesterday',
+    'See you at the poster session',
+    'Sorry, wrong slide'
   ];
 
   /* Three speakers, same hour. Each says their own habits more often than
@@ -64,8 +78,9 @@
   const SPEAKERS = [
     {
       name: 'The Overrunner',
+      tag: 'fast, long',
       note: 'Forty minutes of material and twenty-five minutes left. Quick, and there is a great deal of it.',
-      calls: 50, callMs: 2800, window: 4200,
+      calls: 50, callMs: 3900,
       favours: [
         'I will be brief',
         'I am running out of time',
@@ -82,8 +97,9 @@
     },
     {
       name: 'The Hand-Waver',
+      tag: 'steady',
       note: 'Everything is standard, obvious, or left to you. An ordinary pace and an extraordinary confidence.',
-      calls: 44, callMs: 3200, window: 4600,
+      calls: 44, callMs: 4500,
       favours: [
         'It is easy to see that…',
         'I leave that as an exercise',
@@ -102,8 +118,9 @@
     },
     {
       name: 'The Historian',
+      tag: 'slow, short',
       note: 'Credit where it is due, at length. Slower, fewer slides, and rather longer on each one.',
-      calls: 38, callMs: 3900, window: 5400,
+      calls: 38, callMs: 5400,
       favours: [
         'As my student showed',
         'This is joint work with…',
@@ -113,15 +130,36 @@
         'The details are in the paper',
         'This is the key lemma',
         'There is a subtlety here',
-        'The converse is false'
+        'The converse is false',
+        'As the keynote said yesterday',
+        'You can find this on arXiv'
+      ]
+    },
+    {
+      name: 'The Session Chair',
+      tag: 'steady, interrupts',
+      note: 'Introduces, interrupts, apologises. Plenty of housekeeping, and a clock they keep glancing at.',
+      calls: 42, callMs: 4800,
+      favours: [
+        'Can you hear me online?',
+        'The slides are on the other laptop',
+        'Let us take that offline',
+        'We have time for one quick question',
+        'More of a comment than a question',
+        'Please keep questions short',
+        'I am afraid we must stop there',
+        'The next speaker has not arrived',
+        'See you at the poster session',
+        'Sorry, wrong slide',
+        'I will not take much of your time'
       ]
     }
   ];
 
   const SIZE     = 5;
-  const DRIFT    = 0.9;    // attention lost per second
+  const DRIFT    = 0.65;   // attention lost per second
   const HIT_GAIN = 7;      // attention regained by marking
-  const MISS_HIT = 11;     // attention lost by missing one on your card
+  const MISS_HIT = 8;      // attention lost by missing one on your card
   const FREE     = '…and so on';
 
   const Q_USES   = 2;      // questions you may ask in one talk
@@ -198,12 +236,31 @@
     });
   }
 
-  /* The speaker's own phrases go into the running order twice, everything
-     else once, so their habits come round about twice as often. */
-  function buildOrder(spk) {
-    const fav  = PHRASES.filter((p) => spk.favours.indexOf(p) >= 0);
-    const rest = PHRASES.filter((p) => spk.favours.indexOf(p) < 0);
-    return shuffle(fav.concat(fav, rest));
+  /* The running order. With 58 phrases in the pool a card holds fewer than half
+     of them, so a plain shuffle would leave most lines unreachable. Instead:
+     most of what is on your card gets said (a speaker's own habits almost
+     always, anything else about four times in five), the speaker's habits come
+     round twice, and the rest is filled out with whatever else they might say.
+     The order is only as long as the talk, plus a little for questions. */
+  function buildOrder(spk, calls) {
+    const want = calls + Q_USES * Q_COST + 2;
+    const isFav = (p) => spk.favours.indexOf(p) >= 0;
+    const list = [];
+    S.card.forEach((p) => {
+      if (p === FREE) return;
+      if (Math.random() < (isFav(p) ? 0.97 : 0.8)) list.push(p);
+    });
+    spk.favours.forEach((p) => { if (list.indexOf(p) < 0) list.push(p); list.push(p); });
+    const onCard = (p) => S.card.indexOf(p) >= 0;
+    // Too long: drop duplicates and off-card phrases first, never the ones you hold.
+    while (list.length > want) {
+      const spare = list.map((p, i) => i).filter((i) => !onCard(list[i]) || list.indexOf(list[i]) !== i);
+      list.splice(spare.length ? spare[(Math.random() * spare.length) | 0] : list.length - 1, 1);
+    }
+    // Too short: more of what any speaker might say.
+    const others = shuffle(PHRASES.filter((p) => list.indexOf(p) < 0));
+    while (list.length < want && others.length) list.push(others.pop());
+    return shuffle(list);
   }
 
   /* ─── Calls ──────────────────────────────────────────────── */
@@ -211,6 +268,8 @@
   function nextCall() {
     if (!S.running || S.paused) return;
 
+    closeCall();                        // anything still unmarked is now missed
+    if (S.attention <= 0) return;       // the tick will see to it
     if (S.calls >= S.cfg.calls) { endTalk(); return; }
     S.calls++;
 
@@ -221,8 +280,8 @@
 
     S.live = {
       phrase: phrase,
-      endsAt: Date.now() + S.cfg.window,
-      onCard: idx >= 0 && !S.marked[idx],
+      endsAt: Date.now() + S.cfg.callMs,
+      onCard: !away && idx >= 0 && !S.marked[idx],   // nothing is lost while you are out
       away: away
     };
 
@@ -403,8 +462,8 @@
 
     if (S.live) {
       const leftMs = S.live.endsAt - now;
-      elBar.style.width = Math.max(0, (leftMs / S.cfg.window) * 100) + '%';
-      if (leftMs <= 0) closeCall();
+      elBar.style.width = Math.max(0, (leftMs / S.cfg.callMs) * 100) + '%';
+      if (leftMs <= 0 && S.live.onCard) closeCall();
     } else {
       elBar.style.width = '0%';
     }
@@ -479,7 +538,7 @@
         ? 'You marked<br><span>every square</span>'
         : 'Polite<br><span>applause</span>') + '</h1>' +
       '<p class="sheet-body">' + (full
-        ? 'A complete card. You have either been to a great many seminars or this was a very ordinary one.'
+        ? 'A complete card. You have either been to a great many conferences or this was a very ordinary conference.'
         : (S.lines ? 'You called it, and nobody else in the room knows.'
                    : 'No line called. You did stay awake, which is its own achievement.')) + '</p>' +
       (left ? uncalledNote() : '') + results() +
@@ -505,8 +564,8 @@
   function startScreen() {
     show(
       '<div class="sheet">' +
-      '<div class="sheet-kicker">Thursday, 4pm, room B12</div>' +
-      '<h1 class="sheet-title">Blackboard <span>Bingo</span></h1>' +
+      '<div class="sheet-kicker">Day two, 4pm, parallel session B</div>' +
+      '<h1 class="sheet-title">Conference <span>Bingo</span></h1>' +
       '<p class="sheet-body">The speaker begins. Every phrase they say goes up on the screen. ' +
       '<strong>If it is on your card, find it and mark it</strong> before they move on. ' +
       'Nothing points it out for you.</p>' +
@@ -517,7 +576,7 @@
         '<li>You may ask two questions and fetch one coffee. Both buy attention, and both cost you something.</li>' +
         '<li>Attention drains anyway. At zero you fall asleep.</li>' +
       '</ul>' +
-      '<button class="btn" id="start-btn">Choose a seminar</button>' +
+      '<button class="btn" id="start-btn">Choose a session</button>' +
       '<a class="sheet-back" href="../index.html">← Back to the Common Room</a>' +
       '</div>'
     );
@@ -535,7 +594,7 @@
     const rows = SPEAKERS.map((spk, i) => {
       const overlap = S.card.filter((p) => spk.favours.indexOf(p) >= 0).length;
       return '<button type="button" class="pick" data-i="' + i + '">' +
-        '<span class="pick-name">' + spk.name + '</span>' +
+        '<span class="pick-name">' + spk.name + ' <em>' + spk.tag + '</em></span>' +
         '<span class="pick-note">' + spk.note + '</span>' +
         '<span class="pick-count">' + overlap + ' of your squares ' +
           (overlap === 1 ? 'is one of their habits' : 'are among their habits') + '</span>' +
@@ -543,9 +602,9 @@
     }).join('');
 
     show(
-      '<div class="sheet sheet-wide">' +
-      '<div class="sheet-kicker">Three talks, the same hour</div>' +
-      '<h1 class="sheet-title">Which <span>seminar?</span></h1>' +
+      '<div class="sheet sheet-wide sheet-pick">' +
+      '<div class="sheet-kicker">Four rooms, the same hour</div>' +
+      '<h1 class="sheet-title">Which <span>session?</span></h1>' +
       '<p class="sheet-body">Your card is already dealt. Pick the speaker most likely to say what is on it.</p>' +
       '<div class="picks">' + rows + '</div>' +
       '<a class="sheet-back" href="../index.html">← Back to the Common Room</a>' +
@@ -563,12 +622,12 @@
 
     // A copy, because asking questions lengthens the talk and the speaker
     // must be their old self again next time.
-    S.cfg = { name: spk.name, calls: spk.calls, callMs: spk.callMs, window: spk.window };
+    S.cfg = { name: spk.name, calls: spk.calls, callMs: spk.callMs };
 
     S.score = 0; S.lines = 0; S.attention = 100; S.calls = 0;
     S.scored = {}; S.live = null;
     S.questions = Q_USES; S.coffee = C_USES; S.away = 0; S.paused = false;
-    S.order = buildOrder(spk);
+    S.order = buildOrder(spk, spk.calls);
     S.running = true;
     last = Date.now();
     elTag.textContent = spk.name + ' begins';

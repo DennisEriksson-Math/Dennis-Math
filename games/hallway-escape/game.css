@@ -1,0 +1,230 @@
+/* ═══════════════════════════════════════════════════════════
+   HALLWAY ESCAPE — a corridor, a canvas and three buttons.
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  --bg:      #151c26;
+  --bg-lo:   #0a0f15;
+  --paper:   #f5f1e6;
+  --paper-lo:#e4dec9;
+  --ink:     #22232c;
+  --ink-dim: rgba(34, 35, 44, 0.58);
+  --coffee:  #e0a458;
+  --good:    #2f8f5b;
+  --bad:     #c4432f;
+
+  --font-type: 'Special Elite', 'Courier New', monospace;
+  --font-ui:   'Sora', system-ui, -apple-system, sans-serif;
+
+  --ease-pop: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg-lo);
+  color: #e8edf2;
+  font-family: var(--font-ui);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none; user-select: none;
+  touch-action: none;
+}
+body {
+  display: flex; flex-direction: column;
+  background: linear-gradient(180deg, #1c2633 0%, var(--bg-lo) 100%);
+}
+@supports (height: 100dvh) { body { height: 100dvh; } }
+
+/* ── HUD ── */
+.hud {
+  position: relative; z-index: 3;
+  display: flex; align-items: flex-end; gap: clamp(12px, 3.5vw, 30px);
+  padding: 12px clamp(12px, 3vw, 28px) 6px;
+}
+.stat b {
+  display: block;
+  font-family: var(--font-type);
+  font-size: 19px; font-variant-numeric: tabular-nums;
+  color: #f2f5f8;
+}
+.stat b.is-late { color: var(--bad); }
+.stat span {
+  display: block; margin-top: 1px;
+  font-size: 8px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(200, 212, 225, 0.5);
+}
+.lives { display: flex; align-items: center; gap: 6px; margin-left: auto; padding-bottom: 3px; }
+.lives span {
+  font-size: 8px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(200, 212, 225, 0.5); margin-right: 2px;
+}
+.lives i {
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--coffee);
+  box-shadow: 0 0 9px rgba(224, 164, 88, 0.5);
+  transition: background 0.3s, transform 0.3s;
+}
+.lives i.is-gone { background: transparent; border: 1.5px solid rgba(200, 212, 225, 0.28); box-shadow: none; transform: scale(0.8); }
+.pause {
+  width: 30px; height: 30px; flex: none;
+  font: 600 11px var(--font-ui); letter-spacing: 1px;
+  color: rgba(230, 238, 245, 0.8);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 50%;
+  cursor: pointer;
+}
+
+/* ── The corridor ── */
+.view {
+  position: relative; z-index: 1;
+  flex: 1; min-height: 0;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+#cv {
+  display: block;
+  background: #000;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+  touch-action: none;
+}
+.level-tag {
+  position: absolute; left: 0; right: 0; top: 4px;
+  text-align: center; pointer-events: none;
+  font-family: var(--font-type);
+  font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: rgba(235, 242, 248, 0.55);
+}
+
+/* ── Controls ── */
+.pad {
+  position: relative; z-index: 3;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px;
+  padding: 8px clamp(12px, 4vw, 28px) max(14px, env(safe-area-inset-bottom));
+}
+.pad-move { display: flex; gap: 12px; }
+.key {
+  width: 74px; height: 74px;
+  font: 600 22px var(--font-ui);
+  color: #f3f6f9;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1.5px solid rgba(255, 255, 255, 0.24);
+  border-radius: 50%;
+  touch-action: none;
+  cursor: pointer;
+  transition: background 0.08s, transform 0.08s;
+}
+.key.is-down { background: rgba(224, 164, 88, 0.5); transform: scale(0.93); }
+.key-jump { width: 96px; height: 96px; font-size: 14px; letter-spacing: 0.14em; background: rgba(224, 164, 88, 0.22); border-color: rgba(224, 164, 88, 0.6); }
+
+/* ── Overlay / sheets ── */
+.overlay {
+  position: fixed; inset: 0; z-index: 10;
+  display: flex; align-items: flex-start; justify-content: center;
+  padding: 14px;
+  overflow-y: auto;
+  background: rgba(6, 10, 15, 0.8);
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.3s ease-out;
+}
+.overlay.is-open { opacity: 1; pointer-events: auto; }
+.overlay > * { margin: auto; }
+
+.sheet {
+  width: min(500px, 100%);
+  padding: 28px 26px 22px;
+  text-align: center;
+  background: linear-gradient(168deg, var(--paper) 0%, var(--paper-lo) 100%);
+  color: var(--ink);
+  border-radius: 3px;
+  box-shadow: 0 34px 80px rgba(0, 0, 0, 0.75);
+  transform: translateY(14px);
+  transition: transform 0.45s var(--ease-pop);
+}
+.overlay.is-open .sheet { transform: translateY(0); }
+.sheet-kicker {
+  font-family: var(--font-type);
+  font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase;
+  color: #8a6a22;
+}
+.sheet-title {
+  margin-top: 10px;
+  font-family: var(--font-type);
+  font-size: clamp(26px, 6vw, 36px);
+  font-weight: 400; line-height: 1.1;
+}
+.sheet-title span { color: var(--bad); }
+.sheet-title.is-good span { color: var(--good); }
+.sheet-body { margin-top: 12px; font-size: 14px; line-height: 1.6; color: rgba(34, 35, 44, 0.84); }
+.sheet-rules { margin: 16px 0 2px; text-align: left; list-style: none; display: grid; gap: 7px; }
+.sheet-rules li {
+  position: relative; padding-left: 20px;
+  font-size: 12.8px; line-height: 1.48; color: rgba(34, 35, 44, 0.86);
+}
+.sheet-rules li::before { content: '·'; position: absolute; left: 6px; font-size: 20px; line-height: 1; color: var(--bad); }
+.sheet-rules b { font-family: var(--font-type); font-weight: 400; }
+
+.tally { margin: 14px 0 2px; padding: 10px 0; border-top: 1px solid rgba(34,35,44,0.14); border-bottom: 1px solid rgba(34,35,44,0.14); display: grid; gap: 3px; text-align: left; }
+.tally div { display: flex; justify-content: space-between; font-size: 13px; }
+.tally div b { font-family: var(--font-type); font-weight: 400; font-variant-numeric: tabular-nums; }
+.tally .is-total { margin-top: 4px; padding-top: 5px; border-top: 1px dashed rgba(34,35,44,0.25); font-size: 15px; }
+
+.btn {
+  margin-top: 18px; padding: 13px 28px;
+  font-family: var(--font-type); font-size: 14px;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--paper); background: var(--ink);
+  border: 0; border-radius: 2px; cursor: pointer;
+  box-shadow: 0 5px 0 #0c0d14;
+  transition: transform 0.14s, box-shadow 0.14s;
+}
+.btn:active { transform: translateY(4px); box-shadow: 0 1px 0 #0c0d14; }
+.sheet-back { display: block; margin-top: 14px; font-size: 12px; color: var(--ink-dim); text-decoration: none; }
+.sheet-back:hover { color: var(--bad); }
+
+/* ═══════════════════════ RESPONSIVE ═══════════════════════ */
+
+@media (max-width: 620px) {
+  .hud { padding: 8px 12px 4px; gap: 12px; }
+  .stat b { font-size: 16px; }
+  .lives span { display: none; }
+  .sheet { padding: 20px 16px 14px; }
+  .sheet-body { margin-top: 8px; font-size: 13px; line-height: 1.5; }
+  .sheet-rules { margin-top: 10px; gap: 5px; }
+  .sheet-rules li { font-size: 12px; line-height: 1.4; }
+  .btn { margin-top: 12px; }
+  .sheet-back { margin-top: 10px; }
+}
+
+/* Short screens (a phone held sideways): the buttons float over the corridor. */
+@media (orientation: landscape) and (max-height: 520px) {
+  .hud { position: absolute; left: 0; right: 0; top: 0; padding: 4px 14px 14px; pointer-events: none;
+         background: linear-gradient(180deg, rgba(8, 12, 18, 0.72) 0%, rgba(8, 12, 18, 0) 100%); }
+  .hud .pause { pointer-events: auto; }
+  .stat b { font-size: 14px; text-shadow: 0 1px 3px rgba(0,0,0,0.8); }
+  .stat span { text-shadow: 0 1px 3px rgba(0,0,0,0.8); }
+  .view { position: absolute; inset: 0; }
+  .level-tag { display: none; }
+  .pad {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    padding: 0 18px max(10px, env(safe-area-inset-bottom));
+    pointer-events: none;
+  }
+  .pad .key { pointer-events: auto; width: 58px; height: 58px; font-size: 18px; opacity: 0.55; }
+  .pad .key-jump { width: 72px; height: 72px; font-size: 12px; }
+  .pad .key.is-down { opacity: 0.9; }
+  .sheet { padding: 12px 16px 10px; }
+  .sheet-title { font-size: 22px; margin-top: 2px; }
+  .sheet-kicker { display: none; }
+  .sheet-body { margin-top: 4px; font-size: 12px; }
+  .sheet-rules { margin-top: 6px; gap: 3px; }
+  .sheet-rules li { font-size: 11px; line-height: 1.32; }
+  .tally { margin-top: 6px; padding: 5px 0; }
+  .tally div { font-size: 11.5px; }
+  .btn { margin-top: 8px; padding: 9px 22px; }
+  .sheet-back { margin-top: 6px; }
+}

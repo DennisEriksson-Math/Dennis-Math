@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════
-   BLACKBOARD BINGO — the back row of a dark lecture hall.
+   CONFERENCE BINGO — the back row of a dark lecture hall.
    ═══════════════════════════════════════════════════════════ */
 
 :root {
@@ -429,7 +429,7 @@ body { display: flex; flex-direction: column; }
 /* Out of the room: the slide is still up, but it is not yours to mark. */
 .screen-line.is-away { opacity: 0.32; filter: blur(1.2px); }
 
-/* Choosing which of the three talks to sit in. */
+/* Choosing which of the four sessions to sit in. */
 .sheet-wide { max-width: 560px; }
 .picks { display: grid; gap: 10px; margin-top: 22px; text-align: left; }
 .pick {
@@ -451,6 +451,15 @@ body { display: flex; flex-direction: column; }
   font-size: 15px;
   color: var(--ink);
 }
+.pick-name em {
+  font-family: var(--font-ui);
+  font-style: normal;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  margin-left: 6px;
+}
 .pick-note {
   display: block;
   margin-top: 4px;
@@ -465,6 +474,28 @@ body { display: flex; flex-direction: column; }
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--marked);
+}
+
+/* Four rooms have to fit on a phone: lose the prose before anything else. */
+@media (max-height: 760px) {
+  .sheet-pick .sheet-body { display: none; }
+  .sheet-pick .picks { margin-top: 14px; gap: 7px; }
+  .sheet-pick .pick { padding: 8px 12px; }
+  .sheet-pick .pick-note { font-size: 11px; line-height: 1.35; margin-top: 3px; }
+  .sheet-pick .pick-count { font-size: 10px; margin-top: 4px; }
+}
+@media (max-height: 640px) {
+  .sheet-pick .pick-note { display: none; }
+}
+/* Sideways: two by two, nothing but names. */
+@media (max-height: 520px) {
+  .sheet-pick { padding: 12px 18px 10px; }
+  .sheet-pick .sheet-kicker { display: none; }
+  .sheet-pick .sheet-title { margin-top: 0; font-size: 22px; }
+  .sheet-pick .picks { grid-template-columns: 1fr 1fr; margin-top: 8px; gap: 6px; }
+  .sheet-pick .pick { padding: 6px 10px; }
+  .sheet-pick .pick-name em { display: block; margin: 1px 0 0; }
+  .sheet-pick .sheet-back { margin-top: 8px; }
 }
 
 .sheet-warn { color: var(--alert); font-size: 13px; margin-top: 10px; }

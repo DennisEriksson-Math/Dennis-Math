@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#14212e">
+<title>Grant Roulette</title>
+<meta name="description" content="Six funding calls and a panel with secret tastes. Fill in a sentence of lofty nothing, read the signs, and do not be specific.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Sora:wght@300;400;500;600&family=Special+Elite&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="game.css?v=3">
+</head>
+<body>
+
+<div class="lobby" aria-hidden="true"><div class="light"></div><div class="grain"></div></div>
+
+<header class="hud">
+  <div class="stat"><b id="total">£0</b><span>Awarded</span></div>
+  <div class="stat"><b id="funded">0</b><span>Funded</span></div>
+  <div class="stat"><b id="best">£0</b><span>Best</span></div>
+  <div class="round" id="round">Call 1 of 6</div>
+</header>
+
+<main class="stage">
+  <section class="call" id="call">
+    <div class="call-tag" id="call-tag">The call</div>
+    <h2 class="call-title" id="call-title"></h2>
+    <p class="call-blurb" id="call-blurb"></p>
+    <p class="call-funded" id="call-funded"></p>
+  </section>
+
+  <section class="draft" aria-live="polite">
+    <div class="draft-label">Your proposal</div>
+    <p class="sentence" id="sentence"></p>
+  </section>
+
+  <section class="hand">
+    <div class="hand-label" id="hand-label">Choose a verb</div>
+    <div class="tiles" id="tiles"></div>
+  </section>
+
+  <button class="btn" id="submit" type="button" disabled>Submit to the panel</button>
+</main>
+
+<div class="overlay" id="overlay"></div>
+
+<script src="sfx.js?v=1"></script>
+<script src="game.js?v=2"></script>
+</body>
+</html>

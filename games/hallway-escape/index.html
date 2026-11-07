@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#1b2430">
+<title>Hallway Escape</title>
+<meta name="description" content="A side-scrolling dash to the coffee machine. Colleagues, students, the Dean, wet floors and a very long list of emails stand in your way.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600&family=Special+Elite&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="game.css?v=2">
+</head>
+<body>
+
+<header class="hud">
+  <div class="stat"><b id="score">0</b><span>Score</span></div>
+  <div class="stat"><b id="coins">0</b><span>Citations</span></div>
+  <div class="stat"><b id="clock">1:20</b><span>Meeting in</span></div>
+  <div class="lives" id="lives"><span>Patience</span><i></i><i></i><i></i></div>
+  <button class="pause" id="pause" type="button" aria-label="Pause">II</button>
+</header>
+
+<main class="view" id="view">
+  <canvas id="cv"></canvas>
+  <div class="level-tag" id="level-tag"></div>
+</main>
+
+<div class="pad" id="pad">
+  <div class="pad-move">
+    <button class="key" data-key="left"  type="button" aria-label="Left">◀</button>
+    <button class="key" data-key="right" type="button" aria-label="Right">▶</button>
+  </div>
+  <button class="key key-jump" data-key="jump" type="button" aria-label="Jump">JUMP</button>
+</div>
+
+<div class="overlay" id="overlay"></div>
+
+<script src="sfx.js?v=1"></script>
+<script src="game.js?v=2"></script>
+</body>
+</html>

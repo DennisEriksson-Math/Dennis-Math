@@ -29,6 +29,8 @@ erdos-number/      index.html  game.css  game.js  sfx.js
 the-gap/           index.html  game.css  game.js  sfx.js
 faculty-meeting/   index.html  game.css  game.js  sfx.js
 job-market/        index.html  game.css  game.js  sfx.js
+grant-roulette/    index.html  game.css  game.js  sfx.js
+hallway-escape/    index.html  game.css  game.js  sfx.js
 orbit/             index.html  styles.css  physics.js  main.js  audio.js
 ```
 
@@ -42,11 +44,13 @@ Each game folder is self-contained — copy any one of them anywhere and it runs
 | **Counterexample** | Hidden object | A blackboard |
 | **Tenure Track** | Resource management | A personnel file |
 | **Proof or Bluff** | Quickfire quiz | A card under a lamp |
-| **Blackboard Bingo** | Bingo, with a call | The back row of a lecture hall |
+| **Conference Bingo** | Bingo, with a call | The back row of a conference room |
 | **Erdős Number** | Weighted shortest path | Ink on a legal pad |
 | **The Gap** | Ordering puzzle | A referee's desk |
 | **Should I Ask a Question?** | Resisting temptation | A faculty meeting |
 | **Love at First Cite** | Swipe | A hiring committee's phone |
+| **Grant Roulette** | Word tiles, reading the signs | A funding panel's lobby |
+| **Hallway Escape** | Side-scrolling platformer | The corridor to the coffee machine |
 
 `orbit/` is the interactive space scene the project started from — a scene
 rather than a game, linked from the footer.
@@ -127,17 +131,23 @@ explanation shown after you answer. Several pairs differ by a single word
 ("every integral domain is a field" against "every *finite* integral domain is
 a field"); those are the ones worth having.
 
-## Blackboard Bingo
+## Conference Bingo
 
-A 5×5 card of seminar phrases. Marking one restores attention, missing one on
-your card costs 11, and attention drains anyway. At zero you fall asleep.
+(The folder is still `blackboard-bingo/`, so existing links keep working.)
+
+A 5×5 card of conference phrases. Marking one restores attention, missing one on
+your card costs 8, and attention drains anyway. At zero you fall asleep.
 
 The first version of this was purely reactive: the matching square lit up, and
 lines scored themselves. There was nothing to decide. Three things carry the
 decisions now.
 
 **The square is not lit.** The phrase goes up on the screen and you find it on
-your own card, or you do not.
+your own card, or you do not. A phrase stays up until the next one arrives, and
+if it was on your card and you have not marked it by then, that is a miss. (An
+older version let phrases be replaced before the miss was counted, so missing
+never cost anything. It does now.) Slides that go by while you are fetching
+coffee cost nothing.
 
 **A line pays nothing until you call it.** `Call bingo` scores every completed
 line you have not yet cashed, and *n* of them called together are worth
@@ -152,21 +162,26 @@ and returns 28 attention, but they now have two more slides to get through. A
 coffee returns 50, and two slides happen while you are in the corridor — you
 can hear them, and you cannot mark them.
 
-**Three speakers, and the card is dealt first.** Each favours a slice of the
-phrase pool, which goes into their running order twice over, and each sets
-their own pace:
+**Four sessions, and the card is dealt first.** Each speaker favours a slice of
+the 58-phrase pool and sets their own pace (the time between phrases is also how
+long you have to find the square). A card holds fewer than half the pool, so
+`buildOrder()` makes sure most of what is on your card does get said (a speaker's
+own habits almost always, anything else about four times in five), the speaker's
+habits come round twice, and the rest is filler:
 
-| Speaker | Slides | Every | Window | Favours |
-|---|---|---|---|---|
-| The Overrunner | 50 | 2.8s | 4.2s | 11 phrases about time and length |
-| The Hand-Waver | 44 | 3.2s | 4.6s | 13 about things being obvious |
-| The Historian | 38 | 3.9s | 5.4s | 9 about credit and provenance |
+| Speaker | Slides | Every | Favours |
+|---|---|---|---|
+| The Overrunner | 50 | 3.9s | 11 phrases about time and length |
+| The Hand-Waver | 44 | 4.5s | 13 about things being obvious |
+| The Historian | 38 | 5.4s | 11 about credit, provenance and keynotes |
+| The Session Chair | 42 | 4.8s | 11 about housekeeping and interruptions |
 
 Because you see the card before you choose the room, the choice screen can tell
-you how many of your squares are each speaker's habit — typically 5 to 7 out of
-24, and worth choosing on. Adding a phrase to a `favours` list is the one thing
-to be careful with: **the strings must match `PHRASES` exactly**, or the
-speaker quietly loses a habit and nothing complains.
+you how many of your squares are each speaker's habit, and worth choosing on.
+Adding a phrase to a `favours` list is the one thing to be careful with:
+**the strings must match `PHRASES` exactly**, or the speaker quietly loses a
+habit and nothing complains. The four-way choice screen drops its prose on short
+phones and goes two by two sideways.
 
 ## Erdős Number
 
@@ -295,10 +310,89 @@ interests), `BIO`, `NEUTRAL`, `STATUS`, `FIRST` and `LAST`. The rules live in
 `makeCandidate()` and `misses()`. Candidates are fictional and are described only
 by their application, never by anything personal.
 
+## Grant Roulette
+
+Six funding calls from one panel. In each you build a sentence out of five
+buzzwords (`We will [verb] [adjective] [noun] through [method] to deliver
+[outcome].`), five tiles on offer per slot, and the panel scores it. Fund
+at least 55 points and the score is the money.
+
+The puzzle is in what the panel wants. At the start of a run it draws three
+tags from eight (climate, digital, health, inclusion, industry, security,
+openness, the international side): two it likes (14 and 9 points a word) and one
+it is tired of (−14). Nothing says which. You have three clues:
+
+1. **The call.** Two hints per round, written in the panel's own oblique
+   language (`TAGS[...].want` and `.tired`: five lines each), rotating through
+   what they like and what they are tired of (`HINTS`).
+2. **Last time's winners.** Two made-up titles, built from words the panel likes.
+3. **The reviewers.** Three lines after every submission, each one true and none
+   the whole picture (`reviews()`).
+
+Words are tagged by the cell they sit in (`WORDS[slot][tag]`, six per cell).
+`neutral` words are plain hot air and earn a little (+3). `specific` words
+(`prove`, `a randomised trial`, `lemmas`) are mistakes (−14): anything that could be
+checked cannot be funded. Every hand is built to contain a word the panel likes in each
+slot, so there is always a way to please them, usually a way to annoy them, and a
+trap or two.
+
+Variation is part of the scoring: more than two words of one tag costs −12 each,
+leaning on the same emphasis as the previous call costs −8, a word already used in
+this run counts for nothing (and costs −5), and two neighbouring words that start
+with the same letter earn +6. A simulation (calls funded out of 6: random picks 0.7, merely avoiding the traps 1.9,
+leaning on one theme every time 1, informed play 6) is how the constants were
+chosen; change them and run it again.
+
+Ends: two texts for each of 0, 1–2, 3–4 and 5–6 funded; the verdict screen reveals
+what the panel actually wanted. Phones: the call card, sentence and tiles shrink with the
+usual `fit()`; sideways the call sits on the left and the writing on the right, and
+the result sheets go two columns.
+
+## Hallway Escape
+
+A side-scrolling platformer, drawn entirely with rectangles on a 320×192 canvas
+(20×12 tiles of 16px), scaled to the screen and the device's pixel ratio. Run
+with the arrows or A and D, jump with space (hold for height), or use the three
+on-screen buttons on a phone; they float over the corridor when the phone is
+sideways.
+
+Three floors, each assembled from twenty-column chunks (`CHUNKS`), so no two walks
+are the same. Each chunk is built with a few calls on `Grid` (`pit`, `wet`, `stack`,
+`shelf`, `stand`, `coins`...) and keeps its floor flat at both ends, so any chunk can
+follow any other. `LEVELS` says how long you get, how many chunks, which ones, and
+which are forced (every floor has a coffee, floors 2 and 3 have headphones, floor 3
+has the Dean).
+
+What stands in your way is the `ENT` table; each has its own cost:
+
+| Obstacle | Behaviour | Costs |
+|---|---|---|
+| Colleague with a quick question | stands still | 1 patience, 1.1s |
+| Student | follows you when close | 1 patience, 0.8s |
+| The Dean | big, slow | 1 patience, 2s |
+| Lost visitor | wanders | half speed for 3.5s |
+| Administrator with a form | stands still | 6s off the clock, 1.6s |
+| Email | flies at you | 4s off the clock |
+| Loose cable | on the floor | 2s off the clock |
+| Wet floor | slippery tiles | grip |
+| Hole in the floor | maintenance | 1 patience, back to the last safe spot |
+| Boxes, cabinets, a jammed copier | solid | a jump |
+
+Headphones make you unreachable for 8s; coffee restores patience. Three hits sends you
+back to the last checkpoint (the middle of the floor). The clock only counts for the
+bonus: arriving late still works. The last floor's coffee machine is out of order.
+
+Logic uses a fixed 60 Hz step; it pauses when the tab is hidden. A bot that plays each
+floor with perfect dodging finishes in about 25, 30 and 36 seconds (so the clocks, 80,
+100 and 125, leave room for people), and a bot that never dodges people does get stopped
+and sent back. If you add a chunk, make sure it is flat at both ends, and check it
+with the same kind of bot.
+
 ## Phones
 
-Both of the newer games (`faculty-meeting/`, `job-market/`) have to show the whole
-card and the buttons on a phone, whatever the screen:
+The newer games (`faculty-meeting/`, `job-market/`, `grant-roulette/`, `hallway-escape/`,
+and the Conference Bingo chooser) have to show the whole card and the buttons on a
+phone, whatever the screen:
 
 - Short screens drop decoration (Love at First Cite hides the grey chips under 720px of
   height).

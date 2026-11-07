@@ -50,7 +50,7 @@ Each game folder is self-contained — copy any one of them anywhere and it runs
 | **Should I Ask a Question?** | Resisting temptation | A faculty meeting |
 | **Love at First Cite** | Swipe | A hiring committee's phone |
 | **Grant Roulette** | Word tiles, reading the signs | A funding panel's lobby |
-| **Hallway Escape** | Auto-runner, reading the doors | The corridor to the coffee machine |
+| **Hallway Escape** | Three-lane runner into the screen | The corridor to the coffee machine |
 
 `orbit/` is the interactive space scene the project started from — a scene
 rather than a game, linked from the footer.
@@ -350,48 +350,66 @@ the result sheets go two columns.
 
 ## Hallway Escape
 
-A runner, drawn entirely with rectangles on a 320×192 canvas (scaled to the screen
-and the device's pixel ratio). The corridor scrolls on its own and speeds up; you
-**jump** (Space, Up, W, or the button) and **slide** (Down, S, or the button). Pressing
-slide in the air drops you fast and slides on landing. On a phone the two buttons
-float over the corridor when it is held sideways.
+A runner, drawn entirely with rectangles and polygons on a 320×240 canvas (scaled to the
+screen and the device's pixel ratio). You run *into* the screen down a corridor that gets
+faster. The view is a plain perspective projection: `pj(x, y, z)` puts a point on the screen,
+the corridor is a strip of quads (`drawCorridor`), and everything else is a billboard scaled by
+its distance, sorted far to near with the runner among them.
 
-The game is reading doors. Along the wall are doors; as you get close one cracks open
-(`OPEN_T`, 0.28 s) and a **silhouette** shows in the gap, which is the whole clue.
-Then somebody steps out:
+How it is made to look and feel good: the physics runs at a fixed 60 Hz, but the picture is carried
+on a fraction of a step past the last one (`render(acc)`), so scrolling is smooth at 60, 90 or
+120 Hz. Lane changes are a stiff spring rather than a constant slide, and the camera follows a
+little late on its own spring, rolls into the turn, rises with a jump and widens with speed.
+The corridor is lit: additive glows for the ceiling lights and their reflections, light from
+the windows falling across the floor, doors that swing out on a hinge with a warm room behind
+them. People are drawn with rounded, shaded limbs and a walk cycle (a talker gestures and
+moves their mouth), and are reflected faintly in the polished floor. The runner stretches in
+a jump, squashes on landing and crouches in a slide. A vignette, speed lines, a colour wash per
+floor and particles (dust, sparkles on coins, a burst on a hit) finish it. All of it is plain
+canvas 2D; a busy frame takes under a millisecond on a desktop.
 
-| Who | Shape | What to do |
+Three lanes. **Left and right** change lane, **jump** (a fixed half-second hop, 24 high) and
+**slide** (pressed in the air, it drops you fast and slides on landing). Arrows or WASD, the four
+on-screen buttons, or swiping on the corridor. The buttons float over the corridor when the phone
+is sideways.
+
+Doors along both walls; as you get close one cracks open (`OPEN_T`) with a dark silhouette in the
+gap, and somebody steps out, **with a speech bubble**, towards your lane:
+
+| Who | What they do | Get past by |
 |---|---|---|
-| Colleague (quick question) | ordinary | jump |
-| Student | backpack, runs at you | jump, and sooner |
-| The Dean | tall | jump, and early |
-| Lost visitor | backpack, wanders | jump |
-| Administrator | holds a huge form out over the corridor, floor to head | **slide** (the form reaches past the top of a jump) |
-| Nobody | the door opens on an empty room | nothing, and do not jump |
+| Colleague (quick question) | steps out into the lane you are in, and stands | another lane |
+| Student | follows you sideways until the last moment | another lane, late |
+| The Dean | takes two lanes | the third lane |
+| Lost visitor | walks slowly across the whole corridor | timing, or the lane they have left |
+| Administrator | stays in the doorway and holds a huge form out over two lanes at head height | slide, or the far lane |
+| Nobody | the door opens on an empty room | nothing |
 
-Between doors: boxes, cables and trolleys (jump), emails flying at you (high ones you
-slide under, low ones you jump), holes in the floor (jump), and wet floors, which speed
-you up so the next door comes sooner. A hit costs patience, makes you stumble, and
-resets your dodge streak. Three hits sends you back to the middle of the floor. Every
-dodge scores `25 × (1 + streak ÷ 4)` up to ×4. Coffee restores patience; headphones make
-people unable to reach you for six seconds.
+Between doors: people chatting in two lanes, boxes, trolleys and cables (jump, or another lane),
+tall stacks (another lane), banners across the corridor (slide), holes in the floor (jump),
+emails flying at you (high ones slide, low ones jump) and wet floors, which speed you up. A hit
+costs patience, makes you stumble and resets your dodge streak; three hits sends you back to the
+middle of the floor. Every dodge scores `25 × (1 + streak ÷ 4)`, up to ×4. Coffee restores
+patience; headphones make people unable to reach you for six seconds.
 
-Three floors, each a strip of patterns (`PATTERNS`: one door, a pair, a fake then a real
-one, wet floor then a door, a hole then a door, a gauntlet of three...) laid along the
-corridor by `buildLevel`. `LEVELS` sets how long, how fast (`v0` → `v1`), and `warn0` →
-`warn1`: the seconds between a door cracking and you reaching it. Each door's warning is
-jittered by ±14% so the rhythm cannot be learned.
+Three floors, each a strip of patterns (`PATTERNS`: one door, a door then a banner, a fake door
+then a real one, a gauntlet...) laid along the corridor by `buildLevel`. `LEVELS` sets the
+distance, the speed (`v0` → `v1`) and `warn0` → `warn1`, the seconds between a door cracking and
+you reaching it. Each door's warning is jittered by ±14% so the rhythm cannot be learned, and the
+Dean and the administrator get a quarter-second more, since they take lanes or a slide.
 
-The difficulty was set with a bot rather than by feel. It sees the silhouette, takes a
-reaction time, and jumps or slides with a bit of timing noise. With a 0.28 s reaction it
-sails through floors 1 and 2 and takes a few hits on 3; at 0.32 s floor 2 starts to
-hurt and floor 3 is a struggle; at 0.36 s floor 2 is too much. Phone touch lag is about
-0.05–0.1 s on top of a human reaction. Run the bot again if you change `LEVELS`,
-`PATTERNS` or the jump constants: two things that both need a jump are never closer than a
-jump and a breath, and that is the thing a new pattern is most likely to break.
+The difficulty was set with a bot rather than by feel. It takes a reaction time, sees what is
+coming from the moment a person steps out, and changes lane, jumps or slides with a bit of timing
+noise. With a 0.25 s reaction it takes about 0.1, 0.9 and 3.7 hits on the three floors; at
+0.30 s, 0.4, 4 and 7; at 0.40 s, 2, 4 and 12, with the odd restart from the checkpoint on the
+last floor. (The runs are noisy and the second floor can come out harder than the third.) Phone touch lag is
+roughly 0.05–0.1 s on top of a human reaction. Run it again if you change `LEVELS`, `PATTERNS`
+or the jump constants. The one thing a new pattern is most likely to break is time to react
+and move: every pattern has to leave a way through.
 
-An earlier version of this game was a free-roaming platformer with stationary people in the
-way; it was too easy, since you could stop and think. That is why you cannot stop here.
+Earlier versions of this game were a free-roaming platformer, and then a side-on auto-runner.
+The platformer was too easy because you could stop and think; the side-on view had no room
+to dodge sideways, so people could only be jumped over. Running into the screen fixes both.
 
 ## Phones
 

@@ -79,8 +79,8 @@ const GAMES = [
     title: 'Hallway Escape',
     kicker: 'Runner',
     href: 'hallway-escape/index.html',
-    blurb: 'You run, the corridor speeds up, and doors crack open. A colleague, a student, the ' +
-           'Dean. Read the shape in the doorway: jump, or slide. All you want is a coffee.'
+    blurb: 'You run down a corridor towards the coffee machine, and it keeps getting faster. Doors ' +
+           'open, colleagues step out and everybody has something to say. Change lane, jump, slide.'
   }
 ];
 

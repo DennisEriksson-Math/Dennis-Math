@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
 <meta name="theme-color" content="#1b2430">
 <title>Hallway Escape</title>
-<meta name="description" content="A dash to the coffee machine down a corridor of doors. Watch the doors: colleagues, students and the Dean are about to step out. Jump, slide, survive.">
+<meta name="description" content="Run down a corridor towards the coffee machine. Doors open, colleagues step out, and everybody has something to say. Change lane, jump, slide.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="game.css?v=3">
+<link rel="stylesheet" href="game.css?v=4">
 </head>
 <body>
 
@@ -27,13 +27,19 @@
 </main>
 
 <div class="pad" id="pad">
-  <button class="key key-slide" data-key="slide" type="button" aria-label="Slide">SLIDE</button>
-  <button class="key key-jump" data-key="jump" type="button" aria-label="Jump">JUMP</button>
+  <div class="pad-move">
+    <button class="key" data-key="left"  type="button" aria-label="Move left">◀</button>
+    <button class="key" data-key="right" type="button" aria-label="Move right">▶</button>
+  </div>
+  <div class="pad-move">
+    <button class="key key-slide" data-key="slide" type="button" aria-label="Slide">SLIDE</button>
+    <button class="key key-jump" data-key="jump" type="button" aria-label="Jump">JUMP</button>
+  </div>
 </div>
 
 <div class="overlay" id="overlay"></div>
 
 <script src="sfx.js?v=1"></script>
-<script src="game.js?v=6"></script>
+<script src="game.js?v=9"></script>
 </body>
 </html>

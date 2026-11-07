@@ -41,10 +41,10 @@
          style: { hair: '#6a4a2c', skin: '#e3b48d', top: '#4f7aa6', pants: '#33384a', glasses: true },
          lines: ['Got a minute?', 'Quick question…', 'Do you have two minutes?', 'Just a tiny thing about the timetable', 'Ah, perfect timing!', 'Sorry, one thing!', 'This will only take a sec', 'Can I borrow you?', 'Did you see my email?', 'Quick one about the room booking', 'You are just the person I wanted!', 'It is about the minutes of the minutes'] },
     s: { name: 'student', w: 14, h: 32, speed: 82, track: true,
-         style: { hair: '#2e2a2a', skin: '#d9a97f', top: '#c2553f', pants: '#2c3e5c', bag: '#3b8a6e' },
+         style: { hair: '#2e2a2a', skin: '#d9a97f', top: '#c2553f', pants: '#2c3e5c', bag: '#3b8a6e', phone: true },
          lines: ['Prof! Prof! One thing!', 'Is the exam on this?', 'I sent you an email!', 'Can I get an extension?', 'Do you have office hours?', 'Can you sign this?', 'Will this be on the test?', 'It is only a short question!', 'Did you get my message?', 'Is attendance mandatory?'] },
     a: { name: 'administrator', w: 14, h: 34, speed: 0, form: true,
-         style: { hair: '#3a2a22', skin: '#d4a07a', top: '#8a4f7a', pants: '#2f3446', glasses: true },
+         style: { hair: '#3a2a22', skin: '#d4a07a', top: '#8a4f7a', pants: '#2f3446', glasses: true, lanyard: '#2e9d7a' },
          lines: ['Just sign here. And here. And here.', 'Form 27B. In triplicate.', 'Have you done the mandatory training?', 'You missed the deadline (yesterday).', 'Did you read the new policy?', 'The portal says you owe us a receipt.'] },
     d: { name: 'Dean', w: 44, h: 44, speed: 90,
          style: { hair: '#b7b7b7', skin: '#e0b08a', top: '#25324a', pants: '#1b2236', tie: '#b8352b', glasses: true },
@@ -54,6 +54,29 @@
          lines: ['Excuse me, where is room B12?', 'Is this the maths building?', 'Sorry, is there a toilet?', 'Which way to the café?', 'I am here for the seminar?', 'Is this the third floor?', 'I think I am lost, sorry!'] }
   };
   const CHAT_LINES = ['…and then I said to the Dean…', 'Did you hear about the budget?', 'Honestly, the timetable is a disgrace.', 'We should write that up.', 'Have you seen the new forms?', 'It was a very long meeting.', 'Anyway, as I was saying…', 'So I replied to all.'];
+
+  const MORE = {
+    q: ['Have you got five minutes? Ten, tops.', 'I just need a signature. Well, an opinion.', 'Is now a bad time? It is, isn’t it.', 'Walk and talk?', 'Do you know who is chairing the Thursday thing?', 'I was going to email you, but here you are!', 'Have you read the new strategy? Nobody has.', 'You were cc’d on something. Do you know what?', 'Can you review my draft? It is forty pages.', 'I have a tiny favour. It has an appendix.', 'Do you know how the printer works? Nobody does.', 'Are you going to the retirement do?', 'Quick sanity check on my proof…', 'Could you co-supervise someone? He is very nice.', 'Did you get the fire-drill email?', 'Have you got a moment for a lemma?', 'I need a second opinion on a referee report.', 'Can you cover my lecture on Tuesday?', 'Is it okay if I put your name on the grant?', 'Did you hear we are merging with another department?', 'Sorry, did you say you were free on Wednesday?', 'I wondered if you had thoughts on the curriculum…', 'Quick one: what is the password for the shared drive?', 'Do you know whose umbrella this is?', 'You look busy. Do you have a minute?', 'Is it true the coffee machine is being replaced?', 'Can we sync? Just you, me and four others.'],
+    s: ['Can I ask a question about the exam? It is long.', 'I missed the last three lectures. What happened?', 'Is the deadline really today?', 'Can you write me a reference? For tomorrow.', 'I think there is a typo on slide 12, or I understand nothing.', 'My dog ate my proof.', 'Can I hand it in in ten minutes? Hours? Weeks?', 'I have an idea for a thesis. It is about everything.', 'Can I switch to your group?', 'Why did I get 49? Is 50 possible?', 'Sorry, I have only a tiny question about chapter one…', 'Do you accept late homework? Very late?', 'Could you explain the whole course in a minute?', 'I emailed you at 3 a.m. Did you see?', 'Can I borrow your pen? And your notes?', 'What is the definition of a group again?', 'Is the exam open book? Open mind?', 'I have a different solution. It is wrong but interesting.', 'How many points is this worth?', 'Can I retake the midterm? And the final?', 'Do I need to know the proofs? All of them?', 'Excuse me, what is a lemma?', 'Is this on the syllabus? Is anything?', 'Could you sign my form? It is quite a lot of forms.', 'I did not understand the question. Or the answer.'],
+    a: ['You need to complete the annual risk assessment.', 'Your parking permit has expired. Since 2019.', 'Please confirm your travel claim. Receipts in triplicate.', 'Have you submitted your outside-activities declaration?', 'The audit needs your signature. Blue ink only.', 'The new system needs everything re-entered.', 'You have three unread compliance modules.', 'Form 12-C, then 12-D, then a form about the forms.', 'Your office has been reassigned. Pending.', 'Your desk survey is overdue.', 'Please justify the coffee budget.', 'Have you done the data-protection refresher?', 'We cannot reimburse a sandwich.', 'Your leave request needs three approvals.', 'Did you see the new template for templates?', 'Your training certificate expires in ninety seconds.'],
+    d: ['I wanted a quick word about priorities.', 'Do you have a moment to discuss the future?', 'We are reviewing everything. Starting with you.', 'The Faculty needs volunteers. You, specifically.', 'I would like you on a task force.', 'Could you chair the committee on committees?', 'We are reshaping the curriculum. Walk with me.', 'I have exciting news about the budget. It is not exciting.', 'Let us take this offline. Offline is my office.', 'I admire your independence. Please be more collaborative.', 'There is an opening on the strategic board.', 'How is your teaching load? Light, I hope.', 'We should sit down. Bring your calendar.', 'The Vice-Chancellor asked about your research impact.', 'Remind me what you do again?'],
+    v: ['Excuse me, is this the way to the conference?', 'Do you know where I can get a coffee? Any coffee?', 'I am looking for Professor… somebody.', 'Is there Wi-Fi here? Which password?', 'Could you tell me where the lecture is? Any lecture.', 'I think I am supposed to give a talk in ten minutes.', 'Where is the nearest exit? Or entrance?', 'Is this the right building? It was a different building.', 'Sorry, do you work here?', 'How do I get to room 4.317? The numbers confuse me.', 'Is the seminar on mathematics or on cake?', 'Where are the toilets? Please say it is near.', 'I have a delivery for the Dean. Is he here?', 'Do you know a good place for lunch?', 'Is that the way to the lift? Which lift?']
+  };
+  Object.keys(MORE).forEach((k) => { PEOPLE[k].lines = PEOPLE[k].lines.concat(MORE[k]); });
+
+  /* Everybody looks a little different each time. */
+  const SKINS = ['#f1c9a5', '#e3b48d', '#c98f63', '#9a6a45', '#6b4429'];
+  const HAIRS = ['#2a2626', '#5b3d24', '#a87b45', '#cfcfd2', '#16161a', '#7e3426', '#d8b36a'];
+  const HSTYLES = ['short', 'short', 'long', 'bun', 'curly', 'bald'];
+  function variant(st, o) {
+    o = o || {};
+    const v = Object.assign({}, st);
+    v.skin = rnd(SKINS);
+    if (o.keepHair) v.hs = 'short';
+    else { v.hair = rnd(HAIRS); v.hs = rnd(HSTYLES); if (v.hs === 'bald') v.hair = shade(v.skin, -0.06); }
+    if (o.skirt && Math.random() < 0.45) v.skirt = shade(v.top, -0.28);
+    return v;
+  }
   const OBJ_LINES = {
     box: ['Who leaves boxes in a corridor?', 'Ouch. Printer paper.'],
     cart: ['A trolley of exam scripts.', 'Mind the trolley!'],
@@ -72,15 +95,15 @@
   /* len: distance to the coffee. v0 → v1: running speed, rising along the way.
      warn: seconds between a door starting to open and you reaching it. */
   const LEVELS = [
-    { name: 'The third-floor corridor', len: 5000, v0: 112, v1: 170, warn0: 1.05, warn1: 0.88, theme: 0,
+    { name: 'The third-floor corridor', len: 4100, v0: 86, v1: 132, warn0: 1.0, warn1: 0.8, theme: 0,
       pool: { amb: 5, ambA: 2, chat: 3, low: 3, stack: 2, over: 2, pit: 2, email: 2, fake: 1, wet: 1 },
       hint: 'Doors open and people step out. Move to another lane to get round them. Jump low things, slide under high ones.',
       done: 'Coffee. Black. No questions asked.' },
-    { name: 'The long way round', len: 6300, v0: 125, v1: 195, warn0: 0.9, warn1: 0.72, theme: 1,
+    { name: 'The long way round', len: 5200, v0: 98, v1: 156, warn0: 0.82, warn1: 0.64, theme: 1,
       pool: { amb: 4, ambA: 2, ambD: 1, chat: 2, low: 2, stack: 2, over: 2, pit: 2, email: 3, fake: 2, pair: 3, wet: 2, bait: 3 },
       hint: 'Faster now. Students follow you, some doors open on nothing, and the Dean takes up two lanes.',
       done: 'Two sugars and a clear conscience.' },
-    { name: 'The basement café', len: 7600, v0: 138, v1: 218, warn0: 0.8, warn1: 0.62, theme: 2,
+    { name: 'The basement café', len: 6300, v0: 108, v1: 172, warn0: 0.72, warn1: 0.54, theme: 2,
       pool: { amb: 3, ambA: 2, ambD: 3, chat: 1, low: 2, stack: 1, over: 2, pit: 2, email: 3, fake: 2, pair: 3, bait: 3, gauntlet: 3 },
       hint: 'The Dean is on this floor, and so is everybody else. Watch the doors.',
       done: 'The machine says OUT OF ORDER.' }
@@ -89,7 +112,7 @@
   const THEMES = [
     { wallA: '#d9cfb3', wallB: '#cdc2a2', wain: '#9c8f6d', floorA: '#8d897d', floorB: '#7d796e', ceilA: '#efe9d6', ceilB: '#e2dac2', light: '#fffbe0', door: '#6a4a32', fog: '#d6ccb0', glow: '255,244,200', sun: '255,236,190', grade: 'rgba(255,190,110,0.045)' },
     { wallA: '#b8cab4', wallB: '#a9bda6', wain: '#6c8668', floorA: '#7e8b81', floorB: '#6f7c72', ceilA: '#e0eadb', ceilB: '#d0dccb', light: '#f6ffd9', door: '#5b3f2a', fog: '#c6d6c2', glow: '230,255,200', sun: '230,255,210', grade: 'rgba(120,200,150,0.04)' },
-    { wallA: '#5d6e80', wallB: '#516274', wain: '#334150', floorA: '#4d5663', floorB: '#424a56', ceilA: '#323e4b', ceilB: '#2a3541', light: '#cfe6ff', door: '#3b4a58', fog: '#10161d', glow: '150,200,255', sun: '120,170,255', grade: 'rgba(60,110,200,0.06)' }
+    { wallA: '#5d6e80', wallB: '#516274', wain: '#334150', floorA: '#4d5663', floorB: '#424a56', ceilA: '#323e4b', ceilB: '#2a3541', light: '#cfe6ff', door: '#3b4a58', fog: '#10161d', glow: '150,200,255', sun: '120,170,255', grade: 'rgba(60,110,200,0.06)', pipes: true }
   ];
 
   /* ─── Building a floor ───────────────────────────────────── */
@@ -203,7 +226,7 @@
         // the Dean takes two lanes and the administrator's form is already fully out, so they need longer to see coming
         if (o.k === 'door' && (o.who === 'd' || o.who === 'a')) o.warn += 0.24;
       }
-      oz += used + v * (0.85 + Math.random() * 0.5) + 30;
+      oz += used + v * (0.74 + Math.random() * 0.44) + 26;
     }
 
     // Pickups in clear stretches, one per lane at most.
@@ -223,13 +246,15 @@
     for (let d = 90; d < cfg.len + 200; d += 70 + ((Math.random() * 60) | 0)) {
       const side = randSide();
       if (L.ob.some((o) => o.k === 'door' && o.side === side && Math.abs(o.oz - d) < 50)) continue;
-      L.decor.push({ oz: d, side: side, kind: rnd(['window', 'window', 'board', 'picture', 'plant', 'ext']), v: (Math.random() * 3) | 0 });
+      L.decor.push({ oz: d, side: side, kind: rnd(['window', 'window', 'board', 'picture', 'plant', 'ext', 'bench', 'alarm']), v: (Math.random() * 3) | 0 });
     }
+    // signs hanging from the ceiling, over the middle of the corridor
+    for (let d = 260; d < cfg.len + 100; d += 300 + ((Math.random() * 120) | 0)) L.decor.push({ oz: d, side: 0, kind: 'sign', v: (Math.random() * 6) | 0 });
 
     // Plain doors along both walls. These never open.
     for (let d = 140; d < cfg.len + 200; d += 120 + ((Math.random() * 90) | 0)) {
       [-1, 1].forEach((side) => {
-        if (Math.random() < 0.7 && !L.ob.some((o) => o.k === 'door' && o.side === side && Math.abs(o.oz - d) < 70) && !L.decor.some((x) => x.side === side && Math.abs(x.oz - d) < 36)) L.dummies.push({ oz: d, side: side });
+        if (Math.random() < 0.7 && !L.ob.some((o) => o.k === 'door' && o.side === side && Math.abs(o.oz - d) < 70) && !L.decor.some((x) => x.side === side && Math.abs(x.oz - d) < 36)) L.dummies.push({ oz: d, side: side, exit: Math.random() < 0.18 });
       });
     }
     return L;
@@ -259,8 +284,8 @@
     ob = L.ob.filter((o) => o.oz >= fromD).map((o) => {
       const r = Object.assign({ hit: false, done: false }, o);
       if (r.k === 'door') { r.state = 0; r.t = 0; r.label = null; }
-      if (r.k === 'email') { r.speed = 60; }
-      if (r.k === 'person') { r.say = draw(PEOPLE[r.who].lines); r.sayT = 99; r.step = 0; }
+      if (r.k === 'email') { r.speed = 42; }
+      if (r.k === 'person') { r.say = draw(PEOPLE[r.who].lines); r.sayT = 99; r.step = 0; r.look = variant(PEOPLE[r.who].style, { skirt: true }); }
       return r;
     });
     items = L.items.filter((it) => it.oz >= fromD).map((it) => Object.assign({ got: false, ph: Math.random() * 6 }, it));
@@ -350,7 +375,7 @@
     const x0 = d.side * (HW - 8);
     const lane = Math.round(P.x / LANE);
     const p = {
-      k: 'person', who: d.who, oz: d.oz + 7, x: x0, hit: false, done: false, door: d,
+      k: 'person', who: d.who, oz: d.oz + 7, x: x0, hit: false, done: false, door: d, look: variant(pp.style, { keepHair: d.who === 'd', skirt: d.who !== 'd' }),
       tx: pp.cross ? -d.side * (HW - 10) : pp.track ? P.x : d.who === 'd' ? d.side * LANE * 0.5 : d.who === 'a' ? x0 : laneX(lane),
       say: draw(pp.lines), sayT: 99, step: 0
     };
@@ -501,7 +526,7 @@
     const w = viewEl.clientWidth, h = viewEl.clientHeight;
     const s = Math.min(w / VW, h / VH);
     const cw = Math.max(1, Math.floor(VW * s)), ch = Math.max(1, Math.floor(VH * s));
-    const dpr = Math.min(window.devicePixelRatio || 1, 2.5);
+    const dpr = Math.min(window.devicePixelRatio || 1, 3);
     cv.style.width = cw + 'px'; cv.style.height = ch + 'px';
     cv.width = Math.round(cw * dpr); cv.height = Math.round(ch * dpr);
     SC = cv.width / VW;
@@ -511,6 +536,12 @@
     const g = v.createRadialGradient(VW / 2, VH * 0.46, VH * 0.28, VW / 2, VH * 0.5, VH * 0.95);
     g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, 'rgba(0,0,0,0.5)');
     v.fillStyle = g; v.fillRect(0, 0, VW, VH);
+    if (!grain) {
+      grain = document.createElement('canvas'); grain.width = 192; grain.height = 144;
+      const gx = grain.getContext('2d'), id = gx.createImageData(192, 144);
+      for (let i = 0; i < id.data.length; i += 4) { const n = Math.random() * 255; id.data[i] = id.data[i + 1] = id.data[i + 2] = n; id.data[i + 3] = 255; }
+      gx.putImageData(id, 0, 0);
+    }
   }
   window.addEventListener('resize', layout);
 
@@ -612,6 +643,22 @@
         face(mix(th.light, th.fog, t * 0.7), [[-13, WALLH - 0.15, zn + 4], [13, WALLH - 0.15, zn + 4], [13, WALLH - 0.15, zf - 4], [-13, WALLH - 0.15, zf - 4]]);
       }
     }
+    // tile grout down the floor, and a soft shadow where the walls meet it and the ceiling
+    for (let gx = -48; gx <= 48; gx += 12) face('rgba(0,0,0,0.055)', [[gx - 0.18, 0, ZN], [gx + 0.18, 0, ZN], [gx + 0.18, 0, ZF], [gx - 0.18, 0, ZF]]);
+    [-HW, HW].forEach((wx) => {
+      const inw = wx < 0 ? 1 : -1;
+      [3, 6.5, 11].forEach((wd) => {
+        face('rgba(0,0,0,0.05)', [[wx, 0.05, ZN], [wx + inw * wd, 0.05, ZN], [wx + inw * wd, 0.05, ZF], [wx, 0.05, ZF]]);
+        face('rgba(0,0,0,0.05)', [[wx, WALLH - 0.05, ZN], [wx + inw * wd, WALLH - 0.05, ZN], [wx + inw * wd, WALLH - 0.05, ZF], [wx, WALLH - 0.05, ZF]]);
+      });
+    });
+    // pipes along the ceiling in the basement
+    if (th.pipes) {
+      [-36, 36].forEach((px) => {
+        [[5.4, '#232c36'], [3.8, '#3a4857'], [1.5, '#7f95aa']].forEach((q) => face(q[1], [[px - q[0] / 2, WALLH - 3.4, ZN], [px + q[0] / 2, WALLH - 3.4, ZN], [px + q[0] / 2, WALLH - 3.4, ZF], [px - q[0] / 2, WALLH - 3.4, ZF]]));
+        for (let k = kmax; k >= kmin; k--) if (k % 3 === 0) { const z0 = Math.max(ZN, k * BL - RD + PZ); face('#1c232b', [[px - 3.4, WALLH - 3.5, z0], [px + 3.4, WALLH - 3.5, z0], [px + 3.4, WALLH, z0], [px - 3.4, WALLH, z0]]); }
+      });
+    }
     // a glossy sheen down the middle of the floor, and the glow of each light
     for (let k = kmax; k >= kmin; k--) {
       if (k % 4 !== 0) continue;
@@ -620,6 +667,12 @@
       const c = pj(0, WALLH, z), f = pj(0, 0, z), a = clamp(1 - z / ZF, 0, 1);
       glow(c[0], c[1], 46 * c[2] + 8, 20 * c[2] + 4, th.glow, 0.36 * a);
       glow(f[0], f[1], 40 * f[2] + 8, 8 * f[2] + 2, th.glow, 0.32 * a);          // its reflection on the floor
+      // the long streak a light leaves on a polished floor, and a wash on each wall
+      ctx.save(); ctx.globalCompositeOperation = 'lighter';
+      const sg = ctx.createLinearGradient(0, f[1], 0, f[1] + 90 * f[2]); sg.addColorStop(0, 'rgba(' + th.glow + ',' + (0.2 * a) + ')'); sg.addColorStop(1, 'rgba(' + th.glow + ',0)');
+      ctx.fillStyle = sg; ctx.fillRect(f[0] - 7 * f[2], f[1], 14 * f[2], 90 * f[2]);
+      ctx.restore();
+      [-HW + 1, HW - 1].forEach((wx) => { const wp = pj(wx, WALLH - 12, z); glow(wp[0], wp[1], 20 * wp[2] + 3, 30 * wp[2] + 3, th.glow, 0.2 * a); });
     }
   }
 
@@ -653,6 +706,7 @@
       ctx.save(); ctx.globalCompositeOperation = 'lighter';
       const a = clamp(1 - z / ZF, 0, 1) * 0.16;
       face('rgba(' + th.sun + ',' + a + ')', [[d.side * HW, 0.2, z + 2], [d.side * (HW - 34), 0.2, z + 18], [d.side * (HW - 34), 0.2, z + 44], [d.side * HW, 0.2, z + 24]]);
+      face('rgba(' + th.sun + ',' + (a * 0.5) + ')', [[d.side * HW, 58, z + 1], [d.side * HW, 58, z + 19], [d.side * (HW - 34), 0.4, z + 44], [d.side * (HW - 34), 0.4, z + 18]]);
       ctx.restore();
     });
   }
@@ -664,68 +718,140 @@
     ctx.strokeStyle = col; ctx.lineWidth = w; ctx.lineCap = 'round';
     ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
   }
+  const OUT = 'rgba(22,18,30,0.42)';
 
-  /* o: dark (silhouette), back (seen from behind), moving, talk (gesturing), mug, squash */
+  /* People: stylised, with a tapering body, shoulders, two-part arms, a shaded head with a face, and
+     several hair styles. Feet at 0,0; units are world units.
+     o: dark (silhouette), back (seen from behind), moving, talk (gesturing), mug, phone, seed */
   function figure(st, w, h, step, o) {
     o = o || {};
     const dark = !!o.dark, back = !!o.back;
     const C = (c) => (dark ? '#07080b' : c);
+    const line = (lw) => { if (!dark) { ctx.strokeStyle = OUT; ctx.lineWidth = lw || 0.5; ctx.lineJoin = 'round'; ctx.stroke(); } };
     const ph = step * 6.4, sw = o.moving ? Math.sin(ph) : 0, cw = o.moving ? Math.cos(ph) : 0;
-    const hip = -h * 0.43, sho = -h * 0.745, headR = h * 0.108, headY = -h * 0.885;
-    const bob = o.moving ? -Math.abs(cw) * h * 0.022 : Math.sin(simT * 2.2 + (o.seed || 0)) * 0.25;
+    const seed = o.seed || 0;
+    const sho = -h * 0.715, waist = -h * 0.475, hip = -h * 0.43, neckY = -h * 0.76;
+    const headR = h * 0.125, headY = -h * 0.875;
+    const SW = w * 0.56, WW = w * 0.42;
+    const bob = o.moving ? -Math.abs(cw) * h * 0.02 : Math.sin(simT * 2.1 + seed) * 0.22;
+    const hs = st.hs || 'short';
+
     ctx.save();
     ctx.translate(0, bob);
-    // legs: one foot lifts while the other plants
-    const legW = w * 0.3;
+
+    // long hair falls behind the shoulders
+    if (hs === 'long' || (back && hs === 'bun')) {
+      ctx.fillStyle = C(st.hair); rr(-headR * 1.1, headY - headR * 0.3, headR * 2.2, headR * (hs === 'long' ? 3.9 : 2.1), headR * 0.7); ctx.fill();
+    }
+
+    // legs, tapered, one foot lifting as the other plants
     [-1, 1].forEach((side, i) => {
-      const lift = o.moving ? Math.max(0, (i ? sw : -sw)) * h * 0.07 : 0;
-      limb(side * w * 0.17, hip, side * w * 0.2, -1.4 - lift, legW, C(st.pants));
-      ctx.fillStyle = C(st.shoes || '#1b1b22'); ctx.beginPath(); ctx.ellipse(side * w * 0.2, -0.9 - lift, w * 0.22, 1.5, 0, 0, 6.3); ctx.fill();
+      const lift = o.moving ? Math.max(0, (i ? sw : -sw)) * h * 0.075 : 0;
+      const hx = side * w * 0.2, fx = side * w * (0.22 + (o.moving ? 0.03 * (i ? sw : -sw) : 0)), fy = -1.3 - lift;
+      const g = ctx.createLinearGradient(hx - w * 0.2, 0, hx + w * 0.2, 0);
+      g.addColorStop(0, shade(st.pants, 0.1)); g.addColorStop(1, shade(st.pants, -0.22));
+      ctx.fillStyle = dark ? '#07080b' : g;
+      ctx.beginPath(); ctx.moveTo(hx - w * 0.2, hip); ctx.lineTo(hx + w * 0.2, hip); ctx.lineTo(fx + w * 0.13, fy - 1.6); ctx.lineTo(fx - w * 0.13, fy - 1.6); ctx.closePath(); ctx.fill(); line(0.45);
+      ctx.fillStyle = C(st.shoes || '#1d1b22'); ctx.beginPath(); ctx.ellipse(fx, fy - 0.2, w * 0.2, 1.9, 0, 0, 6.3); ctx.fill(); line(0.4);
+      if (!dark) { ctx.fillStyle = 'rgba(255,255,255,0.22)'; ctx.beginPath(); ctx.ellipse(fx - w * 0.05, fy - 0.9, w * 0.09, 0.5, 0, 0, 6.3); ctx.fill(); }
     });
-    // a bag behind, or the straps in front
-    if (st.bag && back) { ctx.fillStyle = C(st.bag); rr(-w * 0.36, sho + 1, w * 0.72, h * 0.3, 2); ctx.fill(); }
-    // torso
-    const tg = ctx.createLinearGradient(-w / 2, 0, w / 2, 0);
-    tg.addColorStop(0, shade(st.top, 0.12)); tg.addColorStop(0.55, st.top); tg.addColorStop(1, shade(st.top, -0.22));
-    ctx.fillStyle = dark ? '#07080b' : tg; rr(-w * 0.5, sho, w, hip - sho + 2, w * 0.28); ctx.fill();
-    if (!dark) { ctx.fillStyle = 'rgba(255,255,255,0.1)'; rr(-w * 0.42, sho + 1, w * 0.3, (hip - sho) * 0.8, 2); ctx.fill(); }
-    // arms swing against the legs; a talker gestures
-    const aLen = h * 0.3;
+    // a skirt over the legs
+    if (st.skirt) {
+      ctx.fillStyle = C(st.skirt); ctx.beginPath(); ctx.moveTo(-WW, waist + 1); ctx.lineTo(WW, waist + 1); ctx.lineTo(w * 0.62, -h * 0.2); ctx.quadraticCurveTo(0, -h * 0.17, -w * 0.62, -h * 0.2); ctx.closePath(); ctx.fill(); line(0.45);
+    }
+
+    // a bag behind (seen from behind), or a satchel on the hip
+    if (st.bag && back) { ctx.fillStyle = C(st.bag); rr(-w * 0.38, sho + 1.5, w * 0.76, h * 0.3, 2.4); ctx.fill(); line(0.45); }
+
+    // torso: shoulders, a waist, a collar
+    const tg = ctx.createLinearGradient(-SW, 0, SW, 0);
+    tg.addColorStop(0, shade(st.top, 0.16)); tg.addColorStop(0.5, st.top); tg.addColorStop(1, shade(st.top, -0.26));
+    ctx.fillStyle = dark ? '#07080b' : tg;
+    ctx.beginPath(); ctx.moveTo(-WW, waist); ctx.lineTo(-SW * 0.96, sho + 2.4);
+    ctx.quadraticCurveTo(-SW, sho - 0.4, -SW * 0.72, sho - 0.9); ctx.lineTo(SW * 0.72, sho - 0.9);
+    ctx.quadraticCurveTo(SW, sho - 0.4, SW * 0.96, sho + 2.4); ctx.lineTo(WW, waist); ctx.quadraticCurveTo(0, waist + 1.8, -WW, waist); ctx.closePath(); ctx.fill(); line(0.55);
+    if (!dark) {
+      ctx.fillStyle = 'rgba(255,255,255,0.1)'; ctx.beginPath(); ctx.moveTo(-SW * 0.8, sho + 1); ctx.lineTo(-SW * 0.25, sho + 1); ctx.lineTo(-WW * 0.4, waist - 1); ctx.lineTo(-WW * 0.9, waist - 1); ctx.closePath(); ctx.fill();
+      ctx.fillStyle = shade(st.pants, -0.12); ctx.fillRect(-WW, waist - 0.6, WW * 2, 1.6);                               // belt
+      if (back) {
+        ctx.strokeStyle = shade(st.top, -0.3); ctx.lineWidth = 0.5; ctx.beginPath(); ctx.moveTo(0, sho + 1); ctx.lineTo(0, waist); ctx.stroke();      // the back seam
+        if (st.patches) { ctx.fillStyle = shade(st.top, -0.35); ctx.beginPath(); ctx.ellipse(-SW - 1.2, sho + h * 0.2, 1.6, 2.2, 0, 0, 6.3); ctx.fill(); ctx.beginPath(); ctx.ellipse(SW + 1.2, sho + h * 0.2, 1.6, 2.2, 0, 0, 6.3); ctx.fill(); }
+      } else {
+        // an open jacket over a pale shirt
+        ctx.fillStyle = '#eceae2'; ctx.beginPath(); ctx.moveTo(-w * 0.12, sho - 0.4); ctx.lineTo(w * 0.12, sho - 0.4); ctx.lineTo(w * 0.07, waist - 1); ctx.lineTo(-w * 0.07, waist - 1); ctx.closePath(); ctx.fill();
+        ctx.strokeStyle = shade(st.top, -0.35); ctx.lineWidth = 0.5; ctx.beginPath(); ctx.moveTo(-w * 0.13, sho - 0.4); ctx.lineTo(-w * 0.08, waist - 1); ctx.moveTo(w * 0.13, sho - 0.4); ctx.lineTo(w * 0.08, waist - 1); ctx.stroke();
+        if (st.tie) { ctx.fillStyle = st.tie; ctx.beginPath(); ctx.moveTo(-1, sho); ctx.lineTo(1, sho); ctx.lineTo(1.4, sho + 2); ctx.lineTo(1.9, waist - 3); ctx.lineTo(0, waist - 1.2); ctx.lineTo(-1.9, waist - 3); ctx.lineTo(-1.4, sho + 2); ctx.closePath(); ctx.fill(); }
+        if (st.lanyard) { ctx.strokeStyle = st.lanyard; ctx.lineWidth = 0.7; ctx.beginPath(); ctx.moveTo(-w * 0.12, sho - 0.4); ctx.lineTo(0, waist - 3); ctx.lineTo(w * 0.12, sho - 0.4); ctx.stroke(); ctx.fillStyle = '#f4f4f4'; rr(-1.8, waist - 4, 3.6, 4.2, 0.6); ctx.fill(); line(0.35); }
+        if (st.bag) { ctx.fillStyle = st.bag; ctx.fillRect(-SW * 0.62, sho, 1.8, waist - sho - 1); ctx.fillRect(SW * 0.62 - 1.8, sho, 1.8, waist - sho - 1); }
+      }
+    }
+
+    // arms: shoulder, elbow, hand. They swing against the legs; a talker gestures; the runner holds a mug.
     [-1, 1].forEach((side, i) => {
-      const swing = o.moving ? (i ? sw : -sw) * h * 0.1 : 0;
-      let ex = side * (w * 0.58 + 0.6), ey = sho + aLen - swing * 0.5;
-      if (o.mug && side === 1) { ex = side * (w * 0.62 + 2.4); ey = sho + aLen * 0.62; }
-      if (o.talk && side === 1) { ex = side * (w * 0.7 + 2); ey = sho + aLen * 0.28 + Math.sin(simT * 7 + (o.seed || 0)) * 2; }
-      limb(side * w * 0.46, sho + 2, ex, ey, w * 0.2, C(st.top));
-      ctx.fillStyle = C(st.skin); ctx.beginPath(); ctx.arc(ex, ey + 0.6, w * 0.1, 0, 6.3); ctx.fill();
+      const swing = o.moving ? (i ? sw : -sw) : 0;
+      const S = [side * SW * 0.93, sho + 2.2];
+      let H = [side * (SW + 1.1) + swing * 0.0, sho + h * 0.29 - swing * h * 0.07];
+      let E = [side * (SW + 1.7), sho + h * 0.15 - swing * h * 0.025];
+      if (o.mug && side === 1) { H = [side * (SW + 3.6), sho + h * 0.2]; E = [side * (SW + 2.8), sho + h * 0.13]; }
+      if (o.talk && side === 1) { const wv = Math.sin(simT * 7 + seed) * 2; H = [side * (SW + 4.5), sho + h * 0.1 + wv]; E = [side * (SW + 3), sho + h * 0.15]; }
+      if (!dark) { limb(S[0], S[1], E[0], E[1], w * 0.22 + 0.9, OUT); limb(E[0], E[1], H[0], H[1], w * 0.2 + 0.9, OUT); }
+      limb(S[0], S[1], E[0], E[1], w * 0.22, C(shade(st.top, side < 0 ? 0.04 : -0.16)));
+      limb(E[0], E[1], H[0], H[1], w * 0.2, C(shade(st.top, side < 0 ? 0.04 : -0.16)));
+      ctx.fillStyle = C(st.skin); ctx.beginPath(); ctx.arc(H[0], H[1] + 0.5, w * 0.1, 0, 6.3); ctx.fill();
       if (o.mug && side === 1) {
-        ctx.fillStyle = C('#f7f3e8'); rr(ex - 1.8, ey - 4.2, 3.8, 4.6, 0.8); ctx.fill();
-        ctx.fillStyle = C('#7a4a24'); ctx.fillRect(ex - 1.5, ey - 3.8, 3.2, 1);
+        ctx.fillStyle = C('#f7f3e8'); rr(H[0] - 2, H[1] - 4.8, 4, 5, 0.9); ctx.fill(); line(0.35);
+        ctx.fillStyle = C('#7a4a24'); ctx.fillRect(H[0] - 1.6, H[1] - 4.3, 3.2, 1.1);
+        if (!dark) { ctx.strokeStyle = 'rgba(255,255,255,0.45)'; ctx.lineWidth = 0.6; for (let k = 0; k < 2; k++) { ctx.beginPath(); ctx.moveTo(H[0] - 0.8 + k * 1.8, H[1] - 6); ctx.quadraticCurveTo(H[0] - 2 + k * 1.8 + Math.sin(simT * 4 + k) * 0.9, H[1] - 8.5, H[0] - 0.8 + k * 1.8, H[1] - 11); ctx.stroke(); } }
       }
+      if (o.talk && side === 1 && st.phone && !dark) { ctx.fillStyle = '#1b1b20'; rr(H[0] - 1.2, H[1] - 3.6, 2.6, 4.4, 0.5); ctx.fill(); ctx.fillStyle = '#6ec2ff'; ctx.fillRect(H[0] - 0.8, H[1] - 3.1, 1.8, 3.2); }
     });
-    if (!back && st.tie) { ctx.fillStyle = C(st.tie); ctx.beginPath(); ctx.moveTo(-1, sho + 1); ctx.lineTo(1, sho + 1); ctx.lineTo(1.6, hip - 4); ctx.lineTo(0, hip - 1); ctx.lineTo(-1.6, hip - 4); ctx.closePath(); ctx.fill(); }
-    if (!back && st.bag) { ctx.fillStyle = C(st.bag); ctx.fillRect(-w * 0.34, sho, 1.6, hip - sho - 2); ctx.fillRect(w * 0.34 - 1.6, sho, 1.6, hip - sho - 2); }
-    // neck and head
-    ctx.fillStyle = C(shade(st.skin, -0.12)); ctx.fillRect(-w * 0.1, sho - 2, w * 0.2, 3);
-    const hg = ctx.createRadialGradient(-headR * 0.3, headY - headR * 0.3, headR * 0.2, 0, headY, headR * 1.25);
-    hg.addColorStop(0, shade(st.skin, 0.12)); hg.addColorStop(1, shade(st.skin, -0.15));
-    ctx.fillStyle = dark ? '#07080b' : hg; ctx.beginPath(); ctx.arc(0, headY, headR, 0, 6.3); ctx.fill();
-    ctx.fillStyle = C(st.hair);
-    if (back) { ctx.beginPath(); ctx.arc(0, headY - headR * 0.04, headR * 1.05, 0, 6.3); ctx.fill(); }
-    else {
-      ctx.beginPath(); ctx.arc(0, headY - headR * 0.08, headR * 1.06, Math.PI * 1.02, Math.PI * 1.98); ctx.closePath(); ctx.fill();
-      ctx.fillRect(-headR * 1.04, headY - headR * 0.3, headR * 0.28, headR * 0.7); ctx.fillRect(headR * 0.76, headY - headR * 0.3, headR * 0.28, headR * 0.7);
-      if (!dark) {
-        ctx.fillStyle = '#20222a';
-        ctx.beginPath(); ctx.ellipse(-headR * 0.38, headY + headR * 0.05, 0.85, 1.05, 0, 0, 6.3); ctx.fill();
-        ctx.beginPath(); ctx.ellipse(headR * 0.38, headY + headR * 0.05, 0.85, 1.05, 0, 0, 6.3); ctx.fill();
-        ctx.strokeStyle = shade(st.hair, -0.2); ctx.lineWidth = 0.6;
-        ctx.beginPath(); ctx.moveTo(-headR * 0.62, headY - headR * 0.28); ctx.lineTo(-headR * 0.18, headY - headR * 0.3); ctx.moveTo(headR * 0.18, headY - headR * 0.3); ctx.lineTo(headR * 0.62, headY - headR * 0.28); ctx.stroke();
-        ctx.fillStyle = '#7a3a34';
-        if (o.talk) { ctx.beginPath(); ctx.ellipse(0, headY + headR * 0.52, 1.3, 0.7 + Math.abs(Math.sin(simT * 9 + (o.seed || 0))) * 0.9, 0, 0, 6.3); ctx.fill(); }
-        else ctx.fillRect(-1.2, headY + headR * 0.5, 2.4, 0.7);
-        if (st.glasses) { ctx.strokeStyle = 'rgba(30,30,40,0.9)'; ctx.lineWidth = 0.55; ctx.beginPath(); ctx.arc(-headR * 0.38, headY + headR * 0.05, headR * 0.3, 0, 6.3); ctx.moveTo(headR * 0.68, headY + headR * 0.05); ctx.arc(headR * 0.38, headY + headR * 0.05, headR * 0.3, 0, 6.3); ctx.stroke(); }
-      }
+
+    // neck
+    ctx.fillStyle = C(shade(st.skin, -0.14)); ctx.fillRect(-w * 0.1, neckY - 1, w * 0.2, (sho - neckY) + 2);
+
+    // head
+    const hg = ctx.createRadialGradient(-headR * 0.35, headY - headR * 0.35, headR * 0.15, 0, headY, headR * 1.3);
+    hg.addColorStop(0, shade(st.skin, 0.14)); hg.addColorStop(0.7, st.skin); hg.addColorStop(1, shade(st.skin, -0.2));
+    // ears
+    ctx.fillStyle = C(shade(st.skin, -0.06));
+    ctx.beginPath(); ctx.ellipse(-headR * 1.0, headY + headR * 0.1, headR * 0.2, headR * 0.28, 0, 0, 6.3); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(headR * 1.0, headY + headR * 0.1, headR * 0.2, headR * 0.28, 0, 0, 6.3); ctx.fill();
+    ctx.fillStyle = dark ? '#07080b' : hg; ctx.beginPath(); ctx.ellipse(0, headY, headR * 0.98, headR * 1.06, 0, 0, 6.3); ctx.fill(); line(0.5);
+
+    // hair
+    const hc = C(st.hair), hl = dark ? '#07080b' : shade(st.hair, 0.28);
+    ctx.fillStyle = hc;
+    if (back) {
+      ctx.beginPath(); ctx.ellipse(0, headY - headR * 0.04, headR * 1.04, headR * 1.08, 0, 0, 6.3); ctx.fill();
+    } else if (hs !== 'bald') {
+      ctx.beginPath();
+      ctx.moveTo(-headR * 1.02, headY + headR * 0.1);
+      ctx.bezierCurveTo(-headR * 1.12, headY - headR * 1.2, headR * 1.12, headY - headR * 1.2, headR * 1.02, headY + headR * 0.1);
+      ctx.quadraticCurveTo(headR * 0.85, headY - headR * 0.42, 0, headY - headR * 0.6);                       // the fringe
+      ctx.quadraticCurveTo(-headR * 0.85, headY - headR * 0.42, -headR * 1.02, headY + headR * 0.1);
+      ctx.closePath(); ctx.fill();
+      if (hs === 'long') { ctx.fillRect(-headR * 1.04, headY - headR * 0.1, headR * 0.3, headR * 1.5); ctx.fillRect(headR * 0.74, headY - headR * 0.1, headR * 0.3, headR * 1.5); }
+    } else {
+      ctx.beginPath(); ctx.ellipse(-headR * 0.98, headY + headR * 0.0, headR * 0.16, headR * 0.34, 0, 0, 6.3); ctx.fill();
+      ctx.beginPath(); ctx.ellipse(headR * 0.98, headY + headR * 0.0, headR * 0.16, headR * 0.34, 0, 0, 6.3); ctx.fill();
+    }
+    if (hs === 'bun') { ctx.fillStyle = hc; ctx.beginPath(); ctx.arc(0, headY - headR * 1.2, headR * 0.5, 0, 6.3); ctx.fill(); }
+    if (hs === 'curly') { ctx.fillStyle = hc; for (let k = 0; k < 7; k++) { const a = Math.PI * (1.0 + k / 6); ctx.beginPath(); ctx.arc(Math.cos(a) * headR * 1.05, headY - headR * 0.1 + Math.sin(a) * headR * 1.08, headR * 0.34, 0, 6.3); ctx.fill(); } }
+    if (!dark && hs !== 'bald') { ctx.strokeStyle = hl; ctx.globalAlpha = 0.5; ctx.lineWidth = 0.7; ctx.beginPath(); ctx.arc(-headR * 0.1, headY - headR * 0.15, headR * 0.86, Math.PI * 1.15, Math.PI * 1.6); ctx.stroke(); ctx.globalAlpha = 1; }
+
+    // face
+    if (!back && !dark) {
+      const ey = headY + headR * 0.08;
+      ctx.fillStyle = '#fbfaf6'; ctx.beginPath(); ctx.ellipse(-headR * 0.4, ey, headR * 0.23, headR * 0.17, 0, 0, 6.3); ctx.ellipse(headR * 0.4, ey, headR * 0.23, headR * 0.17, 0, 0, 6.3); ctx.fill();
+      ctx.fillStyle = '#2a2522'; ctx.beginPath(); ctx.arc(-headR * 0.4, ey + 0.1, headR * 0.115, 0, 6.3); ctx.arc(headR * 0.4, ey + 0.1, headR * 0.115, 0, 6.3); ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,0.9)'; ctx.fillRect(-headR * 0.43, ey - 0.25, 0.45, 0.45); ctx.fillRect(headR * 0.37, ey - 0.25, 0.45, 0.45);
+      ctx.strokeStyle = shade(st.hair, -0.2); ctx.lineWidth = 0.55; ctx.lineCap = 'round';
+      ctx.beginPath(); ctx.moveTo(-headR * 0.66, ey - headR * 0.3); ctx.quadraticCurveTo(-headR * 0.4, ey - headR * 0.44, -headR * 0.16, ey - headR * 0.3); ctx.moveTo(headR * 0.16, ey - headR * 0.3); ctx.quadraticCurveTo(headR * 0.4, ey - headR * 0.44, headR * 0.66, ey - headR * 0.3); ctx.stroke();
+      ctx.strokeStyle = shade(st.skin, -0.28); ctx.lineWidth = 0.5; ctx.beginPath(); ctx.moveTo(0, ey + headR * 0.08); ctx.quadraticCurveTo(headR * 0.14, ey + headR * 0.4, -headR * 0.02, ey + headR * 0.44); ctx.stroke();      // the nose
+      ctx.fillStyle = 'rgba(230,110,110,0.2)'; ctx.beginPath(); ctx.ellipse(-headR * 0.6, ey + headR * 0.42, headR * 0.2, headR * 0.12, 0, 0, 6.3); ctx.ellipse(headR * 0.6, ey + headR * 0.42, headR * 0.2, headR * 0.12, 0, 0, 6.3); ctx.fill();
+      if (o.talk) { ctx.fillStyle = '#6a2c2c'; ctx.beginPath(); ctx.ellipse(0, ey + headR * 0.72, headR * 0.2, headR * (0.07 + Math.abs(Math.sin(simT * 9 + seed)) * 0.15), 0, 0, 6.3); ctx.fill(); }
+      else { ctx.strokeStyle = '#7a3a34'; ctx.lineWidth = 0.55; ctx.beginPath(); ctx.moveTo(-headR * 0.2, ey + headR * 0.68); ctx.quadraticCurveTo(0, ey + headR * 0.82, headR * 0.2, ey + headR * 0.68); ctx.stroke(); }
+      if (st.glasses) { ctx.strokeStyle = 'rgba(30,28,40,0.9)'; ctx.lineWidth = 0.55; ctx.beginPath(); ctx.arc(-headR * 0.4, ey, headR * 0.34, 0, 6.3); ctx.moveTo(headR * 0.74, ey); ctx.arc(headR * 0.4, ey, headR * 0.34, 0, 6.3); ctx.moveTo(-headR * 0.06, ey); ctx.lineTo(headR * 0.06, ey); ctx.stroke(); }
     }
     ctx.restore();
   }
@@ -769,6 +895,11 @@
       face('rgba(255,255,255,0.08)', [[x, 28, z + 1.5], [x, 47, z + 1.5], [x, 47, z + 12.5], [x, 28, z + 12.5]]);
       face('#d9bd62', [[x, 24, z + 2], [x, 26, z + 2], [x, 26, z + 4], [x, 24, z + 4]]);
       face('#e8e2d0', [[x, 52.5, z + 3], [x, 56.5, z + 3], [x, 56.5, z + 11], [x, 52.5, z + 11]]);                                  // nameplate
+      if (dummy && o && o.exit) {
+        face('#12602d', [[x, 58, z + 2], [x, 66, z + 2], [x, 66, z + 12], [x, 58, z + 12]]);
+        face('#7dffa0', [[x, 59.4, z + 3.4], [x, 64.6, z + 3.4], [x, 64.6, z + 10.6], [x, 59.4, z + 10.6]]);
+        const c = pj(x, 62, z + 7); glow(c[0], c[1], 16 * c[2] + 3, 12 * c[2] + 3, '110,255,160', 0.4 * (1 - t));
+      }
     }
   }
 
@@ -793,11 +924,38 @@
       face(mix('#ffffff', th.fog, t), [[x, 40, z + 3], [x, 49, z + 3], [x, 49, z + 8], [x, 40, z + 8]]);
       face(mix('#f5e089', th.fog, t), [[x, 31, z + 9], [x, 38, z + 9], [x, 38, z + 14], [x, 31, z + 14]]);
       face(mix('#e8a6a6', th.fog, t), [[x, 41, z + 11], [x, 48, z + 11], [x, 48, z + 17], [x, 41, z + 17]]);
+    } else if (d.kind === 'alarm') {
+      face(mix('#7a1d16', th.fog, t), [[x, 33, z + 2], [x, 41, z + 2], [x, 41, z + 8], [x, 33, z + 8]]);
+      face(mix('#e5483c', th.fog, t), [[x, 35, z + 3], [x, 39, z + 3], [x, 39, z + 7], [x, 35, z + 7]]);
+      const c = pj(x, 37, z + 5); glow(c[0], c[1], 6 * c[2] + 2, 6 * c[2] + 2, '255,70,50', 0.28 * (1 - t));
     } else if (d.kind === 'picture') {
       face(mix('#2a2a2a', th.fog, t), [[x, 28, z], [x, 48, z], [x, 48, z + 14], [x, 28, z + 14]]);
       face(mix(d.v === 0 ? '#c0704a' : d.v === 1 ? '#4a7ec0' : '#6aa86a', th.fog, t), [[x, 29.5, z + 1.3], [x, 46.5, z + 1.3], [x, 46.5, z + 12.7], [x, 29.5, z + 12.7]]);
       face(mix('#f2e3b6', th.fog, t), [[x, 29.5, z + 1.3], [x, 36, z + 1.3], [x, 36, z + 12.7], [x, 29.5, z + 12.7]]);
     }
+  }
+
+  /* A sign hanging over the corridor, lit from inside. */
+  const SIGNS = [['COFFEE  ▲', '255,200,120', '#3a2a14'], ['EXIT', '120,255,160', '#0f3a1c'], ['ROOM B12  ◀', '200,220,255', '#14233a'], ['LIFT  ▶', '200,220,255', '#14233a'], ['STAFF ONLY', '255,160,150', '#3a1612'], ['LECTURE HALL  ▲', '200,220,255', '#14233a']];
+  function drawSign(d, z) {
+    const sg = SIGNS[d.v % SIGNS.length], a = fade(z);
+    ctx.globalAlpha = a;
+    billboard(0, WALLH - 16, z, () => {
+      ctx.strokeStyle = 'rgba(40,40,40,0.8)'; ctx.lineWidth = 0.6; ctx.beginPath(); ctx.moveTo(-14, -7); ctx.lineTo(-14, -16); ctx.moveTo(14, -7); ctx.lineTo(14, -16); ctx.stroke();
+      glow(0, 0, 40, 18, sg[1], 0.34);
+      ctx.fillStyle = '#1b1b1f'; rr(-21, -7, 42, 14, 2.5); ctx.fill();
+      ctx.fillStyle = sg[2]; rr(-19.6, -5.8, 39.2, 11.6, 2); ctx.fill();
+      ctx.fillStyle = 'rgb(' + sg[1] + ')'; ctx.font = 'bold 5.4px Sora, sans-serif'; ctx.textAlign = 'center'; ctx.fillText(sg[0], 0, 1.9);
+    }, false);
+    ctx.globalAlpha = 1;
+  }
+
+  /* A bench against the wall. */
+  function drawBench(d, z) {
+    const s = d.side, x0 = s < 0 ? -(HW - 1) : HW - 15, x1 = s < 0 ? -(HW - 15) : HW - 1;
+    softShadow(s * (HW - 8), z + 14, 12, 0.22);
+    cuboid(Math.min(x0, x1), Math.max(x0, x1), 0, 6, z, z + 28, '#5a4630', '#8a6a46', '#3f3020');
+    cuboid(Math.min(x0, x1), Math.max(x0, x1), 6, 9, z, z + 28, '#2f4f7a', '#4a73ad', '#22385a');
   }
 
   function drawCoin(it) {
@@ -850,7 +1008,7 @@
 
   function drawPlayer(hv, xv) {
     if (P.invuln > 0 && Math.floor(simT * 14) % 2 === 0 && S.mode === 'play') return;
-    const st = { hair: '#d4d4d8', skin: '#e8b98f', top: '#7b4c2a', pants: '#3a4a6b', shoes: '#2a2118' };
+    const st = { hair: '#dcdce0', hs: 'curly', skin: '#e8b98f', top: '#7b4c2a', pants: '#3a4a6b', shoes: '#2a2118', patches: true };
     const p = pj(xv, hv, PZ);
     softShadow(xv, PZ, 8 * (1 - clamp(hv / 90, 0, 0.7)), 0.34 * (1 - clamp(hv / 90, 0, 0.7)));
     if (P.phones > 0) glow(p[0], p[1] - 28 * p[2], 30, 30, '110,190,255', 0.22 + Math.sin(simT * 8) * 0.04);
@@ -861,7 +1019,7 @@
     sy *= 1 - P.crouch * 0.52; sx *= 1 + P.crouch * 0.2;
     ctx.rotate(P.lean * 0.12);
     ctx.scale(sx, sy);
-    figure(st, 12, PH, P.step, { back: true, moving: hv < 1, mug: true, seed: 1 });
+    figure(st, 13, PH, P.step, { back: true, moving: hv < 1, mug: true, seed: 1 });
     if (P.phones > 0) {
       ctx.strokeStyle = '#222'; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(0, -PH * 0.885, 6.1, Math.PI, 0); ctx.stroke();
       ctx.fillStyle = '#3aa0ff'; rr(-7.6, -PH * 0.885 - 1, 2.8, 5, 1.2); ctx.fill(); rr(4.8, -PH * 0.885 - 1, 2.8, 5, 1.2); ctx.fill();
@@ -869,14 +1027,14 @@
     ctx.restore();
     // its reflection on the polished floor
     ctx.save(); ctx.translate(p[0], p[1]); ctx.scale(p[2], -p[2] * 0.5); ctx.globalAlpha = 0.12;
-    figure(st, 12, PH, P.step, { back: true, moving: hv < 1 });
+    figure(st, 13, PH, P.step, { back: true, moving: hv < 1 });
     ctx.restore();
   }
 
   /* A speech bubble in screen space, so it stays readable however far away they are. */
-  function bubble(x, y, text, a) {
-    ctx.font = '600 6.5px Sora, sans-serif';
-    const maxW = 94;
+  function bubble(x, y, text, a, placed) {
+    ctx.font = '600 7.2px Sora, sans-serif';
+    const maxW = 104;
     const words = text.split(' '), lines = [];
     let line = '';
     words.forEach((w) => {
@@ -886,7 +1044,12 @@
     lines.push(line);
     const w = Math.max.apply(null, lines.map((l) => ctx.measureText(l).width)) + 10, h = lines.length * 8.2 + 5;
     const bx = clamp(x - w / 2, 3, VW - w - 3);
-    const by = clamp(y - h - 6, 24, VH - h - 44);
+    let by = clamp(y - h - 6, 24, VH - h - 44);
+    // two people talking at once: the second bubble goes above the first rather than over it
+    if (placed) {
+      for (let tries = 0; tries < 4 && placed.some((r) => bx < r.x + r.w + 2 && bx + w + 2 > r.x && by < r.y + r.h + 2 && by + h + 2 > r.y); tries++) by = Math.max(24, by - (h + 4));
+      placed.push({ x: bx, y: by, w: w, h: h });
+    }
     const tx = clamp(x, bx + 6, bx + w - 6);
     ctx.save(); ctx.globalAlpha = a == null ? 1 : a;
     ctx.shadowColor = 'rgba(0,0,0,0.35)'; ctx.shadowBlur = 5; ctx.shadowOffsetY = 1.5;
@@ -913,6 +1076,19 @@
       ctx.beginPath(); ctx.arc(p.x, p.y, p.r * (0.5 + k * 0.7), 0, 6.3); ctx.fill();
     });
     ctx.globalAlpha = 1;
+  }
+  let motes = null, grain = null;
+  function drawMotes(th) {
+    if (!motes) motes = Array.from({ length: 80 }, () => ({ x: (Math.random() - 0.5) * HW * 1.8, y: 6 + Math.random() * 62, off: Math.random() * ZF, ph: Math.random() * 6, s: Math.random() }));
+    ctx.save(); ctx.globalCompositeOperation = 'lighter';
+    motes.forEach((m) => {
+      const z = (((m.off - RD * 0.9 + simT * 3 * m.s) % ZF) + ZF) % ZF + ZN + 8;
+      const p = pj(m.x + Math.sin(simT * 0.6 + m.ph) * 3, m.y + Math.cos(simT * 0.5 + m.ph) * 2, z);
+      const a = clamp(1 - z / ZF, 0, 1) * 0.55 * (0.35 + 0.65 * Math.abs(Math.sin(simT * 1.3 + m.ph)));
+      ctx.fillStyle = 'rgba(' + th.glow + ',' + a + ')';
+      ctx.beginPath(); ctx.arc(p[0], p[1], 0.3 + p[2] * 0.8, 0, 6.3); ctx.fill();
+    });
+    ctx.restore();
   }
   function speedLines(frac) {
     if (frac < 0.25) return;
@@ -949,9 +1125,11 @@
 
     // everything standing in the corridor, farthest first, with the runner among them
     const list = [];
-    L.dummies.forEach((d) => { const z = d.oz - RD + PZ; if (z < ZF && z > ZN - 16) list.push({ z: z + 14, f: () => drawDoor(d.side, z, null, true) }); });
+    L.dummies.forEach((d) => { const z = d.oz - RD + PZ; if (z < ZF && z > ZN - 16) list.push({ z: z + 14, f: () => drawDoor(d.side, z, d, true) }); });
     L.decor.forEach((d) => { const z = d.oz - RD + PZ; if (z < ZF && z > ZN - 24) {
-      if (d.kind === 'plant' || d.kind === 'ext') list.push({ z: z, f: () => { const x = d.side * (HW - (d.kind === 'plant' ? 8 : 3)); softShadow(x, z, 7, 0.25); billboard(x, 0, z, () => drawProp(d.kind), false); } });
+      if (d.kind === 'sign') list.push({ z: z, f: () => drawSign(d, z) });
+      else if (d.kind === 'bench') list.push({ z: z + 14, f: () => drawBench(d, z) });
+      else if (d.kind === 'plant' || d.kind === 'ext') list.push({ z: z, f: () => { const x = d.side * (HW - (d.kind === 'plant' ? 8 : 3)); softShadow(x, z, 7, 0.25); billboard(x, 0, z, () => drawProp(d.kind), false); } });
       else list.push({ z: z + 10, f: () => drawWallThing(d, z) });
     } });
     ob.forEach((o) => {
@@ -967,10 +1145,10 @@
         list.push({ z: z, f: () => {
           ctx.globalAlpha = al; softShadow(o.x, z, pp.w > 20 ? 20 : 7, 0.28);
           if (o.who === 'd') {
-            billboard(o.x - 9, 0, z, () => figure(pp.style, 22, pp.h, o.step, { moving: moving, talk: o.sayT > 0, seed: 3 }), true);
-            billboard(o.x + 13, 0, z, () => figure(PEOPLE.a.style, 14, 34, o.step + 1, { moving: moving, seed: 5 }), true);
+            billboard(o.x - 9, 0, z, () => figure(o.look || pp.style, 22, pp.h, o.step, { moving: moving, talk: o.sayT > 0, seed: 3 }), true);
+            billboard(o.x + 13, 0, z, () => figure(o.aide || (o.aide = variant(PEOPLE.a.style, { skirt: true })), 14, 34, o.step + 1, { moving: moving, seed: 5 }), true);
           } else {
-            billboard(o.x, 0, z, () => figure(pp.style, pp.w, pp.h, o.step, { moving: moving, talk: o.sayT > 0 && o.sayT < 90 ? true : o.sayT >= 90, seed: o.oz % 7 }), true);
+            billboard(o.x, 0, z, () => figure(o.look || pp.style, pp.w, pp.h, o.step, { moving: moving, talk: o.sayT > 0, seed: o.oz % 7 }), true);
           }
           ctx.globalAlpha = 1; } });
       } else if (o.k === 'block') {
@@ -980,22 +1158,28 @@
           if (o.type === 'stack') for (let r = 1; r < 4; r++) face('rgba(0,0,0,0.18)', [[o.x - sz.w / 2, r * 9.5, z - 0.05], [o.x + sz.w / 2, r * 9.5, z - 0.05], [o.x + sz.w / 2, r * 9.5 - 0.6, z - 0.05], [o.x - sz.w / 2, r * 9.5 - 0.6, z - 0.05]]);
           ctx.globalAlpha = 1; } });
       } else if (o.k === 'over') {
+        // You slide under this, so you must be able to see through it: two striped rails and a
+        // faint tinted mesh between them, and the corridor shows through.
         list.push({ z: z, f: () => { ctx.globalAlpha = al;
-          [o.x0, o.x1 - 2].forEach((px) => face('#2a2a2a', [[px, WALLH, z + 3], [px + 2, WALLH, z + 3], [px + 2, 52, z + 3], [px, 52, z + 3]]));
-          face('rgba(0,0,0,0.22)', [[o.x0, 51, z + 1.5], [o.x1, 51, z + 1.5], [o.x1, 13, z + 1.5], [o.x0, 13, z + 1.5]]);
-          face('#f2c300', [[o.x0, 52, z], [o.x1, 52, z], [o.x1, 14, z], [o.x0, 14, z]]);
+          [o.x0, o.x1 - 2].forEach((px) => face('#2a2a2a', [[px, WALLH, z + 3], [px + 2, WALLH, z + 3], [px + 2, 44, z + 3], [px, 44, z + 3]]));
+          face('rgba(255,214,60,0.10)', [[o.x0, 44, z], [o.x1, 44, z], [o.x1, 19, z], [o.x0, 19, z]]);
           const n = Math.max(2, Math.round((o.x1 - o.x0) / 12)), w = (o.x1 - o.x0) / n;
-          for (let i = 0; i < n; i += 2) face('#1d1d1d', [[o.x0 + i * w, 52, z - 0.1], [o.x0 + (i + 1) * w, 52, z - 0.1], [o.x0 + (i + 1) * w, 14, z - 0.1], [o.x0 + i * w, 14, z - 0.1]]);
-          face('rgba(255,255,255,0.22)', [[o.x0, 52, z - 0.2], [o.x1, 52, z - 0.2], [o.x1, 49, z - 0.2], [o.x0, 49, z - 0.2]]);
+          for (let i = 0; i <= n * 2; i++) { const xx = o.x0 + i * w / 2; face('rgba(255,214,60,0.22)', [[xx - 0.3, 44, z], [xx + 0.3, 44, z], [xx + 0.3, 19, z], [xx - 0.3, 19, z]]); }
+          [[44, 52], [14, 19]].forEach((r) => {
+            face('#f2c300', [[o.x0, r[1], z], [o.x1, r[1], z], [o.x1, r[0], z], [o.x0, r[0], z]]);
+            for (let i = 0; i < n; i += 2) face('#1d1d1d', [[o.x0 + i * w, r[1], z - 0.1], [o.x0 + (i + 1) * w, r[1], z - 0.1], [o.x0 + (i + 1) * w, r[0], z - 0.1], [o.x0 + i * w, r[0], z - 0.1]]);
+            face('rgba(255,255,255,0.28)', [[o.x0, r[1], z - 0.2], [o.x1, r[1], z - 0.2], [o.x1, r[1] - 1.2, z - 0.2], [o.x0, r[1] - 1.2, z - 0.2]]);
+          });
           ctx.globalAlpha = 1; } });
       } else if (o.k === 'form') {
         list.push({ z: z - 2, f: () => { ctx.globalAlpha = al;
           const w = o.x1 - o.x0;
-          face('rgba(0,0,0,0.2)', [[o.x0 - 0.5, 54, z + 1.4], [o.x1 + 0.5, 54, z + 1.4], [o.x1 + 0.5, 13, z + 1.4], [o.x0 - 0.5, 13, z + 1.4]]);
-          face('#fffdf6', [[o.x0, 56, z], [o.x1, 56, z], [o.x1, 14, z], [o.x0, 14, z]]);
-          face('#e6e0cc', [[o.x0, 56, z - 0.05], [o.x1, 56, z - 0.05], [o.x1, 54, z - 0.05], [o.x0, 54, z - 0.05]]);
-          for (let r = 0; r < 7; r++) face('#8d8a80', [[o.x0 + 4, 50 - r * 5, z - 0.1], [o.x1 - 4 - (r % 3) * w * 0.12, 50 - r * 5, z - 0.1], [o.x1 - 4 - (r % 3) * w * 0.12, 49 - r * 5, z - 0.1], [o.x0 + 4, 49 - r * 5, z - 0.1]]);
-          face('#c43a2e', [[o.x0 + w * 0.5, 30, z - 0.1], [o.x0 + w * 0.5 + 12, 30, z - 0.1], [o.x0 + w * 0.5 + 12, 21, z - 0.1], [o.x0 + w * 0.5, 21, z - 0.1]]);
+          // a translucent sheet with a frame: you can see the corridor through the paper
+          face('rgba(255,253,246,0.34)', [[o.x0, 56, z], [o.x1, 56, z], [o.x1, 14, z], [o.x0, 14, z]]);
+          [[56, 54.4], [15.6, 14]].forEach((r) => face('rgba(230,224,204,0.9)', [[o.x0, r[0], z - 0.05], [o.x1, r[0], z - 0.05], [o.x1, r[1], z - 0.05], [o.x0, r[1], z - 0.05]]));
+          [o.x0, o.x1 - 1.4].forEach((xx) => face('rgba(230,224,204,0.9)', [[xx, 56, z - 0.05], [xx + 1.4, 56, z - 0.05], [xx + 1.4, 14, z - 0.05], [xx, 14, z - 0.05]]));
+          for (let r = 0; r < 7; r++) face('rgba(70,68,60,0.55)', [[o.x0 + 4, 50 - r * 5, z - 0.1], [o.x1 - 4 - (r % 3) * w * 0.12, 50 - r * 5, z - 0.1], [o.x1 - 4 - (r % 3) * w * 0.12, 49.2 - r * 5, z - 0.1], [o.x0 + 4, 49.2 - r * 5, z - 0.1]]);
+          face('rgba(196,58,46,0.85)', [[o.x0 + w * 0.5, 30, z - 0.1], [o.x0 + w * 0.5 + 12, 30, z - 0.1], [o.x0 + w * 0.5 + 12, 21, z - 0.1], [o.x0 + w * 0.5, 21, z - 0.1]]);
           ctx.globalAlpha = 1; } });
       } else if (o.k === 'email') {
         list.push({ z: z, f: () => billboard(o.x, o.high ? 14 : 0, z, () => {
@@ -1012,6 +1196,7 @@
     list.sort((p, q) => q.z - p.z);
     list.forEach((e) => e.f());
 
+    drawMotes(th);
     speedLines(clamp((lastV - L.cfg.v0) / (L.cfg.v1 - L.cfg.v0 + 30) + 0.2, 0, 1));
     drawParticles();
     ctx.restore();
@@ -1020,12 +1205,14 @@
     // the soft dark at the edges, and a colour wash for each floor
     ctx.drawImage(vig, 0, 0, VW, VH);
     ctx.fillStyle = th.grade; ctx.fillRect(0, 0, VW, VH);
+    { const gg = ctx.createLinearGradient(0, 0, 0, VH); gg.addColorStop(0, 'rgba(90,120,190,0.07)'); gg.addColorStop(0.5, 'rgba(0,0,0,0)'); gg.addColorStop(1, 'rgba(255,170,100,0.06)'); ctx.fillStyle = gg; ctx.fillRect(0, 0, VW, VH); }
+    if (grain) { ctx.save(); ctx.globalCompositeOperation = 'overlay'; ctx.globalAlpha = 0.07; ctx.drawImage(grain, (Math.random() * 40) | 0, (Math.random() * 30) | 0, 150, 112, 0, 0, VW, VH); ctx.restore(); }
 
     // speech bubbles, nearest two people
     const talkers = [];
     ob.forEach((o) => {
       const z = o.oz - RD + PZ;
-      if (z > 330 || z < 30) return;
+      if (z > 400 || z < 30) return;
       if (o.k === 'person' && o.sayT > 0 && o.say) {
         const pp = PEOPLE[o.who], p = pj(o.x, pp.h, z);
         talkers.push({ z: z, x: p[0], y: p[1], t: o.say });
@@ -1035,7 +1222,8 @@
       }
     });
     talkers.sort((p, q) => p.z - q.z);
-    talkers.slice(0, 2).reverse().forEach((t) => bubble(t.x, t.y, t.t, clamp((330 - t.z) / 60, 0, 1)));
+    const placed = [];
+    talkers.slice(0, 2).forEach((t) => bubble(t.x, t.y, t.t, clamp((400 - t.z) / 60, 0, 1), placed));
 
     // floating text
     floats.forEach((f) => {

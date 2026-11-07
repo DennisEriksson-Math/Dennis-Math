@@ -187,61 +187,61 @@
       neutral: ['unlock', 'harness', 'reimagine', 'catalyse', 'operationalise', 'co-create', 'empower',
         'leverage', 'foster', 'orchestrate', 'transform', 'reframe', 'cultivate', 'accelerate',
         'democratise', 'reinvent', 'galvanise', 'scaffold', 'steward', 'amplify', 'embed', 'convene',
-        'mobilise', 'spearhead', 'synergise', 'future-proof', 'disrupt', 'elevate'],
-      specific: ['prove', 'measure', 'test', 'count', 'check']
+        'mobilise', 'spearhead', 'synergise', 'future-proof', 'disrupt', 'elevate', 'axiomatise', 'formalise', 'categorify', 'regularise', 'renormalise', 'quantise', 'triangulate', 'compactify', 'deform', 'localise', 'linearise', 'homogenise'],
+      specific: ['prove', 'measure', 'test', 'count', 'check', 'derive', 'bound']
     },
     adj: {
-      green: ['carbon-neutral', 'regenerative', 'circular', 'net-zero', 'nature-positive', 'climate-friendly'],
-      digital: ['AI-enabled', 'data-driven', 'cloud-native', 'algorithmic', 'digital-first', 'smart'],
-      health: ['patient-centred', 'wellbeing-focused', 'preventive', 'person-centred', 'life-enhancing', 'clinically relevant'],
-      inclusion: ['inclusive', 'intersectional', 'equitable', 'participatory', 'co-designed', 'accessible'],
-      industry: ['market-ready', 'scalable', 'industry-led', 'investable', 'enterprise-grade', 'commercially viable'],
-      security: ['secure', 'trusted', 'defence-grade', 'tamper-proof', 'hardened', 'threat-aware'],
-      open: ['open-source', 'open-access', 'transparent', 'FAIR', 'freely available', 'community-owned'],
-      global: ['global', 'transnational', 'pan-European', 'worldwide', 'cross-border', 'multi-continental'],
+      green: ['carbon-neutral', 'regenerative', 'circular', 'net-zero', 'nature-positive', 'climate-friendly', 'PDE-based', 'fluid-dynamical'],
+      digital: ['AI-enabled', 'data-driven', 'cloud-native', 'algorithmic', 'digital-first', 'smart', 'graph-theoretic', 'combinatorial'],
+      health: ['patient-centred', 'wellbeing-focused', 'preventive', 'person-centred', 'life-enhancing', 'clinically relevant', 'Bayesian', 'stochastic'],
+      inclusion: ['inclusive', 'intersectional', 'equitable', 'participatory', 'co-designed', 'accessible', 'fair-division', 'game-theoretic'],
+      industry: ['market-ready', 'scalable', 'industry-led', 'investable', 'enterprise-grade', 'commercially viable', 'optimal', 'operations-research'],
+      security: ['secure', 'trusted', 'defence-grade', 'tamper-proof', 'hardened', 'threat-aware', 'cryptographic', 'lattice-based', 'post-quantum'],
+      open: ['open-source', 'open-access', 'transparent', 'FAIR', 'freely available', 'community-owned', 'formalised', 'Lean-verified'],
+      global: ['global', 'transnational', 'pan-European', 'worldwide', 'cross-border', 'multi-continental', 'globally defined', 'network-theoretic'],
       neutral: ['transformative', 'synergistic', 'next-generation', 'paradigm-shifting', 'bold', 'cutting-edge',
         'world-class', 'interdisciplinary', 'ground-breaking', 'game-changing', 'agile', 'novel', 'visionary',
-        'multi-scale'],
-      specific: ['falsifiable', 'narrow', 'incremental', 'modest', 'rigorous', 'finite']
+        'multi-scale', 'non-commutative', 'derived', 'motivic', 'tropical', 'perfectoid', 'étale', 'pro-finite', 'spectral', 'homotopical', 'categorical', 'hyperbolic', 'ergodic', 'modular', 'topological', 'holomorphic', 'non-abelian'],
+      specific: ['falsifiable', 'narrow', 'incremental', 'modest', 'rigorous', 'finite', 'finite-dimensional', 'countable']
     },
     noun: {
-      green: ['ecosystems', 'carbon sinks', 'food systems', 'green corridors', 'circular economies', 'living landscapes'],
-      digital: ['platforms', 'data lakes', 'digital twins', 'algorithms', 'dashboards', 'neural networks'],
-      health: ['care pathways', 'clinics', 'patient journeys', 'health systems', 'wellbeing hubs', 'treatment options'],
-      inclusion: ['communities', 'voices', 'safe spaces', 'learning communities', 'belonging networks', 'community networks'],
-      industry: ['value chains', 'start-ups', 'innovation hubs', 'supply chains', 'business models', 'spin-outs'],
-      security: ['infrastructures', 'defences', 'safeguards', 'critical systems', 'borders', 'firewalls'],
-      open: ['commons', 'repositories', 'knowledge networks', 'open archives', 'public goods', 'shared libraries'],
-      global: ['partnerships', 'alliances', 'consortia', 'world networks', 'continental bridges', 'knowledge embassies'],
+      green: ['ecosystems', 'carbon sinks', 'food systems', 'green corridors', 'circular economies', 'living landscapes', 'climate models', 'Navier–Stokes flows'],
+      digital: ['platforms', 'data lakes', 'digital twins', 'algorithms', 'dashboards', 'neural networks', 'graph algorithms', 'random walks'],
+      health: ['care pathways', 'clinics', 'patient journeys', 'health systems', 'wellbeing hubs', 'treatment options', 'epidemic models', 'survival curves'],
+      inclusion: ['communities', 'voices', 'safe spaces', 'learning communities', 'belonging networks', 'community networks', 'voting systems', 'fair-division schemes'],
+      industry: ['value chains', 'start-ups', 'innovation hubs', 'supply chains', 'business models', 'spin-outs', 'optimal portfolios', 'scheduling systems'],
+      security: ['infrastructures', 'defences', 'safeguards', 'critical systems', 'borders', 'firewalls', 'cryptosystems', 'error-correcting codes'],
+      open: ['commons', 'repositories', 'knowledge networks', 'open archives', 'public goods', 'shared libraries', 'proof libraries', 'open problems'],
+      global: ['partnerships', 'alliances', 'consortia', 'world networks', 'continental bridges', 'knowledge embassies', 'global sections', 'network topologies'],
       neutral: ['frameworks', 'paradigms', 'landscapes', 'synergies', 'pathways', 'toolkits', 'narratives',
-        'interfaces', 'ecologies'],
-      specific: ['theorems', 'lemmas', 'footnotes', 'proofs', 'counterexamples']
+        'interfaces', 'ecologies', 'manifolds', 'moduli spaces', 'sheaves', 'cohomologies', 'eigenvalues', 'lattices', 'operads', 'topoi', 'fibrations', 'invariants', 'functors', 'spectra', 'Hilbert spaces', 'simplicial complexes'],
+      specific: ['theorems', 'lemmas', 'footnotes', 'proofs', 'counterexamples', 'eigenvalue bounds', 'corollaries']
     },
     method: {
-      green: ['regenerative design', 'life-cycle thinking', 'nature-based solutions', 'rewilding workshops', 'circular redesign', 'carbon accounting'],
-      digital: ['machine learning', 'big-data analytics', 'generative AI', 'digital twinning', 'federated learning', 'automated insight'],
-      health: ['patient engagement', 'preventive screening', 'bedside co-design', 'wellbeing audits', 'clinical partnerships', 'health-literacy campaigns'],
-      inclusion: ['participatory co-design', 'listening circles', 'lived-experience panels', 'inclusive practice', 'community assemblies', 'accessible design'],
-      industry: ['public–private partnership', 'rapid prototyping', 'market validation', 'venture building', 'technology transfer', 'commercial pilots'],
-      security: ['stress-testing', 'red-teaming', 'zero-trust architecture', 'threat modelling', 'hardening exercises', 'resilience drills'],
-      open: ['open peer review', 'citizen science', 'open data sharing', 'open workshops', 'FAIR principles', 'public consultation'],
-      global: ['international mobility', 'global workshops', 'cross-continental exchange', 'multi-country cooperation', 'twinning schemes', 'diplomatic outreach'],
+      green: ['regenerative design', 'life-cycle thinking', 'nature-based solutions', 'rewilding workshops', 'circular redesign', 'carbon accounting', 'numerical analysis', 'multiscale modelling'],
+      digital: ['machine learning', 'big-data analytics', 'generative AI', 'digital twinning', 'federated learning', 'automated insight', 'convex optimisation', 'Monte Carlo methods'],
+      health: ['patient engagement', 'preventive screening', 'bedside co-design', 'wellbeing audits', 'clinical partnerships', 'health-literacy campaigns', 'Bayesian inference', 'survival analysis'],
+      inclusion: ['participatory co-design', 'listening circles', 'lived-experience panels', 'inclusive practice', 'community assemblies', 'accessible design', 'fair division', 'mechanism design'],
+      industry: ['public–private partnership', 'rapid prototyping', 'market validation', 'venture building', 'technology transfer', 'commercial pilots', 'linear programming', 'stochastic control'],
+      security: ['stress-testing', 'red-teaming', 'zero-trust architecture', 'threat modelling', 'hardening exercises', 'resilience drills', 'zero-knowledge proofs', 'number-theoretic codes'],
+      open: ['open peer review', 'citizen science', 'open data sharing', 'open workshops', 'FAIR principles', 'public consultation', 'formal verification', 'Lean formalisation'],
+      global: ['international mobility', 'global workshops', 'cross-continental exchange', 'multi-country cooperation', 'twinning schemes', 'diplomatic outreach', 'global analysis', 'global sheaf cohomology'],
       neutral: ['stakeholder engagement', 'knowledge exchange', 'iterative co-creation', 'agile sprints',
-        'holistic synthesis', 'creative dialogue', 'capacity building', 'horizon scanning', 'deep reflection'],
-      specific: ['rigorous proof', 'careful calculation', 'a clear timetable', 'a randomised trial', 'a worked example']
+        'holistic synthesis', 'creative dialogue', 'capacity building', 'horizon scanning', 'deep reflection', 'spectral sequences', 'Fourier analysis', 'Galois theory', 'homological algebra', 'category theory', 'mirror symmetry', 'étale cohomology', 'representation theory', 'geometric measure theory', 'Morse theory', 'K-theory', 'derived functors'],
+      specific: ['rigorous proof', 'careful calculation', 'a clear timetable', 'a randomised trial', 'a worked example', 'a counterexample', 'an induction on n']
     },
     outcome: {
-      green: ['a net-zero future', 'planetary stewardship', 'a thriving biosphere', 'carbon-negative growth', 'a greener tomorrow', 'ecological renewal'],
-      digital: ['digital transformation', 'intelligent automation', 'smarter decisions', 'data sovereignty', 'a connected future', 'an AI-ready society'],
-      health: ['healthier lives', 'better wellbeing outcomes', 'care closer to home', 'longer, happier lives', 'a healthier nation', 'dignity at every stage'],
-      inclusion: ['social cohesion', 'a fairer society', 'belonging for all', 'equity at scale', 'a voice for everyone', 'shared prosperity'],
-      industry: ['economic growth', 'market leadership', 'jobs and growth', 'commercial impact', 'a competitive edge', 'investor confidence'],
-      security: ['strategic autonomy', 'a safer world', 'societal resilience', 'trusted infrastructure', 'peace of mind', 'national preparedness'],
-      open: ['open knowledge for all', 'a shared commons', 'radical transparency', 'democratised access', 'knowledge without walls', 'public value'],
-      global: ['global impact', 'international leadership', 'worldwide uptake', 'a connected world', 'North–South cooperation', 'worldwide influence'],
+      green: ['a net-zero future', 'planetary stewardship', 'a thriving biosphere', 'carbon-negative growth', 'a greener tomorrow', 'ecological renewal', 'optimal use of the biosphere', 'stable climate dynamics'],
+      digital: ['digital transformation', 'intelligent automation', 'smarter decisions', 'data sovereignty', 'a connected future', 'an AI-ready society', 'provably fast algorithms', 'a combinatorial breakthrough'],
+      health: ['healthier lives', 'better wellbeing outcomes', 'care closer to home', 'longer, happier lives', 'a healthier nation', 'dignity at every stage', 'sharper epidemic forecasts', 'better survival estimates'],
+      inclusion: ['social cohesion', 'a fairer society', 'belonging for all', 'equity at scale', 'a voice for everyone', 'shared prosperity', 'provably fair outcomes', 'envy-free sharing'],
+      industry: ['economic growth', 'market leadership', 'jobs and growth', 'commercial impact', 'a competitive edge', 'investor confidence', 'optimal logistics', 'minimal-cost growth'],
+      security: ['strategic autonomy', 'a safer world', 'societal resilience', 'trusted infrastructure', 'peace of mind', 'national preparedness', 'unbreakable codes', 'post-quantum security'],
+      open: ['open knowledge for all', 'a shared commons', 'radical transparency', 'democratised access', 'knowledge without walls', 'public value', 'machine-checked mathematics', 'a library of open proofs'],
+      global: ['global impact', 'international leadership', 'worldwide uptake', 'a connected world', 'North–South cooperation', 'worldwide influence', 'a globally defined future', 'worldwide convergence'],
       neutral: ['a step change', 'a lasting legacy', 'transformative impact', 'societal benefit', 'a new paradigm',
-        'systemic change', 'impact beyond academia', 'a better tomorrow', 'a quiet revolution'],
-      specific: ['one small theorem', 'a modest improvement', 'a footnote in a journal', 'a result', 'an honest negative result']
+        'systemic change', 'impact beyond academia', 'a better tomorrow', 'a quiet revolution', 'a new invariant', 'a unified theory', 'a conjecture of interest', 'a categorical reformulation', 'sharp asymptotics', 'a spectral gap', 'a moduli-theoretic view', 'a derived equivalence'],
+      specific: ['one small theorem', 'a modest improvement', 'a footnote in a journal', 'a result', 'an honest negative result', 'a lemma, possibly two', 'a bound, up to a constant']
     }
   };
 
@@ -268,8 +268,8 @@
     again:  ['“The same angle as last time. We did read last time.”', '“Haven’t we just been here?”'],
     stale:  ['“We have read some of these words before.”', '“Wasn’t that phrase in the last one?”'],
     rhyme:  ['“Lovely rhythm. Someone here has an ear.”', '“It scans beautifully. It also means nothing. Perfect.”'],
-    fluff:  ['“Reads beautifully. Says nothing. Very fundable.”', '“I could not tell you what it is, and I loved it.”'],
-    filler: ['“I read the abstract and the font.”', '“Fine. I have a train to catch.”', '“Seemed fine. I was on mute.”', '“I did not have my glasses.”']
+    fluff:  ['“Reads beautifully. Says nothing. Very fundable.”', '“I could not tell you what it is, and I loved it.”', '“The abstract mentions a sheaf. Nobody on the panel knows what that is. Funded.”', '“Non-commutative, derived and motivic in one line. Deep, surely.”', '“I looked up “perfectoid”. I still cannot say.”'],
+    filler: ['“I read the abstract and the font.”', '“Is it a theorem or a feeling?”', '“The mathematics seems to be correct, though I have not checked.”', '“Fine. I have a train to catch.”', '“Seemed fine. I was on mute.”', '“I did not have my glasses.”']
   };
 
   const ENDS = [

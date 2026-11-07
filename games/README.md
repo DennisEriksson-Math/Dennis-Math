@@ -329,7 +329,16 @@ it is tired of (−14). Nothing says which. You have three clues:
 3. **The reviewers.** Three lines after every submission, each one true and none
    the whole picture (`reviews()`).
 
-Words are tagged by the cell they sit in (`WORDS[slot][tag]`, six per cell).
+Words are tagged by the cell they sit in (`WORDS[slot][tag]`, six or more per cell). A good
+share of them are mathematics. Pure-mathematics words (`non-commutative`, `derived`, `motivic`,
+`perfectoid`, `categorify`, `spectral sequences`, `a derived equivalence`...) are plain hot air,
+the best kind: nobody on a panel can say what they mean, and they earn credit as neutral words.
+Applied ones sit under the theme they would be sold as: `Bayesian inference` and `epidemic models`
+under health, `convex optimisation` and `graph algorithms` under digital, `lattice-based` and
+`zero-knowledge proofs` under security, `Lean formalisation` under openness, `global analysis` and
+`global sections` under the international side (a pun), `fair division` under inclusion, `linear
+programming` under industry, `numerical analysis` under the climate. And `a lemma, possibly two`,
+`a counterexample` and `an eigenvalue bound` are, naturally, too specific to be funded.
 `neutral` words are plain hot air and earn a little (+3). `specific` words
 (`prove`, `a randomised trial`, `lemmas`) are mistakes (−14): anything that could be
 checked cannot be funded. Every hand is built to contain a word the panel likes in each
@@ -398,11 +407,23 @@ distance, the speed (`v0` → `v1`) and `warn0` → `warn1`, the seconds between
 you reaching it. Each door's warning is jittered by ±14% so the rhythm cannot be learned, and the
 Dean and the administrator get a quarter-second more, since they take lanes or a slide.
 
+The pace is deliberately gentle, so there is time to read what people say: the floors run at
+86–172 units a second, a speech bubble is up from far away until they are past, and two people
+talking at once get separate bubbles. Each kind of person has some forty things to say
+(`PEOPLE[...].lines`: the old list plus `MORE`), from "Do you have a stapler?" to "I have a tiny
+favour. It has an appendix." Everybody is drawn fresh each time (`variant()`: skin, hair, hair
+style, sometimes a skirt), with a tapering body, two-part arms, a shaded face, outlines and a
+walk cycle; the runner has wild white hair, elbow patches and a steaming mug. Windows throw
+shafts of light, there are benches, hanging signs, fire alarms, pipes in the basement, dust in
+the light and a touch of film grain. Banners and forms you slide under are see-through, so you
+can see what is on the other side.
+
 The difficulty was set with a bot rather than by feel. It takes a reaction time, sees what is
 coming from the moment a person steps out, and changes lane, jumps or slides with a bit of timing
-noise. With a 0.25 s reaction it takes about 0.1, 0.9 and 3.7 hits on the three floors; at
-0.30 s, 0.4, 4 and 7; at 0.40 s, 2, 4 and 12, with the odd restart from the checkpoint on the
-last floor. (The runs are noisy and the second floor can come out harder than the third.) Phone touch lag is
+noise. With a 0.25 s reaction it takes about 1, 0.4 and 1.9 hits on the three floors; at
+0.32 s, 1.7, 1.4 and 4.9; at 0.40 s, 2.3, 6.4 and 16.5, with a few restarts from the checkpoint
+on the last floor. (The runs are noisy, and the middle floor can come out easier than the first.)
+The pace is slow but the warnings are short, which is how it stays hard while staying readable. Phone touch lag is
 roughly 0.05–0.1 s on top of a human reaction. Run it again if you change `LEVELS`, `PATTERNS`
 or the jump constants. The one thing a new pattern is most likely to break is time to react
 and move: every pattern has to leave a way through.

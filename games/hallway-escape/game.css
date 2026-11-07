@@ -51,7 +51,6 @@ body {
   font-size: 19px; font-variant-numeric: tabular-nums;
   color: #f2f5f8;
 }
-.stat b.is-late { color: var(--bad); }
 .stat span {
   display: block; margin-top: 1px;
   font-size: 8px; letter-spacing: 0.2em; text-transform: uppercase;
@@ -119,7 +118,8 @@ body {
   transition: background 0.08s, transform 0.08s;
 }
 .key.is-down { background: rgba(224, 164, 88, 0.5); transform: scale(0.93); }
-.key-jump { width: 96px; height: 96px; font-size: 14px; letter-spacing: 0.14em; background: rgba(224, 164, 88, 0.22); border-color: rgba(224, 164, 88, 0.6); }
+.key-jump, .key-slide { width: 104px; height: 104px; font-size: 14px; letter-spacing: 0.14em; background: rgba(224, 164, 88, 0.22); border-color: rgba(224, 164, 88, 0.6); }
+.key-slide { background: rgba(120, 180, 240, 0.2); border-color: rgba(140, 195, 250, 0.55); }
 
 /* ── Overlay / sheets ── */
 .overlay {
@@ -215,7 +215,7 @@ body {
     pointer-events: none;
   }
   .pad .key { pointer-events: auto; width: 58px; height: 58px; font-size: 18px; opacity: 0.55; }
-  .pad .key-jump { width: 72px; height: 72px; font-size: 12px; }
+  .pad .key-jump, .pad .key-slide { width: 78px; height: 78px; font-size: 12px; }
   .pad .key.is-down { opacity: 0.9; }
   .sheet { padding: 12px 16px 10px; }
   .sheet-title { font-size: 22px; margin-top: 2px; }

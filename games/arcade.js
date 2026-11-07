@@ -77,10 +77,10 @@ const GAMES = [
   },
   {
     title: 'Hallway Escape',
-    kicker: 'Platformer',
+    kicker: 'Runner',
     href: 'hallway-escape/index.html',
-    blurb: 'All you want is a coffee. Colleagues, students, the Dean, wet floors and a very long ' +
-           'list of emails stand in your way. Run, jump, and do not stop to chat.'
+    blurb: 'You run, the corridor speeds up, and doors crack open. A colleague, a student, the ' +
+           'Dean. Read the shape in the doorway: jump, or slide. All you want is a coffee.'
   }
 ];
 

@@ -50,7 +50,7 @@ Each game folder is self-contained — copy any one of them anywhere and it runs
 | **Should I Ask a Question?** | Resisting temptation | A faculty meeting |
 | **Love at First Cite** | Swipe | A hiring committee's phone |
 | **Grant Roulette** | Word tiles, reading the signs | A funding panel's lobby |
-| **Hallway Escape** | Side-scrolling platformer | The corridor to the coffee machine |
+| **Hallway Escape** | Auto-runner, reading the doors | The corridor to the coffee machine |
 
 `orbit/` is the interactive space scene the project started from — a scene
 rather than a game, linked from the footer.
@@ -350,43 +350,48 @@ the result sheets go two columns.
 
 ## Hallway Escape
 
-A side-scrolling platformer, drawn entirely with rectangles on a 320×192 canvas
-(20×12 tiles of 16px), scaled to the screen and the device's pixel ratio. Run
-with the arrows or A and D, jump with space (hold for height), or use the three
-on-screen buttons on a phone; they float over the corridor when the phone is
-sideways.
+A runner, drawn entirely with rectangles on a 320×192 canvas (scaled to the screen
+and the device's pixel ratio). The corridor scrolls on its own and speeds up; you
+**jump** (Space, Up, W, or the button) and **slide** (Down, S, or the button). Pressing
+slide in the air drops you fast and slides on landing. On a phone the two buttons
+float over the corridor when it is held sideways.
 
-Three floors, each assembled from twenty-column chunks (`CHUNKS`), so no two walks
-are the same. Each chunk is built with a few calls on `Grid` (`pit`, `wet`, `stack`,
-`shelf`, `stand`, `coins`...) and keeps its floor flat at both ends, so any chunk can
-follow any other. `LEVELS` says how long you get, how many chunks, which ones, and
-which are forced (every floor has a coffee, floors 2 and 3 have headphones, floor 3
-has the Dean).
+The game is reading doors. Along the wall are doors; as you get close one cracks open
+(`OPEN_T`, 0.28 s) and a **silhouette** shows in the gap, which is the whole clue.
+Then somebody steps out:
 
-What stands in your way is the `ENT` table; each has its own cost:
-
-| Obstacle | Behaviour | Costs |
+| Who | Shape | What to do |
 |---|---|---|
-| Colleague with a quick question | stands still | 1 patience, 1.1s |
-| Student | follows you when close | 1 patience, 0.8s |
-| The Dean | big, slow | 1 patience, 2s |
-| Lost visitor | wanders | half speed for 3.5s |
-| Administrator with a form | stands still | 6s off the clock, 1.6s |
-| Email | flies at you | 4s off the clock |
-| Loose cable | on the floor | 2s off the clock |
-| Wet floor | slippery tiles | grip |
-| Hole in the floor | maintenance | 1 patience, back to the last safe spot |
-| Boxes, cabinets, a jammed copier | solid | a jump |
+| Colleague (quick question) | ordinary | jump |
+| Student | backpack, runs at you | jump, and sooner |
+| The Dean | tall | jump, and early |
+| Lost visitor | backpack, wanders | jump |
+| Administrator | holds a huge form out over the corridor, floor to head | **slide** (the form reaches past the top of a jump) |
+| Nobody | the door opens on an empty room | nothing, and do not jump |
 
-Headphones make you unreachable for 8s; coffee restores patience. Three hits sends you
-back to the last checkpoint (the middle of the floor). The clock only counts for the
-bonus: arriving late still works. The last floor's coffee machine is out of order.
+Between doors: boxes, cables and trolleys (jump), emails flying at you (high ones you
+slide under, low ones you jump), holes in the floor (jump), and wet floors, which speed
+you up so the next door comes sooner. A hit costs patience, makes you stumble, and
+resets your dodge streak. Three hits sends you back to the middle of the floor. Every
+dodge scores `25 × (1 + streak ÷ 4)` up to ×4. Coffee restores patience; headphones make
+people unable to reach you for six seconds.
 
-Logic uses a fixed 60 Hz step; it pauses when the tab is hidden. A bot that plays each
-floor with perfect dodging finishes in about 25, 30 and 36 seconds (so the clocks, 80,
-100 and 125, leave room for people), and a bot that never dodges people does get stopped
-and sent back. If you add a chunk, make sure it is flat at both ends, and check it
-with the same kind of bot.
+Three floors, each a strip of patterns (`PATTERNS`: one door, a pair, a fake then a real
+one, wet floor then a door, a hole then a door, a gauntlet of three...) laid along the
+corridor by `buildLevel`. `LEVELS` sets how long, how fast (`v0` → `v1`), and `warn0` →
+`warn1`: the seconds between a door cracking and you reaching it. Each door's warning is
+jittered by ±14% so the rhythm cannot be learned.
+
+The difficulty was set with a bot rather than by feel. It sees the silhouette, takes a
+reaction time, and jumps or slides with a bit of timing noise. With a 0.28 s reaction it
+sails through floors 1 and 2 and takes a few hits on 3; at 0.32 s floor 2 starts to
+hurt and floor 3 is a struggle; at 0.36 s floor 2 is too much. Phone touch lag is about
+0.05–0.1 s on top of a human reaction. Run the bot again if you change `LEVELS`,
+`PATTERNS` or the jump constants: two things that both need a jump are never closer than a
+jump and a breath, and that is the thing a new pattern is most likely to break.
+
+An earlier version of this game was a free-roaming platformer with stationary people in the
+way; it was too easy, since you could stop and think. That is why you cannot stop here.
 
 ## Phones
 

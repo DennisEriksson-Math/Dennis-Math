@@ -51,6 +51,10 @@
     trip()  { if (ready()) tone({ type: 'triangle', from: 260, to: 140, gain: 0.14, decay: 0.2 }); },
     power() { if (ready()) [392, 494, 587, 784, 988].forEach((f, i) => tone({ type: 'square', from: f, gain: 0.07, decay: 0.12, delay: i * 0.06 })); },
     fall()  { if (ready()) tone({ type: 'sine', from: 700, to: 90, gain: 0.16, decay: 0.55 }); },
+    creak() { if (ready()) { tone({ type: 'sawtooth', from: 150, to: 90, gain: 0.05, decay: 0.3 });
+                             noise({ type: 'bandpass', freq: 700, q: 6, gain: 0.05, decay: 0.28 }); } },
+    slide() { if (ready()) noise({ type: 'highpass', freq: 1800, gain: 0.08, decay: 0.22 }); },
+    dodge() { if (ready()) tone({ type: 'triangle', from: 880, to: 1175, gain: 0.07, decay: 0.12 }); },
     alert() { if (ready()) tone({ type: 'sine', from: 880, gain: 0.04, decay: 0.07 }); },
     win()   { if (ready()) [392, 494, 587, 784, 988, 1175].forEach((f, i) => tone({ from: f, gain: 0.16, decay: 0.45, delay: i * 0.1 })); },
     over()  { if (ready()) [392, 311, 262, 175].forEach((f, i) => tone({ type: 'triangle', from: f, to: f * 0.6, gain: 0.2, decay: 0.55, delay: i * 0.17 })); }

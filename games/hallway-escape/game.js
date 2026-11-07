@@ -9,7 +9,7 @@
 
      people, tall stacks   → another lane
      boxes, cables, holes  → jump (or another lane)
-     banners, forms, mail  → slide (or another lane)
+     lamps, mail           → slide (or another lane)
 
    The view is a simple perspective projection (pj): the corridor is
    a strip of quads, everything else is a billboard scaled by its
@@ -21,9 +21,10 @@
 
   /* ─── Constants ──────────────────────────────────────────── */
 
-  const VW = 320, VH = 240;
-  const VPX = 160, VPY = 84, F = 100, CAMH = 40;     // vanishing point, focal length, camera height
-  const ZN = 24, ZF = 560, PZ = 52;                  // near, far, and where the runner stands
+  const VW = 320;
+  let VH = 240, VPY = 84;                            // the height follows the screen, so a tall phone gets a tall picture
+  const VPX = 160, F = 100, CAMH = 40;     // vanishing point, focal length, camera height
+  const ZN = 8, ZF = 560, PZ = 52;                  // near, far, and where the runner stands
   const LANE = 36, HW = 60, WALLH = 74;              // lane width, half the corridor, wall height
   const DT = 1 / 60;
 
@@ -43,7 +44,7 @@
     s: { name: 'student', w: 14, h: 32, speed: 82, track: true,
          style: { hair: '#2e2a2a', skin: '#d9a97f', top: '#c2553f', pants: '#2c3e5c', bag: '#3b8a6e', phone: true },
          lines: ['Prof! Prof! One thing!', 'Is the exam on this?', 'I sent you an email!', 'Can I get an extension?', 'Do you have office hours?', 'Can you sign this?', 'Will this be on the test?', 'It is only a short question!', 'Did you get my message?', 'Is attendance mandatory?'] },
-    a: { name: 'administrator', w: 14, h: 34, speed: 0, form: true,
+    a: { name: 'administrator', w: 14, h: 34, speed: 84, papers: true,
          style: { hair: '#3a2a22', skin: '#d4a07a', top: '#8a4f7a', pants: '#2f3446', glasses: true, lanyard: '#2e9d7a' },
          lines: ['Just sign here. And here. And here.', 'Form 27B. In triplicate.', 'Have you done the mandatory training?', 'You missed the deadline (yesterday).', 'Did you read the new policy?', 'The portal says you owe us a receipt.'] },
     d: { name: 'Dean', w: 44, h: 44, speed: 90,
@@ -82,9 +83,8 @@
     cart: ['A trolley of exam scripts.', 'Mind the trolley!'],
     cable: ['Ouch.', 'Who left that there?', 'Facilities will hear about this.'],
     stack: ['A tower of box files.', 'Archive day, apparently.'],
-    over: ['A banner. At head height. Why.', 'MIND YOUR HEAD, said the banner. Too late.'],
-    email: ['REPLY ALL', 'Re: Re: Re: Fwd: Meeting', 'URGENT (not urgent)', 'Per my last email…', 'Please find attached', 'Gentle reminder!'],
-    form: ['Form 27B. In triplicate.']
+    over: ['Who hung a lamp at head height?', 'Facilities fitted it low. On purpose, apparently.', 'Ow. A very stylish lamp, though.', 'The lamp won.'],
+    email: ['REPLY ALL', 'Re: Re: Re: Fwd: Meeting', 'URGENT (not urgent)', 'Per my last email…', 'Please find attached', 'Gentle reminder!']
   };
   const PHONE_LINES = ['…I will email you.', 'Oh, never mind.', '(waves, unheard)', 'Hello? …Right.', 'They cannot hear a word.'];
   const PIT_LINES = ['Floor closed for maintenance.', 'The sign was there. Honestly.', 'Whoops.', 'Mind the gap, said the sign.'];
@@ -223,7 +223,7 @@
       for (let k = start; k < L.ob.length; k++) {
         const o = L.ob[k];
         o.warn = warnAt * (0.86 + Math.random() * 0.28);
-        // the Dean takes two lanes and the administrator's form is already fully out, so they need longer to see coming
+        // the Dean takes two lanes and the administrator is hard to see round, so they need longer to see coming
         if (o.k === 'door' && (o.who === 'd' || o.who === 'a')) o.warn += 0.24;
       }
       oz += used + v * (0.74 + Math.random() * 0.44) + 26;
@@ -263,7 +263,7 @@
   /* ─── State ──────────────────────────────────────────────── */
 
   const keys = { left: false, right: false, jump: false, slide: false };
-  let edges = { left: false, right: false, jump: false, slide: false };
+  let edges = { left: 0, right: 0, jump: 0, slide: 0 };
 
   const S = {
     mode: 'menu',               // menu | play | pause | dead | done | end
@@ -302,7 +302,7 @@
     S.level = i;
     if (!retry) S.lvl = buildLevel(i);
     const L = S.lvl;
-    edges = { left: false, right: false, jump: false, slide: false };
+    edges = { left: 0, right: 0, jump: 0, slide: 0 };
     if (!retry) {
       S.cp = null; S.hearts = HEARTS; S.coins = 0; S.streak = 0; S.bestStreak = 0; S.levelStartScore = S.score;
       instantiate(L, 0); placePlayer(0);
@@ -376,14 +376,10 @@
     const lane = Math.round(P.x / LANE);
     const p = {
       k: 'person', who: d.who, oz: d.oz + 7, x: x0, hit: false, done: false, door: d, look: variant(pp.style, { keepHair: d.who === 'd', skirt: d.who !== 'd' }),
-      tx: pp.cross ? -d.side * (HW - 10) : pp.track ? P.x : d.who === 'd' ? d.side * LANE * 0.5 : d.who === 'a' ? x0 : laneX(lane),
+      tx: pp.cross ? -d.side * (HW - 10) : pp.track ? P.x : d.who === 'd' ? d.side * LANE * 0.5 : laneX(lane),
       say: draw(pp.lines), sayT: 99, step: 0
     };
     ob.push(p);
-    if (pp.form) {
-      // the administrator stays in the doorway and holds a form out over two lanes, at head height
-      ob.push({ k: 'form', oz: d.oz + 7, x0: Math.min(d.side * HW, -d.side * 10), x1: Math.max(d.side * HW, -d.side * 10), hit: false, done: false, owner: p });
-    }
     return p;
   }
 
@@ -391,6 +387,7 @@
     if (S.mode !== 'play') return;
     const L = S.lvl;
     simT += dt;
+    if (hintT > 0) hintT -= dt;
 
     // ── the runner
     P.invuln = Math.max(0, P.invuln - dt);
@@ -399,8 +396,12 @@
     P.slide = Math.max(0, P.slide - dt);
     flash = Math.max(0, flash - dt);
 
-    if (edges.left)  { P.lane = Math.max(-1, P.lane - 1); edges.left = false; SFX.slide(); }
-    if (edges.right) { P.lane = Math.min(1, P.lane + 1); edges.right = false; SFX.slide(); }
+    if (edges.left || edges.right || edges.jump || edges.slide) {
+      ['left', 'right', 'jump', 'slide'].forEach((k) => { if (edges[k]) used[k] = true; });
+      if (used.left && used.right && used.jump && used.slide && hintT > 1) { hintT = 1; try { localStorage.setItem('hallwayescape.hinted', '1'); } catch (e) {} }
+    }
+    if (edges.left > 0)  { P.lane = Math.max(-1, P.lane - 1); edges.left--; SFX.slide(); }
+    if (edges.right > 0) { P.lane = Math.min(1, P.lane + 1); edges.right--; SFX.slide(); }
     if (edges.jump) { P.jbuf = 0.12; edges.jump = false; } else P.jbuf -= dt;
     const grounded = P.h === 0 && P.vy === 0;
     if (P.jbuf > 0 && grounded) { P.vy = JUMPV; P.slide = 0; P.jbuf = 0; SFX.jump(); }
@@ -472,8 +473,8 @@
         const sz = BLOCKS[o.type];
         if (zr < 4 && zr + sz.d > -4 && !o.hit && overlaps(o, o.x - sz.w / 2, o.x + sz.w / 2, 0, sz.h)) hurt(o);
         if (zr + sz.d < -4) dodged(o, o.x);
-      } else if (o.k === 'over' || o.k === 'form') {
-        if (zr < 4 && zr + 6 > -4 && !o.hit && overlaps(o, o.x0, o.x1, 14, 56)) hurt(o, o.k === 'form' ? draw(OBJ_LINES.form) : null);
+      } else if (o.k === 'over') {
+        if (zr < 4 && zr + 6 > -4 && !o.hit && overlaps(o, o.x0, o.x1, 14, 56)) hurt(o);
         if (zr + 6 < -4) dodged(o, (o.x0 + o.x1) / 2);
       } else if (o.k === 'email') {
         o.oz -= o.speed * dt;
@@ -523,7 +524,9 @@
   let SC = 1;
   let vig = null;
   function layout() {
-    const w = viewEl.clientWidth, h = viewEl.clientHeight;
+    const w = viewEl.clientWidth || 320, h = viewEl.clientHeight || 480;
+    VH = clamp(Math.round(VW * h / w), 200, 420);
+    VPY = Math.round(clamp(VH * 0.37, 80, 165));
     const s = Math.min(w / VW, h / VH);
     const cw = Math.max(1, Math.floor(VW * s)), ch = Math.max(1, Math.floor(VH * s));
     const dpr = Math.min(window.devicePixelRatio || 1, 3);
@@ -668,10 +671,10 @@
       glow(c[0], c[1], 46 * c[2] + 8, 20 * c[2] + 4, th.glow, 0.36 * a);
       glow(f[0], f[1], 40 * f[2] + 8, 8 * f[2] + 2, th.glow, 0.32 * a);          // its reflection on the floor
       // the long streak a light leaves on a polished floor, and a wash on each wall
-      ctx.save(); ctx.globalCompositeOperation = 'lighter';
+      if (z > 90) { ctx.save(); ctx.globalCompositeOperation = 'lighter';
       const sg = ctx.createLinearGradient(0, f[1], 0, f[1] + 90 * f[2]); sg.addColorStop(0, 'rgba(' + th.glow + ',' + (0.2 * a) + ')'); sg.addColorStop(1, 'rgba(' + th.glow + ',0)');
       ctx.fillStyle = sg; ctx.fillRect(f[0] - 7 * f[2], f[1], 14 * f[2], 90 * f[2]);
-      ctx.restore();
+      ctx.restore(); }
       [-HW + 1, HW - 1].forEach((wx) => { const wp = pj(wx, WALLH - 12, z); glow(wp[0], wp[1], 20 * wp[2] + 3, 30 * wp[2] + 3, th.glow, 0.2 * a); });
     }
   }
@@ -793,6 +796,7 @@
       let H = [side * (SW + 1.1) + swing * 0.0, sho + h * 0.29 - swing * h * 0.07];
       let E = [side * (SW + 1.7), sho + h * 0.15 - swing * h * 0.025];
       if (o.mug && side === 1) { H = [side * (SW + 3.6), sho + h * 0.2]; E = [side * (SW + 2.8), sho + h * 0.13]; }
+      if (o.papers && side === 1) { H = [side * (SW + 4.2), sho + h * 0.2]; E = [side * (SW + 2.8), sho + h * 0.14]; }
       if (o.talk && side === 1) { const wv = Math.sin(simT * 7 + seed) * 2; H = [side * (SW + 4.5), sho + h * 0.1 + wv]; E = [side * (SW + 3), sho + h * 0.15]; }
       if (!dark) { limb(S[0], S[1], E[0], E[1], w * 0.22 + 0.9, OUT); limb(E[0], E[1], H[0], H[1], w * 0.2 + 0.9, OUT); }
       limb(S[0], S[1], E[0], E[1], w * 0.22, C(shade(st.top, side < 0 ? 0.04 : -0.16)));
@@ -802,6 +806,11 @@
         ctx.fillStyle = C('#f7f3e8'); rr(H[0] - 2, H[1] - 4.8, 4, 5, 0.9); ctx.fill(); line(0.35);
         ctx.fillStyle = C('#7a4a24'); ctx.fillRect(H[0] - 1.6, H[1] - 4.3, 3.2, 1.1);
         if (!dark) { ctx.strokeStyle = 'rgba(255,255,255,0.45)'; ctx.lineWidth = 0.6; for (let k = 0; k < 2; k++) { ctx.beginPath(); ctx.moveTo(H[0] - 0.8 + k * 1.8, H[1] - 6); ctx.quadraticCurveTo(H[0] - 2 + k * 1.8 + Math.sin(simT * 4 + k) * 0.9, H[1] - 8.5, H[0] - 0.8 + k * 1.8, H[1] - 11); ctx.stroke(); } }
+      }
+      if (o.papers && side === 1) {
+        const px = H[0] - 4, py = H[1] + 1;
+        for (let k = 0; k < 5; k++) { ctx.fillStyle = C(k % 2 ? '#f1ecdc' : '#fbf8ee'); rr(px + (k % 2) * 0.5, py - 3.2 - k * 1.7, 9, 1.8, 0.3); ctx.fill(); line(0.3); }
+        ctx.fillStyle = C('#c9442f'); ctx.fillRect(px + 7.4, py - 12.4, 1.6, 3);
       }
       if (o.talk && side === 1 && st.phone && !dark) { ctx.fillStyle = '#1b1b20'; rr(H[0] - 1.2, H[1] - 3.6, 2.6, 4.4, 0.5); ctx.fill(); ctx.fillStyle = '#6ec2ff'; ctx.fillRect(H[0] - 0.8, H[1] - 3.1, 1.8, 3.2); }
     });
@@ -873,7 +882,7 @@
     ctx.beginPath(); ctx.ellipse(p[0], p[1] + 0.5, w * p[2], w * 0.28 * p[2], 0, 0, 6.3); ctx.fill();
   }
 
-  function fade(z) { return clamp((ZF - z) / 90, 0, 1); }
+  function fade(z) { return Math.min(clamp((ZF - z) / 90, 0, 1), clamp((z - 30) / 18, 0, 1)); }
 
   /* A door in the wall. It swings open into the corridor, with a warm room behind it. */
   function drawDoor(side, z, o, dummy) {
@@ -1078,6 +1087,9 @@
     ctx.globalAlpha = 1;
   }
   let motes = null, grain = null;
+  let hintT = 0;
+  const used = { left: false, right: false, jump: false, slide: false };
+  function hintsDone() { try { return localStorage.getItem('hallwayescape.hinted') === '1'; } catch (e) { return false; } }
   function drawMotes(th) {
     if (!motes) motes = Array.from({ length: 80 }, () => ({ x: (Math.random() - 0.5) * HW * 1.8, y: 6 + Math.random() * 62, off: Math.random() * ZF, ph: Math.random() * 6, s: Math.random() }));
     ctx.save(); ctx.globalCompositeOperation = 'lighter';
@@ -1148,7 +1160,7 @@
             billboard(o.x - 9, 0, z, () => figure(o.look || pp.style, 22, pp.h, o.step, { moving: moving, talk: o.sayT > 0, seed: 3 }), true);
             billboard(o.x + 13, 0, z, () => figure(o.aide || (o.aide = variant(PEOPLE.a.style, { skirt: true })), 14, 34, o.step + 1, { moving: moving, seed: 5 }), true);
           } else {
-            billboard(o.x, 0, z, () => figure(o.look || pp.style, pp.w, pp.h, o.step, { moving: moving, talk: o.sayT > 0, seed: o.oz % 7 }), true);
+            billboard(o.x, 0, z, () => figure(o.look || pp.style, pp.w, pp.h, o.step, { moving: moving, talk: o.sayT > 0, papers: pp.papers, seed: o.oz % 7 }), true);
           }
           ctx.globalAlpha = 1; } });
       } else if (o.k === 'block') {
@@ -1158,29 +1170,27 @@
           if (o.type === 'stack') for (let r = 1; r < 4; r++) face('rgba(0,0,0,0.18)', [[o.x - sz.w / 2, r * 9.5, z - 0.05], [o.x + sz.w / 2, r * 9.5, z - 0.05], [o.x + sz.w / 2, r * 9.5 - 0.6, z - 0.05], [o.x - sz.w / 2, r * 9.5 - 0.6, z - 0.05]]);
           ctx.globalAlpha = 1; } });
       } else if (o.k === 'over') {
-        // You slide under this, so you must be able to see through it: two striped rails and a
-        // faint tinted mesh between them, and the corridor shows through.
-        list.push({ z: z, f: () => { ctx.globalAlpha = al;
-          [o.x0, o.x1 - 2].forEach((px) => face('#2a2a2a', [[px, WALLH, z + 3], [px + 2, WALLH, z + 3], [px + 2, 44, z + 3], [px, 44, z + 3]]));
-          face('rgba(255,214,60,0.10)', [[o.x0, 44, z], [o.x1, 44, z], [o.x1, 19, z], [o.x0, 19, z]]);
-          const n = Math.max(2, Math.round((o.x1 - o.x0) / 12)), w = (o.x1 - o.x0) / n;
-          for (let i = 0; i <= n * 2; i++) { const xx = o.x0 + i * w / 2; face('rgba(255,214,60,0.22)', [[xx - 0.3, 44, z], [xx + 0.3, 44, z], [xx + 0.3, 19, z], [xx - 0.3, 19, z]]); }
-          [[44, 52], [14, 19]].forEach((r) => {
-            face('#f2c300', [[o.x0, r[1], z], [o.x1, r[1], z], [o.x1, r[0], z], [o.x0, r[0], z]]);
-            for (let i = 0; i < n; i += 2) face('#1d1d1d', [[o.x0 + i * w, r[1], z - 0.1], [o.x0 + (i + 1) * w, r[1], z - 0.1], [o.x0 + (i + 1) * w, r[0], z - 0.1], [o.x0 + i * w, r[0], z - 0.1]]);
-            face('rgba(255,255,255,0.28)', [[o.x0, r[1], z - 0.2], [o.x1, r[1], z - 0.2], [o.x1, r[1] - 1.2, z - 0.2], [o.x0, r[1] - 1.2, z - 0.2]]);
-          });
-          ctx.globalAlpha = 1; } });
-      } else if (o.k === 'form') {
-        list.push({ z: z - 2, f: () => { ctx.globalAlpha = al;
-          const w = o.x1 - o.x0;
-          // a translucent sheet with a frame: you can see the corridor through the paper
-          face('rgba(255,253,246,0.34)', [[o.x0, 56, z], [o.x1, 56, z], [o.x1, 14, z], [o.x0, 14, z]]);
-          [[56, 54.4], [15.6, 14]].forEach((r) => face('rgba(230,224,204,0.9)', [[o.x0, r[0], z - 0.05], [o.x1, r[0], z - 0.05], [o.x1, r[1], z - 0.05], [o.x0, r[1], z - 0.05]]));
-          [o.x0, o.x1 - 1.4].forEach((xx) => face('rgba(230,224,204,0.9)', [[xx, 56, z - 0.05], [xx + 1.4, 56, z - 0.05], [xx + 1.4, 14, z - 0.05], [xx, 14, z - 0.05]]));
-          for (let r = 0; r < 7; r++) face('rgba(70,68,60,0.55)', [[o.x0 + 4, 50 - r * 5, z - 0.1], [o.x1 - 4 - (r % 3) * w * 0.12, 50 - r * 5, z - 0.1], [o.x1 - 4 - (r % 3) * w * 0.12, 49.2 - r * 5, z - 0.1], [o.x0 + 4, 49.2 - r * 5, z - 0.1]]);
-          face('rgba(196,58,46,0.85)', [[o.x0 + w * 0.5, 30, z - 0.1], [o.x0 + w * 0.5 + 12, 30, z - 0.1], [o.x0 + w * 0.5 + 12, 21, z - 0.1], [o.x0 + w * 0.5, 21, z - 0.1]]);
-          ctx.globalAlpha = 1; } });
+        // Hanging lamps, one per lane: a solid shade on a cord. You slide beneath the shade, and
+        // the cord and the space below it stay clear, so you can still see ahead.
+        const n = Math.max(1, Math.round((o.x1 - o.x0) / LANE));
+        for (let i = 0; i < n; i++) {
+          const cx = o.x0 + LANE * (i + 0.5);
+          list.push({ z: z, f: () => { ctx.globalAlpha = al;
+            const sw = Math.sin(simT * 1.5 + i * 1.7 + o.oz) * 0.6;
+            billboard(cx + sw, 0, z, () => {
+              ctx.fillStyle = '#26262c'; ctx.fillRect(-0.4, -WALLH, 0.8, WALLH - 42);
+              const g = ctx.createLinearGradient(-15, 0, 15, 0);
+              g.addColorStop(0, '#173f33'); g.addColorStop(0.35, '#2f7a62'); g.addColorStop(1, '#10261f');
+              ctx.fillStyle = g; ctx.beginPath(); ctx.moveTo(-3.5, -42); ctx.lineTo(3.5, -42);
+              ctx.quadraticCurveTo(12, -38, 15, -18); ctx.lineTo(-15, -18); ctx.quadraticCurveTo(-12, -38, -3.5, -42); ctx.fill();
+              ctx.strokeStyle = 'rgba(0,0,0,0.5)'; ctx.lineWidth = 0.6; ctx.stroke();
+              ctx.fillStyle = 'rgba(255,255,255,0.22)'; ctx.beginPath(); ctx.ellipse(-5, -33, 1.6, 5.5, 0.3, 0, 6.3); ctx.fill();
+              ctx.fillStyle = '#c9a24a'; ctx.fillRect(-3.5, -44, 7, 2.4);
+              glow(0, -17, 20, 12, '255,214,140', 0.42);
+              ctx.fillStyle = '#fff3cf'; ctx.beginPath(); ctx.ellipse(0, -17.4, 6.2, 2.1, 0, 0, 6.3); ctx.fill();
+            }, false);
+            ctx.globalAlpha = 1; } });
+        }
       } else if (o.k === 'email') {
         list.push({ z: z, f: () => billboard(o.x, o.high ? 14 : 0, z, () => {
           glow(0, -6, 16, 12, '255,255,255', 0.16);
@@ -1257,7 +1267,29 @@
       ctx.fillStyle = '#f4efe0'; ctx.fillText(toastText, VW / 2, 33);
       ctx.globalAlpha = 1;
     }
+    drawHints();
     if (flash > 0) { ctx.fillStyle = 'rgba(210, 40, 30, ' + (flash * 0.5) + ')'; ctx.fillRect(0, 0, VW, VH); }
+  }
+
+
+  /* A few seconds of hints on the first floor, until you have tried everything. */
+  function drawHints() {
+    if (hintT <= 0) return;
+    const a = clamp(Math.min(hintT, 1.2, (16 - hintT) * 1.5), 0, 1);
+    ctx.save(); ctx.globalAlpha = a; ctx.textAlign = 'center';
+    const zone = (x0, key, label, glyph) => {
+      const g = ctx.createLinearGradient(x0, 0, x0 + VW / 2, 0);
+      ctx.fillStyle = used[key] ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.09)'; ctx.fillRect(x0 + 2, VH * 0.34, VW / 2 - 4, VH * 0.38);
+      ctx.strokeStyle = used[key] ? 'rgba(255,255,255,0.25)' : 'rgba(255,255,255,0.7)'; ctx.lineWidth = 1; rr(x0 + 2, VH * 0.34, VW / 2 - 4, VH * 0.38, 6); ctx.stroke();
+      ctx.fillStyle = used[key] ? 'rgba(255,255,255,0.4)' : '#fff'; ctx.font = 'bold 26px Sora, sans-serif'; ctx.fillText(glyph, x0 + VW / 4, VH * 0.34 + VH * 0.2);
+      ctx.font = '600 7px Sora, sans-serif'; ctx.fillText(used[key] ? 'good' : label, x0 + VW / 4, VH * 0.34 + VH * 0.2 + 14);
+    };
+    zone(0, 'left', 'TAP TO MOVE LEFT', '‹');
+    zone(VW / 2, 'right', 'TAP TO MOVE RIGHT', '›');
+    ctx.font = '600 7.5px Sora, sans-serif';
+    ctx.fillStyle = used.jump ? 'rgba(255,255,255,0.45)' : '#ffe08a'; ctx.fillText(used.jump ? '▲ jump: good' : '▲ SWIPE UP TO JUMP', VW / 2, VH * 0.27);
+    ctx.fillStyle = used.slide ? 'rgba(255,255,255,0.45)' : '#9fd8ff'; ctx.fillText(used.slide ? '▼ slide: good' : '▼ SWIPE DOWN TO SLIDE', VW / 2, VH * 0.79);
+    ctx.restore();
   }
 
   /* Plants and fire extinguishers stand against the wall. */
@@ -1305,8 +1337,8 @@
       '<h1 class="sheet-title">Hallway <span>Escape</span></h1>' +
       '<p class="sheet-body">All you want is a coffee. The corridor is long, the doors are many, and behind some of them is somebody who wants a word.</p>' +
       '<ul class="sheet-rules">' +
-        '<li>You run by yourself, and it gets faster. <b>Left and right</b> change lane, <b>jump</b> and <b>slide</b> (arrows or WASD, or the buttons; on a phone you can also swipe).</li>' +
-        '<li>Get round people by changing lane. Jump over boxes, cables and holes; slide under banners, forms and emails.</li>' +
+        '<li>You run by yourself, and it gets faster. On a phone, <b>tap the left or right half</b> of the screen to change lane, <b>swipe up</b> to jump and <b>swipe down</b> to slide. (On a keyboard: arrows or WASD.)</li>' +
+        '<li>Get round people by changing lane. Jump over boxes, cables and holes; slide under hanging lamps and emails.</li>' +
         '<li>A door cracks open and somebody steps out. They have a lot to say.</li>' +
         '<li>A hit costs <b>patience</b>: three and you are taken to a meeting. Every dodge scores, and a streak multiplies it. Find coffee and the headphones.</li>' +
       '</ul>' +
@@ -1329,7 +1361,7 @@
       '<button class="btn" id="go-btn">Go</button>' +
       '</div>'
     );
-    $('go-btn').addEventListener('click', () => { hide(); S.mode = 'play'; acc = 0; edges = { left: false, right: false, jump: false, slide: false }; });
+    $('go-btn').addEventListener('click', () => { hide(); S.mode = 'play'; acc = 0; edges = { left: 0, right: 0, jump: 0, slide: 0 }; if (i === 0 && !hintsDone()) { hintT = 16; used.left = used.right = used.jump = used.slide = false; } });
   }
 
   function deadScreen() {
@@ -1418,11 +1450,10 @@
                    ArrowUp: 'jump', w: 'jump', W: 'jump', ' ': 'jump', z: 'jump', Z: 'jump',
                    ArrowDown: 'slide', s: 'slide', S: 'slide', x: 'slide', X: 'slide' };
   function setKey(k, down) {
-    if (down && !keys[k]) edges[k] = true;
+    if (down && !keys[k]) edges[k]++;
     keys[k] = down;
-    document.querySelectorAll('.key[data-key="' + k + '"]').forEach((b) => b.classList.toggle('is-down', down));
   }
-  function tap(k) { edges[k] = true; }
+  function tap(k) { edges[k]++; }     // counted, so two swipes in one frame are both kept
   document.addEventListener('keydown', (e) => {
     if (e.key === 'p' || e.key === 'P' || e.key === 'Escape') { S.mode === 'play' ? pauseScreen() : resume(); return; }
     const k = KEYMAP[e.key];
@@ -1431,24 +1462,39 @@
   document.addEventListener('keyup', (e) => { const k = KEYMAP[e.key]; if (k) setKey(k, false); });
   window.addEventListener('blur', () => { ['left', 'right', 'jump', 'slide'].forEach((k) => setKey(k, false)); });
 
-  document.querySelectorAll('.key').forEach((b) => {
-    const k = b.getAttribute('data-key');
-    b.addEventListener('pointerdown', (e) => { e.preventDefault(); try { b.setPointerCapture(e.pointerId); } catch (x) {} SFX.unlock(); setKey(k, true); });
-    ['pointerup', 'pointercancel', 'lostpointercapture'].forEach((ev) => b.addEventListener(ev, () => setKey(k, false)));
-    b.addEventListener('contextmenu', (e) => e.preventDefault());
+  /* The whole screen is the control, like the runners people already know: swipe sideways to change
+     lane, up to jump, down to slide; or just tap the left or right half of the screen to move that
+     way. A swipe is one discrete move, so a long drag can chain several. */
+  const ptrs = new Map();                                       // one entry per finger, so two thumbs both work
+  const SWIPE = 18;
+  viewEl.addEventListener('pointerdown', (e) => {
+    SFX.unlock();
+    if (S.mode !== 'play') return;
+    e.preventDefault();
+    try { viewEl.setPointerCapture(e.pointerId); } catch (x) {}
+    ptrs.set(e.pointerId, { x: e.clientX, y: e.clientY, x0: e.clientX, y0: e.clientY, t: performance.now(), swiped: false });
   });
-
-  // Swiping on the corridor itself: sideways to change lane, up to jump, down to slide.
-  let sw = null;
-  cv.addEventListener('pointerdown', (e) => { sw = { x: e.clientX, y: e.clientY, done: false }; SFX.unlock(); });
-  cv.addEventListener('pointermove', (e) => {
-    if (!sw || sw.done) return;
-    const dx = e.clientX - sw.x, dy = e.clientY - sw.y;
-    if (Math.max(Math.abs(dx), Math.abs(dy)) < 22) return;
-    sw.done = true;
+  viewEl.addEventListener('pointermove', (e) => {
+    const p = ptrs.get(e.pointerId);
+    if (!p || S.mode !== 'play') return;
+    const dx = e.clientX - p.x, dy = e.clientY - p.y;
+    if (Math.max(Math.abs(dx), Math.abs(dy)) < SWIPE) return;
+    p.swiped = true;
     if (Math.abs(dx) > Math.abs(dy)) tap(dx < 0 ? 'left' : 'right'); else tap(dy < 0 ? 'jump' : 'slide');
+    p.x = e.clientX; p.y = e.clientY;                           // measure the next swipe from here
   });
-  ['pointerup', 'pointercancel', 'pointerleave'].forEach((ev) => cv.addEventListener(ev, () => { sw = null; }));
+  const release = (e) => {
+    const p = ptrs.get(e.pointerId);
+    if (!p) return;
+    ptrs.delete(e.pointerId);
+    if (e.type === 'pointerup' && !p.swiped && S.mode === 'play' && performance.now() - p.t < 450 &&
+        Math.hypot(e.clientX - p.x0, e.clientY - p.y0) < SWIPE) {
+      const r = viewEl.getBoundingClientRect();
+      tap(e.clientX < r.left + r.width / 2 ? 'left' : 'right');
+    }
+  };
+  ['pointerup', 'pointercancel'].forEach((ev) => viewEl.addEventListener(ev, release));
+  viewEl.addEventListener('contextmenu', (e) => e.preventDefault());
 
   $('pause').addEventListener('click', () => { S.mode === 'play' ? pauseScreen() : resume(); });
   document.addEventListener('visibilitychange', () => { if (document.hidden && S.mode === 'play') pauseScreen(); });

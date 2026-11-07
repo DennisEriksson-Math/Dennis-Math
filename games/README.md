@@ -377,10 +377,15 @@ a jump, squashes on landing and crouches in a slide. A vignette, speed lines, a 
 floor and particles (dust, sparkles on coins, a burst on a hit) finish it. All of it is plain
 canvas 2D; a busy frame takes under a millisecond on a desktop.
 
-Three lanes. **Left and right** change lane, **jump** (a fixed half-second hop, 24 high) and
-**slide** (pressed in the air, it drops you fast and slides on landing). Arrows or WASD, the four
-on-screen buttons, or swiping on the corridor. The buttons float over the corridor when the phone
-is sideways.
+Three lanes. The whole screen is the control, as in the runners people already know (Subway
+Surfers, Temple Run): **swipe sideways** to change lane, **swipe up** to jump, **swipe down** to slide
+(pressed in the air, it drops you fast and slides on landing), or simply **tap the left or right half**
+of the screen to move that way. A swipe is one discrete move (it needs only 18 pixels, and a long drag
+chains several), every finger is tracked separately so two thumbs work, and moves are queued so two in a
+frame both count. A few seconds of hints are drawn over the first floor until you have tried all four
+(and never again, once you have). On a keyboard: arrows or WASD, and a click or tap works like a tap.
+Earlier there were four on-screen buttons; they were hard to find with a thumb and are gone. The
+picture also takes the shape of the screen now, so a tall phone gets a tall corridor.
 
 Doors along both walls; as you get close one cracks open (`OPEN_T`) with a dark silhouette in the
 gap, and somebody steps out, **with a speech bubble**, towards your lane:
@@ -391,17 +396,17 @@ gap, and somebody steps out, **with a speech bubble**, towards your lane:
 | Student | follows you sideways until the last moment | another lane, late |
 | The Dean | takes two lanes | the third lane |
 | Lost visitor | walks slowly across the whole corridor | timing, or the lane they have left |
-| Administrator | stays in the doorway and holds a huge form out over two lanes at head height | slide, or the far lane |
+| Administrator | steps out carrying a stack of forms and heads for your lane | change lane |
 | Nobody | the door opens on an empty room | nothing |
 
 Between doors: people chatting in two lanes, boxes, trolleys and cables (jump, or another lane),
-tall stacks (another lane), banners across the corridor (slide), holes in the floor (jump),
+tall stacks (another lane), hanging lamps (slide under them), holes in the floor (jump),
 emails flying at you (high ones slide, low ones jump) and wet floors, which speed you up. A hit
 costs patience, makes you stumble and resets your dodge streak; three hits sends you back to the
 middle of the floor. Every dodge scores `25 × (1 + streak ÷ 4)`, up to ×4. Coffee restores
 patience; headphones make people unable to reach you for six seconds.
 
-Three floors, each a strip of patterns (`PATTERNS`: one door, a door then a banner, a fake door
+Three floors, each a strip of patterns (`PATTERNS`: one door, a door then a lamp, a fake door
 then a real one, a gauntlet...) laid along the corridor by `buildLevel`. `LEVELS` sets the
 distance, the speed (`v0` → `v1`) and `warn0` → `warn1`, the seconds between a door cracking and
 you reaching it. Each door's warning is jittered by ±14% so the rhythm cannot be learned, and the
@@ -415,8 +420,8 @@ favour. It has an appendix." Everybody is drawn fresh each time (`variant()`: sk
 style, sometimes a skirt), with a tapering body, two-part arms, a shaded face, outlines and a
 walk cycle; the runner has wild white hair, elbow patches and a steaming mug. Windows throw
 shafts of light, there are benches, hanging signs, fire alarms, pipes in the basement, dust in
-the light and a touch of film grain. Banners and forms you slide under are see-through, so you
-can see what is on the other side.
+the light and a touch of film grain. The things you slide under are lamps on cords, so the
+space below the shade stays clear and you can see what is ahead.
 
 The difficulty was set with a bot rather than by feel. It takes a reaction time, sees what is
 coming from the moment a person steps out, and changes lane, jumps or slides with a bit of timing

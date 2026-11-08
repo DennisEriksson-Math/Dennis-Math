@@ -231,3 +231,6 @@ body {
 
 /* The corridor is the control: nothing on it should scroll or select. */
 .view { touch-action: none; cursor: pointer; }
+
+/* citations: turn green once there is enough for the coffee machine */
+.stat b.is-enough { color: #8fe0a8; }

@@ -32,7 +32,7 @@
   const PH = 30, SH = 12;                            // standing and sliding height
   const SLIDE_T = 0.5;
   const HEARTS = 3;
-  const COIN = 10, DODGE = 25, GOAL_BONUS = 500;
+  const COIN = 10, DODGE = 25, GOAL_BONUS = 500, COFFEE_BONUS = 100;
   const OPEN_T = 0.28;                               // a door takes this long to open
 
   /* ─── The people behind the doors ────────────────────────── */
@@ -265,6 +265,8 @@
         if (Math.random() < 0.7 && !L.ob.some((o) => o.k === 'door' && o.side === side && Math.abs(o.oz - d) < 70) && !L.decor.some((x) => x.side === side && Math.abs(x.oz - d) < 36)) L.dummies.push({ oz: d, side: side, exit: Math.random() < 0.18 });
       });
     }
+    // The machine takes citations: half of what lies on the floor. The last machine is out of order.
+    L.price = i + 1 >= LEVELS.length ? 0 : Math.max(8, Math.round(L.items.filter((it) => it.type === 'o').length * 0.5));
     return L;
   }
 
@@ -277,7 +279,7 @@
     mode: 'menu',               // menu | play | pause | dead | done | end
     level: 0, score: 0,
     best: Number(localStorage.getItem('hallwayescape.best') || 0),
-    hearts: HEARTS, coins: 0, streak: 0, bestStreak: 0, deaths: 0,
+    hearts: HEARTS, startHearts: HEARTS, coins: 0, streak: 0, bestStreak: 0, deaths: 0,
     cp: null, lvl: null
   };
   let P = null, ob = [], items = [], floats = [];
@@ -312,10 +314,10 @@
     const L = S.lvl;
     edges = { left: 0, right: 0, jump: 0, slide: 0 };
     if (!retry) {
-      S.cp = null; S.hearts = HEARTS; S.coins = 0; S.streak = 0; S.bestStreak = 0; S.levelStartScore = S.score;
+      S.cp = null; S.hearts = S.startHearts; S.coins = 0; S.streak = 0; S.bestStreak = 0; S.levelStartScore = S.score;
       instantiate(L, 0); placePlayer(0);
     } else {
-      S.hearts = HEARTS; S.streak = 0;
+      S.hearts = S.startHearts; S.streak = 0;
       if (S.cp) { S.score = S.cp.score; S.coins = S.cp.coins; instantiate(L, S.cp.d); placePlayer(S.cp.d, 1.2); }
       else { S.score = S.levelStartScore; S.coins = 0; instantiate(L, 0); placePlayer(0, 1.2); }
     }
@@ -448,7 +450,7 @@
     shake = Math.max(0, shake - dt * 3);
 
     D += v * dt;
-    P.step += dt * v / 62;
+    P.step += dt * v / 55;
 
     // dust behind the runner's heels
     dustT -= dt;
@@ -471,7 +473,7 @@
         const pp = PEOPLE[o.who];
         if (o.walk) {                              // walks towards you once it is in sight
           if (!o.on && zr < 440) { o.on = true; o.tx = o.x; o.still = false; }
-          if (o.on) { o.oz -= o.walk * dt; o.step += dt * 1.4; }
+          if (o.on) { o.oz -= o.walk * dt; o.step += dt * 1.05; }
         }
         if (!o.still) {
           if ((pp.track || o.track) && zr > 50) o.tx = P.x;
@@ -518,7 +520,7 @@
       const zr = it.oz - D;
       if (zr < 6 && zr > -6 && Math.abs(P.x - it.x) < 14) {
         it.got = true;
-        if (it.type === 'o') { S.score += COIN; S.coins++; SFX.coin(); floatText(it.x, it.y + 14, '+' + COIN, '#ffe08a'); { const f = pj(it.x, it.y, PZ); burst(f[0], f[1] - 8, 6, 'rgba(255,225,120,0.95)', 34, 8); } }
+        if (it.type === 'o') { S.score += COIN; S.coins++; SFX.coin(); if (S.lvl.price && S.coins === S.lvl.price) { toast('Enough citations for the coffee machine.'); floatText(it.x, it.y + 24, 'coffee money!', '#a8e6b0'); } floatText(it.x, it.y + 14, '+' + COIN, '#ffe08a'); { const f = pj(it.x, it.y, PZ); burst(f[0], f[1] - 8, 6, 'rgba(255,225,120,0.95)', 34, 8); } }
         else if (it.type === 'b') { S.score += 50; SFX.biscuit(); floatText(it.x, it.y + 14, '+50 biscuit', '#ffd5a0'); }
         else if (it.type === 'H') { P.phones = 6; SFX.power(); floatText(it.x, it.y + 14, 'headphones!', '#9fe3ff'); toast('Headphones on. Nobody can reach you.'); }
         else if (it.type === 'C') {
@@ -761,48 +763,124 @@
     const C = (c) => (dark ? '#07080b' : c);
     const line = (lw) => { if (!dark) { ctx.strokeStyle = OUT; ctx.lineWidth = lw || 0.5; ctx.lineJoin = 'round'; ctx.stroke(); } };
     const amp = o.amp != null ? o.amp : (o.moving ? 1 : 0), tk = o.tk != null ? o.tk : (o.talk ? 1 : 0), gait = o.gait || 1;
-    const ph = step * 6.4, sw = Math.sin(ph) * amp;
+    const ph = step * 6.4;
     const seed = o.seed || 0;
     const sho = -h * 0.715, waist = -h * 0.475, hip = -h * 0.43, neckY = -h * 0.76;
     const headR = h * 0.125, headY = -h * 0.875;
     const SW = w * 0.56, WW = w * 0.42;
-    // the body rises and falls twice per stride, the hips shift over the planted foot and the
-    // shoulders tilt against them; everything eases in and out with amp, so nobody snaps into a walk
-    const bob = -(1 - Math.cos(2 * ph)) * 0.5 * h * 0.045 * amp * gait + Math.sin(simT * 2.1 + seed) * 0.22 * (1 - amp);
-    const pelvisX = -sw * w * 0.1 * gait, tilt = -sw * 0.085 * gait + (o.lean || 0);
-    const spine = sw * 0.07 * gait;                                             // the chest swings the other way
-    const lagBob = Math.sin(2 * ph - 1.1) * h * 0.012 * amp * gait;             // head and hair trail the body
-    const nod = Math.sin(simT * 5.3 + seed) * 0.06 * tk + Math.sin(simT * 1.7 + seed) * 0.016 + Math.sin(ph - 0.8) * 0.03 * amp;
     const hs = st.hs || 'short';
 
+    /* A little skeleton, walked in 3D and then projected: the legs swing forward and back, the knees
+       fold, the hip height comes from whichever foot is on the floor, the weight shifts over that
+       foot, the shoulders counter-rotate and the arms swing against the legs. Seen from the front
+       or the back, the swing in depth shows up as foreshortening, a lifted knee, and a foot that
+       lands a little lower on the screen. Forward is towards the camera for someone facing us. */
+    const dir = back ? -1 : 1, run = gait > 1.2;
+    const Aa = 0.42 * Math.pow(gait, 1.3) * amp, Kk = (run ? 1.45 : 0.8) * amp, Ar = (run ? 0.55 : 0.5) * Math.pow(gait, 0.8) * amp;
+    const L1 = h * 0.205, L2 = h * 0.2, FOOT = h * 0.025, UA = h * 0.145, FA = h * 0.135, TL = h * 0.285;
+    const cp = 0.94, sp = 0.34;                                                // a camera looking a little down
+    const pr = (x, y, f) => [x, -y * cp + dir * f * sp];                       // lateral, up, forward -> screen
+    const leg = [-1, 1].map((side, i) => {
+      const t = ph + (i ? 0 : Math.PI);
+      const th = Aa * Math.sin(t);                                             // thigh angle, forward positive
+      const kf = 0.09 * amp + Kk * Math.pow(Math.max(0, Math.cos(t + 0.3)), 1.3);   // the knee folds as the leg swings through
+      const ts = th - kf;
+      return { side: side, i: i, t: t, th: th, kf: kf, ts: ts, ext: L1 * Math.cos(th) + L2 * Math.cos(ts) };
+    });
+    const hipY = FOOT + Math.max(leg[0].ext, leg[1].ext);                      // the foot on the floor sets the height
+    const cd = (leg[1].ext - leg[0].ext) / h;                                  // positive: the weight is on the right foot
+    const lean = o.lean || 0, rho = (run ? 0.2 : 0.05) * amp;                   // roll into a sidestep, pitch forward when running
+    const lagBob = Math.sin(2 * ph - 1.1) * h * 0.014 * amp * gait;            // head and hair trail the body
+    const pelvisX = cd * w * 0.75;
+    const sCx = pelvisX - cd * w * 0.45 + Math.sin(lean) * TL;
+    const sCy = hipY + TL * Math.cos(rho) + lagBob * 0.4 + Math.sin(simT * 2.1 + seed) * 0.25 * (1 - amp);
+    const sCf = TL * Math.sin(rho);
+    const gam = cd * 0.6 + lean;                                               // the line of the shoulders
+    const Hc = pr(pelvisX, hipY, 0), Sc = pr(sCx, sCy, sCf);
+    const ux = [Math.cos(gam), Math.sin(gam)], uy = [(Sc[0] - Hc[0]) / (sho - hip), (Sc[1] - Hc[1]) / (sho - hip)];
+    const te = Hc[0] - hip * uy[0], tf = Hc[1] - hip * uy[1];
+    const mapT = (x, y) => [x * ux[0] + y * uy[0] + te, x * ux[1] + y * uy[1] + tf];
+    const N = mapT(0, neckY);
+    const headRoll = -gam * 0.7 + Math.sin(simT * 5.3 + seed) * 0.06 * tk + Math.sin(simT * 1.7 + seed) * 0.016 + Math.sin(ph - 0.8) * 0.03 * amp;
+    const headT = () => { ctx.translate(N[0], N[1]); ctx.rotate(headRoll); ctx.translate(0, -neckY + lagBob); };
+
     ctx.save();
-    ctx.translate(pelvisX, bob);
 
     // long hair falls behind the shoulders
     if (hs === 'long' || (back && hs === 'bun')) {
+      ctx.save(); headT();
       ctx.fillStyle = C(st.hair); rr(-headR * 1.1, headY - headR * 0.3, headR * 2.2, headR * (hs === 'long' ? 3.9 : 2.1), headR * 0.7); ctx.fill();
+      ctx.restore();
     }
 
-    // legs: tapered thigh and shin with a knee. The foot in the air lifts and the knee swings out and up;
-    // the foot that has swung forward comes down a touch lower on the screen, the trailing one lifts off
-    [-1, 1].forEach((side, i) => {
-      const L = i ? Math.sin(ph) : -Math.sin(ph);                 // positive: this foot is in the air
-      const u = Math.max(0, L) * amp * gait, lift = Math.pow(u, 1.1) * h * 0.115;
-      const hx = side * w * 0.19, fx = side * w * (0.2 + 0.06 * L * amp), fy = -1.3 - lift + Math.max(0, -L) * amp * 0.9;
-      const kx = (hx + fx) / 2 + side * w * (0.03 + 0.1 * u), ky = hip + (fy - hip) * 0.5 - lift * 0.4;
-      const col = C(shade(st.pants, side < 0 ? 0.08 : -0.2));
-      if (!dark) { ctx.fillStyle = OUT; tube(hx, hip, kx, ky, w * 0.2 + 0.45, w * 0.15 + 0.45, OUT); tube(kx, ky, fx, fy - 1.3, w * 0.15 + 0.45, w * 0.1 + 0.45, OUT); }
-      tube(hx, hip, kx, ky, w * 0.2, w * 0.15, col); tube(kx, ky, fx, fy - 1.3, w * 0.15, w * 0.1, col);
-      ctx.fillStyle = C(st.shoes || '#1d1b22'); ctx.beginPath(); ctx.ellipse(fx, fy - 0.2, w * 0.2, 1.9 + u * 0.9, side * 0.12 * u, 0, 6.3); ctx.fill(); line(0.4);
-      if (!dark) { ctx.fillStyle = 'rgba(255,255,255,0.22)'; ctx.beginPath(); ctx.ellipse(fx - w * 0.05, fy - 0.9, w * 0.09, 0.5, 0, 0, 6.3); ctx.fill(); }
+    // legs, the one further from us first
+    const lp = leg.map((l) => {
+      const side = l.side, hx = pelvisX + side * w * 0.19;
+      const kf = L1 * Math.sin(l.th), ky = hipY - L1 * Math.cos(l.th);
+      const kx = hx + side * w * (0.02 + 0.07 * Math.min(1, l.kf / 1.2));
+      const ax = side * w * 0.2 + pelvisX * 0.4, af = kf + L2 * Math.sin(l.ts), ay = ky - L2 * Math.cos(l.ts);
+      return { side: side, H: pr(hx, hipY, 0), K: pr(kx, ky, kf), A: pr(ax, ay, af), f: af, up: Math.max(0, ay - FOOT) / h };
     });
-    // a skirt over the legs
+    [0, 1].sort((a, b) => dir * lp[a].f - dir * lp[b].f).forEach((idx) => {
+      const p = lp[idx], side = p.side, col = C(shade(st.pants, side < 0 ? 0.08 : -0.2));
+      if (!dark) { tube(p.H[0], p.H[1], p.K[0], p.K[1], w * 0.2 + 0.45, w * 0.15 + 0.45, OUT); tube(p.K[0], p.K[1], p.A[0], p.A[1], w * 0.15 + 0.45, w * 0.1 + 0.45, OUT); }
+      tube(p.H[0], p.H[1], p.K[0], p.K[1], w * 0.2, w * 0.15, col); tube(p.K[0], p.K[1], p.A[0], p.A[1], w * 0.15, w * 0.1, col);
+      const sy = p.A[1] + FOOT * 0.7;
+      ctx.fillStyle = C(st.shoes || '#1d1b22'); ctx.beginPath(); ctx.ellipse(p.A[0], sy, w * 0.2, 1.9 + p.up * 5, side * 0.1 * p.up * 8, 0, 6.3); ctx.fill(); line(0.4);
+      if (!dark) { ctx.fillStyle = 'rgba(255,255,255,0.22)'; ctx.beginPath(); ctx.ellipse(p.A[0] - w * 0.05, sy - 0.7, w * 0.09, 0.5, 0, 0, 6.3); ctx.fill(); }
+    });
+    // a skirt over the legs, swaying with the hips
     if (st.skirt) {
-      ctx.fillStyle = C(st.skirt); ctx.beginPath(); ctx.moveTo(-WW, waist + 1); ctx.lineTo(WW, waist + 1); ctx.lineTo(w * 0.62, -h * 0.2); ctx.quadraticCurveTo(0, -h * 0.17, -w * 0.62, -h * 0.2); ctx.closePath(); ctx.fill(); line(0.45);
+      ctx.save(); ctx.translate(Hc[0], Hc[1] - hip);
+      ctx.fillStyle = C(st.skirt); ctx.beginPath(); ctx.moveTo(-WW, waist + 1); ctx.lineTo(WW, waist + 1); ctx.lineTo(w * 0.62 + lean * 6, -h * 0.2); ctx.quadraticCurveTo(0, -h * 0.17, -w * 0.62 + lean * 6, -h * 0.2); ctx.closePath(); ctx.fill(); line(0.45);
+      ctx.restore();
     }
 
-    // from here on everything above the hips rolls with the stride
-    ctx.save(); ctx.translate(0, hip); ctx.rotate(tilt); ctx.transform(1, 0, spine, 1, 0, 0); ctx.translate(0, -hip);
+    // the arms: shoulder, elbow, hand, swinging against the leg on their side
+    const arm = (i) => {
+      const side = i ? 1 : -1, t = ph + (i ? 0 : Math.PI);
+      const S = mapT(side * SW * 0.93, sho + 2.2);
+      const th = -Ar * Math.sin(t), thL = -Ar * Math.sin(t - 0.6);              // the forearm trails
+      const nrm = Ar > 0.001 ? th / Ar : 0;
+      const ef = amp * (run ? 1.3 + 0.35 * nrm : 0.2 + 0.45 * Math.max(0, nrm)) + 0.12 * (1 - amp);
+      const phi = thL + ef;
+      let E = [S[0] + side * h * 0.04, S[1] + UA * Math.cos(th) * cp + dir * UA * Math.sin(th) * sp];
+      let H = [E[0] + side * h * 0.02, E[1] + FA * Math.cos(phi) * cp + dir * FA * Math.sin(phi) * sp];
+      const ox = Sc[0], oy = Sc[1] - sho;                                        // from the rigid shoulder to the posed one
+      if (o.mug && side === 1) { H = [side * (SW + 3.6) + ox, sho + h * 0.2 + lagBob * 1.6 + oy]; E = [side * (SW + 2.8) + ox, sho + h * 0.13 + lagBob + oy]; }
+      if (o.papers && side === 1) { H = [side * (SW + 4.2) + ox, sho + h * 0.2 + lagBob * 1.4 + oy]; E = [side * (SW + 2.8) + ox, sho + h * 0.14 + lagBob + oy]; }
+      if (tk > 0.01) {
+        // a talker gestures: the near hand rises and wanders, the other lifts a little
+        const gA = Math.sin(simT * 3.4 + seed), gB = Math.sin(simT * 5.1 + seed * 1.7);
+        if (side === 1) {
+          H = [lerp(H[0], side * (SW + 4.2 + gA * 1.6) + ox, tk), lerp(H[1], sho + h * 0.09 + gB * 1.7 + oy, tk)];
+          E = [lerp(E[0], side * (SW + 3.1) + ox, tk), lerp(E[1], sho + h * 0.15 + gA * 0.7 + oy, tk)];
+        } else {
+          H = [H[0] + side * tk * 1.1, H[1] - tk * h * 0.04 * (0.55 + 0.45 * gB)];
+        }
+      }
+      const ac = C(shade(st.top, side < 0 ? 0.04 : -0.16));
+      if (!dark) { tube(S[0], S[1], E[0], E[1], w * 0.13 + 0.45, w * 0.1 + 0.45, OUT); tube(E[0], E[1], H[0], H[1], w * 0.1 + 0.45, w * 0.08 + 0.45, OUT); }
+      tube(S[0], S[1], E[0], E[1], w * 0.13, w * 0.1, ac); tube(E[0], E[1], H[0], H[1], w * 0.1, w * 0.08, ac);
+      ctx.fillStyle = C(st.skin); ctx.beginPath(); ctx.arc(H[0], H[1] + 0.5, w * 0.1, 0, 6.3); ctx.fill();
+      if (o.mug && side === 1) {
+        ctx.fillStyle = C('#f7f3e8'); rr(H[0] - 2, H[1] - 4.8, 4, 5, 0.9); ctx.fill(); line(0.35);
+        ctx.fillStyle = C('#7a4a24'); ctx.fillRect(H[0] - 1.6, H[1] - 4.3, 3.2, 1.1);
+        if (!dark) { ctx.strokeStyle = 'rgba(255,255,255,0.45)'; ctx.lineWidth = 0.6; for (let k = 0; k < 2; k++) { ctx.beginPath(); ctx.moveTo(H[0] - 0.8 + k * 1.8, H[1] - 6); ctx.quadraticCurveTo(H[0] - 2 + k * 1.8 + Math.sin(simT * 4 + k) * 0.9, H[1] - 8.5, H[0] - 0.8 + k * 1.8, H[1] - 11); ctx.stroke(); } }
+      }
+      if (o.papers && side === 1) {
+        const px = H[0] - 4, py = H[1] + 1;
+        for (let k = 0; k < 5; k++) { ctx.fillStyle = C(k % 2 ? '#f1ecdc' : '#fbf8ee'); rr(px + (k % 2) * 0.5, py - 3.2 - k * 1.7, 9, 1.8, 0.3); ctx.fill(); line(0.3); }
+        ctx.fillStyle = C('#c9442f'); ctx.fillRect(px + 7.4, py - 12.4, 1.6, 3);
+      }
+      if (tk > 0.5 && side === 1 && st.phone && !dark) { ctx.fillStyle = '#1b1b20'; rr(H[0] - 1.2, H[1] - 3.6, 2.6, 4.4, 0.5); ctx.fill(); ctx.fillStyle = '#6ec2ff'; ctx.fillRect(H[0] - 0.8, H[1] - 3.1, 1.8, 3.2); }
+    };
+    const behind = [0, 1].filter((i) => dir * (-Ar * Math.sin(ph + (i ? 0 : Math.PI))) < 0);
+    behind.forEach(arm);
+
+    // the torso hangs between the hips and the shoulders: this transform shears, tilts and
+    // foreshortens it to follow them
+    ctx.save(); ctx.transform(ux[0], ux[1], uy[0], uy[1], te, tf);
 
     // a bag behind (seen from behind), or a satchel on the hip
     if (st.bag && back) { ctx.fillStyle = C(st.bag); rr(-w * 0.38, sho + 1.5, w * 0.76, h * 0.3, 2.4); ctx.fill(); line(0.45); }
@@ -830,51 +908,12 @@
       }
     }
 
-    // arms: shoulder, elbow, hand. They swing against the legs; a talker gestures; the runner holds a mug.
-    [-1, 1].forEach((side, i) => {
-      const sgn = i ? 1 : -1, run = gait > 1.2;
-      const swing = -sgn * Math.sin(ph) * amp * gait;                       // opposite to the leg on its side
-      const lag = -sgn * Math.sin(ph - 0.75) * amp * gait;                  // the hand trails the shoulder
-      const S = [side * SW * 0.93, sho + 2.2];
-      let H, E;
-      if (run) {      // running: elbows bent, hands pumping near the chest
-        E = [side * (SW + 2.6 + 0.9 * Math.max(0, swing)), sho + h * 0.14 - swing * h * 0.045];
-        H = [side * (SW + 0.8 + 1.1 * lag), sho + h * 0.22 - lag * h * 0.12];
-      } else {
-        E = [side * (SW + 1.7 + 0.9 * Math.max(0, swing)), sho + h * 0.15 - swing * h * 0.04];
-        H = [side * (SW + 1.1 + 1.3 * lag), sho + h * 0.29 - lag * h * 0.12];
-      }
-      if (o.mug && side === 1) { H = [side * (SW + 3.6), sho + h * 0.2 + lagBob * 1.6]; E = [side * (SW + 2.8), sho + h * 0.13 + lagBob]; }
-      if (o.papers && side === 1) { H = [side * (SW + 4.2), sho + h * 0.2 + lagBob * 1.4]; E = [side * (SW + 2.8), sho + h * 0.14 + lagBob]; }
-      if (tk > 0.01) {
-        // a talker gestures: the near hand rises and wanders, the other lifts a little
-        const gA = Math.sin(simT * 3.4 + seed), gB = Math.sin(simT * 5.1 + seed * 1.7);
-        if (side === 1) {
-          H = [lerp(H[0], side * (SW + 4.2 + gA * 1.6), tk), lerp(H[1], sho + h * 0.09 + gB * 1.7, tk)];
-          E = [lerp(E[0], side * (SW + 3.1), tk), lerp(E[1], sho + h * 0.15 + gA * 0.7, tk)];
-        } else {
-          H = [H[0] + side * tk * 1.1, H[1] - tk * h * 0.04 * (0.55 + 0.45 * gB)];
-        }
-      }
-      const ac = C(shade(st.top, side < 0 ? 0.04 : -0.16));
-      if (!dark) { tube(S[0], S[1], E[0], E[1], w * 0.13 + 0.45, w * 0.1 + 0.45, OUT); tube(E[0], E[1], H[0], H[1], w * 0.1 + 0.45, w * 0.08 + 0.45, OUT); }
-      tube(S[0], S[1], E[0], E[1], w * 0.13, w * 0.1, ac); tube(E[0], E[1], H[0], H[1], w * 0.1, w * 0.08, ac);
-      ctx.fillStyle = C(st.skin); ctx.beginPath(); ctx.arc(H[0], H[1] + 0.5, w * 0.1, 0, 6.3); ctx.fill();
-      if (o.mug && side === 1) {
-        ctx.fillStyle = C('#f7f3e8'); rr(H[0] - 2, H[1] - 4.8, 4, 5, 0.9); ctx.fill(); line(0.35);
-        ctx.fillStyle = C('#7a4a24'); ctx.fillRect(H[0] - 1.6, H[1] - 4.3, 3.2, 1.1);
-        if (!dark) { ctx.strokeStyle = 'rgba(255,255,255,0.45)'; ctx.lineWidth = 0.6; for (let k = 0; k < 2; k++) { ctx.beginPath(); ctx.moveTo(H[0] - 0.8 + k * 1.8, H[1] - 6); ctx.quadraticCurveTo(H[0] - 2 + k * 1.8 + Math.sin(simT * 4 + k) * 0.9, H[1] - 8.5, H[0] - 0.8 + k * 1.8, H[1] - 11); ctx.stroke(); } }
-      }
-      if (o.papers && side === 1) {
-        const px = H[0] - 4, py = H[1] + 1;
-        for (let k = 0; k < 5; k++) { ctx.fillStyle = C(k % 2 ? '#f1ecdc' : '#fbf8ee'); rr(px + (k % 2) * 0.5, py - 3.2 - k * 1.7, 9, 1.8, 0.3); ctx.fill(); line(0.3); }
-        ctx.fillStyle = C('#c9442f'); ctx.fillRect(px + 7.4, py - 12.4, 1.6, 3);
-      }
-      if (tk > 0.5 && side === 1 && st.phone && !dark) { ctx.fillStyle = '#1b1b20'; rr(H[0] - 1.2, H[1] - 3.6, 2.6, 4.4, 0.5); ctx.fill(); ctx.fillStyle = '#6ec2ff'; ctx.fillRect(H[0] - 0.8, H[1] - 3.1, 1.8, 3.2); }
-    });
+    ctx.restore();   // torso
+
+    [0, 1].filter((i) => behind.indexOf(i) < 0).forEach(arm);
 
     // the head turns a little against the shoulders, and nods when it talks
-    ctx.save(); ctx.translate(0, neckY); ctx.rotate(-tilt * 0.8 - spine * 0.5 + nod); ctx.translate(0, -neckY + lagBob);
+    ctx.save(); headT();
 
     // neck
     ctx.fillStyle = C(shade(st.skin, -0.14)); ctx.fillRect(-w * 0.1, neckY - 1, w * 0.2, (sho - neckY) + 2);
@@ -924,7 +963,6 @@
       if (st.glasses) { ctx.strokeStyle = 'rgba(30,28,40,0.9)'; ctx.lineWidth = 0.55; ctx.beginPath(); ctx.arc(-headR * 0.4, ey, headR * 0.34, 0, 6.3); ctx.moveTo(headR * 0.74, ey); ctx.arc(headR * 0.4, ey, headR * 0.34, 0, 6.3); ctx.moveTo(-headR * 0.06, ey); ctx.lineTo(headR * 0.06, ey); ctx.stroke(); }
     }
     ctx.restore();   // head
-    ctx.restore();   // upper body
     ctx.restore();
   }
 
@@ -1358,7 +1396,9 @@
 
   function updateHud() {
     elScore.textContent = S.score.toLocaleString();
-    elCoins.textContent = S.coins;
+    const pr0 = S.lvl ? S.lvl.price : 0;
+    elCoins.textContent = pr0 ? S.coins + '/' + pr0 : S.coins;
+    elCoins.classList.toggle('is-enough', !!pr0 && S.coins >= pr0);
     elDist.textContent = S.lvl && P ? Math.max(0, Math.ceil((S.lvl.len - D) / 14)) + ' m' : '–';
     [...elLives.querySelectorAll('i')].forEach((m, i) => m.classList.toggle('is-gone', i >= S.hearts));
   }
@@ -1389,7 +1429,7 @@
         '<li>You run by yourself, and it gets faster. On a phone, <b>tap the left or right half</b> of the screen to change lane, <b>swipe up</b> to jump and <b>swipe down</b> to slide. (On a keyboard: arrows or WASD.)</li>' +
         '<li>Get round people by changing lane. Jump over boxes, cables and holes; slide under hanging lamps and emails.</li>' +
         '<li>A door cracks open and somebody steps out. They have a lot to say.</li>' +
-        '<li>A hit costs <b>patience</b>: three and you are taken to a meeting. Every dodge scores, and a streak multiplies it. Find coffee and the headphones.</li>' +
+        '<li>A hit costs <b>patience</b>: three and you are taken to a meeting. Every dodge scores. <b>Citations</b> pay for the coffee machine at the end of each floor; no coffee, and you start the next floor with less patience.</li>' +
       '</ul>' +
       '<button class="btn" id="go-btn">Start running</button>' +
       '<a class="sheet-back" href="../index.html">← Back to the Common Room</a>' +
@@ -1400,13 +1440,14 @@
 
   function introScreen(i) {
     S.mode = 'menu';
+    if (i === 0) S.startHearts = HEARTS;
     beginLevel(i, false);
     const cfg = LEVELS[i];
     show(
       '<div class="sheet">' +
       '<div class="sheet-kicker">Floor ' + (i + 1) + ' of ' + LEVELS.length + '</div>' +
       '<h1 class="sheet-title">' + cfg.name.replace(/^The /, 'The <span>').replace(/$/, '</span>') + '</h1>' +
-      '<p class="sheet-body">' + cfg.hint + '</p>' +
+      '<p class="sheet-body">' + cfg.hint + (S.lvl.price ? ' The coffee machine takes <b>' + S.lvl.price + ' citations</b>.' : '') + '</p>' +
       '<button class="btn" id="go-btn">Go</button>' +
       '</div>'
     );
@@ -1448,7 +1489,9 @@
     const cfg = LEVELS[S.level];
     const last = S.level + 1 >= LEVELS.length;
     const heartBonus = S.hearts * 100, streakBonus = S.bestStreak * 10;
-    S.score += heartBonus + streakBonus + (last ? 0 : GOAL_BONUS);
+    const price = S.lvl.price, bought = !last && S.coins >= price;
+    S.startHearts = last || bought ? HEARTS : Math.max(1, HEARTS - 1);
+    S.score += heartBonus + streakBonus + (last ? 0 : GOAL_BONUS) + (bought ? COFFEE_BONUS : 0);
     if (S.score > S.best) { S.best = S.score; localStorage.setItem('hallwayescape.best', String(S.best)); }
     SFX.win();
     show(
@@ -1456,12 +1499,13 @@
       '<div class="sheet-kicker">' + (last ? 'The last floor' : 'Floor ' + (S.level + 1) + ' done') + '</div>' +
       '<h1 class="sheet-title is-good">' + (last ? 'Out <span>of order</span>' : 'You made <span>it</span>') + '</h1>' +
       '<p class="sheet-body">' + (last
-        ? 'The machine is out of order. A sign explains that there is a perfectly good one on the third floor. You are, at this point, a legend on all three.'
-        : cfg.done) + '</p>' +
+        ? 'The machine is out of order. A sign explains that there is a perfectly good one on the third floor. You are, at this point, a legend on all three. Your ' + S.coins + ' citations buy nothing here, but they will look wonderful on a CV.'
+        : cfg.done + (bought ? ' You pay in citations. It is a good coffee.' : ' The machine wants ' + price + ' citations and you have ' + S.coins + '. You drink water, and start the next floor a little less patient.')) + '</p>' +
       '<div class="tally">' +
         '<div><span>Longest dodge streak (' + S.bestStreak + ')</span><b>+' + streakBonus + '</b></div>' +
         '<div><span>Patience left</span><b>+' + heartBonus + '</b></div>' +
         (last ? '' : '<div><span>Reached the coffee</span><b>+' + GOAL_BONUS + '</b></div>') +
+        (last ? '' : '<div><span>Coffee (' + S.coins + ' of ' + price + ' citations)</span><b>' + (bought ? '+' + COFFEE_BONUS : 'water') + '</b></div>') +
         '<div class="is-total"><span>Score</span><b>' + S.score.toLocaleString() + '</b></div>' +
       '</div>' +
       '<button class="btn" id="go-btn">' + (last ? 'See the verdict' : 'Next floor') + '</button>' +

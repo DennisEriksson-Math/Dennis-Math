@@ -398,6 +398,7 @@ gap, and somebody steps out, **with a speech bubble**, towards your lane:
 | Lost visitor | walks slowly across the whole corridor | timing, or the lane they have left |
 | Administrator | steps out carrying a stack of forms and heads for your lane | change lane |
 | Nobody | the door opens on an empty room | nothing |
+| Oncoming | not from a door at all: a colleague, student, administrator or visitor walking towards you down the corridor, bubble up from far away (students steer into your lane) | another lane |
 
 Between doors: people chatting in two lanes, boxes, trolleys and cables (jump, or another lane),
 tall stacks (another lane), hanging lamps (slide under them), holes in the floor (jump),
@@ -413,14 +414,14 @@ you reaching it. Each door's warning is jittered by ±14% so the rhythm cannot b
 Dean and the administrator get a quarter-second more, since they take lanes or a slide.
 
 The pace is deliberately gentle, so there is time to read what people say: the floors run at
-86–172 units a second, a speech bubble is up from far away until they are past, and two people
+70–140 units a second, a speech bubble is up from far away until they are past, and two people
 talking at once get separate bubbles. Each kind of person has some forty things to say
 (`PEOPLE[...].lines`: the old list plus `MORE`), from "Do you have a stapler?" to "I have a tiny
 favour. It has an appendix." Everybody is drawn fresh each time (`variant()`: skin, hair, hair
 style, sometimes a skirt), with a tapering body, two-part arms, a shaded face, outlines and a
 walk cycle; the runner has wild white hair, elbow patches and a steaming mug. Windows throw
 shafts of light, there are benches, hanging signs, fire alarms, pipes in the basement, dust in
-the light and a touch of film grain. The things you slide under are lamps on cords, so the
+the light and a touch of film grain (there used to be floating dust specks, but they looked like stray balls, so they are gone). The things you slide under are lamps on cords, so the
 space below the shade stays clear and you can see what is ahead.
 
 The difficulty was set with a bot rather than by feel. It takes a reaction time, sees what is
@@ -428,7 +429,7 @@ coming from the moment a person steps out, and changes lane, jumps or slides wit
 noise. With a 0.25 s reaction it takes about 1, 0.4 and 1.9 hits on the three floors; at
 0.32 s, 1.7, 1.4 and 4.9; at 0.40 s, 2.3, 6.4 and 16.5, with a few restarts from the checkpoint
 on the last floor. (The runs are noisy, and the middle floor can come out easier than the first.)
-The pace is slow but the warnings are short, which is how it stays hard while staying readable. Phone touch lag is
+These numbers were measured before the game was slowed down (speeds about 20% lower, warnings about 0.3 s longer, a bit more space between obstacles) and before oncoming people were added, so it is now easier than that; re-run the bot before trusting them. Phone touch lag is
 roughly 0.05–0.1 s on top of a human reaction. Run it again if you change `LEVELS`, `PATTERNS`
 or the jump constants. The one thing a new pattern is most likely to break is time to react
 and move: every pattern has to leave a way through.

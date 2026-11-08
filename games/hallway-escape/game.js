@@ -95,16 +95,16 @@
   /* len: distance to the coffee. v0 → v1: running speed, rising along the way.
      warn: seconds between a door starting to open and you reaching it. */
   const LEVELS = [
-    { name: 'The third-floor corridor', len: 4100, v0: 86, v1: 132, warn0: 1.0, warn1: 0.8, theme: 0,
-      pool: { amb: 5, ambA: 2, chat: 3, low: 3, stack: 2, over: 2, pit: 2, email: 2, fake: 1, wet: 1 },
-      hint: 'Doors open and people step out. Move to another lane to get round them. Jump low things, slide under high ones.',
+    { name: 'The third-floor corridor', len: 4100, v0: 70, v1: 108, warn0: 1.3, warn1: 1.1, theme: 0,
+      pool: { amb: 5, ambA: 2, chat: 3, oncoming: 3, low: 3, stack: 2, over: 2, pit: 2, email: 2, fake: 1, wet: 1 },
+      hint: 'Doors open and people step out, and some just walk towards you. Move to another lane to get round them. Jump low things, slide under high ones.',
       done: 'Coffee. Black. No questions asked.' },
-    { name: 'The long way round', len: 5200, v0: 98, v1: 156, warn0: 0.82, warn1: 0.64, theme: 1,
-      pool: { amb: 4, ambA: 2, ambD: 1, chat: 2, low: 2, stack: 2, over: 2, pit: 2, email: 3, fake: 2, pair: 3, wet: 2, bait: 3 },
+    { name: 'The long way round', len: 5200, v0: 80, v1: 128, warn0: 1.15, warn1: 0.95, theme: 1,
+      pool: { amb: 4, ambA: 2, ambD: 1, chat: 2, oncoming: 3, low: 2, stack: 2, over: 2, pit: 2, email: 3, fake: 2, pair: 3, wet: 2, bait: 3 },
       hint: 'Faster now. Students follow you, some doors open on nothing, and the Dean takes up two lanes.',
       done: 'Two sugars and a clear conscience.' },
-    { name: 'The basement café', len: 6300, v0: 108, v1: 172, warn0: 0.72, warn1: 0.54, theme: 2,
-      pool: { amb: 3, ambA: 2, ambD: 3, chat: 1, low: 2, stack: 1, over: 2, pit: 2, email: 3, fake: 2, pair: 3, bait: 3, gauntlet: 3 },
+    { name: 'The basement café', len: 6300, v0: 88, v1: 140, warn0: 1.05, warn1: 0.85, theme: 2,
+      pool: { amb: 3, ambA: 2, ambD: 3, chat: 1, oncoming: 3, low: 2, stack: 1, over: 2, pit: 2, email: 3, fake: 2, pair: 3, bait: 3, gauntlet: 3 },
       hint: 'The Dean is on this floor, and so is everybody else. Watch the doors.',
       done: 'The machine says OUT OF ORDER.' }
   ];
@@ -136,6 +136,7 @@
 
   function addDoor(L, oz, side, who) { L.ob.push({ k: 'door', oz: oz, side: side, who: who }); }
   function addPerson(L, oz, lane, who) { L.ob.push({ k: 'person', oz: oz, x: laneX(lane), who: who, still: true }); }
+  function addOncoming(L, oz, lane, who, walk) { L.ob.push({ k: 'person', oz: oz, x: laneX(lane), who: who, still: true, walk: walk, track: who === 's' }); }
   function addBlock(L, oz, lane, type) { L.ob.push({ k: 'block', oz: oz, x: laneX(lane), type: type }); }
   function addOver(L, oz, lanes) {
     const xs = lanes.map(laneX);
@@ -160,6 +161,13 @@
       const free = randLane();
       freeLanes([free]).forEach((l) => addPerson(L, oz, l, rnd(['q', 'v', 'q'])));
       coinsAt(L, oz - 10, free, 4);
+      return 14;
+    },
+    oncoming: (L, oz, v) => {                    // somebody walking towards you down the corridor
+      const free = randLane(), w = 38;
+      const lanes = Math.random() < 0.35 ? freeLanes([free]) : [rnd(freeLanes([free]))];
+      lanes.forEach((l) => addOncoming(L, oz + 440 * w / (v + w), l, rnd(['q', 'q', 's', 'a', 'v']), w));
+      coinsAt(L, oz, free, 3);
       return 14;
     },
     low:   (L, oz, v) => {
@@ -226,7 +234,7 @@
         // the Dean takes two lanes and the administrator is hard to see round, so they need longer to see coming
         if (o.k === 'door' && (o.who === 'd' || o.who === 'a')) o.warn += 0.24;
       }
-      oz += used + v * (0.74 + Math.random() * 0.44) + 26;
+      oz += used + v * (0.95 + Math.random() * 0.45) + 26;
     }
 
     // Pickups in clear stretches, one per lane at most.
@@ -327,7 +335,7 @@
   }
 
   function floatText(x, y, text, color) { floats.push({ x: x, y: y, t: 0, text: text, color: color || '#fff' }); }
-  function toast(t) { toastText = t; toastT = 2.4; }
+  function toast(t) { toastText = t; toastT = 3.1; }
 
   function hurt(o, line) {
     if (o.hit || P.invuln > 0) return;
@@ -338,7 +346,7 @@
     SFX.hurt();
     { const f = pj(P.x, PH * 0.6 + P.h, PZ); burst(f[0], f[1], 12, 'rgba(255,120,100,0.95)', 60, 10); burst(f[0], f[1], 6, 'rgba(255,255,255,0.9)', 40, 6); }
     floatText(P.x, PH + P.h + 8, '-1 patience', '#ff8a7a');
-    if (o.k === 'person') { o.say = line || draw(PEOPLE[o.who].lines); o.sayT = 2; }
+    if (o.k === 'person') { o.say = line || draw(PEOPLE[o.who].lines); o.sayT = 2.8; }
     else toast(line || draw(OBJ_LINES[o.type || o.k] || OBJ_LINES.box));
     if (S.hearts <= 0) die();
   }
@@ -460,8 +468,12 @@
         if (o.said > 0) o.said -= dt;
       } else if (o.k === 'person') {
         const pp = PEOPLE[o.who];
+        if (o.walk) {                              // walks towards you once it is in sight
+          if (!o.on && zr < 440) { o.on = true; o.tx = o.x; o.still = false; }
+          if (o.on) { o.oz -= o.walk * dt; o.step += dt * 2.6; }
+        }
         if (!o.still) {
-          if (pp.track && zr > 50) o.tx = P.x;
+          if ((pp.track || o.track) && zr > 50) o.tx = P.x;
           const d = o.tx - o.x, sp = pp.speed * dt;
           if (Math.abs(d) <= sp) o.x = o.tx; else { o.x += Math.sign(d) * sp; o.step += dt * 2; }
         }
@@ -1090,18 +1102,6 @@
   let hintT = 0;
   const used = { left: false, right: false, jump: false, slide: false };
   function hintsDone() { try { return localStorage.getItem('hallwayescape.hinted') === '1'; } catch (e) { return false; } }
-  function drawMotes(th) {
-    if (!motes) motes = Array.from({ length: 80 }, () => ({ x: (Math.random() - 0.5) * HW * 1.8, y: 6 + Math.random() * 62, off: Math.random() * ZF, ph: Math.random() * 6, s: Math.random() }));
-    ctx.save(); ctx.globalCompositeOperation = 'lighter';
-    motes.forEach((m) => {
-      const z = (((m.off - RD * 0.9 + simT * 3 * m.s) % ZF) + ZF) % ZF + ZN + 8;
-      const p = pj(m.x + Math.sin(simT * 0.6 + m.ph) * 3, m.y + Math.cos(simT * 0.5 + m.ph) * 2, z);
-      const a = clamp(1 - z / ZF, 0, 1) * 0.55 * (0.35 + 0.65 * Math.abs(Math.sin(simT * 1.3 + m.ph)));
-      ctx.fillStyle = 'rgba(' + th.glow + ',' + a + ')';
-      ctx.beginPath(); ctx.arc(p[0], p[1], 0.3 + p[2] * 0.8, 0, 6.3); ctx.fill();
-    });
-    ctx.restore();
-  }
   function speedLines(frac) {
     if (frac < 0.25) return;
     ctx.save(); ctx.strokeStyle = 'rgba(255,255,255,' + (0.06 + frac * 0.1) + ')'; ctx.lineWidth = 0.8;
@@ -1153,7 +1153,7 @@
         if (o.state === 1 && o.who) list.push({ z: z + 6, f: () => { const pp = PEOPLE[o.who]; ctx.globalAlpha = 0.95; billboard(o.side * (HW - 9), 0, z + 7, () => figure(pp.style, pp.w > 20 ? 18 : pp.w, pp.h, 0, { dark: true }), false); ctx.globalAlpha = 1; } });
       } else if (o.k === 'person') {
         const pp = PEOPLE[o.who];
-        const moving = !o.still && Math.abs(o.tx - o.x) > 1;
+        const moving = o.on || (!o.still && Math.abs(o.tx - o.x) > 1);
         list.push({ z: z, f: () => {
           ctx.globalAlpha = al; softShadow(o.x, z, pp.w > 20 ? 20 : 7, 0.28);
           if (o.who === 'd') {
@@ -1206,7 +1206,6 @@
     list.sort((p, q) => q.z - p.z);
     list.forEach((e) => e.f());
 
-    drawMotes(th);
     speedLines(clamp((lastV - L.cfg.v0) / (L.cfg.v1 - L.cfg.v0 + 30) + 0.2, 0, 1));
     drawParticles();
     ctx.restore();

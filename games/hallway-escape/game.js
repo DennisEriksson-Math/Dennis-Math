@@ -448,7 +448,7 @@
     shake = Math.max(0, shake - dt * 3);
 
     D += v * dt;
-    P.step += dt * v / 22;
+    P.step += dt * v / 62;
 
     // dust behind the runner's heels
     dustT -= dt;
@@ -471,12 +471,12 @@
         const pp = PEOPLE[o.who];
         if (o.walk) {                              // walks towards you once it is in sight
           if (!o.on && zr < 440) { o.on = true; o.tx = o.x; o.still = false; }
-          if (o.on) { o.oz -= o.walk * dt; o.step += dt * 2.6; }
+          if (o.on) { o.oz -= o.walk * dt; o.step += dt * 1.4; }
         }
         if (!o.still) {
           if ((pp.track || o.track) && zr > 50) o.tx = P.x;
           const d = o.tx - o.x, sp = pp.speed * dt;
-          if (Math.abs(d) <= sp) o.x = o.tx; else { o.x += Math.sign(d) * sp; o.step += dt * 2; }
+          if (Math.abs(d) <= sp) o.x = o.tx; else { o.x += Math.sign(d) * sp; o.step += dt * 1.7; }
         }
         if (o.sayT < 90 && o.sayT > 0) o.sayT -= dt;
         {   // ease the walk, the talking and the lean in and out so the movement stays fluid
@@ -740,6 +740,16 @@
     ctx.strokeStyle = col; ctx.lineWidth = w; ctx.lineCap = 'round';
     ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
   }
+  // A tapered limb: a round end at each joint and the hull between them, as one path so that
+  // the translucent outline does not double up where the pieces overlap.
+  function tube(x1, y1, x2, y2, r1, r2, col) {
+    const dx = x2 - x1, dy = y2 - y1, d = Math.hypot(dx, dy) || 1, nx = -dy / d, ny = dx / d;
+    ctx.fillStyle = col; ctx.beginPath();
+    ctx.arc(x1, y1, r1, 0, 6.3);
+    ctx.moveTo(x2 + r2, y2); ctx.arc(x2, y2, r2, 0, 6.3);
+    ctx.moveTo(x1 - nx * r1, y1 - ny * r1); ctx.lineTo(x2 - nx * r2, y2 - ny * r2); ctx.lineTo(x2 + nx * r2, y2 + ny * r2); ctx.lineTo(x1 + nx * r1, y1 + ny * r1); ctx.closePath();
+    ctx.fill();
+  }
   const OUT = 'rgba(22,18,30,0.42)';
 
   /* People: stylised, with a tapering body, shoulders, two-part arms, a shaded head with a face, and
@@ -758,9 +768,11 @@
     const SW = w * 0.56, WW = w * 0.42;
     // the body rises and falls twice per stride, the hips shift over the planted foot and the
     // shoulders tilt against them; everything eases in and out with amp, so nobody snaps into a walk
-    const bob = -(1 - Math.cos(2 * ph)) * 0.5 * h * 0.026 * amp * gait + Math.sin(simT * 2.1 + seed) * 0.22 * (1 - amp);
-    const pelvisX = -sw * w * 0.04 * gait, tilt = -sw * 0.045 * gait + (o.lean || 0);
-    const nod = Math.sin(simT * 5.3 + seed) * 0.05 * tk + Math.sin(simT * 1.7 + seed) * 0.014 + Math.sin(ph) * 0.012 * amp;
+    const bob = -(1 - Math.cos(2 * ph)) * 0.5 * h * 0.045 * amp * gait + Math.sin(simT * 2.1 + seed) * 0.22 * (1 - amp);
+    const pelvisX = -sw * w * 0.1 * gait, tilt = -sw * 0.085 * gait + (o.lean || 0);
+    const spine = sw * 0.07 * gait;                                             // the chest swings the other way
+    const lagBob = Math.sin(2 * ph - 1.1) * h * 0.012 * amp * gait;             // head and hair trail the body
+    const nod = Math.sin(simT * 5.3 + seed) * 0.06 * tk + Math.sin(simT * 1.7 + seed) * 0.016 + Math.sin(ph - 0.8) * 0.03 * amp;
     const hs = st.hs || 'short';
 
     ctx.save();
@@ -771,16 +783,17 @@
       ctx.fillStyle = C(st.hair); rr(-headR * 1.1, headY - headR * 0.3, headR * 2.2, headR * (hs === 'long' ? 3.9 : 2.1), headR * 0.7); ctx.fill();
     }
 
-    // legs: thigh, knee, shin and a shoe. The foot in the air lifts and the knee swings out and up
+    // legs: tapered thigh and shin with a knee. The foot in the air lifts and the knee swings out and up;
+    // the foot that has swung forward comes down a touch lower on the screen, the trailing one lifts off
     [-1, 1].forEach((side, i) => {
       const L = i ? Math.sin(ph) : -Math.sin(ph);                 // positive: this foot is in the air
-      const u = Math.max(0, L) * amp * gait, lift = Math.pow(u, 1.15) * h * 0.085;
-      const hx = side * w * 0.19, fx = side * w * (0.2 + 0.035 * L * amp), fy = -1.3 - lift;
-      const kx = (hx + fx) / 2 + side * w * (0.025 + 0.07 * u), ky = hip + (fy - hip) * 0.52 - lift * 0.35;
+      const u = Math.max(0, L) * amp * gait, lift = Math.pow(u, 1.1) * h * 0.115;
+      const hx = side * w * 0.19, fx = side * w * (0.2 + 0.06 * L * amp), fy = -1.3 - lift + Math.max(0, -L) * amp * 0.9;
+      const kx = (hx + fx) / 2 + side * w * (0.03 + 0.1 * u), ky = hip + (fy - hip) * 0.5 - lift * 0.4;
       const col = C(shade(st.pants, side < 0 ? 0.08 : -0.2));
-      if (!dark) { limb(hx, hip, kx, ky, w * 0.38 + 0.9, OUT); limb(kx, ky, fx, fy - 1.3, w * 0.27 + 0.9, OUT); }
-      limb(hx, hip, kx, ky, w * 0.38, col); limb(kx, ky, fx, fy - 1.3, w * 0.27, col);
-      ctx.fillStyle = C(st.shoes || '#1d1b22'); ctx.beginPath(); ctx.ellipse(fx, fy - 0.2, w * 0.2, 1.9 + u * 0.7, 0, 0, 6.3); ctx.fill(); line(0.4);
+      if (!dark) { ctx.fillStyle = OUT; tube(hx, hip, kx, ky, w * 0.2 + 0.45, w * 0.15 + 0.45, OUT); tube(kx, ky, fx, fy - 1.3, w * 0.15 + 0.45, w * 0.1 + 0.45, OUT); }
+      tube(hx, hip, kx, ky, w * 0.2, w * 0.15, col); tube(kx, ky, fx, fy - 1.3, w * 0.15, w * 0.1, col);
+      ctx.fillStyle = C(st.shoes || '#1d1b22'); ctx.beginPath(); ctx.ellipse(fx, fy - 0.2, w * 0.2, 1.9 + u * 0.9, side * 0.12 * u, 0, 6.3); ctx.fill(); line(0.4);
       if (!dark) { ctx.fillStyle = 'rgba(255,255,255,0.22)'; ctx.beginPath(); ctx.ellipse(fx - w * 0.05, fy - 0.9, w * 0.09, 0.5, 0, 0, 6.3); ctx.fill(); }
     });
     // a skirt over the legs
@@ -789,7 +802,7 @@
     }
 
     // from here on everything above the hips rolls with the stride
-    ctx.save(); ctx.translate(0, hip); ctx.rotate(tilt); ctx.translate(0, -hip);
+    ctx.save(); ctx.translate(0, hip); ctx.rotate(tilt); ctx.transform(1, 0, spine, 1, 0, 0); ctx.translate(0, -hip);
 
     // a bag behind (seen from behind), or a satchel on the hip
     if (st.bag && back) { ctx.fillStyle = C(st.bag); rr(-w * 0.38, sho + 1.5, w * 0.76, h * 0.3, 2.4); ctx.fill(); line(0.45); }
@@ -819,12 +832,20 @@
 
     // arms: shoulder, elbow, hand. They swing against the legs; a talker gestures; the runner holds a mug.
     [-1, 1].forEach((side, i) => {
-      const swing = -(i ? Math.sin(ph) : -Math.sin(ph)) * amp * gait;      // opposite to the leg on its side
+      const sgn = i ? 1 : -1, run = gait > 1.2;
+      const swing = -sgn * Math.sin(ph) * amp * gait;                       // opposite to the leg on its side
+      const lag = -sgn * Math.sin(ph - 0.75) * amp * gait;                  // the hand trails the shoulder
       const S = [side * SW * 0.93, sho + 2.2];
-      let H = [side * (SW + 1.1 + 0.9 * swing), sho + h * 0.29 - swing * h * 0.085];
-      let E = [side * (SW + 1.7 + 0.7 * Math.max(0, swing)), sho + h * 0.15 - swing * h * 0.03];
-      if (o.mug && side === 1) { H = [side * (SW + 3.6), sho + h * 0.2]; E = [side * (SW + 2.8), sho + h * 0.13]; }
-      if (o.papers && side === 1) { H = [side * (SW + 4.2), sho + h * 0.2]; E = [side * (SW + 2.8), sho + h * 0.14]; }
+      let H, E;
+      if (run) {      // running: elbows bent, hands pumping near the chest
+        E = [side * (SW + 2.6 + 0.9 * Math.max(0, swing)), sho + h * 0.14 - swing * h * 0.045];
+        H = [side * (SW + 0.8 + 1.1 * lag), sho + h * 0.22 - lag * h * 0.12];
+      } else {
+        E = [side * (SW + 1.7 + 0.9 * Math.max(0, swing)), sho + h * 0.15 - swing * h * 0.04];
+        H = [side * (SW + 1.1 + 1.3 * lag), sho + h * 0.29 - lag * h * 0.12];
+      }
+      if (o.mug && side === 1) { H = [side * (SW + 3.6), sho + h * 0.2 + lagBob * 1.6]; E = [side * (SW + 2.8), sho + h * 0.13 + lagBob]; }
+      if (o.papers && side === 1) { H = [side * (SW + 4.2), sho + h * 0.2 + lagBob * 1.4]; E = [side * (SW + 2.8), sho + h * 0.14 + lagBob]; }
       if (tk > 0.01) {
         // a talker gestures: the near hand rises and wanders, the other lifts a little
         const gA = Math.sin(simT * 3.4 + seed), gB = Math.sin(simT * 5.1 + seed * 1.7);
@@ -835,9 +856,9 @@
           H = [H[0] + side * tk * 1.1, H[1] - tk * h * 0.04 * (0.55 + 0.45 * gB)];
         }
       }
-      if (!dark) { limb(S[0], S[1], E[0], E[1], w * 0.22 + 0.9, OUT); limb(E[0], E[1], H[0], H[1], w * 0.2 + 0.9, OUT); }
-      limb(S[0], S[1], E[0], E[1], w * 0.22, C(shade(st.top, side < 0 ? 0.04 : -0.16)));
-      limb(E[0], E[1], H[0], H[1], w * 0.2, C(shade(st.top, side < 0 ? 0.04 : -0.16)));
+      const ac = C(shade(st.top, side < 0 ? 0.04 : -0.16));
+      if (!dark) { tube(S[0], S[1], E[0], E[1], w * 0.13 + 0.45, w * 0.1 + 0.45, OUT); tube(E[0], E[1], H[0], H[1], w * 0.1 + 0.45, w * 0.08 + 0.45, OUT); }
+      tube(S[0], S[1], E[0], E[1], w * 0.13, w * 0.1, ac); tube(E[0], E[1], H[0], H[1], w * 0.1, w * 0.08, ac);
       ctx.fillStyle = C(st.skin); ctx.beginPath(); ctx.arc(H[0], H[1] + 0.5, w * 0.1, 0, 6.3); ctx.fill();
       if (o.mug && side === 1) {
         ctx.fillStyle = C('#f7f3e8'); rr(H[0] - 2, H[1] - 4.8, 4, 5, 0.9); ctx.fill(); line(0.35);
@@ -853,7 +874,7 @@
     });
 
     // the head turns a little against the shoulders, and nods when it talks
-    ctx.save(); ctx.translate(0, neckY); ctx.rotate(-tilt * 0.8 + nod); ctx.translate(0, -neckY);
+    ctx.save(); ctx.translate(0, neckY); ctx.rotate(-tilt * 0.8 - spine * 0.5 + nod); ctx.translate(0, -neckY + lagBob);
 
     // neck
     ctx.fillStyle = C(shade(st.skin, -0.14)); ctx.fillRect(-w * 0.1, neckY - 1, w * 0.2, (sho - neckY) + 2);

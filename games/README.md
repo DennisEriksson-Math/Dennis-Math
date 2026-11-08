@@ -419,7 +419,7 @@ talking at once get separate bubbles. Each kind of person has some forty things 
 (`PEOPLE[...].lines`: the old list plus `MORE`), from "Do you have a stapler?" to "I have a tiny
 favour. It has an appendix." Everybody is drawn fresh each time (`variant()`: skin, hair, hair
 style, sometimes a skirt), with a tapering body, two-part arms, a shaded face, outlines and a
-walk cycle with thighs, knees and shins, hips that shift over the planted foot, shoulders that tilt against them, a head that nods when it talks and arms that gesture; all of it eases in and out (`amp`, `tk`, `lean`) so nobody snaps between standing and walking; the runner has wild white hair, elbow patches and a steaming mug. Windows throw
+walk cycle with thighs, knees and shins, hips that shift over the planted foot, shoulders that tilt against them, a head that nods when it talks and arms that gesture; limbs taper (`tube()`), the chest swings against the hips, hands trail the shoulders and the head trails the body, the runner pumps bent arms, and the stride rate is tied to speed (it used to be about three times too quick, which read as fluttering); all of it eases in and out (`amp`, `tk`, `lean`) so nobody snaps between standing and walking; the runner has wild white hair, elbow patches and a steaming mug. Windows throw
 shafts of light, there are benches, hanging signs, fire alarms, pipes in the basement, dust in
 the light and a touch of film grain (there used to be floating dust specks, but they looked like stray balls, so they are gone). The things you slide under are lamps on cords, so the
 space below the shade stays clear and you can see what is ahead.

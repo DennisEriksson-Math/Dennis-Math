@@ -404,10 +404,11 @@ Between doors: people chatting in two lanes, boxes, trolleys and cables (jump, o
 tall stacks (another lane), hanging lamps (slide under them), holes in the floor (jump),
 emails flying at you (high ones slide, low ones jump) and wet floors, which speed you up. A hit
 costs patience, makes you stumble and resets your dodge streak; three hits sends you back to the
-middle of the floor. Every dodge scores `25 × (1 + streak ÷ 4)`, up to ×4. Citations are the money for the coffee machine at the end of each floor: it charges half of the
-citations lying on that floor (`L.price`, shown as `7/24` in the corner). Pay it and you get +100
-and start the next floor with full patience; come up short and you drink water and start the next
-floor one patience down (`S.startHearts`). The last machine is out of order. Coffee on the way restores
+middle of the floor. Every dodge scores `25 × (1 + streak ÷ 4)`, up to ×4. Coins are real coins, and the coffee machine at the end of each floor needs a number of them:
+40% of the coins lying on that floor (`L.price`, shown as `7/16` in the corner, green once there
+are enough; a warning toast comes at 72% of the floor if you are short). Arrive with enough and
+you pay, get +100 and go on; arrive short and you cannot pass: "Not enough coins", and you run the
+floor again from its start. The last machine is out of order, so there is no price there. Coffee on the way restores
 patience; headphones make people unable to reach you for six seconds.
 
 Three floors, each a strip of patterns (`PATTERNS`: one door, a door then a lamp, a fake door

@@ -265,8 +265,8 @@
         if (Math.random() < 0.7 && !L.ob.some((o) => o.k === 'door' && o.side === side && Math.abs(o.oz - d) < 70) && !L.decor.some((x) => x.side === side && Math.abs(x.oz - d) < 36)) L.dummies.push({ oz: d, side: side, exit: Math.random() < 0.18 });
       });
     }
-    // The machine takes citations: half of what lies on the floor. The last machine is out of order.
-    L.price = i + 1 >= LEVELS.length ? 0 : Math.max(8, Math.round(L.items.filter((it) => it.type === 'o').length * 0.5));
+    // The machine takes coins, and you cannot pass the floor without them: 40% of what lies on it. The last machine is out of order.
+    L.price = i + 1 >= LEVELS.length ? 0 : Math.max(8, Math.round(L.items.filter((it) => it.type === 'o').length * 0.4));
     return L;
   }
 
@@ -314,10 +314,10 @@
     const L = S.lvl;
     edges = { left: 0, right: 0, jump: 0, slide: 0 };
     if (!retry) {
-      S.cp = null; S.hearts = S.startHearts; S.coins = 0; S.streak = 0; S.bestStreak = 0; S.levelStartScore = S.score;
+      S.cp = null; S.hearts = S.startHearts; S.coins = 0; S.streak = 0; S.bestStreak = 0; S.levelStartScore = S.score; S.warned = false;
       instantiate(L, 0); placePlayer(0);
     } else {
-      S.hearts = S.startHearts; S.streak = 0;
+      S.hearts = S.startHearts; S.streak = 0; S.warned = false;
       if (S.cp) { S.score = S.cp.score; S.coins = S.cp.coins; instantiate(L, S.cp.d); placePlayer(S.cp.d, 1.2); }
       else { S.score = S.levelStartScore; S.coins = 0; instantiate(L, 0); placePlayer(0, 1.2); }
     }
@@ -450,6 +450,7 @@
     shake = Math.max(0, shake - dt * 3);
 
     D += v * dt;
+    if (!S.warned && S.lvl.price && D > S.lvl.len * 0.72 && S.coins < S.lvl.price) { S.warned = true; toast('Short of coins: the machine needs ' + (S.lvl.price - S.coins) + ' more.'); }
     P.step += dt * v / 55;
 
     // dust behind the runner's heels
@@ -520,7 +521,7 @@
       const zr = it.oz - D;
       if (zr < 6 && zr > -6 && Math.abs(P.x - it.x) < 14) {
         it.got = true;
-        if (it.type === 'o') { S.score += COIN; S.coins++; SFX.coin(); if (S.lvl.price && S.coins === S.lvl.price) { toast('Enough citations for the coffee machine.'); floatText(it.x, it.y + 24, 'coffee money!', '#a8e6b0'); } floatText(it.x, it.y + 14, '+' + COIN, '#ffe08a'); { const f = pj(it.x, it.y, PZ); burst(f[0], f[1] - 8, 6, 'rgba(255,225,120,0.95)', 34, 8); } }
+        if (it.type === 'o') { S.score += COIN; S.coins++; SFX.coin(); if (S.lvl.price && S.coins === S.lvl.price) { toast('Enough coins for the coffee machine.'); floatText(it.x, it.y + 24, 'enough for coffee!', '#a8e6b0'); } floatText(it.x, it.y + 14, '+' + COIN, '#ffe08a'); { const f = pj(it.x, it.y, PZ); burst(f[0], f[1] - 8, 6, 'rgba(255,225,120,0.95)', 34, 8); } }
         else if (it.type === 'b') { S.score += 50; SFX.biscuit(); floatText(it.x, it.y + 14, '+50 biscuit', '#ffd5a0'); }
         else if (it.type === 'H') { P.phones = 6; SFX.power(); floatText(it.x, it.y + 14, 'headphones!', '#9fe3ff'); toast('Headphones on. Nobody can reach you.'); }
         else if (it.type === 'C') {
@@ -1076,7 +1077,8 @@
         ctx.save(); ctx.scale(0.35 + 0.65 * sq, 1);
         const g = ctx.createRadialGradient(-1.2, -6, 0.5, 0, -4.5, 5.5); g.addColorStop(0, '#fff2a8'); g.addColorStop(1, '#d9a21b');
         ctx.fillStyle = g; ctx.beginPath(); ctx.arc(0, -4.5, 4.6, 0, 6.3); ctx.fill();
-        ctx.strokeStyle = '#a9780f'; ctx.lineWidth = 0.7; ctx.beginPath(); ctx.arc(0, -4.5, 3, 0, 6.3); ctx.stroke();
+        ctx.strokeStyle = '#a9780f'; ctx.lineWidth = 0.7; ctx.beginPath(); ctx.arc(0, -4.5, 3.4, 0, 6.3); ctx.stroke();
+        if (sq > 0.5) { ctx.fillStyle = '#a9780f'; ctx.font = 'bold 5px Sora, sans-serif'; ctx.textAlign = 'center'; ctx.fillText('£', 0, -2.6); }
         ctx.restore();
         glow(0, -4.5, 9, 9, '255,220,120', 0.28);
       } else if (it.type === 'b') {
@@ -1429,7 +1431,7 @@
         '<li>You run by yourself, and it gets faster. On a phone, <b>tap the left or right half</b> of the screen to change lane, <b>swipe up</b> to jump and <b>swipe down</b> to slide. (On a keyboard: arrows or WASD.)</li>' +
         '<li>Get round people by changing lane. Jump over boxes, cables and holes; slide under hanging lamps and emails.</li>' +
         '<li>A door cracks open and somebody steps out. They have a lot to say.</li>' +
-        '<li>A hit costs <b>patience</b>: three and you are taken to a meeting. Every dodge scores. <b>Citations</b> pay for the coffee machine at the end of each floor; no coffee, and you start the next floor with less patience.</li>' +
+        '<li>A hit costs <b>patience</b>: three and you are taken to a meeting. Every dodge scores. Collect <b>coins</b>: the coffee machine at the end of each floor needs a certain number, and without them you cannot pass the floor.</li>' +
       '</ul>' +
       '<button class="btn" id="go-btn">Start running</button>' +
       '<a class="sheet-back" href="../index.html">← Back to the Common Room</a>' +
@@ -1447,7 +1449,7 @@
       '<div class="sheet">' +
       '<div class="sheet-kicker">Floor ' + (i + 1) + ' of ' + LEVELS.length + '</div>' +
       '<h1 class="sheet-title">' + cfg.name.replace(/^The /, 'The <span>').replace(/$/, '</span>') + '</h1>' +
-      '<p class="sheet-body">' + cfg.hint + (S.lvl.price ? ' The coffee machine takes <b>' + S.lvl.price + ' citations</b>.' : '') + '</p>' +
+      '<p class="sheet-body">' + cfg.hint + (S.lvl.price ? ' The coffee machine needs <b>' + S.lvl.price + ' coins</b>. Without them you run the floor again.' : '') + '</p>' +
       '<button class="btn" id="go-btn">Go</button>' +
       '</div>'
     );
@@ -1483,6 +1485,21 @@
   }
   function resume() { if (S.mode === 'pause') { hide(); S.mode = 'play'; acc = 0; } }
 
+  function shortScreen(price) {
+    S.mode = 'dead';
+    SFX.hurt();
+    const lines = ['The machine takes coins. Only coins. It has strong views.', 'You pat your pockets. Nothing. The machine waits.', 'The machine blinks “INSERT COINS” at you, patiently, forever.'];
+    show(
+      '<div class="sheet">' +
+      '<div class="sheet-kicker">Floor ' + (S.level + 1) + ' of ' + LEVELS.length + '</div>' +
+      '<h1 class="sheet-title">Not enough <span>coins</span></h1>' +
+      '<p class="sheet-body">' + rnd(lines) + ' It needs ' + price + ' and you have ' + S.coins + '. No coffee, no next floor: back to the start of this one.</p>' +
+      '<button class="btn" id="go-btn">Run the floor again</button>' +
+      '</div>'
+    );
+    $('go-btn').addEventListener('click', () => { hide(); S.cp = null; beginLevel(S.level, true); S.mode = 'play'; acc = 0; });
+  }
+
   function arrive() {
     S.mode = 'done';
     keys.left = keys.right = keys.jump = keys.slide = false;
@@ -1490,7 +1507,8 @@
     const last = S.level + 1 >= LEVELS.length;
     const heartBonus = S.hearts * 100, streakBonus = S.bestStreak * 10;
     const price = S.lvl.price, bought = !last && S.coins >= price;
-    S.startHearts = last || bought ? HEARTS : Math.max(1, HEARTS - 1);
+    if (!last && !bought) { shortScreen(price); return; }
+    S.startHearts = HEARTS;
     S.score += heartBonus + streakBonus + (last ? 0 : GOAL_BONUS) + (bought ? COFFEE_BONUS : 0);
     if (S.score > S.best) { S.best = S.score; localStorage.setItem('hallwayescape.best', String(S.best)); }
     SFX.win();
@@ -1499,13 +1517,13 @@
       '<div class="sheet-kicker">' + (last ? 'The last floor' : 'Floor ' + (S.level + 1) + ' done') + '</div>' +
       '<h1 class="sheet-title is-good">' + (last ? 'Out <span>of order</span>' : 'You made <span>it</span>') + '</h1>' +
       '<p class="sheet-body">' + (last
-        ? 'The machine is out of order. A sign explains that there is a perfectly good one on the third floor. You are, at this point, a legend on all three. Your ' + S.coins + ' citations buy nothing here, but they will look wonderful on a CV.'
-        : cfg.done + (bought ? ' You pay in citations. It is a good coffee.' : ' The machine wants ' + price + ' citations and you have ' + S.coins + '. You drink water, and start the next floor a little less patient.')) + '</p>' +
+        ? 'The machine is out of order. A sign explains that there is a perfectly good one on the third floor. You are, at this point, a legend on all three. Your ' + S.coins + ' coins rattle in your pocket, and the machine does not give change.'
+        : cfg.done + ' You feed it ' + price + ' coins. It is a good coffee.') + '</p>' +
       '<div class="tally">' +
         '<div><span>Longest dodge streak (' + S.bestStreak + ')</span><b>+' + streakBonus + '</b></div>' +
         '<div><span>Patience left</span><b>+' + heartBonus + '</b></div>' +
         (last ? '' : '<div><span>Reached the coffee</span><b>+' + GOAL_BONUS + '</b></div>') +
-        (last ? '' : '<div><span>Coffee (' + S.coins + ' of ' + price + ' citations)</span><b>' + (bought ? '+' + COFFEE_BONUS : 'water') + '</b></div>') +
+        (last ? '' : '<div><span>Coffee (' + price + ' of your ' + S.coins + ' coins)</span><b>+' + COFFEE_BONUS + '</b></div>') +
         '<div class="is-total"><span>Score</span><b>' + S.score.toLocaleString() + '</b></div>' +
       '</div>' +
       '<button class="btn" id="go-btn">' + (last ? 'See the verdict' : 'Next floor') + '</button>' +

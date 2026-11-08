@@ -22,7 +22,7 @@ file listing under `file://`, which is why.)
 index.html         arcade.css  arcade.js     ← the noticeboard
 reviewer2/         index.html  game.css  game.js  sfx.js
 counterexample/    index.html  game.css  game.js  sfx.js
-tenure-track/      index.html  game.css  game.js  sfx.js
+tenure-track/      index.html  game.css  game.js  model.js  sim.js  sfx.js
 proof-or-bluff/    index.html  game.css  game.js  sfx.js
 blackboard-bingo/  index.html  game.css  game.js  sfx.js
 erdos-number/      index.html  game.css  game.js  sfx.js
@@ -45,7 +45,7 @@ Each game folder is self-contained — copy any one of them anywhere and it runs
 | **Tenure Track** | Resource management | A personnel file |
 | **Proof or Bluff** | Quickfire quiz | A card under a lamp |
 | **Conference Bingo** | Bingo, with a call | The back row of a conference room |
-| **Erdős Number** | Weighted shortest path | Ink on a legal pad |
+| **Who Do You Know?** | Weighted shortest path | Ink on a legal pad |
 | **The Gap** | Ordering puzzle | A referee's desk |
 | **Should I Ask a Question?** | Resisting temptation | A faculty meeting |
 | **Love at First Cite** | Swipe | A hiring committee's phone |
@@ -102,24 +102,38 @@ themselves away. The abstract conjectures use hand-written lists.
 
 ## Tenure Track
 
-Twelve semesters, seven hours each, across research, teaching, service and
-rest. Meters decay 2.5 a semester; below 25 energy everything is 40% less
-productive. One of 29 events fires each semester, most offering a choice. The
-vote needs Research 60, Teaching 50 and Service 40 — all three.
+Twelve semesters of seven hours, spent across **five** things: Research, Teaching, Service,
+Network and Rest. Four columns count at the vote (Research 70, Teaching 58, Service 48 and
+**Standing** 42, which is what your external letters will say); Network hours build Standing, and
+research spills into it a little. Meters decay every semester, and below 25 energy everything is
+40% less productive. The rules live in `model.js` (the page, `game.js`, only draws them), and
+`sim.js` plays them.
 
-All the numbers live in `CFG`. They were picked by simulation, not by feel —
-2,000 runs per strategy:
+Three choices change a run:
 
-| Strategy | Tenure | Two of three | Burnout |
-|---|---|---|---|
-| Plays adaptively, watches the meters | 66% | 20% | 0% |
-| Fixed 2/2/2/1 every semester | 17% | 62% | 0% |
-| Never rests | 0% | 0% | 100% |
-| Rests three hours a semester | 0% | 8% | 0% |
+- **How you were hired.** At the start you pick a profile (hired for research, to teach, or to do
+  a bit of everything), which sets which column begins strong.
+- **An arrangement each year.** Every autumn the department offers three of ten (a research
+  student, a teaching assistant, a quiet office, a small grant, a mentor, a travel budget, a lighter
+  teaching load...). You take one, they stack, and each one costs something somewhere.
+- **One of 34 events a semester**, most offering a choice; several now build or cost Standing.
 
-**If you retune `CFG`, re-run that simulation** — small changes swing it hard.
-One draft made tenure mathematically unreachable; another let a thoughtful
-player win every time.
+All the numbers live in `CFG`. They were picked by simulation, not by feel
+(`node sim.js 4000`, `CFG='{"HOURS":8}' node sim.js` to try a change):
+
+| Strategy | Tenure | Three of four | Fewer | Burnout |
+|---|---|---|---|---|
+| Adaptive: reads the meters and the arrangements | 70% | 18% | 12% | 0% |
+| Adaptive hours, first option every time | 55% | 20% | 24% | 0% |
+| Fixed 3/2/1/1 with one rest | 7% | 41% | 45% | 7% |
+| Fixed, rests two hours | 1% | 15% | 84% | 0% |
+| Never rests | 0% | 0% | 0% | 100% |
+| Rests three hours a semester | 0% | 4% | 97% | 0% |
+| Random hours and choices | 0% | 9% | 90% | 0% |
+
+**If you retune `CFG`, re-run that simulation**: small changes swing it hard. The first version
+of the four-column game with eight hours a semester and the old thresholds gave tenure to 100% of
+adaptive players; raising the bars and the decay while dropping back to seven hours is what fixed it.
 
 ## Proof or Bluff
 
@@ -183,12 +197,28 @@ Adding a phrase to a `favours` list is the one thing to be careful with:
 habit and nothing complains. The four-way choice screen drops its prose on short
 phones and goes two by two sideways.
 
-## Erdős Number
+## Who Do You Know?
 
-A co-authorship network drawn left to right. Walk from YOU to ERDŐS; each link
-has a cost and your total is what counts. Par is the true shortest path
-(Dijkstra) and matching it scores full marks. Eight networks, growing from 4 to
-about 14 nodes.
+(The folder is still `erdos-number/`; the game used to be called Erdős Number, but nothing in
+it counted co-authorship hops, so the name did not earn its place. It now keeps one nod: the
+last goal is Erdős himself.)
+
+Somebody important has to read your paper, and you can only get to them by being introduced.
+Start at YOU and click your way through a network of people; every introduction costs
+**favours**, from 1 (your old supervisor, delighted to help) to 9 (you once corrected their
+proof at a seminar). Each cost has a line explaining it (`REASONS`), shown once you pick the
+name (or on hover); the legend at the foot says what a 1, a 5 and a 9 mean. Your total is what
+counts, not the number of introductions. Par is the true shortest path (Dijkstra) and matching
+it scores full marks; the result line also reports how many introductions you used.
+
+Eight goals in `GOALS`, one per network, growing from 4 to about 14 nodes: the editor, the
+keynote slot, the grant chair, a referee who reads it, the Dean's diary, the key holder, a Fields
+medallist, and Erdős. The final screen reports your average number of introductions, which is
+what mathematicians call an Erdős number.
+
+On a portrait phone the network runs top to bottom (`positions()`), because six columns of
+names side by side leave no room for the costs; on a wide screen it runs left to right, and a
+phone held sideways gets a compacted header so the network has room.
 
 Edges are strictly one-directional. Treating them as undirected let a player
 walk backwards into a corner with no legal move — every node has an outgoing
@@ -205,6 +235,15 @@ submissions ends it.
 **Sixteen** proofs in `PROOFS`, each with its `steps`, its `gap`, and a `why`
 explaining the bogus line. A run plays a random **eight** of them, so the pile
 outlasts the run and no two games open the same way.
+
+**Order is checked by dependency, not by position.** The first version compared your
+lines to one fixed order, so a perfectly valid proof was rejected when two lines did not
+depend on each other ("m < b" before "a < m", say). Now `NEEDS` lists, for the proofs
+where it matters, which lines each line leans on, and any order that respects that is
+accepted; where nothing is listed the proof is a plain chain with exactly one valid order.
+The "between two rationals" proof also got the closing line it was missing ("so a < m < b
+with m rational"). A bad order is reported as a line that "leans on something that has not
+been said yet". If you add a proof with independent lines, add its `NEEDS` entry.
 
 That draw matters more than it sounds. The first version played `PROOFS` in
 source order from index 0, which meant every single game opened on √2 being
@@ -455,6 +494,19 @@ phone, whatever the screen:
 - As a last resort `fit()` in each `game.js` scales the content down (CSS
   `zoom`, set as `--z` on `.stage`, never below 0.5) until it fits. It only ever
   shrinks during a round, so the layout does not jump between cards.
+
+Every game, not only the newer ones, now passes that check at 320×568 and 568×320 for its start card and
+its first play screen (end cards and late rounds were spot-checked only). The start cards of the older games (Reviewer № 2, Proof or Bluff,
+Counterexample, Conference Bingo, The Gap, Faculty Meeting, Love at First Cite) each end with the
+same two blocks of CSS, copied into every `game.css` so that each folder stays self-contained:
+under 480px wide the card's padding, type and spacing shrink, and sideways (under 520px high) the card
+goes wide with its rules in two columns. Long cards were shortened as well: the Love at First Cite rules
+went from four bullets to three. The Gap shows only the placed lines (one row each, not a slot and a
+loose line per step) on a phone, and puts the proof and the loose lines side by side sideways;
+Proof or Bluff and Counterexample have a compact sideways board.
+
+A quick way to test a card is to read `document.querySelector('#overlay > *').getBoundingClientRect()`
+at each size: its bottom, and the bottom of the buttons inside it, must be under `innerHeight`.
 
 When you add text, check the worst case: the longest strings from every list at
 once, on a 320×568 and a 375×667 phone, upright and sideways.

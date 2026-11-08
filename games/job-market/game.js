@@ -586,10 +586,9 @@
         '<div><h3>Position</h3>' + chips('pos', Object.keys(POSITIONS).map((k) => ({ v: k, t: POSITIONS[k].name }))) + '</div>' +
       '</div>' +
       '<ul class="rules">' +
-        '<li>There is no clock. The committee has <b>six hours</b> of interviews to fill: <b>' + SLOTS + ' slots</b> of an hour each.</li>' +
-        '<li><b>Swipe right</b> (→) to shortlist a candidate who meets <b>every</b> criterion in the pills at the top, <b>left</b> (←) to pass. A candidate who does not fit still takes a slot, and a fit you pass on is lost. Either is a <b>strike</b>; ' + STRIKES + ' and the search is cancelled.</li>' +
-        '<li>The committee adds criteria as the search goes on: <b>Must have</b> (the card must show it), <b>Reject if</b> (the card shows it, so pass) and <b>We offer</b> (the “Looking for” line must be what we offer). No card states them outright. It hints, in its own words, so <b>read the card</b>.</li>' +
-        '<li>Each right call scores ' + RIGHT + '. Fill the day and every strike you did not use is worth ' + BONUS + '.</li>' +
+        '<li>No clock: <b>' + SLOTS + ' slots</b> of an hour to fill. A right call scores ' + RIGHT + ', and every spare strike at the end is worth ' + BONUS + '.</li>' +
+        '<li><b>Swipe right</b> (→) to shortlist a candidate who meets <b>every</b> criterion in the pills at the top, <b>left</b> (←) to pass. A wrong call is a <b>strike</b>; ' + STRIKES + ' and the search is cancelled.</li>' +
+        '<li>Criteria are added as you go: <b>Must have</b>, <b>Reject if</b>, <b>We offer</b>. No card states them outright: <b>read the card</b>.</li>' +
       '</ul>' +
       '<div class="actions">' +
         '<button class="btn btn-alt" id="random-btn" type="button">Surprise me</button>' +

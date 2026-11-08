@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#2b1a0e">
 <title>Tenure Track</title>
-<meta name="description" content="Six years, three columns, and never enough hours to feed all of them. Survive to the vote.">
+<meta name="description" content="Six years, four columns, and never enough hours to feed all of them. Choose how you were hired, take an arrangement each year, and survive to the vote.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Sora:wght@300;400;500;600&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="game.css?v=1">
+<link rel="stylesheet" href="game.css?v=4">
 </head>
 <body>
 
@@ -28,12 +28,14 @@
     </div>
   </header>
 
+  <div class="perks" id="perks"></div>
+
   <section class="meters" id="meters"></section>
 
   <section class="alloc">
     <div class="alloc-head">
       <h2>Where do the hours go?</h2>
-      <div class="alloc-left"><b id="left">8</b><span>hours unassigned</span></div>
+      <div class="alloc-left"><b id="left">7</b><span>hours unassigned</span></div>
     </div>
     <div class="alloc-rows" id="alloc"></div>
     <button class="btn" id="submit" type="button">File the semester</button>
@@ -48,6 +50,7 @@
 <div class="overlay" id="overlay"></div>
 
 <script src="sfx.js?v=1"></script>
-<script src="game.js?v=2"></script>
+<script src="model.js?v=1"></script>
+<script src="game.js?v=4"></script>
 </body>
 </html>

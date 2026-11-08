@@ -323,11 +323,30 @@ body {
   .pad-head { flex-direction: column; gap: 10px; }
   .pad-stats { align-self: flex-start; }
   .stat { text-align: left; }
-  .node { min-width: 56px; max-width: 78px; padding: 6px 7px; font-size: 12px; }
+  .node { min-width: 50px; max-width: 70px; padding: 6px 6px; font-size: 11.5px; }
   .node.is-you, .node.is-erdos { font-size: 9.5px; }
   .w { font-size: 9px; }
   .cost > b { font-size: 20px; }
   .pad-foot span { display: none; }
+}
+
+/* A phone held sideways: every pixel of height goes to the network. */
+@media (orientation: landscape) and (max-height: 520px) {
+  body { padding: 6px; }
+  .pad { padding: 8px 16px 6px; gap: 3px; }
+  .pad-head { align-items: center; gap: 10px; }
+  .pad-title { display: none; }
+  .pad-kicker { font-size: 9px; letter-spacing: 0.1em; }
+  .stat b { font-size: 14px; }
+  .stat span { font-size: 7px; }
+  .bar { padding: 2px 0; }
+  .cost > b { font-size: 17px; }
+  .cost .par, .cost .par b { font-size: 14px; }
+  .mini { padding: 4px 10px; }
+  .node { min-width: 46px; padding: 3px 6px; font-size: 11px; line-height: 1; }
+  .node.is-you, .node.is-erdos { font-size: 9px; }
+  .hint { font-size: 14px; min-height: 1.2em; }
+  .pad-foot { padding-top: 3px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

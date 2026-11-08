@@ -41,11 +41,11 @@ const GAMES = [
            'semester to feed all of them. Something has to give. Survive to the vote.'
   },
   {
-    title: 'Erdős Number',
+    title: 'Who Do You Know?',
     kicker: 'Graph puzzle',
     href: 'erdos-number/index.html',
-    blurb: 'A co-authorship network sketched on a napkin. Wire yourself to Erdős, and ' +
-           'mind the cost of every link you use.'
+    blurb: 'Somebody important has to read your paper. Get introduced through the people ' +
+           'you know, and mind the favours every introduction costs.'
   },
   {
     title: 'The Gap',

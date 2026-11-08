@@ -4,20 +4,20 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#e9e2cf">
-<title>Erdős Number</title>
-<meta name="description" content="Wire yourself to Erdős through co-authors. Every edge costs you something.">
+<title>Who Do You Know?</title>
+<meta name="description" content="Get introduced to somebody important through people you know. Every introduction costs favours, and some cost more than others.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Sora:wght@300;400;500;600&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="game.css?v=1">
+<link rel="stylesheet" href="game.css?v=5">
 </head>
 <body>
 
 <main class="pad">
   <header class="pad-head">
     <div>
-      <div class="pad-kicker">Co-authorship network · sketched on a napkin</div>
-      <h1 class="pad-title">Erdős Number</h1>
+      <div class="pad-kicker" id="kicker">Who you know · sketched on a napkin</div>
+      <h1 class="pad-title">Who Do You Know?</h1>
     </div>
     <div class="pad-stats">
       <div class="stat"><b id="level">1</b><span>Level</span></div>
@@ -28,7 +28,7 @@
 
   <div class="bar">
     <div class="cost">
-      <span>Cost so far</span>
+      <span>Favours</span>
       <b id="cost">0</b>
       <span class="par">par <b id="par">—</b></span>
     </div>
@@ -43,10 +43,10 @@
     <div class="nodes" id="nodes"></div>
   </div>
 
-  <p class="hint" id="hint">Click a name joined to yours, and keep going until you reach Erdős.</p>
+  <p class="hint" id="hint">Click someone you know, then someone they know, and keep going.</p>
 
   <footer class="pad-foot">
-    <span>Lower is better. Matching par scores full marks.</span>
+    <span>Cost = favours. 1 is an old friend, 5 a brief meeting, 9 an old grudge. Lower is better.</span>
     <a class="back" href="../index.html">← Back to the Common Room</a>
   </footer>
 </main>
@@ -54,6 +54,6 @@
 <div class="overlay" id="overlay"></div>
 
 <script src="sfx.js?v=1"></script>
-<script src="game.js?v=2"></script>
+<script src="game.js?v=11"></script>
 </body>
 </html>

@@ -103,7 +103,8 @@
         'Put m = (a + b)/2.',
         'A sum and quotient of rationals is rational, so m is rational.',
         'From a < b we get 2a < a + b, hence a < m.',
-        'From a < b we also get a + b < 2b, hence m < b.'
+        'From a < b we get a + b < 2b, hence m < b.',
+        'So a < m < b with m rational: there is a rational between a and b.'
       ],
       gap: 'So between any two rationals there are finitely many rationals.',
       why: 'The opposite follows — repeat the halving and you get infinitely many.'
@@ -204,6 +205,21 @@
       why: 'Nothing forces that. Twelve people can perfectly well all be born in January.'
     }
   ];
+
+  /* Lines that do not depend on each other may come in either order. NEEDS[theorem][i] lists the
+     lines (by their index in the list above) that line i leans on, and a proof is accepted when
+     every line comes after everything it needs. Where nothing is listed the proof is a plain chain:
+     each line needs the one before it. */
+  const NEEDS = {
+    'The sum of the first n odd numbers is n².': [[], [], [1], [1, 2], [0, 3]],
+    'Every group of prime order is cyclic.': [[], [0], [0], [0], [1, 2, 3]],
+    'There are infinitely many primes of the form 4k + 3.': [[], [0], [], [1, 2], [0, 3]],
+    'A function differentiable at a point is continuous there.': [[], [0], [0], [1, 2], [3]],
+    'A number is divisible by 3 exactly when its digits sum to a multiple of 3.': [[], [], [0, 1], [2]],
+    'Among any thirteen people, two share a birth month.': [[], [], [1], [2], [0, 3]],
+    'Between any two distinct rationals there is another rational.': [[], [0], [1], [0, 1], [0, 1], [2, 3, 4]]
+  };
+  function needsOf(p, i) { const n = NEEDS[p.thm]; return n ? n[i] : (i ? [i - 1] : []); }
 
   const MAX_LIVES = 3;
   const ROUND     = 8;   // proofs per run, drawn at random from PROOFS
@@ -336,9 +352,11 @@
       return;
     }
 
-    const wrong = S.proof.findIndex((t, i) => t !== p.steps[i]);
+    // Every line must come after the lines it leans on, whichever of the valid orders was chosen.
+    const pos = p.steps.map((t) => S.proof.indexOf(t));
+    const wrong = S.proof.findIndex((t, k) => needsOf(p, p.steps.indexOf(t)).some((j) => pos[j] > k));
     if (wrong >= 0) {
-      fail('The steps are out of order. Line ' + (wrong + 1) + ' does not belong there.', wrong);
+      fail('Line ' + (wrong + 1) + ' leans on something that has not been said yet.', wrong);
       return;
     }
 

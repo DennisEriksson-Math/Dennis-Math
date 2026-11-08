@@ -1,6 +1,10 @@
 /* ═══════════════════════════════════════════════════════════
-   ERDŐS NUMBER — a weighted shortest path, drawn by hand.
-   Walk left to right from YOU to ERDŐS. Match par.
+   WHO DO YOU KNOW? — a weighted shortest path, drawn by hand.
+   Somebody important has to read your paper, and you have to
+   get there by being introduced. Every introduction costs
+   favours. Match par: the cheapest way there is.
+   (The folder is still called erdos-number: the last of the
+   eight goals is Erdős himself.)
    ═══════════════════════════════════════════════════════════ */
 
 (function () {
@@ -17,6 +21,30 @@
 
   const LEVELS = 8;
 
+  /* Who you are trying to reach. The last one is the old joke: everybody has a number. */
+  const GOALS = [
+    { name: 'THE EDITOR',   brief: 'Get your paper in front of the journal editor.' },
+    { name: 'KEYNOTE',      brief: 'Get yourself onto the conference programme.' },
+    { name: 'GRANT CHAIR',  brief: 'Reach the chair of the funding panel.' },
+    { name: 'A REFEREE',    brief: 'Find a referee who will actually read it.' },
+    { name: 'THE DEAN',     brief: 'Get ten minutes in the Dean\u2019s diary.' },
+    { name: 'KEY HOLDER',   brief: 'Reach the one person who knows where the seminar room key is.' },
+    { name: 'FIELDS MEDAL', brief: 'Be introduced to someone with a Fields Medal.' },
+    { name: 'ERDŐS',        brief: 'Reach Erdős himself. Everybody has a number; find yours.' }
+  ];
+
+  /* A cost is a number of favours, and each one has a story. */
+  const REASONS = {
+    1: ['your old supervisor, delighted to help', 'shares your office and cannot avoid you', 'still owes you for the 2019 workshop'],
+    2: ['sat next to you at the conference dinner', 'you co-wrote a paper and nobody was hurt'],
+    3: ['a former student of a friend', 'same reading group, until it folded'],
+    4: ['a friend of a friend', 'you refereed their paper kindly'],
+    5: ['met once at a workshop, briefly', 'they remember your face, not your name'],
+    6: ['a cold email with an apology in it', 'introduced by someone who barely knows you'],
+    7: ['you owe them a referee report, overdue', 'on sabbatical, replies in six weeks'],
+    8: ['you disagreed with them in public', 'last spoke at a funeral'],
+    9: ['they have not forgiven the referee report', 'you once corrected their proof at a seminar']
+  };
   const S = {
     level: 1,
     score: 0,
@@ -24,6 +52,7 @@
     g: null,
     path: [],
     cost: 0,
+    hopsTotal: 0,
     done: false
   };
 
@@ -36,6 +65,7 @@
   const elScore = document.getElementById('score');
   const elBest  = document.getElementById('best');
   const elHint  = document.getElementById('hint');
+  const elKicker = document.getElementById('kicker');
   const overlay = document.getElementById('overlay');
 
   function rnd(n) { return (Math.random() * n) | 0; }
@@ -58,6 +88,7 @@
     const names = shuffle(NAMES.slice());
     let n = 0;
 
+    const goal = GOALS[level - 1];
     layers.push([{ id: n++, name: 'YOU', col: 0, row: 0, rows: 1 }]);
     for (let c = 1; c < cols - 1; c++) {
       const count = 2 + rnd(width - 1);
@@ -65,13 +96,14 @@
       for (let r = 0; r < count; r++) layer.push({ id: n++, name: names.pop(), col: c, row: r, rows: count });
       layers.push(layer);
     }
-    layers.push([{ id: n++, name: 'ERDŐS', col: cols - 1, row: 0, rows: 1 }]);
+    layers.push([{ id: n++, name: goal.name, col: cols - 1, row: 0, rows: 1 }]);
 
     const nodes = layers.flat();
     const edges = [];
     const add = (a, b) => {
       if (edges.some((e) => e.a === a.id && e.b === b.id)) return;
-      edges.push({ a: a.id, b: b.id, w: 1 + rnd(9) });
+      const w = 1 + rnd(9);
+      edges.push({ a: a.id, b: b.id, w: w, why: REASONS[w][rnd(REASONS[w].length)] });
     };
 
     for (let c = 0; c < layers.length - 1; c++) {
@@ -87,24 +119,25 @@
       }
     }
 
-    return { nodes: nodes, edges: edges, cols: cols, layers: layers };
+    return { nodes: nodes, edges: edges, cols: cols, layers: layers, goal: goal };
   }
 
-  /* Dijkstra — used only to compute par. */
+  /* Dijkstra over the layers: par, and the fewest introductions among the cheapest routes. */
   function optimal(g) {
-    const dist = {};
-    g.nodes.forEach((v) => { dist[v.id] = Infinity; });
-    dist[0] = 0;
+    const dist = {}, hops = {};
+    g.nodes.forEach((v) => { dist[v.id] = Infinity; hops[v.id] = Infinity; });
+    dist[0] = 0; hops[0] = 0;
     const order = g.nodes.slice().sort((x, y) => x.col - y.col);
     for (const v of order) {
       if (dist[v.id] === Infinity) continue;
       for (const e of g.edges) {
         if (e.a !== v.id) continue;
-        if (dist[v.id] + e.w < dist[e.b]) dist[e.b] = dist[v.id] + e.w;
+        const d = dist[v.id] + e.w, h = hops[v.id] + 1;
+        if (d < dist[e.b] || (d === dist[e.b] && h < hops[e.b])) { dist[e.b] = d; hops[e.b] = h; }
       }
     }
     const last = g.nodes[g.nodes.length - 1].id;
-    return dist[last];
+    return { cost: dist[last], hops: hops[last] };
   }
 
   // Edges run strictly left to right. Treating them as undirected let a player
@@ -116,15 +149,22 @@
 
   /* ─── Rendering ──────────────────────────────────────────── */
 
+  /* Left to right on a wide screen. On a portrait phone there is no room for six columns of names
+     side by side, so the network runs from top to bottom instead and every cost has room to breathe. */
   function positions() {
     const W = elGraph.clientWidth, H = elGraph.clientHeight;
-    const padX = Math.min(70, W * 0.09), padY = 34;
+    const vertical = H > W;
     const pos = {};
     for (const v of S.g.nodes) {
-      const x = padX + (W - padX * 2) * (S.g.cols === 1 ? 0.5 : v.col / (S.g.cols - 1));
-      const y = v.rows === 1 ? H / 2
-        : padY + (H - padY * 2) * (v.row / (v.rows - 1));
-      pos[v.id] = { x: x, y: y };
+      const along = S.g.cols === 1 ? 0.5 : v.col / (S.g.cols - 1);
+      const across = v.rows === 1 ? 0.5 : v.row / (v.rows - 1);
+      if (vertical) {
+        const padX = Math.min(48, W * 0.15), padY = Math.min(34, H * 0.08);
+        pos[v.id] = { x: padX + (W - padX * 2) * across, y: padY + (H - padY * 2) * along };
+      } else {
+        const padX = Math.min(70, W * 0.09), padY = Math.min(34, H * 0.11);
+        pos[v.id] = { x: padX + (W - padX * 2) * along, y: v.rows === 1 ? H / 2 : padY + (H - padY * 2) * across };
+      }
     }
     return pos;
   }
@@ -172,14 +212,26 @@
     for (const v of S.g.nodes) {
       const b = document.createElement('button');
       b.type = 'button';
-      b.className = 'node' + (v.name === 'YOU' ? ' is-you' : v.name === 'ERDŐS' ? ' is-erdos' : '');
+      b.className = 'node' + (v.id === 0 ? ' is-you' : v.id === S.g.nodes.length - 1 ? ' is-erdos' : '');
       b.innerHTML = '<span>' + v.name + '</span>';
       b.addEventListener('click', () => step(v.id));
+      b.addEventListener('mouseenter', () => preview(v.id));
       elNodes.appendChild(b);
     }
   }
 
   /* ─── Play ───────────────────────────────────────────────── */
+
+  // Hovering a name you can reach says what it would cost, and why.
+  function preview(id) {
+    if (S.done) return;
+    const head = S.path[S.path.length - 1];
+    const e = edgeFrom(head, id);
+    if (!e || S.path.indexOf(id) >= 0) return;
+    const v = S.g.nodes[id];
+    elHint.className = 'hint';
+    elHint.textContent = v.name + ': ' + e.why + '. ' + e.w + (e.w === 1 ? ' favour.' : ' favours.');
+  }
 
   function step(id) {
     if (S.done) return;
@@ -200,6 +252,7 @@
     S.path.push(id);
     S.cost += e.w;
     SFX.draw();
+    { const v = S.g.nodes[id]; elHint.className = 'hint'; elHint.textContent = v.name + ': ' + e.why + '. +' + e.w + (e.w === 1 ? ' favour.' : ' favours.'); }
 
     const last = S.g.nodes[S.g.nodes.length - 1].id;
     if (id === last) finish();
@@ -224,16 +277,19 @@
 
   function finish() {
     S.done = true;
-    const par = optimal(S.g);
+    const best = optimal(S.g), par = best.cost;
     const excess = S.cost - par;
+    const myHops = S.path.length - 1;
+    S.hopsTotal += myHops;
     const gained = excess === 0 ? 500 : Math.max(60, 500 - excess * 90);
     S.score += gained;
     if (excess === 0) SFX.par(); else SFX.ok();
     render(); draw();
 
+    const hopLine = ' You got there in ' + myHops + (myHops === 1 ? ' introduction.' : ' introductions.');
     const line = excess === 0
-      ? 'Par. There is no shorter route.'
-      : excess + ' over par. A shorter route existed.';
+      ? 'Introduced. There was no cheaper way.' + hopLine
+      : 'Introduced, but ' + excess + (excess === 1 ? ' favour' : ' favours') + ' over par. A cheaper route existed.' + hopLine;
 
     elHint.textContent = line + '  +' + gained;
     elHint.className = 'hint ' + (excess === 0 ? 'is-good' : 'is-mid');
@@ -249,18 +305,20 @@
     SFX.done();
     const isBest = S.score > S.best;
     if (isBest) { S.best = S.score; localStorage.setItem('erdos.best', String(S.best)); }
+    const avg = (S.hopsTotal / LEVELS).toFixed(1);
     show(
       '<div class="sheet">' +
-      '<div class="sheet-kicker">Eight networks later</div>' +
-      '<h1 class="sheet-title">Erdős number:<br><span>finite</span></h1>' +
-      '<p class="sheet-body">Which, in the end, is the only part anybody quotes.</p>' +
+      '<div class="sheet-kicker">Eight introductions later</div>' +
+      '<h1 class="sheet-title">Well<br><span>connected</span></h1>' +
+      '<p class="sheet-body">You reached all eight, in ' + avg + ' introductions on average. ' +
+      'Mathematicians call that an Erdős number. Everybody else calls it networking.</p>' +
       '<div class="result">' +
         '<div><b>' + S.score.toLocaleString() + '</b><span>Score</span></div>' +
         '<div><b>' + (LEVELS * 500).toLocaleString() + '</b><span>Perfect</span></div>' +
         '<div><b>' + S.best.toLocaleString() + '</b><span>Best</span></div>' +
       '</div>' +
       (isBest ? '<p class="sheet-body sheet-best">A new best.</p>' : '') +
-      '<button class="btn" id="again-btn">Draw a new network</button>' +
+      '<button class="btn" id="again-btn">Meet some new people</button>' +
       '<a class="sheet-back" href="../index.html">← Back to the Common Room</a>' +
       '</div>'
     );
@@ -275,7 +333,8 @@
     S.cost = 0;
     S.done = false;
     elHint.className = 'hint';
-    elHint.textContent = 'Click a name joined to yours, and keep going until you reach Erdős.';
+    elHint.textContent = 'Click someone you know, then someone they know, and keep going. Undo is free.';
+    elKicker.textContent = 'Level ' + S.level + ' · ' + S.g.goal.brief;
     buildNodes();
     render();
     draw();
@@ -283,7 +342,7 @@
 
   function render() {
     elCost.textContent = S.cost;
-    elPar.textContent = S.done ? optimal(S.g) : '?';
+    elPar.textContent = S.done ? optimal(S.g).cost : '?';
     elLevel.textContent = S.level + ' / ' + LEVELS;
     elScore.textContent = S.score.toLocaleString();
     elBest.textContent = S.best.toLocaleString();
@@ -297,16 +356,14 @@
     show(
       '<div class="sheet">' +
       '<div class="sheet-kicker">Six degrees, give or take</div>' +
-      '<h1 class="sheet-title">Erdős <span>Number</span></h1>' +
-      '<p class="sheet-body">A co-authorship network, sketched left to right. Start at ' +
-      '<strong>YOU</strong> and click your way along to <strong>Erdős</strong>.</p>' +
+      '<h1 class="sheet-title">Who do <span>you know?</span></h1>' +
+      '<p class="sheet-body">Somebody has to read your paper. Get introduced through the people you know.</p>' +
       '<ul class="sheet-rules">' +
-        '<li>Each link has a cost. Your total is what counts, not the number of hops.</li>' +
-        '<li>Match par — the cheapest route there is — for full marks.</li>' +
-        '<li>Click the previous name, or Undo, to step back.</li>' +
-        '<li>Eight networks, each one bigger than the last.</li>' +
+        '<li>Each introduction costs <b>favours</b>: an old supervisor is cheap, a cold email is not.</li>' +
+        '<li>Your total counts, not the number of introductions. Match par for full marks.</li>' +
+        '<li>Click the previous name to step back. Eight goals; the last is Erdős.</li>' +
       '</ul>' +
-      '<button class="btn" id="start-btn">Start writing letters</button>' +
+      '<button class="btn" id="start-btn">Start networking</button>' +
       '<a class="sheet-back" href="../index.html">← Back to the Common Room</a>' +
       '</div>'
     );
@@ -316,7 +373,7 @@
   function start() {
     SFX.unlock();
     overlay.classList.remove('is-open');
-    S.level = 1; S.score = 0;
+    S.level = 1; S.score = 0; S.hopsTotal = 0;
     newLevel();
   }
 

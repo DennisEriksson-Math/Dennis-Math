@@ -302,7 +302,7 @@
 
   function placePlayer(d, invuln) {
     D = d;
-    P = { x: 0, lane: 0, h: 0, vy: 0, step: 0, slide: 0, pendingSlide: false, jbuf: 0, invuln: invuln || 0, stumble: 0, phones: 0, lean: 0, vx: 0, land: 0, crouch: 0 };
+    P = { x: 0, lane: 0, h: 0, vy: 0, step: 0, slide: 0, pendingSlide: false, jbuf: 0, invuln: invuln || 0, stumble: 0, phones: 0, lean: 0, amp: 1, vx: 0, land: 0, crouch: 0 };
     CAMX = 0; camVx = 0; camH = CAMH; Fv = F; roll = 0; parts = []; lastV = S.lvl ? S.lvl.cfg.v0 : 100;
   }
 
@@ -432,6 +432,7 @@
     P.vx += ((P.lane * LANE - P.x) * kk - P.vx * cc) * dt;
     P.x += P.vx * dt;
     P.lean += (clamp(P.vx / 230, -1, 1) - P.lean) * Math.min(1, dt * 14);
+    P.amp += ((P.h < 1 ? 1 : 0.35) - P.amp) * Math.min(1, dt * 10);
 
     // the camera follows a little late, rolls into the turn, rises with a jump and widens with speed
     const v = speedNow();
@@ -478,6 +479,12 @@
           if (Math.abs(d) <= sp) o.x = o.tx; else { o.x += Math.sign(d) * sp; o.step += dt * 2; }
         }
         if (o.sayT < 90 && o.sayT > 0) o.sayT -= dt;
+        {   // ease the walk, the talking and the lean in and out so the movement stays fluid
+          const dx = o.still || o.tx == null ? 0 : o.tx - o.x, k = Math.min(1, dt * 8);
+          o.amp = (o.amp || 0) + (((o.on || Math.abs(dx) > 0.5) ? 1 : 0) - (o.amp || 0)) * k;
+          o.tk = (o.tk || 0) + ((o.sayT > 0 ? 1 : 0) - (o.tk || 0)) * Math.min(1, dt * 6);
+          o.lean = (o.lean || 0) + ((Math.abs(dx) > 0.5 ? Math.sign(dx) * 0.09 : 0) - (o.lean || 0)) * k;
+        }
         const half = pp.w / 2;
         if (zr < 4 && zr > -9 && !o.hit && overlaps(o, o.x - half, o.x + half, 0, pp.h)) hurt(o);
         if (zr < -9) dodged(o, o.x);
@@ -743,37 +750,46 @@
     const dark = !!o.dark, back = !!o.back;
     const C = (c) => (dark ? '#07080b' : c);
     const line = (lw) => { if (!dark) { ctx.strokeStyle = OUT; ctx.lineWidth = lw || 0.5; ctx.lineJoin = 'round'; ctx.stroke(); } };
-    const ph = step * 6.4, sw = o.moving ? Math.sin(ph) : 0, cw = o.moving ? Math.cos(ph) : 0;
+    const amp = o.amp != null ? o.amp : (o.moving ? 1 : 0), tk = o.tk != null ? o.tk : (o.talk ? 1 : 0), gait = o.gait || 1;
+    const ph = step * 6.4, sw = Math.sin(ph) * amp;
     const seed = o.seed || 0;
     const sho = -h * 0.715, waist = -h * 0.475, hip = -h * 0.43, neckY = -h * 0.76;
     const headR = h * 0.125, headY = -h * 0.875;
     const SW = w * 0.56, WW = w * 0.42;
-    const bob = o.moving ? -Math.abs(cw) * h * 0.02 : Math.sin(simT * 2.1 + seed) * 0.22;
+    // the body rises and falls twice per stride, the hips shift over the planted foot and the
+    // shoulders tilt against them; everything eases in and out with amp, so nobody snaps into a walk
+    const bob = -(1 - Math.cos(2 * ph)) * 0.5 * h * 0.026 * amp * gait + Math.sin(simT * 2.1 + seed) * 0.22 * (1 - amp);
+    const pelvisX = -sw * w * 0.04 * gait, tilt = -sw * 0.045 * gait + (o.lean || 0);
+    const nod = Math.sin(simT * 5.3 + seed) * 0.05 * tk + Math.sin(simT * 1.7 + seed) * 0.014 + Math.sin(ph) * 0.012 * amp;
     const hs = st.hs || 'short';
 
     ctx.save();
-    ctx.translate(0, bob);
+    ctx.translate(pelvisX, bob);
 
     // long hair falls behind the shoulders
     if (hs === 'long' || (back && hs === 'bun')) {
       ctx.fillStyle = C(st.hair); rr(-headR * 1.1, headY - headR * 0.3, headR * 2.2, headR * (hs === 'long' ? 3.9 : 2.1), headR * 0.7); ctx.fill();
     }
 
-    // legs, tapered, one foot lifting as the other plants
+    // legs: thigh, knee, shin and a shoe. The foot in the air lifts and the knee swings out and up
     [-1, 1].forEach((side, i) => {
-      const lift = o.moving ? Math.max(0, (i ? sw : -sw)) * h * 0.075 : 0;
-      const hx = side * w * 0.2, fx = side * w * (0.22 + (o.moving ? 0.03 * (i ? sw : -sw) : 0)), fy = -1.3 - lift;
-      const g = ctx.createLinearGradient(hx - w * 0.2, 0, hx + w * 0.2, 0);
-      g.addColorStop(0, shade(st.pants, 0.1)); g.addColorStop(1, shade(st.pants, -0.22));
-      ctx.fillStyle = dark ? '#07080b' : g;
-      ctx.beginPath(); ctx.moveTo(hx - w * 0.2, hip); ctx.lineTo(hx + w * 0.2, hip); ctx.lineTo(fx + w * 0.13, fy - 1.6); ctx.lineTo(fx - w * 0.13, fy - 1.6); ctx.closePath(); ctx.fill(); line(0.45);
-      ctx.fillStyle = C(st.shoes || '#1d1b22'); ctx.beginPath(); ctx.ellipse(fx, fy - 0.2, w * 0.2, 1.9, 0, 0, 6.3); ctx.fill(); line(0.4);
+      const L = i ? Math.sin(ph) : -Math.sin(ph);                 // positive: this foot is in the air
+      const u = Math.max(0, L) * amp * gait, lift = Math.pow(u, 1.15) * h * 0.085;
+      const hx = side * w * 0.19, fx = side * w * (0.2 + 0.035 * L * amp), fy = -1.3 - lift;
+      const kx = (hx + fx) / 2 + side * w * (0.025 + 0.07 * u), ky = hip + (fy - hip) * 0.52 - lift * 0.35;
+      const col = C(shade(st.pants, side < 0 ? 0.08 : -0.2));
+      if (!dark) { limb(hx, hip, kx, ky, w * 0.38 + 0.9, OUT); limb(kx, ky, fx, fy - 1.3, w * 0.27 + 0.9, OUT); }
+      limb(hx, hip, kx, ky, w * 0.38, col); limb(kx, ky, fx, fy - 1.3, w * 0.27, col);
+      ctx.fillStyle = C(st.shoes || '#1d1b22'); ctx.beginPath(); ctx.ellipse(fx, fy - 0.2, w * 0.2, 1.9 + u * 0.7, 0, 0, 6.3); ctx.fill(); line(0.4);
       if (!dark) { ctx.fillStyle = 'rgba(255,255,255,0.22)'; ctx.beginPath(); ctx.ellipse(fx - w * 0.05, fy - 0.9, w * 0.09, 0.5, 0, 0, 6.3); ctx.fill(); }
     });
     // a skirt over the legs
     if (st.skirt) {
       ctx.fillStyle = C(st.skirt); ctx.beginPath(); ctx.moveTo(-WW, waist + 1); ctx.lineTo(WW, waist + 1); ctx.lineTo(w * 0.62, -h * 0.2); ctx.quadraticCurveTo(0, -h * 0.17, -w * 0.62, -h * 0.2); ctx.closePath(); ctx.fill(); line(0.45);
     }
+
+    // from here on everything above the hips rolls with the stride
+    ctx.save(); ctx.translate(0, hip); ctx.rotate(tilt); ctx.translate(0, -hip);
 
     // a bag behind (seen from behind), or a satchel on the hip
     if (st.bag && back) { ctx.fillStyle = C(st.bag); rr(-w * 0.38, sho + 1.5, w * 0.76, h * 0.3, 2.4); ctx.fill(); line(0.45); }
@@ -803,13 +819,22 @@
 
     // arms: shoulder, elbow, hand. They swing against the legs; a talker gestures; the runner holds a mug.
     [-1, 1].forEach((side, i) => {
-      const swing = o.moving ? (i ? sw : -sw) : 0;
+      const swing = -(i ? Math.sin(ph) : -Math.sin(ph)) * amp * gait;      // opposite to the leg on its side
       const S = [side * SW * 0.93, sho + 2.2];
-      let H = [side * (SW + 1.1) + swing * 0.0, sho + h * 0.29 - swing * h * 0.07];
-      let E = [side * (SW + 1.7), sho + h * 0.15 - swing * h * 0.025];
+      let H = [side * (SW + 1.1 + 0.9 * swing), sho + h * 0.29 - swing * h * 0.085];
+      let E = [side * (SW + 1.7 + 0.7 * Math.max(0, swing)), sho + h * 0.15 - swing * h * 0.03];
       if (o.mug && side === 1) { H = [side * (SW + 3.6), sho + h * 0.2]; E = [side * (SW + 2.8), sho + h * 0.13]; }
       if (o.papers && side === 1) { H = [side * (SW + 4.2), sho + h * 0.2]; E = [side * (SW + 2.8), sho + h * 0.14]; }
-      if (o.talk && side === 1) { const wv = Math.sin(simT * 7 + seed) * 2; H = [side * (SW + 4.5), sho + h * 0.1 + wv]; E = [side * (SW + 3), sho + h * 0.15]; }
+      if (tk > 0.01) {
+        // a talker gestures: the near hand rises and wanders, the other lifts a little
+        const gA = Math.sin(simT * 3.4 + seed), gB = Math.sin(simT * 5.1 + seed * 1.7);
+        if (side === 1) {
+          H = [lerp(H[0], side * (SW + 4.2 + gA * 1.6), tk), lerp(H[1], sho + h * 0.09 + gB * 1.7, tk)];
+          E = [lerp(E[0], side * (SW + 3.1), tk), lerp(E[1], sho + h * 0.15 + gA * 0.7, tk)];
+        } else {
+          H = [H[0] + side * tk * 1.1, H[1] - tk * h * 0.04 * (0.55 + 0.45 * gB)];
+        }
+      }
       if (!dark) { limb(S[0], S[1], E[0], E[1], w * 0.22 + 0.9, OUT); limb(E[0], E[1], H[0], H[1], w * 0.2 + 0.9, OUT); }
       limb(S[0], S[1], E[0], E[1], w * 0.22, C(shade(st.top, side < 0 ? 0.04 : -0.16)));
       limb(E[0], E[1], H[0], H[1], w * 0.2, C(shade(st.top, side < 0 ? 0.04 : -0.16)));
@@ -824,8 +849,11 @@
         for (let k = 0; k < 5; k++) { ctx.fillStyle = C(k % 2 ? '#f1ecdc' : '#fbf8ee'); rr(px + (k % 2) * 0.5, py - 3.2 - k * 1.7, 9, 1.8, 0.3); ctx.fill(); line(0.3); }
         ctx.fillStyle = C('#c9442f'); ctx.fillRect(px + 7.4, py - 12.4, 1.6, 3);
       }
-      if (o.talk && side === 1 && st.phone && !dark) { ctx.fillStyle = '#1b1b20'; rr(H[0] - 1.2, H[1] - 3.6, 2.6, 4.4, 0.5); ctx.fill(); ctx.fillStyle = '#6ec2ff'; ctx.fillRect(H[0] - 0.8, H[1] - 3.1, 1.8, 3.2); }
+      if (tk > 0.5 && side === 1 && st.phone && !dark) { ctx.fillStyle = '#1b1b20'; rr(H[0] - 1.2, H[1] - 3.6, 2.6, 4.4, 0.5); ctx.fill(); ctx.fillStyle = '#6ec2ff'; ctx.fillRect(H[0] - 0.8, H[1] - 3.1, 1.8, 3.2); }
     });
+
+    // the head turns a little against the shoulders, and nods when it talks
+    ctx.save(); ctx.translate(0, neckY); ctx.rotate(-tilt * 0.8 + nod); ctx.translate(0, -neckY);
 
     // neck
     ctx.fillStyle = C(shade(st.skin, -0.14)); ctx.fillRect(-w * 0.1, neckY - 1, w * 0.2, (sho - neckY) + 2);
@@ -870,10 +898,12 @@
       ctx.beginPath(); ctx.moveTo(-headR * 0.66, ey - headR * 0.3); ctx.quadraticCurveTo(-headR * 0.4, ey - headR * 0.44, -headR * 0.16, ey - headR * 0.3); ctx.moveTo(headR * 0.16, ey - headR * 0.3); ctx.quadraticCurveTo(headR * 0.4, ey - headR * 0.44, headR * 0.66, ey - headR * 0.3); ctx.stroke();
       ctx.strokeStyle = shade(st.skin, -0.28); ctx.lineWidth = 0.5; ctx.beginPath(); ctx.moveTo(0, ey + headR * 0.08); ctx.quadraticCurveTo(headR * 0.14, ey + headR * 0.4, -headR * 0.02, ey + headR * 0.44); ctx.stroke();      // the nose
       ctx.fillStyle = 'rgba(230,110,110,0.2)'; ctx.beginPath(); ctx.ellipse(-headR * 0.6, ey + headR * 0.42, headR * 0.2, headR * 0.12, 0, 0, 6.3); ctx.ellipse(headR * 0.6, ey + headR * 0.42, headR * 0.2, headR * 0.12, 0, 0, 6.3); ctx.fill();
-      if (o.talk) { ctx.fillStyle = '#6a2c2c'; ctx.beginPath(); ctx.ellipse(0, ey + headR * 0.72, headR * 0.2, headR * (0.07 + Math.abs(Math.sin(simT * 9 + seed)) * 0.15), 0, 0, 6.3); ctx.fill(); }
+      if (tk > 0.3) { ctx.fillStyle = '#6a2c2c'; ctx.beginPath(); ctx.ellipse(0, ey + headR * 0.72, headR * 0.2, headR * (0.07 + Math.abs(Math.sin(simT * 9 + seed)) * 0.15), 0, 0, 6.3); ctx.fill(); }
       else { ctx.strokeStyle = '#7a3a34'; ctx.lineWidth = 0.55; ctx.beginPath(); ctx.moveTo(-headR * 0.2, ey + headR * 0.68); ctx.quadraticCurveTo(0, ey + headR * 0.82, headR * 0.2, ey + headR * 0.68); ctx.stroke(); }
       if (st.glasses) { ctx.strokeStyle = 'rgba(30,28,40,0.9)'; ctx.lineWidth = 0.55; ctx.beginPath(); ctx.arc(-headR * 0.4, ey, headR * 0.34, 0, 6.3); ctx.moveTo(headR * 0.74, ey); ctx.arc(headR * 0.4, ey, headR * 0.34, 0, 6.3); ctx.moveTo(-headR * 0.06, ey); ctx.lineTo(headR * 0.06, ey); ctx.stroke(); }
     }
+    ctx.restore();   // head
+    ctx.restore();   // upper body
     ctx.restore();
   }
 
@@ -1040,7 +1070,7 @@
     sy *= 1 - P.crouch * 0.52; sx *= 1 + P.crouch * 0.2;
     ctx.rotate(P.lean * 0.12);
     ctx.scale(sx, sy);
-    figure(st, 13, PH, P.step, { back: true, moving: hv < 1, mug: true, seed: 1 });
+    figure(st, 13, PH, P.step, { back: true, amp: P.amp, gait: 1.45, mug: true, seed: 1 });
     if (P.phones > 0) {
       ctx.strokeStyle = '#222'; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(0, -PH * 0.885, 6.1, Math.PI, 0); ctx.stroke();
       ctx.fillStyle = '#3aa0ff'; rr(-7.6, -PH * 0.885 - 1, 2.8, 5, 1.2); ctx.fill(); rr(4.8, -PH * 0.885 - 1, 2.8, 5, 1.2); ctx.fill();
@@ -1048,7 +1078,7 @@
     ctx.restore();
     // its reflection on the polished floor
     ctx.save(); ctx.translate(p[0], p[1]); ctx.scale(p[2], -p[2] * 0.5); ctx.globalAlpha = 0.12;
-    figure(st, 13, PH, P.step, { back: true, moving: hv < 1 });
+    figure(st, 13, PH, P.step, { back: true, amp: P.amp, gait: 1.45 });
     ctx.restore();
   }
 
@@ -1153,14 +1183,13 @@
         if (o.state === 1 && o.who) list.push({ z: z + 6, f: () => { const pp = PEOPLE[o.who]; ctx.globalAlpha = 0.95; billboard(o.side * (HW - 9), 0, z + 7, () => figure(pp.style, pp.w > 20 ? 18 : pp.w, pp.h, 0, { dark: true }), false); ctx.globalAlpha = 1; } });
       } else if (o.k === 'person') {
         const pp = PEOPLE[o.who];
-        const moving = o.on || (!o.still && Math.abs(o.tx - o.x) > 1);
         list.push({ z: z, f: () => {
           ctx.globalAlpha = al; softShadow(o.x, z, pp.w > 20 ? 20 : 7, 0.28);
           if (o.who === 'd') {
-            billboard(o.x - 9, 0, z, () => figure(o.look || pp.style, 22, pp.h, o.step, { moving: moving, talk: o.sayT > 0, seed: 3 }), true);
-            billboard(o.x + 13, 0, z, () => figure(o.aide || (o.aide = variant(PEOPLE.a.style, { skirt: true })), 14, 34, o.step + 1, { moving: moving, seed: 5 }), true);
+            billboard(o.x - 9, 0, z, () => figure(o.look || pp.style, 22, pp.h, o.step, { amp: o.amp || 0, tk: o.tk || 0, lean: o.lean || 0, seed: 3 }), true);
+            billboard(o.x + 13, 0, z, () => figure(o.aide || (o.aide = variant(PEOPLE.a.style, { skirt: true })), 14, 34, o.step + 1, { amp: o.amp || 0, lean: o.lean || 0, seed: 5 }), true);
           } else {
-            billboard(o.x, 0, z, () => figure(o.look || pp.style, pp.w, pp.h, o.step, { moving: moving, talk: o.sayT > 0, papers: pp.papers, seed: o.oz % 7 }), true);
+            billboard(o.x, 0, z, () => figure(o.look || pp.style, pp.w, pp.h, o.step, { amp: o.amp || 0, tk: o.tk || 0, lean: o.lean || 0, papers: pp.papers, seed: o.oz % 7 }), true);
           }
           ctx.globalAlpha = 1; } });
       } else if (o.k === 'block') {

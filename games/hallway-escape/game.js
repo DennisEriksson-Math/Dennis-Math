@@ -776,7 +776,7 @@
        or the back, the swing in depth shows up as foreshortening, a lifted knee, and a foot that
        lands a little lower on the screen. Forward is towards the camera for someone facing us. */
     const dir = back ? -1 : 1, run = gait > 1.2;
-    const Aa = 0.42 * Math.pow(gait, 1.3) * amp, Kk = (run ? 1.45 : 0.8) * amp, Ar = (run ? 0.55 : 0.5) * Math.pow(gait, 0.8) * amp;
+    const Aa = 0.42 * Math.pow(gait, 0.9) * amp, Kk = (run ? 1.45 : 0.8) * amp, Ar = (run ? 0.55 : 0.5) * Math.pow(gait, 0.8) * amp;
     const L1 = h * 0.205, L2 = h * 0.2, FOOT = h * 0.025, UA = h * 0.145, FA = h * 0.135, TL = h * 0.285;
     const cp = 0.94, sp = 0.34;                                                // a camera looking a little down
     const pr = (x, y, f) => [x, -y * cp + dir * f * sp];                       // lateral, up, forward -> screen
@@ -788,14 +788,14 @@
       return { side: side, i: i, t: t, th: th, kf: kf, ts: ts, ext: L1 * Math.cos(th) + L2 * Math.cos(ts) };
     });
     const hipY = FOOT + Math.max(leg[0].ext, leg[1].ext);                      // the foot on the floor sets the height
-    const cd = (leg[1].ext - leg[0].ext) / h;                                  // positive: the weight is on the right foot
+    const cd = -Math.cos(ph) * amp;                                            // positive: the weight is on the right foot (a smooth sine, not the leg-length difference)
     const lean = o.lean || 0, rho = (run ? 0.2 : 0.05) * amp;                   // roll into a sidestep, pitch forward when running
     const lagBob = Math.sin(2 * ph - 1.1) * h * 0.014 * amp * gait;            // head and hair trail the body
-    const pelvisX = cd * w * 0.75;
-    const sCx = pelvisX - cd * w * 0.45 + Math.sin(lean) * TL;
+    const pelvisX = cd * w * 0.05;                                            // about 4 cm in real life: small
+    const sCx = pelvisX * 0.3 + Math.sin(lean) * TL;                           // the trunk stays nearly centred
     const sCy = hipY + TL * Math.cos(rho) + lagBob * 0.4 + Math.sin(simT * 2.1 + seed) * 0.25 * (1 - amp);
     const sCf = TL * Math.sin(rho);
-    const gam = cd * 0.6 + lean;                                               // the line of the shoulders
+    const gam = cd * 0.045 + lean;                                               // the line of the shoulders
     const Hc = pr(pelvisX, hipY, 0), Sc = pr(sCx, sCy, sCf);
     const ux = [Math.cos(gam), Math.sin(gam)], uy = [(Sc[0] - Hc[0]) / (sho - hip), (Sc[1] - Hc[1]) / (sho - hip)];
     const te = Hc[0] - hip * uy[0], tf = Hc[1] - hip * uy[1];

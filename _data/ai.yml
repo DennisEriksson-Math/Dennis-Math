@@ -50,15 +50,18 @@ sections:
       internal: true
       note: "Eleven games and one scene"
 
-  - section: "Math Collab"
+  - section: "Chalk & Talk"
     body: >
-      A shared whiteboard, calls with screen share, and chat that understands
-      LaTeX - something like WhatsApp, but built for doing mathematics together
-      rather than just talking about it.
+      A shared place for doing mathematics together, rather than just talking
+      about it: a whiteboard where you can circle strokes or whole figures and
+      drag them around, documents that everyone draws on at once, calls with or
+      without video and screen share, and a chat that understands LaTeX and
+      lets you send a quick sketch. Rooms can be public or private, and the
+      private ones keep your work. It used to be called Math Collab.
     link:
-      text: "Open Math Collab"
+      text: "Open Chalk & Talk"
       url: "https://math-collab-one.vercel.app/"
-      note: "Whiteboard, screen share, LaTeX chat"
+      note: "Whiteboard, documents, calls, LaTeX chat"
 
   - section: "Algebraic Geometry Workbench"
     body: >

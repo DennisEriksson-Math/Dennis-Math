@@ -57,7 +57,7 @@ sections:
       drag them around, documents that everyone draws on at once, calls with or
       without video and screen share, and a chat that understands LaTeX and
       lets you send a quick sketch. Rooms can be public or private, and the
-      private ones keep your work. It used to be called Math Collab.
+      private ones keep your work.
     link:
       text: "Open Chalk & Talk"
       url: "https://math-collab-one.vercel.app/"

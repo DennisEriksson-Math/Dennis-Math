@@ -9,6 +9,8 @@
 #   detail     the paragraph underneath (optional)
 #   cv         set to false to keep an entry off the CV tab, when the printed
 #              CV should stay as it is
+#   detail     (in the box at the top too) a short description, shown on a row of
+#              its own under the course name
 #   codes      course codes with links, for the entries in the box at the top.
 #              A course given jointly by GU and Chalmers has one code each and
 #              both are listed.
@@ -46,6 +48,16 @@
     - code: "MVE150"
       url: "https://www.chalmers.se/en/education/your-studies/find-course-and-programme-syllabi/course-syllabus/MVE150/"
 
+- group: "2026–2027"
+  highlight: true
+  cv: false
+  when: "Winter 2026–27"
+  what: "Physics perspectives on mirror symmetry"
+  detail: "A doctoral reading course, 10 hp, over ten weeks (with a break over Christmas). Classical mirror symmetry and the quintic, then D-branes and quantum mirror symmetry, and finally an individual topic, examined by a seminar and a written note."
+  links:
+    - text: "Course page"
+      url: "https://claude.ai/artifact/E5cBkbn6sLk5Ue8hEFxQ7a"
+
 # ---- courses, by level ----
 - group: "Courses"
   when: "2016–"
@@ -63,7 +75,7 @@
   when: "2016–"
   what: "PhD level"
   where: "Graduate school"
-  detail: "$K$-theory (with M. Goffeng); $p$-adic methods (with A. Södergren, S. Herrero); reading courses in algebraic number theory, Arakelov theory, Hodge theory, derived geometry, and Gromov–Witten theory."
+  detail: "$K$-theory (with M. Goffeng); $p$-adic methods (with A. Södergren, S. Herrero); reading courses in algebraic number theory, Arakelov theory, Hodge theory, derived geometry, Gromov–Witten theory, and mirror symmetry."
 
 # ---- recognition ----
 - group: "Recognition"

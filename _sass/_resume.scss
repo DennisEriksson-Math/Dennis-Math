@@ -1122,6 +1122,15 @@
   @include media_larger_than_mobile { padding-left: 7rem; }
 }
 
+// A short description under the course name, lined up like the links row.
+.teaching-detail {
+  flex-basis: 100%;
+  font-size: .88rem;
+  line-height: 1.5;
+  color: #555;
+  @include media_larger_than_mobile { padding-left: 7rem; }
+}
+
 .teaching-link-note {
   color: #767676;
   font-style: italic;

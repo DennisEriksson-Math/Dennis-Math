@@ -36,6 +36,9 @@ orbit/             index.html  styles.css  physics.js  main.js  audio.js
 
 Each game folder is self-contained — copy any one of them anywhere and it runs.
 
+Every page carries one asynchronous line for the GoatCounter visitor counter (no cookies,
+no personal data). It is the only thing loaded from outside; the games run without it.
+
 ## The board
 
 | Game | Mechanic | Setting |

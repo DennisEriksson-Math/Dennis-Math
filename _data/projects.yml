@@ -13,6 +13,14 @@
 # Both arxiv: and doi: are optional, and both are shown when present.
 # Newest first.
 
+  - project: "Genus one mirror symmetry and surfaces with trivial first Chern class"
+    id: genusone-surfaces
+    coauthor-list:
+      - AbanadesJoglarG
+    status: submitted
+    year: 2026
+    arxiv: "2611.34594"
+
   - project: "Spectrum of singularities, analytic torsion and Calabi–Yau degenerations"
     id: spectrum-singularities
     coauthor-list:

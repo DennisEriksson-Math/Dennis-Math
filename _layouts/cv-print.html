@@ -218,6 +218,9 @@
        picking up mid-page after Selected Conferences. */
     .cv-publications-block { break-before: page; page-break-before: always; }
 
+    /* The list is long: a hair less between entries keeps it within its pages. */
+    .cv-publications-block .cv-entry { margin-bottom: .26rem; }
+
     /* Seminars and Conferences read as a pair, so they share a page: this
        zero-height spacer sits just before Seminars and forces it to start
        a fresh one instead of straddling the page 3/4 boundary. */

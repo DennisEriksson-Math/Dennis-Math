@@ -85,7 +85,7 @@ fi
 
 mv "$TMP_PDF" CV-webpage.pdf
 
-TODAY="$(date +'%-d %B %Y')"
+TODAY="$(LC_ALL=C date +'%-d %B %Y')"
 sed -i '' -E "s/^updated: \".*\"\$/updated: \"$TODAY\"/" _data/cv.yml
 
 say "Done. CV-webpage.pdf is up to date (dated $TODAY)."
